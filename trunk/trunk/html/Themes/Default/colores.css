@@ -1,0 +1,273 @@
+/* Colores*/
+
+
+/* ******************************************************************************** */
+/* Estilos generales																										*/
+/* *********************************************************************************/
+body{
+	background-color:#FFFFFF;
+}
+
+table.super_cabecera{
+ border-color:#FFFFFF;
+ background-color:#FFFFFF;
+}
+table.super_cabecera td{
+ background-color:#FFFFFF;
+ color:#336699;
+}
+
+div#titulo{
+	color:#336699;
+}
+
+div#error_msg{
+	color:#FFFFFF;
+	background-color:#CC0033;
+	}
+	
+/* ******************************************************************************** */
+/* Elementos comunes                               																	*/
+/* *********************************************************************************/
+/* Enlaces */
+a:link {
+ 	color:#336699;
+}
+a:visited {
+ 	color:#336699;
+}
+a:active {
+	color:#336699;
+}
+a:hover {
+	color:#336699;
+	background-color:#EEFFFF;
+}
+
+input{
+	color: black;
+	background-color: #EEEEEE;
+	border-color: black;
+}
+input:hover{
+	color: black; 
+	background-color: #EEFFFF;
+	border-color: black;
+}
+input:active{
+	color: black; 
+	background-color: #EEFFFF;
+	border-top-color: black;
+	border-left-color: black;
+	border-bottom-color: white;
+	border-right-color: white ;
+}
+input[warning]{
+	border-color: #FF6666;
+}
+
+td.cambio{
+	background-color:#BBBBBB;
+}
+
+tr.impar{
+	background-color:#EEEEEE;
+}
+
+td.impar{
+	background-color:#EEEEEE;
+}
+/* Tablas */
+table th{
+	background-color:#BBBBBB;
+}
+
+
+/* Formularios */
+input, textarea{
+	background-color:#FFFFFF;
+}
+input[readonly], textarea[readonly]{
+	background-color:#E6ECF6;
+}
+textarea{
+	background-color:#FFFFFF;
+}
+
+/* Varios */
+p.nota{
+	color:#336699;
+	background-color:#DEE3DC;
+	border-color:#000000;
+}
+
+#myAccordion{
+	/* Por defecto, fondo transparente*/
+}
+#myAccordion dt{
+	background-color: #211A4E;
+	color:#fff;
+}
+#myAccordion dt.myAccordionHover{
+	background-color: #211A4E;
+	color: #FB8C07;
+	cursor: pointer;
+}
+#myAccordion dt.myAccordionActive{
+	background-color: #EEFFFF;
+	color:#fff;
+}
+#myAccordion dd{
+	background-color: white;
+	border-style:inset;
+	border-color:white;
+	border-width:1px;
+}
+
+/* ******************************************************************************** */
+/* División de páginas en horizontal (detalles incidencias, problemas, RFCs...)				*/
+/* *********************************************************************************/
+div.colIzquierda_color{
+	background-color:#FFD5A2;
+	color:#000000;
+}
+
+div.colDerecha_color{
+	background-color:#FFD5A2;
+	color:#000000;
+}
+
+
+div.ArchivosAdjuntos{
+	border-spacing:1px;
+	background-color:#FFD5A2;
+}
+div.ArchivosAdjuntos table th{
+	border-color:black;
+	background-color:#BBBBBB;
+}
+div.ArchivosAdjuntos table tr[par] td{
+	background-color:#DDDDDD;
+}
+div.ArchivosAdjuntos table tr[impar] td{
+	background-color:#EEEEEE;
+}
+div.ArchivosAdjuntos table tr:hover td{
+	background-color:#EEFFFF;
+}
+/* ******************************************************************************** */
+/* División de páginas en vertical (búsquedas, listados...) 											*/
+/* *********************************************************************************/
+div.menuFiltros{
+	color: black;
+}
+
+div.menuFiltros table tr,th,td{
+	background-color:#FFD5A2;
+	color:#000000;
+}
+
+div.listado table th{
+	border-color:black;
+	background-color:#BBBBBB;
+}
+
+div.listado table tr[par] td{
+	background-color:#DDDDDD;
+}
+
+div.listado table tr[impar] td{
+	background-color:#EEEEEE;
+}
+
+div.listado table tr:hover td{
+	background-color:#EEFFFF;
+}
+
+td[hover]:hover{
+	border-color:black;
+	background-color:#EEFFFF;
+}
+
+div.boton{
+	color: #DDDDDD;
+}
+
+/* ******************************************************************************** */
+/* Menú Inferior (fijo en la parte de abajo) 																	*/
+/* *********************************************************************************/
+div.MenuInferiorFijo table{
+	border-width:thin;
+	border-style:inset;
+	border-color:#AAAAAA;
+	background-color:#FFD5A2;
+}
+
+/* ******************************************************************************** */
+/* Menú Inferior Izquierdo (Desplegable)																		*/
+/* *********************************************************************************/
+div.footerMenu table{
+	border-width:thin;
+	border-style:outset;
+	border-color:#FFFFFF;
+	color:#FFFFFF;
+	background-color:#336699;
+}
+div.footerMenu table td{
+	color:#FFFFFF;
+	background-color:#EEEEEE;
+}
+
+/* ******************************************************************************** */
+/* Menú principal                                                                   										*/
+/* *********************************************************************************/
+#menuh {
+	background-color: #336699;
+}
+
+#menuh a {
+	border-top:0.5px solid #FFFFFF;
+  	border-bottom: 2px solid #FFFFFF;
+  	border-right: 2px solid #FFFFFF;
+	background-color: #211A4E;
+	color: #FFFFFF;
+}
+
+#menuh a.resaltado {
+	background-color: #E6ECF6;
+	color: #000000;
+}
+
+#menuh a:hover {
+	background-color: #E6ECF6;
+	color: #000000;
+}
+
+#menuh a:active {
+	background-color: #EEFFFF;
+	color: #000000;
+}
+
+/* ****************************** */
+/* ** Capa de info flotante     * */
+/* ****************************** */
+
+div.finfo{
+	background-color:white;
+	border:1px solid #336699;
+}
+
+
+/* Colores por secciones/procesos/..o como se quiera llamar 
+.c_rfc{
+	color:#339999;
+	border-bottom-color:#339999;
+}
+
+.c_cambio{
+	border-bottom-color:white;
+}
+
+.c_entregable{
+	border-bottom-color:white;
+}*/
