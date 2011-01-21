@@ -726,7 +726,7 @@ class Cliente{
 			
 		$coincidencias_razon_social = $this->coincidencias_Razon_social($razon_social);
 		if(!empty($coincidencias_razon_social))
-			$coincidencias .= '<br/><br/><br/><br/><br/><br/>Coincidencias por raz&oacute;n social:';
+			$coincidencias .= '<br/>Coincidencias por raz&oacute;n social:';
 		foreach($coincidencias_razon_social as $cliente)
 			$coincidencias .= '<br/>'.$cliente['razon_social'].' del gestor '.$cliente['gestor'];
 		

@@ -105,7 +105,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <form id="frm_proveedores" method="GET" action="<?php echo  $_SERVER['_SELF']?>">
 
 <!-- BUSCADOR -->
-<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de búsqueda")?></a></i><br/>
+<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de b&uacute;squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
 	<table>
 		<tr class="BusquedaTable">
@@ -115,17 +115,17 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</tr>		
 			<tr>
 				<td class="busquedaIzda">
-					<?php echo  _translate('Razón social')?> &nbsp; 
+					<?php echo  _translate('Raz&oacute;n social')?> &nbsp;
 				</td>
 				<td class="busquedaDcha">
-					<input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"></input>
+					<input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"/>
 				</td>
 			
 				<td class="busquedaIzda">
 					<?php echo  _translate('CIF/NIF')?> &nbsp; 
 				</td>
 				<td class="busquedaDcha">
-					<input type="text" size="15"name="NIF" value="<?php  echo $var->opt['NIF']?>"></input>
+					<input type="text" size="15"name="NIF" value="<?php  echo $var->opt['NIF']?>"/>
 				</td>
 			</tr>
 			<tr>
@@ -133,31 +133,31 @@ include ($appRoot.'/include/html/mainMenu.php');
 					<?php echo  _translate('Domicilio')?> &nbsp;
 				</td>
 				<td class="busquedaDcha"> 
-					<input type="text" size="15"name="domicilio" value="<?php  echo $var->opt['domicilio']?>"></input>
+					<input type="text" size="15"name="domicilio" value="<?php  echo $var->opt['domicilio']?>"/>
 				</td>
 				<td class="busquedaIzda">
 					<?php echo  _translate('Provincia')?> &nbsp;
 				</td>
 				<td class="busquedaDcha"> 
-					<input type="text" size="15"name="provincia" value="<?php  echo $var->opt['provincia']?>"></input>
+					<input type="text" size="15"name="provincia" value="<?php  echo $var->opt['provincia']?>"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="busquedaIzda">
-					<?php echo  _translate('Número de proveedores por página')?> &nbsp;
+					<?php echo  _translate('N&uacute;mero de proveedores por p&aacute;gina')?> &nbsp;
 				</td>
 				<td class="busquedaDcha"> 
-					<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"></input>
+					<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"/>
 				</td>
 				<td class="busquedaIzda">
 					<?php echo  _translate('CP')?> &nbsp;
 				</td>
 				<td class="busquedaDcha"> 
-					<input type="text" size="15"name="CP" value="<?php  echo $var->opt['CP']?>"></input>
+					<input type="text" size="15"name="CP" value="<?php  echo $var->opt['CP']?>"/>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4" style="text-align:right;background: none;" >
+				<td colspan="4" >
 					<input type="submit" id="mostrar" name="mostrar" value="<?php echo  _translate("Buscar")?>" />
 					<input type="hidden" name="navigation" value="" />
 					<input type="hidden" name="page" value="<?php echo  $var->datos['page']?>" />
@@ -170,7 +170,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 	</table>
 </div>
 <br/>
-<label class="nota"><a href=<?php echo  $appDir.'/Proveedores/addProveedor.php';?>><?php echo  _translate("Añadir proveedor nuevo")?></a></label><br/>
+<label class="nota"><a href=<?php echo  $appDir.'/Proveedores/addProveedor.php';?>><?php echo  _translate("A&tilde;nadir proveedor nuevo")?></a></label><br/>
 <br/>
 <!-- RESULTADOS -->
 		<div class="listado" style="width:94%;margin-left:2em;">
@@ -191,7 +191,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							?>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('razon_social')" ><?php echo  _translate("Razón social")?></a>
+							<a href="#" onClick="javascript:orderBy('razon_social')" ><?php echo  _translate("Raz&oacute;n social")?></a>
 							<?php 
 								if($var->opt['order_by']=='razon_social' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";

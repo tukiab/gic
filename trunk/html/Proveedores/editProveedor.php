@@ -25,36 +25,36 @@ include ($appRoot.'/include/html/popupHeader.php');
 	<form action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 		<table >
 			<tr class="ListaTitulo">
-			  <td><?php echo  _translate("Razón Social")?>:</td>
-			  <td class="impar">
+			  <td class="ColIzq"><?php echo  _translate("Raz&oacute;n Social")?>:</td>
+			  <td class="ColDer">
 				<input type="text" name="razon_social" value="<?php echo  $var->Proveedor->get_Razon_Social();?>" size="25" />
 			  </td>
 			</tr>
 			<tr class="ListaTitulo">
 				
 			<!-- <tr class="ListaTitulo">
-				<td><?php //echo  _translate("CIF/NIF")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php //echo  _translate("CIF/NIF")?>:</td>
+				<td class="ColDer">
 					<input type="text" name="NIF" value="<?php //echo  trim(stripslashes($var->Proveedor->get_NIF()))?>" size="25" />
 				</td>
 			</tr>
 			 -->
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Domicilio")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Domicilio")?>:</td>
+				<td class="ColDer">
 					<input type="text" name="domicilio" value="<?php echo  trim(stripslashes($var->Proveedor->get_Domicilio()))?>" size="25" />
 				</td>				
 			</tr>
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Localidad")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Localidad")?>:</td>
+				<td class="ColDer">
 					<input type="text" name="localidad" value="<?php echo  trim(stripslashes($var->Proveedor->get_Localidad()))?>" size="25" />
 				</td>				
 			</tr>
 			
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Web")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Web")?>:</td>
+				<td class="ColDer">
 					<input type="text" name="web" value="<?php echo  trim($var->Proveedor->get_Web())?>" size="25" />
 				</td>
 			</tr>
@@ -68,7 +68,6 @@ include ($appRoot.'/include/html/popupHeader.php');
 		<div  class="bottomMenu">
 			<table>
 				<tr>
-					<td width="40%"></td>
 					<td style="text-align:right;" >
 						<input type="button" onClick="cerrar()" value="<?php echo  _translate("Cerrar")?>"/>
 					</td>

@@ -105,17 +105,17 @@ include ($appRoot.'/include/html/mainMenu.php');
 <form method="GET" id="frm" action="<?php echo  $_SERVER['_SELF']?>">
 
 <!-- BUSCADOR -->
-<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de búsqueda")?></a></i><br/>
+<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de b&uacute;squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
 	<table>
 		<tr class="BusquedaTable">
 			<td colspan="6" class="ListaTitulo">
-				<div style="float:left"><?php echo  _translate("Opciones de búsqueda")?></div>
+				<div style="float:left"><?php echo  _translate("Opciones de b&uacute;squeda")?></div>
 			</td>
 		</tr>		
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Número de factura')?> &nbsp; 
+				<?php echo  _translate('N&uacute;mero de factura')?> &nbsp;
 			</td>
 			<td class="busquedaDcha">
 				<input type="text" size="15"name="numero_factura" value="<?php  echo $var->opt['numero_factura']?>"></input>
@@ -157,13 +157,13 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</tr>
 		<tr>			
 			<td class="busquedaIzda">
-				<?php echo  _translate('Fecha de facturación desde')?> &nbsp;
+				<?php echo  _translate('Fecha de facturaci&oacute;n desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" class="fecha" size="12" name="fecha_facturacion_desde" value="<?php  echo timestamp2date($var->opt['fecha_facturacion_desde'])?>"></input>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Fecha de facturación hasta')?> &nbsp;
+				<?php echo  _translate('Fecha de facturaci&oacute;n hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" class="fecha" size="12" name="fecha_facturacion_hasta" value="<?php  echo timestamp2date($var->opt['fecha_facturacion_hasta'])?>"></input>
@@ -171,13 +171,13 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</tr>
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Año desde')?> &nbsp;
+				<?php echo  _translate('A&ntilde;o desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" size="12" name="year_desde" value="<?php  echo$var->opt['year_desde']?>"></input>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Año hasta')?> &nbsp;
+				<?php echo  _translate('A&ntildee;o hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" size="12" name="year_hasta" value="<?php  echo $var->opt['year_hasta']?>"></input>
@@ -185,7 +185,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</tr>
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Número de facturas por página')?> &nbsp;
+				<?php echo  _translate('N&uacute;mero de facturas por p&aacute;gina')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"></input>
@@ -224,7 +224,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<input type="hidden" name="navigation" value="" />
 				<input type="hidden" name="page" value="<?php echo  $var->datos['page']?>" />
 				<input type="hidden" name="total" id="total" value="<?php  echo  $var->datos['lista']->num_Resultados();?>" />
-				<!-- Criterios de ordenación -->
+				<!-- Criterios de ordenaci&uacute;n -->
 				<input type="hidden" id="order_by" name="order_by" value="<?php echo  $var->opt['order_by']?>" />
 				<input type="hidden" id="order_by_asc_desc" name="order_by_asc_desc" value="<?php echo  $var->opt['order_by_asc_desc']?>" />
 			</td>
@@ -240,11 +240,11 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<input type=checkbox id="chk_todos"/>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('numero_factura')" ><?php echo  _translate("Número de factura")?></a>
+						<th  nowrap>
+							<a href="#" onClick="javascript:orderBy('numero_factura')" ><?php echo  _translate("N&uacute;mero de factura")?></a>
 							<?php 
 								if($var->opt['order_by']=='numero_factura' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";
@@ -252,7 +252,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('cliente')" ><?php echo  _translate("Empresa")?></a>
 							<?php 
 								if($var->opt['order_by']=='cliente' && $var->opt['order_by_asc_desc']=='ASC')
@@ -262,7 +262,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							?>
 						
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('gestor')" ><?php echo  _translate("Gestor")?></a>
 							<?php 
 								if($var->opt['order_by']=='gestor' && $var->opt['order_by_asc_desc']=='ASC')
@@ -271,7 +271,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							
 						<a href="#" onClick="javascript:orderBy('estado')" ><?php echo  _translate("Estado")?></a>
 							<?php 
@@ -281,7 +281,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							
 						<a href="#" onClick="javascript:orderBy('base_imponible')" ><?php echo  _translate("Base imponible")?></a>
 							<?php 
@@ -291,7 +291,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('fecha_pago')" ><?php echo  _translate("Fecha de pago")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_pago' && $var->opt['order_by_asc_desc']=='ASC')
@@ -300,8 +300,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>		
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('fecha_facturacion')" ><?php echo  _translate("Fecha de facturación")?></a>
+						<th  nowrap>
+							<a href="#" onClick="javascript:orderBy('fecha_facturacion')" ><?php echo  _translate("Fecha de facturaci&uacute;n")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_facturacion' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";
@@ -319,29 +319,29 @@ include ($appRoot.'/include/html/mainMenu.php');
 					?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
 					
-						<td style="text-align:center;width:5%;">
+						<td >
 							<input class="chk" type=checkbox name="seleccionados[]" value="<?php echo $facturacion->get_Id(); ?>" />							
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<a href="<?php echo  $appDir.'/Facturas/showFactura.php?id='.$facturacion->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $facturacion->get_Numero_Factura()?>&nbsp;&nbsp;</a>							
 						</td>
 						<?php $clientefacturacion = $facturacion->get_Cliente();?>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$clientefacturacion->get_Id();?>"><?php echo $clientefacturacion->get_Razon_Social();?></a>
 						</td>	
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php echo $facturacion->get_Usuario();?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  $estado = $facturacion->get_Estado_Factura(); echo $estado['nombre'];?>
 						</td>	
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  echo $facturacion->get_Base_Imponible()?>
 						</td>					
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  echo timestamp2date($facturacion->get_Fecha_Pago());?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  echo timestamp2date($facturacion->get_Fecha_Facturacion());?>
 						</td>
 					</tr>

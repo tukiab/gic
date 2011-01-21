@@ -26,14 +26,14 @@ include ($appRoot.'/include/html/popupHeader.php');
 	<form id="frm" action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 		<table >
 			<tr class="ListaTitulo">
-			  <td><?php echo  _translate("Numero")?>:</td>
-			  <td class="impar">
+			  <td class="ColIzq"><?php echo  _translate("Numero")?>:</td>
+			  <td class="ColDer">
 				<?php echo  $var->Factura->get_Numero_Factura();?>
 			  </td>
 			</tr>			
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Estado")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Estado")?>:</td>
+				<td class="ColDer">
 					<select  style="width:190px" name="estado_factura">
 						<?php $estado_seleccionado = $var->Factura->get_Estado_Factura();?>
 						<?php foreach($var->datos['lista_estados'] as $estado){?>
@@ -45,32 +45,32 @@ include ($appRoot.'/include/html/popupHeader.php');
 				</td>
 			</tr>				
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Fecha de pago")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Fecha de pago")?>:</td>
+				<td class="ColDer">
 					<input type="text" class="fecha" name="fecha_pago" value="<?php  echo timestamp2date($var->Factura->get_Fecha_Pago())?>" size="25" />
 				</td>
 			</tr>
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Fecha de facturacion")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Fecha de facturacion")?>:</td>
+				<td class="ColDer">
 					<input type="text" class="fecha" name="fecha_facturacion" value="<?php  echo timestamp2date($var->Factura->get_Fecha_Facturacion())?>" size="25" />
 				</td>
 			</tr>			
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Base imponible")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Base imponible")?>:</td>
+				<td class="ColDer">
 					<input type="text" name="base_imponible" value="<?php echo  trim(stripslashes($var->Factura->get_Base_Imponible()))?>" size="25" />&nbsp;&euro;
 				</td>
 			</tr>
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("IVA")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("IVA")?>:</td>
+				<td class="ColDer">
 					<input type="text" name="IVA" value="<?php echo  trim(stripslashes($var->Factura->get_IVA()))?>" size="25" />&nbsp;&euro;
 				</td>
 			</tr>
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Cantidad pagada")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Cantidad pagada")?>:</td>
+				<td class="ColDer">
 					<input type="text" name="cantidad_pagada" value="<?php echo  trim(stripslashes($var->Factura->get_Cantidad_Pagada()))?>" size="25" />&nbsp;&euro;
 				</td>
 			</tr>
@@ -84,11 +84,10 @@ include ($appRoot.'/include/html/popupHeader.php');
 		<div  class="bottomMenu">
 			<table>
 				<tr>
-					<td width="40%"></td>
-					<td style="text-align:right;" >
+					<td >
 						<input type="button" onClick="cerrar()" value="<?php echo  _translate("Cerrar")?>"/>
 					</td>
-					<td style="text-align:right;">
+					<td>
 						<input type="button" onclick="$('select').removeAttr('disabled');
 							$('#guardar').val('guardar');
 						$('#frm').submit();"  value="<?php echo  _translate("Guardar")?>" />

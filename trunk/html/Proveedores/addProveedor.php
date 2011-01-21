@@ -29,51 +29,51 @@ include ($appRoot.'/include/html/mainMenu.php');
 		  <td class="ListaTitulo" style="text-align:center;" colspan="2"><?php echo  _translate("Datos del Proveedor")?></td>
 		</tr>
 		<tr>
-		  <td nowrap><?php echo  _translate("Razón social")?>&#42;</td>
-		  <td >
-			<input style="width:100%"  style="width:100%"  type="text" name="razon_social" value="<?php echo  $var->opt['razon_social'];?>" />
+		  <td class="ColIzq"><?php echo  _translate("Raz&oacute;n social")?>&#42;</td>
+		  <td  class="ColDer">
+			<input     type="text" name="razon_social" value="<?php echo  $var->opt['razon_social'];?>" />
 		  </td>
 	    </tr>
 	   
 		<tr>
-		  <td nowrap><?php echo  _translate("CIF/NIF")?>&#42;</td>
-		  <td >
-			<input style="width:100%"   type="text" name="NIF" value="<?php echo  $var->opt['NIF'];?>" />
+		  <td class="ColIzq"><?php echo  _translate("CIF/NIF")?>&#42;</td>
+		  <td  class="ColDer">
+			<input    type="text" name="NIF" value="<?php echo  $var->opt['NIF'];?>" />
 		  </td>
 	    </tr>
 	    <tr>
-	      <td nowrap><?php echo  _translate("Domicilio")?></td>
-		  <td >
-		    <input style="width:100%"   type="text"  name="domicilio" value="<?php echo  trim(stripslashes($var->opt['domicilio']));?>" />
+	      <td class="ColIzq"><?php echo  _translate("Domicilio")?></td>
+		  <td  class="ColDer">
+		    <input    type="text"  name="domicilio" value="<?php echo  trim(stripslashes($var->opt['domicilio']));?>" />
 		  </td>	
 	    </tr>
 		<tr>
-	      <td nowrap><?php echo  _translate("Localidad")?></td>
-		  <td >
-		  	<input style="width:100%"   type="text"  name="localidad" value="<?php echo  trim(stripslashes($var->opt['localidad']));?>" />
+	      <td class="ColIzq"><?php echo  _translate("Localidad")?></td>
+		  <td  class="ColDer">
+		  	<input    type="text"  name="localidad" value="<?php echo  trim(stripslashes($var->opt['localidad']));?>" />
 		  </td>	
 	    </tr>
 	    <tr>
-	      <td nowrap><?php echo  _translate("Provincia")?>&#42;</td>
-		  <td >
-		  	<input style="width:100%"   type="text"  name="provincia" value="<?php echo  trim(stripslashes($var->opt['provincia']));?>" />
+	      <td class="ColIzq"><?php echo  _translate("Provincia")?>&#42;</td>
+		  <td  class="ColDer">
+		  	<input    type="text"  name="provincia" value="<?php echo  trim(stripslashes($var->opt['provincia']));?>" />
 		  </td>	
 	    </tr>
 	    <tr>
-	      <td nowrap><?php echo  _translate("CP")?>&#42;</td>
-		  <td >
-		  	<input style="width:100%"   type="text"  name="CP" value="<?php echo  trim(stripslashes($var->opt['CP']));?>" />
+	      <td class="ColIzq"><?php echo  _translate("CP")?>&#42;</td>
+		  <td  class="ColDer">
+		  	<input    type="text"  name="CP" value="<?php echo  trim(stripslashes($var->opt['CP']));?>" />
 		  </td>	
 	    </tr>	
 	    <tr>
-	      <td nowrap><?php echo  _translate("Web")?></td>
-		  <td >
-		  	<input style="width:100%"   type="text"  name="web" value="<?php echo  trim(stripslashes($var->opt['web']));?>" />
+	      <td class="ColIzq"><?php echo  _translate("Web")?></td>
+		  <td  class="ColDer">
+		  	<input    type="text"  name="web" value="<?php echo  trim(stripslashes($var->opt['web']));?>" />
 		  </td>	
 	    </tr>
 	 
 	  </table>  
-	  <input style="width:100%" type="hidden" name="gestor" value="<?php echo  $var->opt['gestor_obj']->get_Id();?>" />
+	  <input  type="hidden" name="gestor" value="<?php echo  $var->opt['gestor_obj']->get_Id();?>" />
 	</div>
 	<br/>
 	
@@ -85,7 +85,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<tr>
 				<th><?php echo  _translate("Nombre")?></th>
 				<th><?php echo  _translate("Cargo")?></th>
-				<th><?php echo  _translate("Teléfono")?></th>
+				<th><?php echo  _translate("Telï¿½fono")?></th>
 				<th><?php echo  _translate("Email")?></th>
 			</tr>
 			<tr>
@@ -103,7 +103,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				</td>
 			</tr>
 		</table>
-		<label class="nota"><a href="#" onClick="addContacto()" >&#91;<?php echo  _translate("Añadir contacto")?>&#93;</a></label>
+		<label class="nota"><a href="#" onClick="addContacto()" >&#91;<?php echo  _translate("Aï¿½adir contacto")?>&#93;</a></label>
 		<br/><br/><table>
 			<tr>
 			<?php if(!$var->opt['encontrado']){?>
@@ -112,7 +112,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				</td>
 				<?php }else{?>
 			  <td>
-				<input style="width:100%" id='continuar' name='continuar' type="submit" value="<?php echo  _translate("Continuar")?>"/>
+				<input  id='continuar' name='continuar' type="submit" value="<?php echo  _translate("Continuar")?>"/>
 			  </td>	
 		  	  <?php }?>
 			</tr>
@@ -123,7 +123,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 		<tr>
 		  <?php //if($permisos->escritura){?>
 			  <td>
-				<input style="width:100%" id='guardar' name='guardar' type="submit" value="<?php echo  _translate("Guardar")?>"/>
+				<input  id='guardar' name='guardar' type="submit" value="<?php echo  _translate("Guardar")?>"/>
 			  </td>
 			  
 		  <?php //}?>
