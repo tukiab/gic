@@ -106,37 +106,37 @@ include ($appRoot.'/include/html/mainMenu.php');
 
 <!-- BUSCADOR -->
 
-<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small"> <?php echo  _translate("Mostrar/Ocultar opciones de búsqueda")?></a></i><br/>
+<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small"> <?php echo  _translate("Mostrar/Ocultar opciones de b&uacute;squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
 	<table>
 		<tr class="BusquedaTable">
 			<td colspan="6" class="ListaTitulo">
-				<div style="float:left"><?php echo  _translate("Opciones de búsqueda")?></div>
+				<div style="float:left"><?php echo  _translate("Opciones de b&uacute;squeda")?></div>
 			</td>
 		</tr>		
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Razón social de empresa contiene')?> &nbsp; 
+				<?php echo  _translate('Raz&oacute;n social de empresa contiene')?> &nbsp;
 			</td>
 			<td class="busquedaDcha">
-				<input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"></input>
+				<input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"/>
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Id empresa')?> &nbsp; 
 			</td>
 			<td class="busquedaDcha">
-				<input type="text" size="15"name="id_cliente" value="<?php  echo $var->opt['id_cliente']?>"></input>
+				<input type="text" size="15"name="id_cliente" value="<?php  echo $var->opt['id_cliente']?>"/>
 			</td>
 		</tr>
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Descripción contiene')?> &nbsp; 
+				<?php echo  _translate('Descripci&oacute;n contiene')?> &nbsp;
 			</td>
 			<td class="busquedaDcha">
-				<input type="text" size="15"name="descripcion" value="<?php  echo $var->opt['descripcion']?>"></input>
+				<input type="text" size="15"name="descripcion" value="<?php  echo $var->opt['descripcion']?>"/>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Tipo de acción')?>
+				<?php echo  _translate('Tipo de acci&oacute;n')?>
 			</td>
 			<td class="busquedaDcha">
 				<select name="tipo_accion">
@@ -156,13 +156,13 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<?php echo  _translate('Fecha desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_desde" value="<?php  echo timestamp2date($var->opt['fecha_desde'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_desde" value="<?php  echo timestamp2date($var->opt['fecha_desde'])?>"/>
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_hasta" value="<?php  echo timestamp2date($var->opt['fecha_hasta'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_hasta" value="<?php  echo timestamp2date($var->opt['fecha_hasta'])?>"/>
 			</td>
 		</tr>
 		<tr>			
@@ -170,21 +170,21 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<?php echo  _translate('Fecha siguiente desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_siguiente_desde" value="<?php  echo timestamp2date($var->opt['fecha_siguiente_desde'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_siguiente_desde" value="<?php  echo timestamp2date($var->opt['fecha_siguiente_desde'])?>"/>
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha siguiente hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_siguiente_hasta" value="<?php  echo timestamp2date($var->opt['fecha_siguiente_hasta'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_siguiente_hasta" value="<?php  echo timestamp2date($var->opt['fecha_siguiente_hasta'])?>"/>
 			</td>
 		</tr>
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Número de acciones por página')?> &nbsp;
+				<?php echo  _translate('N&uacute;mero de acciones por p&aacute;gina')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"></input>
+				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"/>
 			</td>
 				<td class="busquedaIzda" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
@@ -206,7 +206,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<input type="hidden" name="navigation" value="" />
 				<input type="hidden" name="page" value="<?php echo  $var->datos['page']?>" />
 				<input type="hidden" name="total" id="total" value="<?php  echo  $var->datos['lista_acciones']->num_Resultados();?>" />
-				<!-- Criterios de ordenación -->
+				<!-- Criterios de ordenaci&oacute;n -->
 				<input type="hidden" id="order_by" name="order_by" value="<?php echo  $var->opt['order_by']?>" />
 				<input type="hidden" id="order_by_asc_desc" name="order_by_asc_desc" value="<?php echo  $var->opt['order_by_asc_desc']?>" />
 			</td>
@@ -221,10 +221,10 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th nowrap>
 							<input type=checkbox id="chk_todos"/>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('id')" ><?php echo  _translate("Id")?></a>
 							<?php 
 								if($var->opt['order_by']=='id' && $var->opt['order_by_asc_desc']=='ASC')
@@ -233,7 +233,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('usuario')" ><?php echo  _translate("Gestor")?></a>
 							<?php 
 								if($var->opt['order_by']=='usuario' && $var->opt['order_by_asc_desc']=='ASC')
@@ -242,7 +242,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('tipo_accion')" ><?php echo  _translate("Tipo")?></a>
 							<?php 
 								if($var->opt['order_by']=='tipo_accion' && $var->opt['order_by_asc_desc']=='ASC')
@@ -251,7 +251,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('cliente')" ><?php echo  _translate("Empresa")?></a>
 							<?php 
 								if($var->opt['order_by']=='cliente' && $var->opt['order_by_asc_desc']=='ASC')
@@ -260,7 +260,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('fecha')" ><?php echo  _translate("Fecha")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha' && $var->opt['order_by_asc_desc']=='ASC')
@@ -269,7 +269,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>		
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('fecha_siguiente')" ><?php echo  _translate("Fecha siguiente")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_siguiente' && $var->opt['order_by_asc_desc']=='ASC')
@@ -278,7 +278,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>	
-						<!--<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Operaciones")?></th>-->	
+						<!--<th ><?php echo  _translate("Operaciones")?></th>-->	
 					</tr>
 				</thead>
 				<tbody>

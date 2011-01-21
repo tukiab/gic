@@ -22,6 +22,7 @@ $cfilaImpar = "#EEEEEE";
 ?>
 
 <style type="text/css">
+	td{text-align: center;}
     #inicio_izda, #inicio_dcha{
         width: 48%;
         /*background-color: #fff;*/
@@ -63,7 +64,7 @@ $cfilaImpar = "#EEEEEE";
 		</tr>
 		<?php  }?>
 		<tr>
-			<td style="background-color:#fff;"><?php echo  _translate("Sin atajos") ?></td>
+			<td <?php if($par) echo 'par'; else echo 'impar';?>><?php echo  _translate("Sin atajos") ?></td>
 		</tr>
 		<?php  } ?>
 	</table></div>
@@ -74,7 +75,7 @@ $cfilaImpar = "#EEEEEE";
 
 	<div><table >
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:center;" colspan="4"><?php echo  _translate("Ofertas y oportunidades que se definen hoy")?></td>
+		  	<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("Ofertas y oportunidades que se definen hoy")?></td>
 		</tr>
 		<tr>
 			<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
@@ -88,7 +89,7 @@ $cfilaImpar = "#EEEEEE";
 				$es_oportunidad = $oferta->get_Es_Oportunidad_De_Negocio();
 				$cliente_oferta = $oferta->get_Cliente();
 			?>
-		<tr style="background-color:#fff;">
+		<tr <?php if($par) echo 'par'; else echo 'impar';?>>
 			<td><?php echo $oferta->get_Usuario();?></td>
 			<td><?php if($es_oportunidad) echo "OPORTUNIDAD DE NEGOCIO"; else echo "OFERTA";?></td>
 			<td>
@@ -104,7 +105,7 @@ $cfilaImpar = "#EEEEEE";
 	
         <div><table >
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:center;" colspan="4"><?php echo  _translate("Ventas con plazos pendientes (2 semanas)")?></td>
+		  	<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("Ventas con plazos pendientes (2 semanas)")?></td>
 		</tr>
 		<tr>
 			<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
@@ -116,7 +117,7 @@ $cfilaImpar = "#EEEEEE";
                             $oferta_venta = $venta->get_Oferta();
 				$cliente_venta = $venta->get_Cliente();
 			?>
-		<tr style="background-color:#fff;">
+		<tr <?php if($par) echo 'par'; else echo 'impar';?>>
 			<td><?php echo $oferta_venta->get_Usuario();?></td>
 			<td>
 				<a href="<?php echo  $appDir.'/Ventas/showVenta.php?id='.$venta->get_Id(); ?>"><?php echo $venta->get_Nombre(); ?></a>
@@ -131,7 +132,7 @@ $cfilaImpar = "#EEEEEE";
 	
 	<div><table style="">
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:center;" colspan="4"><?php echo  _translate("ALARMAS - Empresas que tienen la renovaci&oacute;n en los 3 meses siguientes")?></td>
+		  	<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("ALARMAS - Empresas que tienen la renovaci&oacute;n en los 3 meses siguientes")?></td>
 		</tr>
 		<tr>
 			<th style="font-weight: normal;"><?php echo  _translate("Gestor principal")?></th>
@@ -142,7 +143,7 @@ $cfilaImpar = "#EEEEEE";
 			foreach($var->lista_alarmas as $listacliente)
 				while($cliente = $listacliente->siguiente()){
 			?>
-			<tr style="background-color:#fff;">
+			<tr <?php if($par) echo 'par'; else echo 'impar';?>>
 				<td><?php echo $cliente->get_Gestor_Inserta();?></td>
 				<td>
 					<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>"><?php echo $cliente->get_Razon_Social();?></a>
@@ -157,7 +158,7 @@ $cfilaImpar = "#EEEEEE";
     <div id="inicio_dcha">
         <div><table >
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:center;" colspan="3"><?php echo  _translate("Acciones del d&iacute;a")?></td>
+		  	<td class="ListaTitulo" style="text-align:left;" colspan="3"><?php echo  _translate("Acciones del d&iacute;a")?></td>
 		</tr>
 		<tr>
 			<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
@@ -170,7 +171,7 @@ $cfilaImpar = "#EEEEEE";
 				$tipo_accion = $accion->get_Tipo_Accion();
 				$cliente_accion = $accion->get_Cliente();
 			?>
-		<tr style="background-color:#fff;">
+		<tr <?php if($par) echo 'par'; else echo 'impar';?>>
 			<td><?php echo $accion->get_Usuario();?></td>
 			<td>
 				<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
@@ -185,7 +186,7 @@ $cfilaImpar = "#EEEEEE";
 	
 	<div><table >
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:center;" colspan="3"><?php echo  _translate("Acciones anteriores (2 semanas)")?></td>
+		  	<td class="ListaTitulo" style="text-align:left;" colspan="3"><?php echo  _translate("Acciones anteriores (2 semanas)")?></td>
 		</tr>
 		<tr>
 			<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
@@ -198,7 +199,7 @@ $cfilaImpar = "#EEEEEE";
 				$tipo_accion = $accion->get_Tipo_Accion();
 				$cliente_accion = $accion->get_Cliente();
 			?>
-		<tr style="background-color:#fff;">
+		<tr <?php if($par) echo 'par'; else echo 'impar';?>>
 			<td><?php echo $accion->get_Usuario();?></td>
 			<td>
 				<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
@@ -247,7 +248,7 @@ $cfilaImpar = "#EEEEEE";
 		<td colspan="2" >
 		</td>
 	</tr>
-	<tr style="background-color:#fff;">
+	<tr <?php if($par) echo 'par'; else echo 'impar';?>>
 		<td style="background-color:#fff;vertical-align:text-top;text-align:left;font-size:small;">
 			<strong><?php echo  _translate("Perfil")?></strong>
 		</td>

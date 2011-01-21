@@ -22,26 +22,26 @@ include ($appRoot.'/include/html/mainMenu.php');
 	<div align="center">
 	<table style="margin-top:8ex;margin-left:2%;margin-right:2%;">
 		<tr>
-	      	<td nowrap><?php echo  _translate("Gestor")?></td>
-		  	<td>
+	      	<td class="ColIzq"><?php echo  _translate("Gestor")?></td>
+		  	<td class="ColDer">
 				<label  ><?php echo  $var->opt['usuario_obj']->get_Nombre_Y_Apellidos();?></label>
 			</td>	
 		</tr>
 		<tr>
-	      	<td nowrap><?php echo  _translate("Venta")?></td>
-		  	<td>
+	      	<td class="ColIzq"><?php echo  _translate("Venta")?></td>
+		  	<td class="ColDer">
 				<label  ><?php echo  $var->opt['Venta']->get_Nombre();?></label>
 			</td>	
 		</tr>
 		<tr>
-	      	<td nowrap><?php echo  _translate("Empresa")?></td>
-		  	<td>
+	      	<td class="ColIzq"><?php echo  _translate("Empresa")?></td>
+		  	<td class="ColDer">
 				<label  ><?php $cliente = $var->opt['Venta']->get_Cliente(); echo $cliente->get_Razon_Social();?></label>
 			</td>	
 		</tr>
                 <tr>
-	      	<td nowrap><?php echo  _translate("Producto")?></td>
-		  	<td>
+	      	<td class="ColIzq"><?php echo  _translate("Producto")?></td>
+		  	<td class="ColDer">
 				<label  ><?php  $producto=$var->opt['Venta']->get_Producto();echo  $producto['nombre'];?></label>
 			</td>
 		</tr>
@@ -52,27 +52,27 @@ include ($appRoot.'/include/html/mainMenu.php');
 		  <td class="ListaTitulo" style="text-align:center;" colspan="2"><?php echo  _translate("Datos de la Factura")?></td>
 		</tr>
 		<tr>
-                    <td nowrap><?php echo  _translate("Base imponible ")?>&euro;&#42;</td>
-			<td>
-				<input style="width:120px"  style="width:100%"  type="text" name="base_imponible" value="<?php echo  $var->opt['base_imponible'];?>" />
+            <td class="ColIzq"><?php echo  _translate("Base imponible ")?>&euro;&#42;</td>
+			<td class="ColDer">
+				<input   type="text" name="base_imponible" value="<?php echo  $var->opt['base_imponible'];?>" />
 			</td>
 	    </tr>
 	    <tr>
-			<td nowrap><?php echo  _translate("IVA %")?>&#42;</td>
-			<td>
-				<input style="width:120px"  style="width:100%"  type="text" name="IVA" value="<?php echo  $var->opt['IVA'];?>" />
+			<td class="ColIzq"><?php echo  _translate("IVA %")?>&#42;</td>
+			<td class="ColDer">
+				<input   type="text" name="IVA" value="<?php echo  $var->opt['IVA'];?>" />
 			</td>
 	    </tr>
 	    <tr>
-			<td nowrap><?php echo  _translate("Cantidad pagada")?>&#42;</td>
-			<td>
-				<input style="width:120px"  style="width:100%"  type="text" name="cantidad_pagada" value="<?php echo  $var->opt['cantidad_pagada'];?>" />
+			<td class="ColIzq"><?php echo  _translate("Cantidad pagada")?>&#42;</td>
+			<td class="ColDer">
+				<input   type="text" name="cantidad_pagada" value="<?php echo  $var->opt['cantidad_pagada'];?>" />
 			</td>
 	    </tr>
 	    <tr>
-		  <td nowrap><?php echo  _translate("Estado")?>&#42;</td>
-		  <td  style="text-align:right;">
-			<select style="width:120px" name="estado_factura">
+		  <td class="ColIzq"><?php echo  _translate("Estado")?>&#42;</td>
+		  <td  class="ColDer">
+			<select  name="estado_factura">
 				<?php 
 				$estado_factura_seleccionado = $var->opt['estado_factura'];?>
 				<option value="0" <?php if(0 == $estado_factura_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option>
@@ -83,21 +83,21 @@ include ($appRoot.'/include/html/mainMenu.php');
 		  </td>
 	    </tr>
 		<tr>
-	      <td nowrap><?php echo  _translate("Fecha de pago")?>&#42;</td>
-		  <td style="text-align: right;">
-			<input style="width:98px"   type="text" class="fecha" name="fecha_pago" value="<?php echo  timestamp2date($var->opt['fecha_pago']);?>" />
+	      <td class="ColIzq"><?php echo  _translate("Fecha de pago")?>&#42;</td>
+		  <td class="ColDer">
+			<input  type="text" class="fecha" name="fecha_pago" value="<?php echo  timestamp2date($var->opt['fecha_pago']);?>" />
 		  </td>	
 	    </tr>
 	    	    
 	     <tr>
-	      <td nowrap><?php echo  _translate("Fecha de facturaci&oacute;n")?>&#42;</td>
-		  <td style="text-align: right;">
-			<input style="width:98px"   type="text" class="fecha" name="fecha_facturacion" value="<?php echo  timestamp2date($var->opt['fecha_facturacion']);?>" />
+	      <td class="ColIzq"><?php echo  _translate("Fecha de facturaci&oacute;n")?>&#42;</td>
+		  <td class="ColDer">
+			<input  type="text" class="fecha" name="fecha_facturacion" value="<?php echo  timestamp2date($var->opt['fecha_facturacion']);?>" />
 		  </td>	
 	    </tr>
 	  </table>  
-	  <input style="width:100%" type="hidden" name="usuario" value="<?php echo  $var->opt['usuario_obj']->get_Id();?>" />
-	  <input style="width:100%" type="hidden" name="id_venta" value="<?php echo  $var->opt['id_venta'];?>" />
+	  <input type="hidden" name="usuario" value="<?php echo  $var->opt['usuario_obj']->get_Id();?>" />
+	  <input type="hidden" name="id_venta" value="<?php echo  $var->opt['id_venta'];?>" />
 	
 	</div>
 
@@ -105,10 +105,10 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<table>
 				<tr>
 					<td width="40%"></td>
-					<td style="text-align:right;" >
+					<td class="ColDer" >
 						<input type="button" onClick="cerrar()" value="<?php echo  _translate("Cerrar")?>"/>
 					</td>
-					<td style="text-align:right;">
+					<td class="ColDer">
 						<input type="submit" name="guardar" value="<?php echo  _translate("Guardar")?>" />
 					</td>
 				</tr>

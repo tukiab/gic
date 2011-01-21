@@ -27,7 +27,7 @@ $origen=$url[0];
 if (( strcmp(basename($_SERVER['PHP_SELF'],"/"), "")==0) ){
 	//Registro LOG
 	GuardarSyslog (LOG_DEBUG,basename($_SERVER['PHP_SELF'],"/"),$_SESSION["usuario_login"],"Error: Acceso Incorrecto");
-	header ("Location: https://$peticion_url&errno=1");//ACCESO INCORRECTO
+	header ("Location: http://$peticion_url&errno=1");//ACCESO INCORRECTO
 	exit;
 }
 
@@ -35,7 +35,7 @@ if (( strcmp(basename($_SERVER['PHP_SELF'],"/"), "")==0) ){
 if (  isset($_POST['user']) && isset($_POST['pass']) ) {
 	if(!comprobarPass($_POST['user'], $_POST['pass'])){
 		GuardarSyslog (LOG_ERR,basename($_SERVER['PHP_SELF'],"/"),$_SESSION["usuario_login"],"Error usuario y password");		
-		header ("Location:  https://$peticion_url&errno=2");
+		header ("Location:  http://$peticion_url&errno=2");
 	}
 	else{
 	
@@ -162,7 +162,7 @@ function getLoginURL(){
 	}
 	$params.="&Nq55R7R-qfw";
 	
-	$url = SERVER_IP.$_SERVER['PHP_SELF'].$params;
+	$url = $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'].$params;
 	return $url;
 }
 

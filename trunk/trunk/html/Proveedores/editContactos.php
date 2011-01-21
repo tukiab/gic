@@ -25,7 +25,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 	<table>
 		<tr class="ListaTitulo">
 			<td><?php echo  _translate("Nombre")?></td>
-			<td><?php echo  _translate("Teléfono")?></td>
+			<td><?php echo  _translate("Tel&eacute;fono")?></td>
 			<td><?php echo  _translate("Cargo")?></td>
 			<td><?php echo  _translate("Email")?></td>
 			<td></td>

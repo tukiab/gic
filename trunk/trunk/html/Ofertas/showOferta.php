@@ -17,7 +17,7 @@ if($var->opt['mostrar_cabecera']){
 else
 	include ($appRoot.'/include/html/popupHeader.php');
 
-	$cliente = new Cliente ($var->opt['Oferta']->get_Cliente());
+	$cliente = $var->opt['Oferta']->get_Cliente();
 ?>
 <script language="JavaScript" type="text/javascript">
 	function eliminar(){
@@ -40,7 +40,7 @@ else{?>
 <div align="center" style="margin-top:40px">
 	<table class="ConDatos">
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:center;" colspan="2"><?php echo  _translate("Datos de la Oferta")?></td>
+		  	<td class="ListaTitulo"  colspan="2"><?php echo  _translate("Datos de la Oferta")?></td>
 		</tr>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("C&oacute;digo")?>:</td>

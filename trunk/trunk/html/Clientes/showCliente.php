@@ -17,6 +17,15 @@ if($var->opt['mostrar_cabecera']){
 else
 	include ($appRoot.'/include/html/popupHeader.php');
 ?>
+<style type="text/css">
+	#derecha{
+		float:right;width:55%;height:370px;margin-left:4%;
+	}
+	#derecha table{
+		width:90%;
+		margin-bottom:20px;
+	}
+</style>
 <script language="JavaScript" type="text/javascript">
 function eliminar(borrado_total){
 	if(confirm('Eliminar la empresa')){
@@ -65,7 +74,7 @@ if($var->opt['msg']){?>
 <?php $razon_social = $var->opt['Cliente']->get_Razon_Social();?>
 <div id="titulo"><?php echo  $razon_social?></div>		
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
-<div id="contenedor" align="center">
+<div id="contenedor" >
 	<!-- **************** DATOS DEL CLIENTE **************** -->
 	<div id="izquierda" style="float:left;width:40%;">
 		<table style="width:100%">
@@ -183,13 +192,13 @@ if($var->opt['msg']){?>
 		<!-- contactos -->
 		<table style="width:100%;margin-top:20px">
 			<tr>
-			  	<td class="ListaTitulo" style="text-align:center;" colspan="4"><?php echo  _translate("Contactos")?></td>
+			  	<td class="ListaTitulo" colspan="4"><?php echo  _translate("Contactos")?></td>
 			</tr>
 			<tr>				
-				<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Nombre Contacto")?></th>
-				<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Tel&eacute;fono")?></th>
-				<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Email")?></th>
-				<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Cargo")?></th>
+				<th ><?php echo  _translate("Nombre Contacto")?></th>
+				<th ><?php echo  _translate("Tel&eacute;fono")?></th>
+				<th ><?php echo  _translate("Email")?></th>
+				<th ><?php echo  _translate("Cargo")?></th>
 			</tr>
 			<?php $impar=false;
 				$listaContactos = $var->opt['Cliente']->get_Lista_Contactos();
@@ -202,11 +211,11 @@ if($var->opt['msg']){?>
 						$impar=true;
 						$class = 'impar';
 					}?>
-					<tr class="<?php  echo $class?>" align="center">
-						<td align="center"><?php echo  $contacto->get_Nombre();?></td>
-						<td align="center"><?php echo  $contacto->get_Telefono();?></td>
-						<td align="center"><?php echo  email($contacto->get_Email());?></td>
-						<td align="center"><?php echo  $contacto->get_Cargo();?></td>
+					<tr class="<?php  echo $class?>" >
+						<td ><?php echo  $contacto->get_Nombre();?></td>
+						<td ><?php echo  $contacto->get_Telefono();?></td>
+						<td ><?php echo  email($contacto->get_Email());?></td>
+						<td ><?php echo  $contacto->get_Cargo();?></td>
 					</tr>
 				<?php }?>
 			<?php 
@@ -223,13 +232,13 @@ if($var->opt['msg']){?>
 		<!-- gestores -->
 		<table style="width:100%;margin-top:20px">
 			<tr>
-			  	<td class="ListaTitulo" style="text-align:center;" colspan="3"><?php echo  _translate("Gestores")?></td>
+			  	<td class="ListaTitulo" colspan="3"><?php echo  _translate("Gestores")?></td>
 			</tr>	
 			<tr>
-				<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Id Gestor")?></th>
-				<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Nombre Gestor")?></th>
+				<th ><?php echo  _translate("Id Gestor")?></th>
+				<th ><?php echo  _translate("Nombre Gestor")?></th>
 				<?php if($gestor_actual->esAdministradorTotal()){?>
-				<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Eliminar")?></th>
+				<th ><?php echo  _translate("Eliminar")?></th>
 				<?php } ?>
 			</tr>
 			<?php $impar=false;
@@ -245,11 +254,11 @@ if($var->opt['msg']){?>
 						$impar=true;
 						$class = 'impar';
 					}?>
-					<tr class="<?php  echo $class?>" align="center">
-						<td align="center"><?php echo  $usuario->get_Id();?></td>
-						<td align="center"><?php echo  $usuario->get_Nombre_Y_Apellidos();?></td>
+					<tr class="<?php  echo $class?>" >
+						<td ><?php echo  $usuario->get_Id();?></td>
+						<td ><?php echo  $usuario->get_Nombre_Y_Apellidos();?></td>
 						<?php if($gestor_actual->esAdministradorTotal()){?>
-						<td align="center"><a href="#" onclick="eliminarGestor('<?php echo $usuario->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
+						<td ><a href="#" onclick="eliminarGestor('<?php echo $usuario->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
 						<?php }?>
 					</td>
 					</tr>
@@ -267,23 +276,21 @@ if($var->opt['msg']){?>
 	</div>
 	
 	<!-- **************** ACCIONES Y OFERTAS, CONTACTOS Y GESTORES **************** -->
-	<div id="derecha"  style="float:right;width:60%;height:370px">
-		<dl id="myAccordion">
-			<!-- acciones -->
-			<dt ><b><?php echo _translate("Acciones de la empresa")?></b></dt>
-			<!-- <dd style="display: block; height: 100px;"> -->
-			<dd style="margin-bottom: 20px">
+	<div id="derecha">
 				<table>
+					<tr>
+						<td class="ListaTitulo" colspan="7"><?php echo _translate("Acciones de la empresa")?></td>
+					</tr>
 					<tr>				
-						<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Gestor")?></th>
-			 			<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Id de acci&oacute;n")?></th>
-						<!-- <th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Descipci&oacute;n")?></th> -->
-						<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Tipo")?></th>
-						<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Fecha")?></th>
-						<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Fecha Siguiente")?></th>
-						<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Comentario")?></th>
+						<th ><?php echo  _translate("Gestor")?></th>
+			 			<th ><?php echo  _translate("Id de acci&oacute;n")?></th>
+						<!-- <th ><?php echo  _translate("Descipci&oacute;n")?></th> -->
+						<th ><?php echo  _translate("Tipo")?></th>
+						<th ><?php echo  _translate("Fecha")?></th>
+						<th ><?php echo  _translate("Fecha Siguiente")?></th>
+						<th ><?php echo  _translate("Comentario")?></th>
 						<?php if($gestor_actual->esAdministradorTotal()){?>
-						<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Eliminar")?></th>
+						<th ><?php echo  _translate("Eliminar")?></th>
 						<?php } ?>
 					</tr>
 				<?php $impar=false;
@@ -296,33 +303,33 @@ if($var->opt['msg']){?>
 							$impar=true;
 							$class = 'impar';
 						}?>
-						<tr class="<?php  echo $class?>" align="center">
+						<tr class="<?php  echo $class?>" >
 							<td><?php echo $accion->get_Usuario(); ?></td>
-							<td align="center">
+							<td >
 								<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $accion->get_Id()?>&nbsp;&nbsp;</a>
 								</td>
-							<!-- <td align="center"><?php echo  $accion->get_Descripcion();?></td> -->
-							<td align="center"><?php $tipo = $accion->get_Tipo_Accion(); echo $tipo['nombre'];?></td>
-							<td align="center"><?php echo  timestamp2date($accion->get_Fecha());?></td>
-							<td align="center"><?php echo  timestamp2date($accion->get_Fecha_Siguiente_Accion());?></td>
-							<td align="center"><?php echo  $accion->get_Descripcion();?></td>
+							<!-- <td ><?php echo  $accion->get_Descripcion();?></td> -->
+							<td ><?php $tipo = $accion->get_Tipo_Accion(); echo $tipo['nombre'];?></td>
+							<td ><?php echo  timestamp2date($accion->get_Fecha());?></td>
+							<td ><?php echo  timestamp2date($accion->get_Fecha_Siguiente_Accion());?></td>
+							<td ><?php echo  $accion->get_Descripcion();?></td>
 							<?php if($gestor_actual->esAdministradorTotal()){?>
-								<td align="center"><a href="#" onclick="eliminarAccion('<?php echo $accion->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
+								<td ><a href="#" onclick="eliminarAccion('<?php echo $accion->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
 								<?php }?>
 						</tr>
 					<?php }?>
 				</table>
-			</dd>
 			<!-- ofertas y oportunidades -->
-			<dt><b><?php echo _translate("Ofertas y Oportunidades de negocio")?></b></dt>
-			<!-- <dd style="display: none; height: 1px;"> --><dd style="margin-bottom: 20px">
-				<table>			
+			<table>
 				<tr>
-					<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Gestor")?></th>
-					<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("C&oacute;digo")?></th>
-					<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Nombre")?></th>
-					<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Estado")?></th>
-					<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Fecha definici&oacute;n")?></th>
+					<td class="ListaTitulo" colspan="7"><?php echo _translate("Ofertas y Oportunidades de negocio")?></td>
+				</tr>
+				<tr>
+					<th ><?php echo  _translate("Gestor")?></th>
+					<th ><?php echo  _translate("C&oacute;digo")?></th>
+					<th ><?php echo  _translate("Nombre")?></th>
+					<th ><?php echo  _translate("Estado")?></th>
+					<th ><?php echo  _translate("Fecha definici&oacute;n")?></th>
 				</tr>
 				<?php $impar=false;
 					$listaOfertas = $var->opt['Cliente']->get_Lista_Ofertas();
@@ -336,14 +343,14 @@ if($var->opt['msg']){?>
 							$impar=true;
 							$class = 'impar';
 						}?>
-						<tr class="<?php  echo $class?>" align="center">
+						<tr class="<?php  echo $class?>" >
 							<td><?php echo $oferta->get_Usuario(); ?></td>
-							<td align="center">
+							<td >
 								<a href="<?php echo  $appDir.'/Ofertas/showOferta.php?id='.$oferta->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $oferta->get_Codigo()?>&nbsp;&nbsp;</a>
 							</td>
-							<td align="center"><?php echo  $oferta->get_Nombre_Oferta();?></td><?php $bold=""; if($oferta->get_Aceptado()) $bold="font-weight:bold;"; ?>
-							<td align="center" style="<?php echo $bold; ?>"><?php echo  $estado['nombre']?></td>
-							<td align="center"><?php echo  timestamp2date($oferta->get_Fecha_Definicion());?></td>
+							<td ><?php echo  $oferta->get_Nombre_Oferta();?></td><?php $bold=""; if($oferta->get_Aceptado()) $bold="font-weight:bold;"; ?>
+							<td  style="<?php echo $bold; ?>"><?php echo  $estado['nombre']?></td>
+							<td ><?php echo  timestamp2date($oferta->get_Fecha_Definicion());?></td>
 						</tr>
 					<?php 
 					}?>

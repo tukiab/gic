@@ -26,15 +26,15 @@ include ($appRoot.'/include/html/popupHeader.php');
 	<form id="frm" action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 		<table >
 			<tr class="ListaTitulo">
-			  <td><?php echo  _translate("Nombre")?>:</td>
-			  <td class="impar">
+			  <td class="ColIzq"><?php echo  _translate("Nombre")?>:</td>
+			  <td class="ColDer">
 				<input <?php echo $disabled['nombre']; ?> type="text" name="nombre" value="<?php echo  $var->Oferta->get_Nombre_Oferta();?>" size="25" />
 			  </td>
 			</tr>
 			
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Estado")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Estado")?>:</td>
+				<td class="ColDer">
 					<select <?php echo $disabled['estado']; ?> style="width:190px" name="estado_oferta">
 						<?php $estado_seleccionado = $var->Oferta->get_Estado_Oferta();?>
 						<?php foreach($var->datos['lista_estados_ofertas'] as $estado){?>
@@ -47,8 +47,8 @@ include ($appRoot.'/include/html/popupHeader.php');
 			</tr>
 			
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Tipo de producto")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Tipo de producto")?>:</td>
+				<td class="ColDer">
 					<select <?php echo $disabled['producto']; ?> style="width:190px" name="producto">
 						<?php $producto_seleccionado = $var->Oferta->get_Producto();?>
 						<?php foreach($var->datos['lista_tipos_productos'] as $producto){?>
@@ -61,8 +61,8 @@ include ($appRoot.'/include/html/popupHeader.php');
 			</tr>
 			
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Proveedor")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Proveedor")?>:</td>
+				<td class="ColDer">
 					<select <?php echo $disabled['proveedor']; ?> style="width:190px" name="proveedor">
 						<?php $proveedor_seleccionado = $var->Oferta->get_Proveedor();?>
 						<?php foreach($var->datos['lista_proveedores'] as $proveedor){?>
@@ -75,27 +75,27 @@ include ($appRoot.'/include/html/popupHeader.php');
 			</tr>
 			
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Fecha")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Fecha")?>:</td>
+				<td class="ColDer">
 					<input <?php echo $disabled['fecha']; ?> type="text" class="fecha" name="fecha" value="<?php  echo timestamp2date($var->Oferta->get_Fecha())?>" size="25" />
 				</td>
 			</tr>
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Importe")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Importe")?>:</td>
+				<td class="ColDer">
 					<input <?php echo $disabled['Importe']; ?> type="text" name="importe" value="<?php echo  trim(stripslashes($var->Oferta->get_Importe()))?>" size="25" />&nbsp;&euro;
 				</td>
 			</tr>
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Fecha de definición")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Fecha de definici&oacute;n")?>:</td>
+				<td class="ColDer">
 					<input <?php echo $disabled['fecha_definicion']; ?> type="text" class="fecha" name="fecha_definicion" value="<?php  echo timestamp2date($var->Oferta->get_Fecha_Definicion())?>" size="25" />
 				</td>
 			</tr>
 			
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Probabilidad de contratación")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Probabilidad de contrataci&oacute;n")?>:</td>
+				<td class="ColDer">
 					<select <?php echo $disabled['probabilidad_contratacion']; ?> style="width:190px" name="probabilidad_contratacion">
 						<?php $probabilidad_contratacion_seleccionado = $var->Oferta->get_Probabilidad_Contratacion();?>
 						<?php foreach($var->datos['lista_probabilidades'] as $probabilidad_contratacion){?>
@@ -107,8 +107,8 @@ include ($appRoot.'/include/html/popupHeader.php');
 				</td>
 			</tr>
 			<tr class="ListaTitulo">
-				<td><?php echo  _translate("Colaborador")?>:</td>
-				<td class="impar">
+				<td class="ColIzq"><?php echo  _translate("Colaborador")?>:</td>
+				<td class="ColDer">
 					<select <?php echo $disabled['colaborador']; ?> style="width:190px" name="colaborador">
 						<?php $colaborador_seleccionado = $var->Oferta->get_Colaborador();?>
 						<?php foreach($var->datos['lista_colaboradores'] as $colaborador){?>

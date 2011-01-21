@@ -17,7 +17,7 @@ include ('_editCliente.php');
 include ($appRoot.'/include/html/popupHeader.php');
 
 ?>
-<div id="titulo"><?php echo  _translate("Añadir gestores")?></div>
+<div id="titulo"><?php echo  _translate("A&ntilde;adir gestores")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 <div id="contenedor" align="center">
 <?php //if($permisos->escritura){?>
@@ -35,7 +35,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 					<td align="center">
 						<?php echo  $gestor->get_Nombre_Y_Apellidos() ?>
 					</td>
-					<td><a class="nota" href="#" onclick="add('<?php  echo $gestor->get_Id()?>')"><?php echo  _translate("Añadir")?></a></td>
+					<td><a class="nota" href="#" onclick="add('<?php  echo $gestor->get_Id()?>')"><?php echo  _translate("A&ntilde;adir")?></a></td>
 				</tr>
 			<?php $count++;}?>
 			
