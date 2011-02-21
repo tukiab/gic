@@ -116,7 +116,7 @@ class AddVenta{
 			$venta = new Venta();
 			$id=$venta->crear($this->opt);
                         $this->enviar_mail_gerentes($id);
-			//header("Location: showVenta.php?id=$id");
+			header("Location: showVenta.php?id=$id");
 		}catch(Exception $e){
 			$this->opt['error_msg']= $e->getMessage();
 		}

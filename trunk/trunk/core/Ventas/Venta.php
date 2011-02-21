@@ -96,7 +96,7 @@ class Venta{
 			$query = "SELECT ventas.*
 						FROM ventas
 						WHERE ventas.id = '$this->id'";
-			////FB::info($query,'Venta->cargar: QUERY');
+			//FB::info($query,'Venta->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Venta de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -114,6 +114,7 @@ class Venta{
 			$this->fecha_entrada_vigor = $row['fecha_entrada_vigor'];
 			
 			$oferta = new Oferta($this->oferta);
+			$this->Oferta = $oferta;
 			$cliente = $oferta->get_Cliente();
 			$this->cliente = $cliente->get_Id();
 			
@@ -183,7 +184,10 @@ class Venta{
 		return $this->nombre;
 	}
 
-
+	public function get_Nombre_Venta(){
+		$oferta = $this->get_Oferta();
+		return $oferta->get_Nombre_Oferta();
+	}
 	/**
 	 * Devuelveformacion_bonificada
 	 * @return int $formacion_bonificada
@@ -205,18 +209,18 @@ class Venta{
 	 * @return oferta $oferta 
 	 */
 	public function get_Oferta(){
-		return new Oferta($this->oferta);
+		return $this->Oferta;
 	}
 
-        public function get_Producto(){
-            $oferta = $this->get_Oferta();
-            return $oferta->get_Producto();
-        }
+	public function get_Producto(){
+		$oferta = $this->get_Oferta();
+		return $oferta->get_Producto();
+	}
 
-        public function get_Importe(){
-            $oferta = $this->get_Oferta();
-            return $oferta->get_Importe();
-        }
+	public function get_Importe(){
+		$oferta = $this->get_Oferta();
+		return $oferta->get_Importe();
+	}
 	public function get_Fecha_Aceptado(){
 		return $this->fecha_aceptado;
 	}
@@ -233,6 +237,14 @@ class Venta{
          */
 	public function get_Tipo_Comision(){
 		return $this->tipo_comision;
+	}
+
+	public function get_Codigo(){
+		return $this->Oferta->get_Codigo();
+	}
+
+	public function get_Usuario(){
+		return $this->Oferta->get_Usuario();
 	}
 
 	/*
@@ -282,7 +294,7 @@ class Venta{
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
 	private function guardar($datos){
-		////FB::info($datos, 'datos al crear Venta');
+		//FB::info($datos, 'datos al crear Venta');
 		
 		$query = "
 			INSERT INTO ventas (   nombre,

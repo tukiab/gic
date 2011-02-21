@@ -66,14 +66,14 @@ $disabled = $var->Cliente->get_DisableEdit();
 			</tr>
 			<tr >
 				<td class="ColIzq"><?php echo  _translate("Tel&eacute;fono")?>:</td>
-				<td class="ColDer" style="text-align:right">
+				<td class="ColDer" >
 				  	<input <?php echo $disabled['telefono']; ?> type="text" size="25" name="telefono" value="<?php echo  $var->Cliente->get_Telefono();?>" />
 				</td>				
 			</tr>
 			<tr >
 				<td class="ColIzq"><?php echo  _translate("FAX")?>:</td>
 
-				<td class="ColDer"style="text-align:right">
+				<td class="ColDer">
 				  	<input <?php echo $disabled['FAX']; ?> size="25" type="text"  name="FAX" value="<?php echo  $var->Cliente->get_FAX();?>" />
 				 </td>	
 			</tr>
@@ -142,7 +142,24 @@ $disabled = $var->Cliente->get_DisableEdit();
 					<input <?php echo $disabled['creditos']; ?> type="text" name="creditos" value="<?php  echo $var->Cliente->get_Creditos()?>" size="25" />
 				</td>
 			</tr>
-			
+			<tr >
+				<td class="ColIzq"><?php echo  _translate("Actividad")?>:</td>
+				<td class="ColDer">
+					<textarea <?php echo $disabled['actividad']; ?>rows="5" cols="30" name="actividad"><?php  echo $var->Cliente->get_Actividad()?></textarea>
+				</td>
+			</tr>
+			<tr >
+				<td class="ColIzq"><?php echo  _translate("Observaciones")?>:</td>
+				<td class="ColDer">
+					<textarea <?php echo $disabled['observaciones']; ?>rows="5" cols="30" name="observaciones"><?php  echo $var->Cliente->get_Observaciones()?></textarea>
+				</td>
+			</tr>
+			<tr >
+				<td class="ColIzq"><?php echo  _translate("Sedes")?>:</td>
+				<td class="ColDer">
+					<textarea <?php echo $disabled['sedes']; ?>rows="5" cols="30" name="sedes"><?php  echo $var->Cliente->get_Sedes()?></textarea>
+				</td>
+			</tr>
 		</table>
 			<br />
 		<!-- Parámetros ocultos -->

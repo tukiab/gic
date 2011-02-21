@@ -8,7 +8,7 @@ require ($appRoot.'/Usuarios/datos/Atajos.php');
 		
 //Opciones
 include ('_infoUsuario.php');
-	$var = new infoUsuario($_SESSION['usuario_login'], $_SESSION['usuario_nombre']);
+	$var = new infoUsuario($_SESSION['usuario_login'], $_SESSION['usuario_nombre'], $_POST);
 
 //Funciones auxiliares:
 include ($appRoot.'/Utils/lang.php');
@@ -20,11 +20,11 @@ $cfilaPar = "#DDDDDD";
 $cfilaImpar = "#EEEEEE";
 
 ?>
-
 <style type="text/css">
 	td{text-align: center;}
     #inicio_izda, #inicio_dcha{
         width: 48%;
+		overflow: auto;
         /*background-color: #fff;*/
     }
     #inicio_izda{
@@ -37,8 +37,8 @@ $cfilaImpar = "#EEEEEE";
     }
     #inicio_izda > div, #inicio_dcha > div{
         margin-top: 20px;
-        max-height: 500px;
-        overflow: auto;
+        /*max-height: 300px;
+        overflow: auto;*/
     }
     #inicio_wrapper{
         width: 100%;
@@ -51,6 +51,7 @@ $cfilaImpar = "#EEEEEE";
 </style>
 <div id="titulo"><?php echo  _translate('Inicio - Informaci&oacute;n de usuario');?></div>	
 
+<form action="" method="post">
 <div id="contenedor" style="align:center;width:100%;" align="center">
 	<!-- <div><table class="ListaGris" >
 		<tr style="background-color:<?php  echo  $color ?>">
@@ -73,41 +74,78 @@ $cfilaImpar = "#EEEEEE";
 
     <div id="inicio_izda">
 
-	<div><table >
-		<tr>
-		  	<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("Ofertas y oportunidades que se definen hoy")?></td>
-		</tr>
-		<tr>
-			<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
-			<th style="font-weight: normal;"><?php echo  _translate("Tipo")?></th>
-			<th style="font-weight: normal;"><?php echo  _translate("Nombre")?></th>
-			<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
-		</tr>
-		<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
-			while($oferta = $var->lista_ofertas->siguiente()) {
+	<div>
+		<table >
+			<tr>
+				<td class="ListaTitulo" style="text-align:left;" colspan="5"><?php echo  _translate("Ofertas y oportunidades que se definen hoy")?><a class="show" href="#" clase="ofertas_hoy"></a></td>
+			</tr>
+			<tr class="ofertas_hoy">
+				<th style="font-weight: normal;"><?php echo  _translate("Desactivar")?></th>
+				<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
+				<th style="font-weight: normal;"><?php echo  _translate("Tipo")?></th>
+				<th style="font-weight: normal;"><?php echo  _translate("Nombre")?></th>
+				<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
+			</tr>
+			<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
+				while($oferta = $var->lista_ofertas->siguiente()) {
+					$es_oportunidad = $oferta->get_Es_Oportunidad_De_Negocio();
+					$cliente_oferta = $oferta->get_Cliente();
+				?>
+			<tr <?php if($par) echo 'par'; else echo 'impar';?> class="ofertas_hoy">
+				<td><input type="checkbox" name="ids_ofertas_leer[]" value="<?php echo $oferta->get_Id();?>"</td>
+				<td><?php echo $oferta->get_Usuario();?></td>
+				<td><?php if($es_oportunidad) echo "OPORTUNIDAD DE NEGOCIO"; else echo "OFERTA";?></td>
+				<td>
+					<a href="<?php echo  $appDir.'/Ofertas/showOferta.php?id='.$oferta->get_Id(); ?>"><?php echo $oferta->get_Nombre_Oferta(); ?></a>
+				</td>
+				<td>
+					<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_oferta->get_Id(); ?>"><?php echo $cliente_oferta->get_Razon_Social();?></a>
+				</td>
+			</tr>
+			<?php  }?>
 
-				$es_oportunidad = $oferta->get_Es_Oportunidad_De_Negocio();
-				$cliente_oferta = $oferta->get_Cliente();
-			?>
-		<tr <?php if($par) echo 'par'; else echo 'impar';?>>
-			<td><?php echo $oferta->get_Usuario();?></td>
-			<td><?php if($es_oportunidad) echo "OPORTUNIDAD DE NEGOCIO"; else echo "OFERTA";?></td>
-			<td>
-				<a href="<?php echo  $appDir.'/Ofertas/showOferta.php?id='.$oferta->get_Id(); ?>"><?php echo $oferta->get_Nombre_Oferta(); ?></a>
-			</td>
-			<td>
-				<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_oferta->get_Id(); ?>"><?php echo $cliente_oferta->get_Razon_Social();?></a>
-			</td>
-		</tr>
-		<?php  }?>
+		</table>
+	</div>
 
-	</table></div>
+	<div>
+		<table >
+			<tr>
+				<td class="ListaTitulo" style="text-align:left;" colspan="5"><?php echo  _translate("Ofertas y oportunidades pendientes")?><a class="show" href="#" clase="ofertas_pendientes"></a></td>
+			</tr>
+			<tr class="ofertas_pendientes">
+				<th style="font-weight: normal;"><?php echo  _translate("Desactivar")?></th>
+				<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
+				<th style="font-weight: normal;"><?php echo  _translate("Tipo")?></th>
+				<th style="font-weight: normal;"><?php echo  _translate("Nombre")?></th>
+				<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
+			</tr>
+			<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
+				while($oferta = $var->lista_ofertas_pendientes->siguiente()) {
+
+					$es_oportunidad = $oferta->get_Es_Oportunidad_De_Negocio();
+					$cliente_oferta = $oferta->get_Cliente();
+				?>
+			<tr <?php if($par) echo 'par'; else echo 'impar';?> class="ofertas_pendientes">
+				<td><input type="checkbox" name="ids_ofertas_leer[]" value="<?php echo $oferta->get_Id();?>"</td>
+				<td><?php echo $oferta->get_Usuario();?></td>
+				<td><?php if($es_oportunidad) echo "OPORTUNIDAD DE NEGOCIO"; else echo "OFERTA";?></td>
+				<td>
+					<a href="<?php echo  $appDir.'/Ofertas/showOferta.php?id='.$oferta->get_Id(); ?>"><?php echo $oferta->get_Nombre_Oferta(); ?></a>
+				</td>
+				<td>
+					<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_oferta->get_Id(); ?>"><?php echo $cliente_oferta->get_Razon_Social();?></a>
+				</td>
+			</tr>
+			<?php  }?>
+
+		</table>
+	</div>
 	
         <div><table >
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("Ventas con plazos pendientes (2 semanas)")?></td>
+		  	<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("Ventas con plazos pendientes (2 semanas)")?><a class="show" href="#" clase="ventas_2_semanas"></a></td>
 		</tr>
-		<tr>
+		<tr class="ventas_2_semanas">
 			<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
 			<th style="font-weight: normal;"><?php echo  _translate("Nombre")?></th>
 			<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
@@ -117,7 +155,7 @@ $cfilaImpar = "#EEEEEE";
                             $oferta_venta = $venta->get_Oferta();
 				$cliente_venta = $venta->get_Cliente();
 			?>
-		<tr <?php if($par) echo 'par'; else echo 'impar';?>>
+		<tr <?php if($par) echo 'par'; else echo 'impar';?> class="ventas_2_semanas">
 			<td><?php echo $oferta_venta->get_Usuario();?></td>
 			<td>
 				<a href="<?php echo  $appDir.'/Ventas/showVenta.php?id='.$venta->get_Id(); ?>"><?php echo $venta->get_Nombre(); ?></a>
@@ -132,9 +170,9 @@ $cfilaImpar = "#EEEEEE";
 	
 	<div><table style="">
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("ALARMAS - Empresas que tienen la renovaci&oacute;n en los 3 meses siguientes")?></td>
+		  	<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("ALARMAS - Empresas que tienen la renovaci&oacute;n en los 3 meses siguientes")?><a class="show" href="#" clase="alarmas"></a></td>
 		</tr>
-		<tr>
+		<tr class="alarmas">
 			<th style="font-weight: normal;"><?php echo  _translate("Gestor principal")?></th>
 			<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
 			<th style="font-weight: normal;"><?php echo  _translate("Fecha Renovaci&oacute;n")?></th>
@@ -143,7 +181,7 @@ $cfilaImpar = "#EEEEEE";
 			foreach($var->lista_alarmas as $listacliente)
 				while($cliente = $listacliente->siguiente()){
 			?>
-			<tr <?php if($par) echo 'par'; else echo 'impar';?>>
+			<tr <?php if($par) echo 'par'; else echo 'impar';?> class="alarmas">
 				<td><?php echo $cliente->get_Gestor_Inserta();?></td>
 				<td>
 					<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>"><?php echo $cliente->get_Razon_Social();?></a>
@@ -156,61 +194,68 @@ $cfilaImpar = "#EEEEEE";
 	
     </div>
     <div id="inicio_dcha">
-        <div><table >
-		<tr>
-		  	<td class="ListaTitulo" style="text-align:left;" colspan="3"><?php echo  _translate("Acciones del d&iacute;a")?></td>
-		</tr>
-		<tr>
-			<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
-			<th style="font-weight: normal;"><?php echo  _translate("Acci&oacute;n")?></th>
-			<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
-		</tr>
-		<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
-			while($accion = $var->lista_acciones_hoy->siguiente()) {
+        <div>
+			<table >
+				<tr>
+					<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("Acciones del d&iacute;a")?><a class="show" href="#" clase="acciones_hoy"></a></td>
+				</tr>
+				<tr class="acciones_hoy">
+					<th style="font-weight: normal;"><?php echo  _translate("Desactivar")?></th>
+					<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
+					<th style="font-weight: normal;"><?php echo  _translate("Acci&oacute;n")?></th>
+					<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
+				</tr>
+				<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
+					while($accion = $var->lista_acciones_hoy->siguiente()) {
 
-				$tipo_accion = $accion->get_Tipo_Accion();
-				$cliente_accion = $accion->get_Cliente();
-			?>
-		<tr <?php if($par) echo 'par'; else echo 'impar';?>>
-			<td><?php echo $accion->get_Usuario();?></td>
-			<td>
-				<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
-			</td>
-			<td>
-				<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_accion['id']; ?>"><?php echo $cliente_accion['razon_social'];?></a>
-			</td>
-		</tr>
-		<?php  }?>
+						$tipo_accion = $accion->get_Tipo_Accion();
+						$cliente_accion = $accion->get_Cliente();
+					?>
+				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="acciones_hoy">
+					<td><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>"</td>
+					<td><?php echo $accion->get_Usuario();?></td>
+					<td>
+						<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
+					</td>
+					<td>
+						<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_accion['id']; ?>"><?php echo $cliente_accion['razon_social'];?></a>
+					</td>
+				</tr>
+				<?php  }?>
 
-	</table></div>
+			</table>
+		</div>
 	
-	<div><table >
-		<tr>
-		  	<td class="ListaTitulo" style="text-align:left;" colspan="3"><?php echo  _translate("Acciones anteriores (2 semanas)")?></td>
-		</tr>
-		<tr>
-			<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
-			<th style="font-weight: normal;"><?php echo  _translate("Acci&oacute;n")?></th>
-			<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
-		</tr>
-		<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
-			while($accion = $var->lista_acciones_anteriores->siguiente()) {
+		<div>
+			<table>
+				<tr>
+					<td class="ListaTitulo" style="text-align:left;" colspan="4"><?php echo  _translate("Acciones pendientes")?><a class="show" href="#" clase="acciones_pendientes"></a></td>
+				</tr>
+				<tr class="acciones_pendientes">
+					<th style="font-weight: normal;"><?php echo  _translate("Desactivar")?></th>
+					<th style="font-weight: normal;"><?php echo  _translate("Gestor")?></th>
+					<th style="font-weight: normal;"><?php echo  _translate("Acci&oacute;n")?></th>
+					<th style="font-weight: normal;"><?php echo  _translate("Empresa")?></th>
+				</tr>
+				<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
+					while($accion = $var->lista_acciones_no_leidas->siguiente()) {
 
-				$tipo_accion = $accion->get_Tipo_Accion();
-				$cliente_accion = $accion->get_Cliente();
-			?>
-		<tr <?php if($par) echo 'par'; else echo 'impar';?>>
-			<td><?php echo $accion->get_Usuario();?></td>
-			<td>
-				<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
-			</td>
-			<td>
-				<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_accion['id']; ?>"><?php echo $cliente_accion['razon_social'];?></a>
-			</td>
-		</tr>
-		<?php  }?>
-
-	</table></div>
+						$tipo_accion = $accion->get_Tipo_Accion();
+						$cliente_accion = $accion->get_Cliente();
+					?>
+				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="acciones_pendientes">
+					<td><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>"</td>
+					<td><?php echo $accion->get_Usuario();?></td>
+					<td>
+						<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
+					</td>
+					<td>
+						<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_accion['id']; ?>"><?php echo $cliente_accion['razon_social'];?></a>
+					</td>
+				</tr>
+				<?php  }?>
+			</table>
+		</div>
 
     </div>
 </div>
@@ -258,7 +303,19 @@ $cfilaImpar = "#EEEEEE";
 	</tr>
 </table></div>
 </div> -->
+	<div class="bottomMenu">
+		<table>
+			<tr>
+				<td colspan="2" style="text-align:right;" nowrap>
+					<label title="<?php echo  _translate("Nueva acci&oacute;n")?>">
+						<input type="submit" name="guardar" id="guardar" value="<?php echo  _translate("Guardar")?>" />
+					</label>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
+</form>
 <?php 
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');

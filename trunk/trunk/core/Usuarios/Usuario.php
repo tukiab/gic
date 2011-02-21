@@ -199,7 +199,7 @@
 	 * @return integer $id_cliente Id del nuevo Cliente.
 	 */
 	public function crear($datos){
-		FB::info($datos,'datos para crear usuario');
+		//FB::info($datos,'datos para crear usuario');
 		/*
 		 * Datos imprescindibles para crear un cliente nuevo:
 		 * 		id
@@ -235,7 +235,7 @@
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
 	private function guardar($datos){
-		FB::info($datos,'datos para guardar usuario');
+		//FB::info($datos,'datos para guardar usuario');
 		$s_into.="";
 		$s_values.="";
 		if(isset($datos['apellidos'])){
@@ -263,7 +263,7 @@
 									$s_values
 								);
 		";
-		FB::info($query,'query guardar Usuario');
+		//FB::info($query,'query guardar Usuario');
 		if(!mysql_query($query))
 			throw new Exception("Error al crear el Usuario.");
 		$this->id = mysql_insert_id();
@@ -305,26 +305,12 @@
 	}	
 
 	public function actualizar($datos){
-		$ListaUsuarios = new ListaUsuarios();
 
-		$array_perfiles = $ListaUsuarios->lista_Perfiles();
-		//Comprobando los datos "imprescindibles":
-		if($datos['id'] == '' || ! isset($datos['id']))
-			throw new Exception("Usuario: El nombre de usuario es obligatorio.");
-		if($datos['nombre'] == '' || ! isset($datos['nombre']))
-			throw new Exception("Usuario: El nombre es obligatorio.");
-		if($datos['password'] == '' || ! isset($datos['password']))
-			throw new Exception("Usuario: La contrase&ntilde; es obligatoria.");
-		if(!is_numeric($datos['perfil']) || !in_array($datos['perfil'], array_keys($array_perfiles)))
-			throw new Exception("Usuario: Perfil de usuario no válido.");
-
-		//Si todo ha ido bien:
-		$this->set_Id($datos['id']);
 		$this->set_Apellidos($datos['apellidos']);
 		$this->set_Password($datos['password']);
 		$this->set_Perfil($datos['perfil']);
 		$this->set_Nombre($datos['nombre']);
-                $this->set_Email($datos['email']);
+        $this->set_Email($datos['email']);
 	
 	}
 
@@ -396,7 +382,9 @@
 	public function set_Perfil($id_perfil){
 		$ListaUsuarios = new ListaUsuarios();
 		$array_perfiles = $ListaUsuarios->lista_Perfiles();
+		FB::info($id_perfil);
 		FB::info($array_perfiles);
+
 		if(is_numeric($id_perfil) && in_array($id_perfil, array_keys($array_perfiles))){
 			$query = "UPDATE usuarios SET fk_perfil='$id_perfil' WHERE id='$this->id' ";
 			if(!mysql_query($query))

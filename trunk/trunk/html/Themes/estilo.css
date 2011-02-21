@@ -8,8 +8,8 @@
 body {
 	margin: 0;
 	padding: 0;
-	/*background: url('../Graficas/img/fondo_fb.png') repeat-x;*/
-	background:#fff;
+	background: url('../Graficas/img/bg.texture.main.png') repeat scroll left top #F5EEE6;
+	/*background:#fff;*/
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #787878;
@@ -556,6 +556,8 @@ div.footerMenu table td{
 	width:100%;
 	margin: 0 auto;
 	height: 30px;
+	position: fixed;
+	top:0;
 }
 
 #menuh a {
@@ -914,4 +916,13 @@ a:hover {
 
 table{
 	border-bottom: 1px solid #ccc;
+}
+
+a.show{
+	background: url('../Graficas/img/show_icon.png') no-repeat center;
+	padding: 9px;
+	display:block;
+	float:right;
+	font-size:11px;
+	text-align: right;
 }
