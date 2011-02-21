@@ -15,9 +15,10 @@ class infoUsuario{
 	public $perfil;
 	public $usuario;
 	public $lista_acciones_hoy;
-	public $lista_acciones_anteriores;
+	public $lista_acciones_no_leidas;
 	public $lista_ofertas;
-        public $lista_ventas;
+	public $lista_ofertas_pendientes;
+    public $lista_ventas;
 	public $lista_alarmas=array();//Matriz indexada por a�o con lista de clientes que cumplen la renovaci�n en ese a�o (en los 3 pr�ximos meses)
 	
 	private $DB_perfiles;
@@ -27,27 +28,38 @@ class infoUsuario{
         private $DB_ventas;
 	private $DB_clientes; //para las alarmas de las fechas de renovaci�n
 	
-	public function infoUsuario($id_usuario, $nombre){
+	public function infoUsuario($id_usuario, $nombre, $opciones){
 		$this->DB_perfiles = new datosPerfiles();
 		$this->DB_usuarios = new datosUsuarios();
 		$this->usuario = new Usuario($id_usuario);
 		$this->DB_acciones = new ListaAcciones();
 		$this->DB_ofertas = new ListaOfertas();
-                $this->DB_ventas = new ListaVentas();
+        $this->DB_ventas = new ListaVentas();
 		$this->DB_clientes = new ListaClientes();
 
 		$datos = $this->DB_usuarios->getDatosUsuario($id_usuario);
-		
+
 		$this->id = $id_usuario;
 		$this->nombre = $datos['nombre']." ".$datos['apellidos'];
 				
 		$this->perfil = $this->DB_perfiles->getDatosPerfil($datos['perfil']);
+
+		$this->obtener_Opciones($opciones);
+		if($this->opt['guardar'])
+			$this->guardar();
+
+
 		$this->obtener_Acciones();
 		$this->obtener_Ofertas();
-                $this->obtener_Ventas();
+        $this->obtener_Ventas();
 		$this->obtener_Alarmas();
 	}
 
+	private function obtener_Opciones($opciones){
+		($opciones['guardar'])?$this->opt['guardar']=$opciones['guardar']:null;
+		($opciones['ids_acciones_leer'])?$this->opt['ids_acciones_leer']=$opciones['ids_acciones_leer']:null;
+		($opciones['ids_ofertas_leer'])?$this->opt['ids_ofertas_leer']=$opciones['ids_ofertas_leer']:null;
+	}
 	private function obtener_Acciones(){
 		global $gestor_actual;
 		if(!$gestor_actual->esAdministradorTotal())
@@ -59,11 +71,14 @@ class infoUsuario{
 		$this->lista_acciones_hoy = $this->DB_acciones;		
 		
 		$DB_acciones = new ListaAcciones();
-		$fecha2semanas = fechaActualTimeStamp()-(2*7*24*60*60);
+		/*$fecha2semanas = fechaActualTimeStamp()-(2*7*24*60*60);
 		$filtros['fecha_siguiente_desde'] = $fecha2semanas;
-		$filtros['fecha_siguiente_hasta'] = fechaActualTimeStamp()-(24*60*60);
-		$DB_acciones->buscar($filtros);
-		$this->lista_acciones_anteriores =$DB_acciones;	
+		$filtros['fecha_siguiente_hasta'] = fechaActualTimeStamp()-(24*60*60);*/
+		if($filtros['id_usuario'])
+			$filtros_no_leidas['id_usuario'] = $filtros['id_usuario'];
+		$filtros_no_leidas['no_leida'] = true;
+		$DB_acciones->buscar($filtros_no_leidas);
+		$this->lista_acciones_no_leidas =$DB_acciones;
 	}
 	
 	private function obtener_Ofertas(){
@@ -74,7 +89,14 @@ class infoUsuario{
 		$filtros['fecha_definicion_hasta'] = fechaActualTimeStamp();
 
 		$this->DB_ofertas->buscar($filtros);
-		$this->lista_ofertas = $this->DB_ofertas;	
+		$this->lista_ofertas = $this->DB_ofertas;
+
+		$DB_Ofertas = new ListaOfertas();
+		if($filtros['id_usuario'])
+			$filtros_no_leidas['id_usuario'] = $filtros['id_usuario'];
+		$filtros_no_leidas['no_leida'] = true;
+		$DB_Ofertas->buscar($filtros_no_leidas);
+		$this->lista_ofertas_pendientes = $DB_Ofertas;
 	}
 
         private function obtener_Ventas(){
@@ -115,8 +137,22 @@ class infoUsuario{
 			$this->lista_alarmas[] = $Lista_Clientes;
 						
 			$year += 1;
+		}		
+	}
+
+	private function guardar(){
+		if($this->opt['ids_acciones_leer']){
+			foreach($this->opt['ids_acciones_leer'] as $id_accion){
+				$Accion = new Accion($id_accion);
+				$Accion->leer();
+			}
 		}
-		
+		if($this->opt['ids_ofertas_leer']){
+			foreach($this->opt['ids_ofertas_leer'] as $id){
+				$Oferta = new Oferta($id);
+				$Oferta->leer();
+			}
+		}
 	}
 
 }

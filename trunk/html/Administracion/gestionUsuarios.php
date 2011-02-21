@@ -13,7 +13,7 @@ include_once ($appRoot.'/Utils/utils.php');
 //Opciones
 include ('_gestionUsuarios.php');
 	$var = new GestionUsuarios($_POST);
-FB::info($var);
+	
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
 ?>
@@ -37,33 +37,33 @@ include ($appRoot.'/include/html/mainMenu.php');
 		<!-- Datos para crear uno nuevo -->
 		<tr class="ListaTitulo" align="center">
 			<td align="center">
-				<input type="text" name="id_usuario" value="<?php echo $var->opt['id'];?>" size="15" />
+				<input type="text" name="id_usuario" value="<?php if(!$var->opt['guardado']) echo $var->opt['id'];?>" size="15" />
 			</td>
 			<td align="center">
-				<input type="text" name="nombre" value="<?php echo  $var->opt['nombre'];?>" size="15" />
+				<input type="text" name="nombre" value="<?php if(!$var->opt['guardado']) echo  $var->opt['nombre'];?>" size="15" />
 			</td>
 			<td align="center">
-				<input type="text" name="apellidos" value="<?php echo  $var->opt['apellidos'];?>" size="15" />
+				<input type="text" name="apellidos" value="<?php if(!$var->opt['guardado']) echo  $var->opt['apellidos'];?>" size="15" />
 			</td>
 			<td align="center">
-				<input type="text" name="password" value="<?php echo  $var->opt['password'];?>" size="15" />
+				<input type="text" name="password" value="<?php if(!$var->opt['guardado']) echo  $var->opt['password'];?>" size="15" />
 			</td>
                         <td align="center">
-				<input type="text" name="email" value="<?php echo  $var->opt['email'];?>" size="15" />
+				<input type="text" name="email" value="<?php if(!$var->opt['guardado']) echo  $var->opt['email'];?>" size="15" />
 			</td>
 			<td align="center">
 				<select name="perfil">
 				<?php foreach($var->datos['lista_perfiles'] as $perfil){ 
 					
 				?>
-					<option value="<?php echo $perfil['id'];?>"><?php  echo $perfil['nombre'];?></option>
+					<option value="<?php echo $perfil['id'];?>" <?php if($var->opt['perfil'] == $perfil['id'] && !$var->opt['guardado'])  echo 'selected="selected"';?>><?php  echo $perfil['nombre'];?></option>
 				<?php }?>
 				</select>
 			</td>
 			<td colspan="2" align="center">
 				<input type="submit" name="crear" value="<?php echo  _translate("Crear");?>" />
 			</td>
-			
+			<input type="text" name="prueba.prueba" />
 		</tr>
 		<!-- Datos de todos los usuarios -->
 		<?php 
@@ -82,7 +82,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td align="center">
 				<input type="text" name="password_<?php echo $Usuario->get_Id() ;?>" value="<?php echo  $Usuario->get_Password();?>" size="15" />
 			</td>
-                        <td align="center">
+			<td align="center">
 				<input type="text" name="email_<?php echo $Usuario->get_Id() ;?>" value="<?php echo  $Usuario->get_Email();?>" size="15" />
 			</td>
 			<td align="center">

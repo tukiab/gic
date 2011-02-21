@@ -79,7 +79,7 @@ else{?>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("Empresa")?>:</td>
 			<td class="ColDer">
-				<?php $cliente = new Cliente($var->opt['Oferta']->get_Cliente()); echo  $cliente->get_Razon_Social();?> 
+				<?php $cliente = $var->opt['Oferta']->get_Cliente(); echo  $cliente->get_Razon_Social();?> 
 			</td>				
 		</tr>
 		<tr>

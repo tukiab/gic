@@ -23,5 +23,17 @@
 	
 	<script language="JavaScript" type="text/javascript" src="<?php echo  $appDir.'/cliente/utils/menus/bottom_menu.js';?>" > </script>
 
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('a.show').click(function(event){
+				event.preventDefault();
+				var clase = $(this).attr('clase');
+				$('.'+clase).each(function(){
+					$(this).toggle();
+				});
+			});
+			$('a.show').attr('title','mostrar/ocultar');
+		});
+	</script>
 </head>
 </html>

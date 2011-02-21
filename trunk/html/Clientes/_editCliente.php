@@ -51,7 +51,7 @@ class EditCliente{
 		$this->gestor = new Usuario($_SESSION['usuario_login']);
 		//Obtenemos las opciones pasadas al script
 		if(!$opciones['id'] || !is_numeric($opciones['id']))
-			exit("No se ha definido un ID de Cliente válido.php");
+			exit("No se ha definido un ID de Cliente vï¿½lido.php");
 
 		$this->Cliente = new Cliente($opciones['id']);
 		$this->ListaClientes = new ListaClientes();
@@ -168,10 +168,14 @@ class EditCliente{
 								
 							if($this->Cliente->get_Norma_Implantada() != $datos_cliente['norma_implantada'])
 								$this->Cliente->set_Norma_Implantada($datos_cliente['norma_implantada']);
-								FB::warn($this->Cliente);
-								FB::warn($this->Cliente->get_Creditos());
+								
 							if($this->Cliente->get_Creditos() != $datos_cliente['creditos'])
 								$this->Cliente->set_Creditos($datos_cliente['creditos']);
+
+							
+							$this->Cliente->set_Observaciones($datos_cliente['observaciones']);
+							$this->Cliente->set_Actividad($datos_cliente['actividad']);
+							$this->Cliente->set_Sedes($datos_cliente['sedes']);
 								
 							$this->msg = "Guardado";
 						}catch(Exception $e){
@@ -227,6 +231,10 @@ class EditCliente{
 		$opt['fecha_renovacion'] = date2timestamp(trim($opciones['fecha_renovacion']));
 		$opt['norma_implantada'] = trim($opciones['norma_implantada']);
 		$opt['creditos'] = trim($opciones['creditos']);
+
+		$opt['observaciones'] = trim($opciones['observaciones']);
+		$opt['sedes'] = trim($opciones['sedes']);
+		$opt['actividad'] = trim($opciones['actividad']);
 		
 		return $opt;
 	}

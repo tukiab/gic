@@ -71,7 +71,6 @@ class ListaUsuarios implements IIterador{
 				    WHERE 1
 						$filtro
 				    GROUP BY usuarios.id;";
-		FB::info($query,'Lista Usuarios buscar - QUERY');
 		$this->result = @mysql_query($query);
 	}
 	

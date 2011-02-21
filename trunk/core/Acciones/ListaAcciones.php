@@ -72,6 +72,7 @@ class ListaAcciones implements IIterador{
 		(isset($filtros['tipo_accion']))?$filtro.=" AND acciones_de_trabajo.fk_tipo_accion = '".$filtros['tipo_accion']."' ":null;
 		(isset($filtros['fecha_desde']))?$filtro.=" AND acciones_de_trabajo.fecha >= '".$filtros['fecha_desde']."' ":null;
 		(isset($filtros['fecha_hasta']))?$filtro.=" AND acciones_de_trabajo.fecha <= '".$filtros['fecha_hasta']."' ":null;
+		(isset($filtros['no_leida']))?$filtro.=" AND acciones_de_trabajo.leida = '0' ":null;
 
 		(isset($filtros['fecha_siguiente_desde']))?$filtro.=" AND acciones_de_trabajo.fecha_siguiente_accion >= '".$filtros['fecha_siguiente_desde']."' ":null;
 		(isset($filtros['fecha_siguiente_hasta']))?$filtro.=" AND acciones_de_trabajo.fecha_siguiente_accion <= '".$filtros['fecha_siguiente_hasta']."' ":null;
@@ -128,7 +129,7 @@ class ListaAcciones implements IIterador{
 				    WHERE 1
 						$filtro
 				    GROUP BY acciones_de_trabajo.id $order $limit;";
-		//FB::info($query,'buscar acciones');
+		
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

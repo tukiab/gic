@@ -63,7 +63,7 @@ class ListaOfertas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Ofertas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		//FB::info($filtros,'filtros ListaOfertas:buscar');
+		////FB::info($filtros,'filtros ListaOfertas:buscar');
 		$filtro ="";
 		$join="";
 		
@@ -71,6 +71,7 @@ class ListaOfertas implements IIterador{
 		(isset($filtros['codigo']))?$filtro.=" AND ofertas.codigo = '".$filtros['codigo']."' ":null;
 		(isset($filtros['nombre_oferta']))?$filtro.=" AND ofertas.nombre_oferta LIKE '%".$filtros['nombre_oferta']."%' ":null;
 
+		(isset($filtros['no_leida']))?$filtro.=" AND ofertas.leida = '0' ":null;
 		(isset($filtros['estado_oferta']))?$filtro.=" AND ofertas.fk_estado_oferta = '".$filtros['estado_oferta']."' ":null;
 		(isset($filtros['producto']))?$filtro.=" AND ofertas.fk_tipo_producto = '".$filtros['producto']."' ":null;
 		(isset($filtros['proveedor']))?$filtro.=" AND ofertas.fk_proveedor = '".$filtros['proveedor']."' ":null;
@@ -153,7 +154,7 @@ class ListaOfertas implements IIterador{
 					$order		
 					$limit;";
 		
-		FB::info($query,'query ListaOfertas:buscar');
+		//FB::info($query,'query ListaOfertas:buscar');
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

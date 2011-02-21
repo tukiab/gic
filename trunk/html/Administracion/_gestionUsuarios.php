@@ -14,7 +14,7 @@ class GestionUsuarios{
 	 * @param array $opciones
 	 */
 	public function GestionUsuarios($opciones){
-FB::info($opciones, 'opciones gestion usuarios');
+//FB::info($opciones, 'opciones gestion usuarios');
 		try{
 			//Inicializando el acceso a datos
 			$this->DB_usuarios = new ListaUsuarios();
@@ -43,7 +43,7 @@ FB::info($opciones, 'opciones gestion usuarios');
 		
 		$this->datos['lista_perfiles'] = $this->DB_usuarios->lista_Perfiles();			
 	}
-	private function obtenerOpciones($opciones){
+	private function obtenerOpciones($opciones){FB::info($opciones,'opcionesa');
 
 		($opciones['guardar'] == 1)?$this->opt['guardar']=true:null;
 		(isset($opciones['crear']))?$this->opt['crear']=true:null;
@@ -52,12 +52,13 @@ FB::info($opciones, 'opciones gestion usuarios');
 
 		//Datos de los usuarios
 		foreach($this->datos['lista_usuarios'] as $usuario){
-			(isset($opciones['id_'.$usuario->get_Id()]))?$this->opt['id_'.$usuario->get_Id()]=$opciones['id_'.$usuario->get_Id()]:null;
-			(isset($opciones['nombre_'.$usuario->get_Id()]))?$this->opt['nombre_'.$usuario->get_Id()]=$opciones['nombre_'.$usuario->get_Id()]:null;
-			(isset($opciones['apellidos_'.$usuario->get_Id()]))?$this->opt['apellidos_'.$usuario->get_Id()]=$opciones['apellidos_'.$usuario->get_Id()]:null;
-			(isset($opciones['password_'.$usuario->get_Id()]))?$this->opt['password_'.$usuario->get_Id()]=$opciones['password_'.$usuario->get_Id()]:null;
-                        (isset($opciones['email_'.$usuario->get_Id()]))?$this->opt['email_'.$usuario->get_Id()]=$opciones['email_'.$usuario->get_Id()]:null;
-			(isset($opciones['perfil_'.$usuario->get_Id()]))?$this->opt['perfil_'.$usuario->get_Id()]=$opciones['perfil_'.$usuario->get_Id()]:null;
+			$name_param = str_replace(".", "_", $usuario->get_Id());
+			(isset($opciones['id_'.$name_param]))?$this->opt['id_'.$name_param]=$opciones['id_'.$name_param]:null;
+			(isset($opciones['nombre_'.$name_param]))?$this->opt['nombre_'.$name_param]=$opciones['nombre_'.$name_param]:null;
+			(isset($opciones['apellidos_'.$name_param]))?$this->opt['apellidos_'.$name_param]=$opciones['apellidos_'.$name_param]:null;
+			(isset($opciones['password_'.$name_param]))?$this->opt['password_'.$name_param]=$opciones['password_'.$name_param]:null;
+			(isset($opciones['email_'.$name_param]))?$this->opt['email_'.$name_param]=$opciones['email_'.$name_param]:null;
+			(isset($opciones['perfil_'.$name_param]))?$this->opt['perfil_'.$name_param]=$opciones['perfil_'.$name_param]:null;
 		}
 
 		//Datos de un nuevo usuario
@@ -66,7 +67,7 @@ FB::info($opciones, 'opciones gestion usuarios');
 		(isset($opciones['apellidos']))?$this->opt['apellidos']=$opciones['apellidos']:null;
 		(isset($opciones['perfil']))?$this->opt['perfil']=$opciones['perfil']:null;
 		(isset($opciones['password']))?$this->opt['password']=$opciones['password']:null;
-                (isset($opciones['email']))?$this->opt['email']=$opciones['email']:null;
+		(isset($opciones['email']))?$this->opt['email']=$opciones['email']:null;
 
 	}	
 
@@ -74,9 +75,9 @@ FB::info($opciones, 'opciones gestion usuarios');
 	 * Guardar:
  	 */
 	private function guardar(){
-		FB::warn('guardando');
 		$usuario = new Usuario($this->opt['id_usuario_accion']);
-		$datos = array('id' => $this->opt['id_'.$usuario->get_Id()], 'nombre' => $this->opt['nombre_'.$usuario->get_Id()], 'apellidos' => $this->opt['apellidos_'.$usuario->get_Id()], 'password' => $this->opt['password_'.$usuario->get_Id()], 'email' => $this->opt['email_'.$usuario->get_Id()], 'perfil' => $this->opt['perfil_'.$usuario->get_Id()], );
+		$name_param = str_replace(".", "_", $usuario->get_Id());
+		$datos = array('nombre' => $this->opt['nombre_'.$name_param], 'apellidos' => $this->opt['apellidos_'.$name_param], 'password' => $this->opt['password_'.$name_param], 'email' => $this->opt['email_'.$name_param], 'perfil' => $this->opt['perfil_'.$name_param], );
 		$usuario->actualizar($datos);
 	}
 
@@ -85,13 +86,14 @@ FB::info($opciones, 'opciones gestion usuarios');
  	 */
 
 	private function crear(){
-		FB::warn('creando');
+		//FB::warn('creando');
 		$usuario = new Usuario();
-		$usuario->crear($this->opt);	
+		$usuario->crear($this->opt);
+		$this->opt['guardado'] = true;
 	}
 
 	private function eliminar(){
-		FB::warn('eliminando');
+		//FB::warn('eliminando');
 		$usuario = new Usuario($this->opt['id_usuario_accion']);
 		$usuario->eliminar();
 	}

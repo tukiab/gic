@@ -128,6 +128,11 @@ class Cliente{
 	 * @var array con ids de ofertas
 	 */
 	private $ofertas;
+	private $ventas;
+
+	private $observaciones;
+	private $sedes;
+	private $actividad;
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -166,7 +171,7 @@ class Cliente{
 							INNER JOIN grupos_empresas 
 								ON clientes.fk_grupo_empresas = grupos_empresas.id
 						WHERE clientes.id = '$this->id'";
-			FB::info($query,'Cliente->cargar: QUERY');
+			//FB::info($query,'Cliente->cargar: QUERY');
 			if(!($result = mysql_query($query)))
                             throw new Exception("Error al cargar el Cliente de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -195,10 +200,17 @@ class Cliente{
 			$this->tipo_cliente = array('id'=>$row['id_tipo'], 'nombre'=>$row['nombre_tipo']);
 			$this->grupo_empresas = array('id'=>$row['id_grupo'], 'nombre'=>$row['nombre_grupo']);
 
+
+			$this->observaciones = $row['observaciones'];
+			$this->actividad = $row['actividad'];
+			$this->sedes = $row['sedes'];
+
+
 			$this->cargar_Contactos();
 			$this->cargar_Gestores();
 			$this->cargar_Acciones();
 			$this->cargar_Ofertas();
+			$this->cargar_Ventas();
 		}
 	}
 
@@ -264,6 +276,20 @@ class Cliente{
 		$this->ofertas = array();
 		while($row = mysql_fetch_array($result))
 		$this->ofertas[] = $row['id'];
+	}
+
+	private function cargar_Ventas(){
+		$query = "SELECT ventas.id
+					FROM ventas
+					INNER JOIN ofertas ON ofertas.id = ventas.fk_oferta
+					WHERE ofertas.fk_cliente = '$this->id'
+					; ";
+FB::info($query);
+		$result = mysql_query($query);
+
+		$this->ventas = array();
+		while($row = mysql_fetch_array($result))
+		$this->ventas[] = $row['id'];
 	}
 
 	/*
@@ -336,11 +362,19 @@ class Cliente{
 	}
 
 	/**
-	 * Devuelve las ofertas
+	 * Devuelve los ids de las ofertas
 	 * @return array $ofertas
 	 */
 	public function get_Ofertas(){
 		return $this->ofertas;
+	}
+
+	/**
+	 * Devuelve un array de ids de ventas
+	 * @return <type>
+	 */
+	public function get_Ventas(){
+		return $this->ventas;
 	}
 
 	/**
@@ -445,6 +479,17 @@ class Cliente{
 		return $this->web;
 	}
 
+	public function get_Observaciones(){
+		return $this->observaciones;
+	}
+
+	public function get_Actividad(){
+		return $this->actividad;
+	}
+
+	public function get_Sedes(){
+		return $this->sedes;
+	}
 	/**
 	 * Devuelve la lista de contactos asociados al cliente.
 	 *
@@ -507,6 +552,14 @@ class Cliente{
 		array_push($array_ofertas, new Oferta($id_oferta));
 
 		return $array_ofertas;
+	}
+
+	public function get_Lista_Ventas(){
+		$arra= array();
+		foreach($this->ventas as $id)
+			array_push($arra, new Venta($id));
+
+		return $arra;
 	}
 	public function get_Fecha_Ultima_Accion($usr_id){
 		$query = "SELECT MAX(fecha) as ultima_fecha FROM acciones_de_trabajo WHERE fk_cliente='$this->id' AND fk_usuario='$usr_id';";
@@ -819,6 +872,12 @@ class Cliente{
 				$disable['telefono'] = 'readonly="readonly"';
 			if($this->numero_empleados != '')
 				$disable['numero_empleados'] = 'readonly="readonly"';
+			if($this->observaciones != '')
+				$disable['observaciones'] = 'readonly="readonly"';
+			if($this->actividad != '')
+				$disable['actividad'] = 'readonly="readonly"';
+			if($this->sedes != '')
+				$disable['sedes'] = 'readonly="readonly"';
 		}
 		//FB::error($disable);
 		return $disable;
@@ -1092,6 +1151,48 @@ class Cliente{
 				$this->provincia = $provincia;
 			}else
 			throw new Exception("Provincia incorrecta.");
+		}
+	}
+
+	public function set_Sedes($texto){
+		$Validar = new Validador();
+		if($this->id && strcmp($this->sedes, $texto) != 0){
+			if($Validar->cadena($texto)){
+				$query = "UPDATE clientes SET sedes='".mysql_real_escape_string($texto)."' WHERE id='$this->id' ";
+				if(!mysql_query($query))
+				throw new Exception("Error al actualizar las sedes en la BBDD.");
+
+				$this->sedes = $texto;
+			}else
+			throw new Exception("Campo sedes incorrecto.");
+		}
+	}
+
+	public function set_Actividad($texto){
+		$Validar = new Validador();
+		if($this->id && strcmp($this->actividad, $texto) != 0){
+			if($Validar->cadena($texto)){
+				$query = "UPDATE clientes SET actividad='".mysql_real_escape_string($texto)."' WHERE id='$this->id' ";
+				if(!mysql_query($query))
+				throw new Exception("Error al actualizar las actividad en la BBDD.");
+
+				$this->actividad = $texto;
+			}else
+			throw new Exception("Campo actividad incorrecto.");
+		}
+	}
+
+	public function set_Observaciones($texto){
+		$Validar = new Validador();
+		if($this->id && strcmp($this->observaciones, $texto) != 0){
+			if($Validar->cadena($texto)){
+				$query = "UPDATE clientes SET observaciones='".mysql_real_escape_string($texto)."' WHERE id='$this->id' ";
+				if(!mysql_query($query))
+				throw new Exception("Error al actualizar las observaciones en la BBDD.");
+
+				$this->observaciones = $texto;
+			}else
+			throw new Exception("Campo observaciones incorrecto.");
 		}
 	}
 

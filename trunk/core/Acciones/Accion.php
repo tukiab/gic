@@ -46,6 +46,8 @@ class Accion{
 	 * @var string
 	 */
 	private $descripcion;
+	
+	private $leida;
 
 
 	/*
@@ -99,6 +101,7 @@ class Accion{
 
 			$this->fecha_siguiente_accion = $row['fecha_siguiente_accion'];
 			$this->fecha = $row['fecha'];
+			$this->leida = $row['leida'];
 			$this->descripcion = $row['descripcion'];
 			$this->tipo_accion = array('id'=>$row['id_tipo'], 'nombre'=>$row['nombre_tipo']);
 			$this->usuario =$row['id_usuario'];
@@ -118,6 +121,14 @@ class Accion{
 	 */
 	public function get_Fecha(){
 		return $this->fecha;
+	}
+
+	/**
+	 *
+	 * @return <integer> 0 no leída. 1 leída
+	 */
+	public function get_Leida(){
+		return $this->leida;
 	}
 
 	/**
@@ -253,7 +264,7 @@ class Accion{
 									$s_values
 								);
 		";
-									//FB::info(timestamp2date($datos['fecha'])." hoy, siguiente: ".timestamp2date($datos['fecha_siguiente_accion']),'fechas de b�squeda');
+									//FB::info(timestamp2date($datos['fecha'])." hoy, siguiente: ".timestamp2date($datos['fecha_siguiente_accion']),'fechas de b�squeda');
 									//FB::info($query,'Accion crear: QUERY');
 									if(!mysql_query($query))
 										throw new Exception("Error al crear la Accion.".$query);
@@ -292,6 +303,21 @@ class Accion{
 
 		}else
 		throw new Exception("Debe introducir una fecha v&aacute;lida.");
+	}
+
+	public function set_Leida($leida){
+		if(is_numeric($leida)){
+			$query = "UPDATE acciones_de_trabajo SET leida='$leida' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar la lectura en la BBDD.");
+			$this->leida = $leida;
+
+		}else
+		throw new Exception("No se ha podido cambiar la lectura de la accion.");
+	}
+
+	public function leer(){
+		$this->set_Leida(1);
 	}
 
 	/**
