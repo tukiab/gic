@@ -81,6 +81,7 @@ div#titulo, td.ListaTitulo{
 div#titulo{
 	text-align: center;
 	width:240px;
+	margin-top:25px;
 }
 
 div#error_msg{

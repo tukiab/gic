@@ -58,12 +58,37 @@ class Venta{
 	 * @var integer
 	 */
 	private $fecha_entrada_vigor;
-	
+
 	private $plazos;	
 	
 	private $cliente;
 
 	private $factura;
+
+	//AMPLIACIÓN
+	private $fecha_toma_contacto;
+	private $fecha_inicio;
+	private $fecha_estimada_formacion;
+	private $fecha_pago_inicial;
+
+	private $forcem;
+	private $plazo_ejecucion;
+	private $cuenta_cargo;
+	private $observaciones_forma_pago;
+	private $nombre_certificadora;
+	private $otros_proyectos;
+	private $observaciones;
+
+	private $precio_consultoria;
+	private $precio_formacion;
+	private $pago_inicial;
+	private $pago_mensual;
+	private $numero_pagos_mensuales;
+
+	private $subvenciones;
+	private $certificacion;
+	private $presupuesto_aceptado_certificadora;
+	
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -104,15 +129,36 @@ class Venta{
 
 			$row = mysql_fetch_array($result);
 
-			$this->nombre = $row['nombre'];
-			
 			$this->fecha_asignacion_tecnico = $row['fecha_asignacion_tecnico'];
 			$this->nombre = $row['nombre'];
 			$this->formacion_bonificada =$row['formacion_bonificada'];
 			$this->oferta = $row['fk_oferta'];
 			$this->fecha_aceptado = $row['fecha_aceptado'];
 			$this->fecha_entrada_vigor = $row['fecha_entrada_vigor'];
-			
+
+			$this->fecha_toma_contacto = $row['fecha_toma_contacto'];
+			$this->fecha_inicio = $row['fecha_inicio'];
+			$this->fecha_pago_inicial = $row['fecha_pago_inicial'];
+			$this->fecha_estimada_formacion = $row['fecha_estimada_formacion'];
+
+			$this->forcem = $row['forcem'];
+			$this->plazo_ejecucion = $row['plazo_ejecucion'];
+			$this->cuenta_cargo = $row['cuenta_cargo'];
+			$this->observaciones_forma_pago = $row['observaciones_forma_pago'];
+			$this->nombre_certificadora = $row['nombre_certificadora'];
+			$this->otros_proyectos = $row['otros_proyectos'];
+			$this->observaciones = $row['observaciones'];
+
+			$this->precio_consultoria = $row['precio_consultoria'];
+			$this->precio_formacion = $row['precio_formacion'];
+			$this->pago_inicial = $row['pago_inicial'];
+			$this->pago_mensual = $row['pago_mensual'];
+			$this->numero_pagos_mensuales = $row['numero_pagos_mensuales'];
+
+			$this->subvenciones = $row['subvenciones'];
+			$this->certificacion = $row['certificacion'];
+			$this->presupuesto_aceptado_certificadora = $row['presupuesto_aceptado_certificadora'];
+
 			$oferta = new Oferta($this->oferta);
 			$this->Oferta = $oferta;
 			$cliente = $oferta->get_Cliente();
@@ -228,6 +274,23 @@ class Venta{
 	public function get_Fecha_Entrada_Vigor(){
 		return $this->fecha_entrada_vigor;
 	}
+
+	public function get_Fecha_Toma_Contacto(){
+		return $this->fecha_toma_contacto;
+	}
+
+	public function get_Fecha_Inicio(){
+		return $this->fecha_inicio;
+	}
+
+	public function get_Fecha_Estimada_Formacion(){
+		return $this->fecha_estimada_formacion;
+	}
+
+	public function get_Fecha_Pago_Inicial(){
+		return $this->fecha_pago_inicial;
+	}
+	
 	public function get_Plazos(){
 		return $this->plazos;
 	}
@@ -245,6 +308,62 @@ class Venta{
 
 	public function get_Usuario(){
 		return $this->Oferta->get_Usuario();
+	}
+
+	public function get_Precio_Consultoria(){
+		return $this->precio_consultoria;
+	}
+	public function get_Precio_Formacion(){
+		return $this->precio_formacion;
+	}
+	public function get_Pago_Mensual(){
+		return $this->pago_mensual;
+	}
+	public function get_Pago_Inicial(){
+		return $this->pago_inicial;
+	}
+	public function get_Numero_Pagos_Mensuales(){
+		return $this->numero_pagos_mensuales;
+	}
+	public function get_Precio_Total(){
+		return $this->precio_consultoria+$this->precio_formacion;
+	}
+
+	public function get_Plazo_Ejecucion(){
+		return $this->plazo_ejecucion;
+	}
+
+	public function get_Forcem(){
+		return $this->forcem;
+	}
+	public function get_Cuenta_Cargo(){
+		return $this->cuenta_cargo;
+	}
+
+	public function get_Observaciones_Forma_Pago(){
+		return $this->observaciones_forma_pago;
+	}
+
+	public function get_Nombre_Certificadora(){
+		return $this->nombre_certificadora;
+	}
+
+	public function get_Otros_Proyectos(){
+		return $this->otros_proyectos;
+	}
+
+	public function get_Observaciones(){
+		return $this->observaciones;
+	}
+
+	public function get_Subvenciones(){
+		return $this->subvenciones;
+	}
+	public function get_Certificacion(){
+		return $this->certificacion;
+	}
+	public function get_Presupuesto_Aceptado_Certificadora(){
+		return $this->presupuesto_aceptado_certificadora;
 	}
 
 	/*
@@ -279,8 +398,18 @@ class Venta{
 			$errores .= "<br/>El nombre es obligatorio.";
 		if($datos['fecha_entrada_vigor'] == '' || ! isset($datos['fecha_entrada_vigor']))
 			$errores .= "<br/>La fecha de entrada en vigor es obligatoria.";
-		
-			
+		if($datos['fecha_asignacion_tecnico'] == '' || ! isset($datos['fecha_asignacion_tecnico']))
+			$errores .= "<br/>La fecha de asignaci&oacute;n a t&eacute;cnico es obligatoria.";
+
+		if($datos['fecha_toma_contacto'] == '' || ! isset($datos['fecha_toma_contacto']))
+			$errores .= "<br/>La fecha de toma de contacto es obligatoria.";
+		if($datos['fecha_inicio'] == '' || ! isset($datos['fecha_inicio']))
+			$errores .= "<br/>La fecha de inicio es obligatoria.";
+		if($datos['fecha_estimada_formacion'] == '' || ! isset($datos['fecha_estimada_formacion']))
+			$errores .= "<br/>La fecha estimada de formaci&oacute;n es obligatoria.";
+		if($datos['fecha_pago_inicial'] == '' || ! isset($datos['fecha_pago_inicial']))
+			$errores .= "<br/>La fecha de pago inicial es obligatoria.";
+					
 		if($errores != '') throw new Exception($errores);
 		//Si todo ha ido bien:
 		return $this->guardar($datos);
@@ -295,7 +424,70 @@ class Venta{
 	 */
 	private function guardar($datos){
 		//FB::info($datos, 'datos al crear Venta');
-		
+		$campos = "";
+		$valores = "";
+
+		if(isset($datos['forcem'])){
+			$campos .= ", forcem";
+			$valores .= ",'".mysql_real_escape_string(trim($datos['forcem']))."'";
+		}
+		if(isset($datos['plazo_ejecucion'])){
+			$campos .= ", plazo_ejecucion";
+			$valores .= ",'".mysql_real_escape_string(trim($datos['plazo_ejecucion']))."'";
+		}
+		if(isset($datos['cuenta_cargo'])){
+			$campos .= ", cuenta_cargo";
+			$valores .= ",'".mysql_real_escape_string(trim($datos['cuenta_cargo']))."'";
+		}
+		if(isset($datos['observaciones_forma_pago'])){
+			$campos .= ", observaciones_forma_pago";
+			$valores .= ",'".mysql_real_escape_string(trim($datos['observaciones_forma_pago']))."'";
+		}
+		if(isset($datos['nombre_certificadora'])){
+			$campos .= ", nombre_certificadora";
+			$valores .= ",'".mysql_real_escape_string(trim($datos['nombre_certificadora']))."'";
+		}
+		if(isset($datos['otros_proyectos'])){
+			$campos .= ", otros_proyectos";
+			$valores .= ",'".mysql_real_escape_string(trim($datos['otros_proyectos']))."'";
+		}
+		if(isset($datos['observaciones'])){
+			$campos .= ",observaciones ";
+			$valores .= ",'".mysql_real_escape_string(trim($datos['observaciones']))."'";
+		}
+		if(isset($datos['precio_consultoria'])){
+			$campos .= ", precio_consultoria";
+			$valores .= ",'".trim($datos['precio_consultoria'])."'";
+		}
+		if(isset($datos['precio_formacion'])){
+			$campos .= ",precio_formacion ";
+			$valores .= ",'".trim($datos['precio_formacion'])."'";
+		}
+		if(isset($datos['pago_inicial'])){
+			$campos .= ",pago_inicial ";
+			$valores .= ",'".trim($datos['pago_inicial'])."'";
+		}
+		if(isset($datos['pago_mensual'])){
+			$campos .= ",pago_mensual ";
+			$valores .= ",'".trim($datos['pago_mensual'])."'";
+		}
+		if(isset($datos['numero_pagos_mensuales'])){
+			$campos .= ",numero_pagos_mensuales ";
+			$valores .= ",'".trim($datos['numero_pagos_mensuales'])."'";
+		}
+		if(isset($datos['subvenciones'])){
+			$campos .= ",subvenciones ";
+			$valores .= ",'".trim($datos['subvenciones'])."'";
+		}
+		if(isset($datos['certificacion'])){
+			$campos .= ", certificacion";
+			$valores .= ",'".trim($datos['certificacion'])."'";
+		}
+		if(isset($datos['presupuesto_aceptado_certificadora'])){
+			$campos .= ", presupuesto_aceptado_certificadora";
+			$valores .= ",'".trim($datos['presupuesto_aceptado_certificadora'])."'";
+		}
+
 		$query = "
 			INSERT INTO ventas (   nombre,
 						formacion_bonificada,
@@ -304,7 +496,12 @@ class Venta{
 						fk_oferta,
 						fecha_aceptado,
 						fecha_entrada_vigor,
-						fecha_asignacion_tecnico
+						fecha_asignacion_tecnico,
+						fecha_toma_contacto,
+						fecha_inicio,
+						fecha_estimada_formacion,
+						fecha_pago_inicial
+						$campos
 						
 					)VALUES(
 						'".mysql_real_escape_string(trim($datos['nombre']))."',
@@ -314,12 +511,17 @@ class Venta{
 						'".trim($datos['id_oferta'])."',
 						'".time()."',
 						'".trim($datos['fecha_entrada_vigor'])."',
-						'".trim($datos['fecha_asignacion_tecnico'])."'
+						'".trim($datos['fecha_asignacion_tecnico'])."',
+						'".trim($datos['fecha_toma_contacto'])."',
+						'".trim($datos['fecha_inicio'])."',
+						'".trim($datos['fecha_estimada_formacion'])."',
+						'".trim($datos['fecha_pago_inicial'])."'
+						$valores
 					);
 		";
 			//FB::info($query,'Venta crear: QUERY');
 			if(!mysql_query($query))
-				throw new Exception("Error al crear la Venta. ");
+				throw new Exception("Error al crear la Venta. ".$query);
 			$this->id = mysql_insert_id();
 			
 			for($i=1;$i<=12;$i++){
@@ -333,7 +535,7 @@ class Venta{
 			$cliente = $oferta->get_Cliente();
 			$cliente->set_Tipo(2);
 
-                        return $this->id;
+            return $this->id;
 	}
 	
 	public function add_Plazos($plazos,$estados){
@@ -360,8 +562,6 @@ class Venta{
 	 * @param int $nombre nueva nombre 
 	 */
 	public function set_Nombre($nombre){
-		
-		
 		$validar = new Validador();
 		if(($validar->cadena($nombre))){
 			$query = "UPDATE ventas SET nombre='$nombre' WHERE id='$this->id' ";
@@ -400,11 +600,46 @@ class Venta{
 		}else
 		throw new Exception("Debe introducir una fecha v&aacute;lida.");
 	}
+	public function set_Fecha_Toma_Contacto($fecha){
+
+		if(is_numeric($fecha)){
+			$query = "UPDATE ventas SET fecha_toma_contacto='$fecha' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar la fecha en la BBDD.");
+			$this->fecha_toma_contacto = $fecha;
+
+		}else
+		throw new Exception("Debe introducir una fecha v&aacute;lida.");
+	}
+
+	public function set_Fecha_Inicio($fecha){
+
+		if(is_numeric($fecha)){
+			$query = "UPDATE ventas SET fecha_inicio='$fecha' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar la fecha en la BBDD.");
+			$this->fecha_inicio = $fecha;
+
+		}else
+		throw new Exception("Debe introducir una fecha v&aacute;lida.");
+	}
+
+	public function set_Fecha_Estimada_Formacion($fecha){
+
+		if(is_numeric($fecha)){
+			$query = "UPDATE ventas SET fecha_estimada_formacion='$fecha' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar la fecha en la BBDD.");
+			$this->fecha_estimada_formacion = $fecha;
+
+		}else
+		throw new Exception("Debe introducir una fecha v&aacute;lida.");
+	}
 	/**
 	 * Modifica la Fecha de asignaci�n a t�cnico
 	 * @param int $fecha nueva fecha 
 	 */
-	public function set_fecha_Asignacion_Tecnico($fecha){
+	public function set_Fecha_Asignacion_Tecnico($fecha){
 
 		if(is_numeric($fecha)){
 			$query = "UPDATE ventas SET fecha_asignacion_tecnico='$fecha' WHERE id='$this->id' ";
@@ -489,8 +724,180 @@ class Venta{
 		}else
 		throw new Exception("Debe introducir un tipo_comision v&aacute;lido.");
 	}
+
+	public function set_Forcem($texto){
+		$validar = new Validador();
+		if(($validar->cadena($texto))){
+			$query = "UPDATE ventas SET forcem='$texto' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar la descripci&oacute;n en la BBDD.");
+			$this->forcem = $texto;
+
+		}else
+		throw new Exception("El campo forcem es inv&aacute;lido.");
+	}
+
+	public function set_Observaciones($texto){
+		$validar = new Validador();
+		if(($validar->cadena($texto))){
+			$query = "UPDATE ventas SET observaciones='$texto' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar las observaciones en la BBDD.");
+			$this->observaciones = $texto;
+
+		}else
+		throw new Exception("El campo observaciones es inv&aacute;lido.");
+	}
+	public function set_Plazo_Ejecucion($texto){
+		$validar = new Validador();
+		if(($validar->cadena($texto))){
+			$query = "UPDATE ventas SET plazo_ejecucion='$texto' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el plazo de ejecuci&oacute;n en la BBDD.");
+			$this->plazo_ejecucion = $texto;
+
+		}else
+		throw new Exception("El campo plazo de ejecuci&oacute;n es inv&aacute;lido.");
+	}
+	public function set_Cuenta_Cargo($texto){
+		$validar = new Validador();
+		if(($validar->cadena($texto))){
+			$query = "UPDATE ventas SET cuenta_cargo='$texto' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar la cuenta de cargo en la BBDD.");
+			$this->forcem = $texto;
+
+		}else
+		throw new Exception("El campo cuenta de cargo es inv&aacute;lido.");
+	}
+	public function set_Observaciones_Forma_Pago($texto){
+		$validar = new Validador();
+		if(($validar->cadena($texto))){
+			$query = "UPDATE ventas SET observaciones_forma_pago='$texto' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar las observaciones de la forma de pago en la BBDD.");
+			$this->forcem = $texto;
+
+		}else
+		throw new Exception("El campo observaciones de la forma de pago es inv&aacute;lido.");
+	}
+	public function set_Nombre_Certificadora($texto){
+		$validar = new Validador();
+		if(($validar->cadena($texto))){
+			$query = "UPDATE ventas SET nombre_certificadora='$texto' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el nombre de la certificadora en la BBDD.");
+			$this->nombre_certificadora = $texto;
+
+		}else
+		throw new Exception("El campo forcem es inv&aacute;lido.");
+	}
+	public function set_otros_proyectos($texto){
+		$validar = new Validador();
+		if(($validar->cadena($texto))){
+			$query = "UPDATE ventas SET otros_proyectos='$texto' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar los proyectos en la BBDD.");
+			$this->otros_proyectos = $texto;
+
+		}else
+		throw new Exception("El campo otros proyectos es inv&aacute;lido.");
+	}
+
+	public function set_Precio_Consultoria($valor){
+
+		if(is_numeric($valor)){
+			$query = "UPDATE ventas SET precio_consultoria='$valor' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el precio de consultor&iacute;a en la BBDD.");
+			$this->precio_consultoria = $valor;
+
+		}else
+		throw new Exception("Debe introducir un precio v&aacute;lida.");
+	}
+
+	public function set_Precio_Formacion($valor){
+
+		if(is_numeric($valor)){
+			$query = "UPDATE ventas SET precio_formacion='$valor' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el precio de formaci&oacute;n en la BBDD.");
+			$this->precio_formacion = $valor;
+
+		}else
+		throw new Exception("Debe introducir un precio v&aacute;lido.");
+	}
+	public function set_Pago_Inicial($valor){
+
+		if(is_numeric($valor)){
+			$query = "UPDATE ventas SET pago_inicial='$valor' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el pago inicial en la BBDD.");
+			$this->pago_inicial = $valor;
+
+		}else
+		throw new Exception("Debe introducir un pago v&aacute;lido.");
+	}
+	public function set_Pago_Mensual($valor){
+
+		if(is_numeric($valor)){
+			$query = "UPDATE ventas SET pago_mensual='$valor' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el pago mensual en la BBDD.");
+			$this->pago_mensual = $valor;
+
+		}else
+		throw new Exception("Debe introducir un pago mensual v&aacute;lido.");
+	}
 	
-		
+	public function set_Numero_Pagos_Mensuales($valor){
+
+		if(is_numeric($valor)){
+			$query = "UPDATE ventas SET numero_pagos_mensuales='$valor' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el n&uacute;mero de pagos mensuales en la BBDD.");
+			$this->numero_pagos_mensuales = $valor;
+
+		}else
+		throw new Exception("Debe introducir un n&uacute;mero de pagos mensuales  v&aacute;lido.");
+	}
+	public function set_Presupuesto_Aceptado_Certificadora($valor){
+
+		if(is_numeric($valor)){
+			$query = "UPDATE ventas SET presupuesto_aceptado_certificadora='$valor' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el presupuesto aceptado de certificadora en la BBDD.");
+
+			$this->presupuesto_aceptado_certificadora = $valor;
+
+		}else
+		throw new Exception("Debe introducir un valor v&aacute;lido.");
+	}
+	public function set_Subvenciones($valor){
+
+		if(is_numeric($valor)){
+			$query = "UPDATE ventas SET subvenciones='$valor' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar las subvenciones en la BBDD.");
+
+			$this->subvenciones = $valor;
+
+		}else
+		throw new Exception("Debe introducir un valor de subvenciones v&aacute;lido.");
+	}
+	public function set_Certificacion($valor){
+
+		if(is_numeric($valor)){
+			$query = "UPDATE ventas SET certificacion='$valor' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar la certificacion en la BBDD.");
+
+			$this->certificacion = $valor;
+
+		}else
+		throw new Exception("Debe introducir una certificacion v&aacute;lida.");
+	}
+
 	public function del_Venta(){
 		$query = "DELETE FROM ventas WHERE id='$this->id';";
 		mysql_query($query);		

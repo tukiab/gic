@@ -19,6 +19,10 @@ else
 
 	$oferta = new Oferta ($var->opt['Venta']->get_Oferta());
 ?>
+<style type="text/css">
+	table.ConDatos{display:block;float:left;margin:20px;width:40%;border:none;}
+	.ColDer{max-width:300px;}
+</style>
 <script language="JavaScript" type="text/javascript">
 	function eliminar(){
 		if(confirm('confirmar borrado')){
@@ -28,7 +32,7 @@ else
 	}
 </script>
 <br/>
-<div id="titulo"><?php echo  $oferta->get_Nombre_Oferta()." - ".$var->opt['Venta']->get_Nombre();?></div>
+<div id="titulo"><?php echo  "Venta: ".$var->opt['Venta']->get_Nombre();?></div>
 <?php 
 if($var->opt['msg']){
 	echo  "<div id=\"error_msg\" >".$var->opt['msg']."</div>";
@@ -55,7 +59,7 @@ else{?>
 			</td>
 		</tr>
                 <tr>
-			<td class="ColIzq" nowrap><?php echo  _translate("Importe")?>:</td>
+			<td class="ColIzq" nowrap><?php echo  _translate("Importe oferta")?>:</td>
 			<td class="ColDer">
 				<?php echo  $oferta->get_Importe();?> &euro;
 			</td>
@@ -73,7 +77,7 @@ else{?>
 			</td>
 		</tr>
 		<tr>
-			<td class="ColIzq" nowrap><?php echo  _translate("Tipo comisi&oacute;n")?>:</td>
+			<td class="ColIzq" nowrap><?php echo  _translate("Tipo de venta")?>:</td>
 			<td class="ColDer">
 				<?php $producto=$var->opt['Venta']->get_Tipo_Comision();echo  $producto['nombre'];?>
 			</td>
@@ -108,8 +112,129 @@ else{?>
 				<?php  if($var->opt['Venta']->get_Formacion_Bonificada()) echo "S&Iacute;"; else echo "NO";?>
 			</td>
 		</tr>
+		
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Fecha de toma de contacto")?>:</td>
+			<td class="ColDer">
+				<?php echo  timestamp2date($var->opt['Venta']->get_Fecha_Toma_Contacto());?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Fecha de inicio")?>:</td>
+			<td class="ColDer">
+				<?php echo  timestamp2date($var->opt['Venta']->get_Fecha_Inicio());?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Fecha estimada de formaci&oacute;n ")?>:</td>
+			<td class="ColDer">
+				<?php echo  timestamp2date($var->opt['Venta']->get_Fecha_Estimada_Formacion());?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Fecha de pago inicial")?>:</td>
+			<td class="ColDer">
+				<?php echo  timestamp2date($var->opt['Venta']->get_Fecha_Pago_Inicial());?>
+			</td>
+		</tr>
+	</table>
+	<table class="ConDatos">
+		<tr>
+		  	<td class="ListaTitulo" style="text-align:center;" colspan="2"><?php echo  _translate("Datos adicionales")?></td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("FORCEM")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Forcem()?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Plazo de ejecuci&oacute;n")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Plazo_Ejecucion()?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Precio consultor&iacute;a")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Precio_Consultoria()?>&euro;
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Precio formaci&oacute;n")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Precio_Formacion()?>&euro;
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Pago inicial")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Pago_Inicial()?>&euro;
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Pago mensual")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Pago_Mensual()?>&euro;
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("N&uacute;mero de pagos mensuales")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Numero_Pagos_Mensuales()?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Cuenta de cargo")?>:</td>
+			<td class="ColDer">
+				<?php  echo $var->opt['Venta']->get_Cuenta_Cargo();?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Observaciones de forma de pago")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Observaciones_Forma_Pago()?>
+			</td>
+		</tr>
 
-		<?php $i=1;$plazos = $var->opt['Venta']->get_Plazos();
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Subvenciones")?>:</td>
+			<td class="ColDer">
+				<?php  if($var->opt['Venta']->get_Subvenciones()) echo "S&Iacute;"; else echo "NO";?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Certificaci&oacute;n")?>:</td>
+			<td class="ColDer">
+				<?php  if($var->opt['Venta']->get_Certificacion()) echo "S&Iacute;"; else echo "NO";?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Presupuesto aceptado de certificadora")?>:</td>
+			<td class="ColDer">
+				<?php  if($var->opt['Venta']->get_Presupuesto_Aceptado_Certificadora()) echo "S&Iacute;"; else echo "NO";?>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Nombre de certificadora")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Nombre_Certificadora()?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Otros proyectos incluidos")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Otros_Proyectos()?>
+			</td>
+		</tr>
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Observaciones")?>:</td>
+			<td class="ColDer">
+				<?php echo  $var->opt['Venta']->get_Observaciones()?>
+			</td>
+		</tr>
+		<?php /*$i=1;$plazos = $var->opt['Venta']->get_Plazos();
 		if($plazos)
 			foreach($plazos as $plazo){?>
 		<tr>
@@ -120,7 +245,7 @@ else{?>
 				?>
 			</td>
 		</tr>
-		<?php }?>
+		<?php }*/?>
 
 	</table>
 	
