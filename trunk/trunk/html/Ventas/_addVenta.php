@@ -53,7 +53,7 @@ class AddVenta{
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 		if(!$this->opt['id_oferta'])
-                        throw new Exception("No se ha definido un id de oferta/oportunidad v&aacute;lido");
+			throw new Exception("No se ha definido un id de oferta/oportunidad v&aacute;lido");
 		if($this->opt['guardar'])
 			$this->guardar();
 
@@ -83,6 +83,29 @@ class AddVenta{
 		@(isset($opciones['fecha_entrada_vigor']))?$this->opt['fecha_entrada_vigor']=date2timestamp($opciones['fecha_entrada_vigor']):$this->opt['fecha_entrada_vigor']=fechaActualTimeStamp();
 		@(isset($opciones['fecha_asignacion_tecnico']))?$this->opt['fecha_asignacion_tecnico']=date2timestamp($opciones['fecha_asignacion_tecnico']):$this->opt['fecha_asignacion_tecnico']=fechaActualTimeStamp();
 		@(isset($opciones['fecha_aceptado']))?$this->opt['fecha_aceptado']=date2timestamp($opciones['fecha_aceptado']):$this->opt['fecha_aceptado']=fechaActualTimeStamp();
+
+		@(isset($opciones['fecha_toma_contacto']))?$this->opt['fecha_toma_contacto']=date2timestamp($opciones['fecha_toma_contacto']):null;
+		@(isset($opciones['fecha_inicio']))?$this->opt['fecha_inicio']=date2timestamp($opciones['fecha_inicio']):null;
+		@(isset($opciones['fecha_estimada_formacion']))?$this->opt['fecha_estimada_formacion']=date2timestamp($opciones['fecha_estimada_formacion']):$this->opt['fecha_estimada_formacion']=fechaActualTimeStamp();
+		@(isset($opciones['fecha_pago_inicial']))?$this->opt['fecha_pago_inicial']=date2timestamp($opciones['fecha_pago_inicial']):$this->opt['fecha_pago_inicial']=fechaActualTimeStamp();
+
+		@(isset($opciones['forcem']))?$this->opt['forcem']=$opciones['forcem']:null;
+		@(isset($opciones['plazo_ejecucion']))?$this->opt['plazo_ejecucion']=$opciones['plazo_ejecucion']:null;
+		@(isset($opciones['cuenta_cargo']))?$this->opt['cuenta_cargo']=$opciones['cuenta_cargo']:null;
+		@(isset($opciones['observaciones_forma_pago']))?$this->opt['observaciones_forma_pago']=$opciones['observaciones_forma_pago']:null;
+		@(isset($opciones['nombre_certificadora']))?$this->opt['nombre_certificadora']=$opciones['nombre_certificadora']:null;
+		@(isset($opciones['otros_proyectos']))?$this->opt['otros_proyectos']=$opciones['otros_proyectos']:null;
+		@(isset($opciones['observaciones']))?$this->opt['observaciones']=$opciones['observaciones']:null;
+
+		@(isset($opciones['precio_consultoria']))?$this->opt['precio_consultoria']=$opciones['precio_consultoria']:$this->opt['precio_consultoria']=0;
+		@(isset($opciones['precio_formacion']))?$this->opt['precio_formacion']=$opciones['precio_formacion']:$this->opt['precio_formacion']=0;
+		@(isset($opciones['pago_inicial']))?$this->opt['pago_inicial']=$opciones['pago_inicial']:null;
+		@(isset($opciones['pago_mensual']))?$this->opt['pago_mensual']=$opciones['pago_mensual']:null;
+		@(isset($opciones['numero_pagos_mensuales']))?$this->opt['numero_pagos_mensuales']=$opciones['numero_pagos_mensuales']:null;
+
+		@(isset($opciones['subvenciones']))?$this->opt['subvenciones']=$opciones['subvenciones']:$this->opt['subvenciones']=0;
+		@(isset($opciones['certificacion']))?$this->opt['certificacion']=$opciones['certificacion']:$this->opt['certificacion']=0;
+		@(isset($opciones['presupuesto_aceptado_certificadora']))?$this->opt['presupuesto_aceptado_certificadora']=$opciones['presupuesto_aceptado_certificadora']:$this->opt['presupuesto_aceptado_certificadora']=0;
 		
 		@(isset($opciones['usuario']))?$this->opt['usuario']=$opciones['usuario']:$this->opt['usuario']=$_SESSION['usuario_login'];
 		$this->opt['usuario_obj'] = new Usuario($this->opt['usuario']);

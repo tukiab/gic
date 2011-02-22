@@ -179,15 +179,24 @@ if($var->opt['msg']){?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Cr&eacute;ditos")?>:</td>
 				<td class="ColDer"><?php  echo $var->opt['Cliente']->get_Creditos()?>&nbsp;&#8364;</td>
 			</tr>
-			<tr class="datos">
+			<tr>
+				<td class="Transparente" colspan="6" style="text-align:right;">
+					<?php $url_dest = $appDir."/Clientes/editCliente.php?id=".$var->opt['Cliente']->get_Id();?>
+					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=800,height=600,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
+				</td>
+			</tr>
+			<tr>
+			  	<td class="ListaTitulo" colspan="2"><?php echo  _translate("Otro datos")?><a class="show" href="#" clase="otrosdatos"></a></td>
+			</tr>
+			<tr class="otrosdatos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Actividad")?>:</td>
 				<td class="ColDer"><?php  echo $var->opt['Cliente']->get_Actividad()?></td>
 			</tr>
-			<tr class="datos">
+			<tr class="otrosdatos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Observaciones")?>:</td>
 				<td class="ColDer"><?php  echo $var->opt['Cliente']->get_Observaciones()?></td>
 			</tr>
-			<tr class="datos">
+			<tr class="otrosdatos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Sedes")?>:</td>
 				<td class="ColDer"><?php  echo $var->opt['Cliente']->get_Sedes()?></td>
 			</tr>
