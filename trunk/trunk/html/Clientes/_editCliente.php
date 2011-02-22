@@ -76,6 +76,8 @@ class EditCliente{
 		
 		//Por si eliminamos un contacto
 		$datos_contactos = $this->get_Opciones_Contactos($opciones);
+
+		$datos_sedes = $this->get_Opciones_Sedes($opciones);
 		
 		//Si se ha pulsado en guardar, comprobamos qué se va a guardar...
 		if($opciones['guardar']){
@@ -113,6 +115,38 @@ class EditCliente{
 							$this->msg .= "Error: ".$e->getMessage();
 							$this->opt['contacto_error'] = $array_contacto;
 						}
+					break;
+				case 'sedes':
+					try{
+						foreach($datos_sedes as $array_sede){
+
+							$id_sede = $array_sede['id'];
+							$Sede = new Sede($id_sede);
+
+							if($id_sede == 'n')
+								//Creamos el sede
+								$this->Cliente->crear_Sede ($array_sede);
+							else{
+								//Actualizamos el sede
+								if($Sede->get_Localidad() != $array_sede['localidad']){
+									$Sede->set_Localidad($array_sede['localidad']);
+								}
+								if($Sede->get_Provincia() != $array_sede['provincia']){
+									$Sede->set_Provincia($array_sede['provincia']);
+								}
+								if($Sede->get_Direccion() != $array_sede['direccion']){
+									$Sede->set_Direccion($array_sede['direccion']);
+								}
+								if($Sede->get_CP() != $array_sede['CP']){
+									$Sede->set_CP($array_sede['CP']);
+								}
+							}
+						}
+						$this->msg .= "Guardado";
+					}catch (Exception $e){
+						$this->msg .= "Error: ".$e->getMessage();
+						$this->opt['sede_error'] = $array_sede;
+					}
 					break;
 				case 'cliente':
 						//Obtener los datos de la cliente y enviarlos a la BD
@@ -175,7 +209,6 @@ class EditCliente{
 							
 							$this->Cliente->set_Observaciones($datos_cliente['observaciones']);
 							$this->Cliente->set_Actividad($datos_cliente['actividad']);
-							$this->Cliente->set_Sedes($datos_cliente['sedes']);
 								
 							$this->msg = "Guardado";
 						}catch(Exception $e){
@@ -188,7 +221,15 @@ class EditCliente{
 		}	
 		else if($opciones['eliminar']){
 			try{
-				$this->Cliente->del_Contacto($opciones['eliminar']);
+				switch($opciones['edit']){
+					case 'contacto':
+						$this->Cliente->del_Contacto($opciones['eliminar']);
+					break;
+					case 'sedes':
+						$Sede = new Sede($opciones['eliminar']);
+						$Sede->del_Sede();
+					break;
+				}
 			}catch(Exception $e){
 				$this->msg = $e->getMessage();
 			}
@@ -202,6 +243,7 @@ class EditCliente{
 		$this->datos['lista_tipos_cliente'] = $this->ListaClientes->lista_Tipos();
 		$this->datos['lista_grupos_empresas'] = $this->ListaClientes->lista_Grupos_Empresas();
 		$this->datos['lista_contactos'] = $this->Cliente->get_Lista_Contactos();
+		$this->datos['lista_sedes'] = $this->Cliente->get_Lista_Sedes();
 		
 		$lista_usuarios = new ListaUsuarios();
 		$todos_usuarios = $lista_usuarios->buscar();
@@ -259,6 +301,31 @@ class EditCliente{
 			$opt[$i]['nombre'] = trim($opciones["$i"."_nombre"]);
 			$opt[$i]['cargo'] = trim($opciones["$i"."_cargo"]);
 			$opt[$i]['email'] = trim($opciones["$i"."_email"]);
+			$i++;
+		}
+		return $opt;
+	}
+
+	private function get_Opciones_Sedes($opciones){
+		$opt = array();
+		$i='n';
+		if($opciones["n_localidad"] || $opciones["n_provincia"] || $opciones["n_direccion"] || $opciones["n_CP"]){
+			$opt[$i]['id'] = 'n';
+			$opt[$i]['id_cliente'] = $this->Cliente->get_Id();
+			$opt[$i]['localidad'] = trim($opciones["n_localidad"]);
+			$opt[$i]['provincia'] = trim($opciones["n_provincia"]);
+			$opt[$i]['direccion'] = trim($opciones["n_direccion"]);
+			$opt[$i]['CP'] = trim($opciones["n_CP"]);
+		}
+
+		$i=0;
+		while(!empty($opciones["$i"."_localidad"])){
+			$opt[$i]['id'] = $opciones["$i"."_id"];
+			$opt[$i]['id_cliente'] = $this->Cliente->get_Id();
+			$opt[$i]['localidad'] = trim($opciones["$i"."_localidad"]);
+			$opt[$i]['provincia'] = trim($opciones["$i"."_provincia"]);
+			$opt[$i]['direccion'] = trim($opciones["$i"."_direccion"]);
+			$opt[$i]['CP'] = trim($opciones["$i"."_CP"]);
 			$i++;
 		}
 		return $opt;
