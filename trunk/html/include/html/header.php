@@ -36,6 +36,14 @@
 				});
 			});
 			$('a.show').attr('title','mostrar/ocultar');
+			$(document).ready(function(){
+				$('#chk_todos').click(function(){
+					if($('#chk_todos').attr("checked"))
+						$('.chk').attr("checked", "checked");
+					else
+						$('.chk').removeAttr("checked");
+				});
+			});
 		});
 	</script>
 </head>

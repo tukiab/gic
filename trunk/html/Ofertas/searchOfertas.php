@@ -88,15 +88,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 				$('#frm_ofertas').submit();
 			}		
 		}
-	
-	$(document).ready(function(){
-		$('#chk_todos').click(function(){
-			if($('#chk_todos').attr("checked"))
-				$('.chk').attr("checked", "checked");
-			else
-				$('.chk').removeAttr("checked");			
-		});
-	});
 </script>
 
 <div id="titulo"><?php echo  _translate("Ofertas")?></div>
@@ -105,17 +96,17 @@ include ($appRoot.'/include/html/mainMenu.php');
 <form method="GET" id="frm_ofertas" action="<?php echo  $_SERVER['_SELF']?>">
 
 <!-- BUSCADOR -->
-<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de búsqueda")?></a></i><br/>
+<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de bï¿½squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
 	<table>
 		<tr class="BusquedaTable">
 			<td colspan="6" class="ListaTitulo">
-				<div style="float:left"><?php echo  _translate("Opciones de búsqueda")?></div>
+				<div style="float:left"><?php echo  _translate("Opciones de bï¿½squeda")?></div>
 			</td>
 		</tr>		
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Código')?> &nbsp; 
+				<?php echo  _translate('Cï¿½digo')?> &nbsp; 
 			</td>
 			<td class="busquedaDcha">
 				<input type="text" size="15"name="codigo" value="<?php  echo $var->opt['codigo']?>"></input>
@@ -170,7 +161,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				</select>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Probabilidad de contratación')?>
+				<?php echo  _translate('Probabilidad de contrataciï¿½n')?>
 			</td>
 			<td class="busquedaDcha">
 				<select name="probabilidad_contratacion">
@@ -185,13 +176,13 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</tr>
 		<tr>			
 			<td class="busquedaIzda">
-				<?php echo  _translate('Número desde')?> &nbsp;
+				<?php echo  _translate('Nï¿½mero desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" size="12" name="codigo_desde" value="<?php  echo ($var->opt['codigo_desde'])?>"></input>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Número hasta')?> &nbsp;
+				<?php echo  _translate('Nï¿½mero hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" size="12" name="codigo_hasta" value="<?php  echo ($var->opt['codigo_hasta'])?>"></input>
@@ -213,13 +204,13 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</tr>
 		<tr>			
 			<td class="busquedaIzda">
-				<?php echo  _translate('Fecha de definición desde')?> &nbsp;
+				<?php echo  _translate('Fecha de definiciï¿½n desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" class="fecha" size="12" name="fecha_definicion_desde" value="<?php  echo timestamp2date($var->opt['fecha_definicion_desde'])?>"></input>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Fecha de definición hasta')?> &nbsp;
+				<?php echo  _translate('Fecha de definiciï¿½n hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" class="fecha" size="12" name="fecha_definicion_hasta" value="<?php  echo timestamp2date($var->opt['fecha_definicion_hasta'])?>"></input>
@@ -241,7 +232,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</tr>
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Número de ofertas por página')?> &nbsp;
+				<?php echo  _translate('Nï¿½mero de ofertas por pï¿½gina')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"></input>
@@ -280,7 +271,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<input type="hidden" name="navigation" value="" />
 				<input type="hidden" name="page" value="<?php echo  $var->datos['page']?>" />
 				<input type="hidden" name="total" id="total" value="<?php  echo  $var->datos['lista_ofertas']->num_Resultados();?>" />
-				<!-- Criterios de ordenación -->
+				<!-- Criterios de ordenaciï¿½n -->
 				<input type="hidden" id="order_by" name="order_by" value="<?php echo  $var->opt['order_by']?>" />
 				<input type="hidden" id="order_by_asc_desc" name="order_by_asc_desc" value="<?php echo  $var->opt['order_by_asc_desc']?>" />
 			</td>
@@ -300,7 +291,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							<input type=checkbox id="chk_todos"/>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('codigo')" ><?php echo  _translate("Código")?></a>
+							<a href="#" onClick="javascript:orderBy('codigo')" ><?php echo  _translate("Cï¿½digo")?></a>
 							<?php 
 								if($var->opt['order_by']=='codigo' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";
@@ -308,7 +299,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Razón social empresa");?></th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Razï¿½n social empresa");?></th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Gestor");?></th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Tipo");?></th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
@@ -334,7 +325,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							?>
 						</th>		
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('fecha_definicion')" ><?php echo  _translate("Fecha de definición")?></a>
+							<a href="#" onClick="javascript:orderBy('fecha_definicion')" ><?php echo  _translate("Fecha de definiciï¿½n")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_definicion' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";

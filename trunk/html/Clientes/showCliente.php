@@ -196,10 +196,6 @@ if($var->opt['msg']){?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Observaciones")?>:</td>
 				<td class="ColDer"><?php  echo $var->opt['Cliente']->get_Observaciones()?></td>
 			</tr>
-			<tr class="otrosdatos">
-				<td class="ColIzq" nowrap><?php echo  _translate("Sedes")?>:</td>
-				<td class="ColDer"><?php  echo $var->opt['Cliente']->get_Sedes()?></td>
-			</tr>
 			<?php 
 			//if($permisos->administracion){?>
 			<tr>
@@ -249,7 +245,45 @@ if($var->opt['msg']){?>
 			</tr>
 			<?php //}?>
 		</table>
-					
+
+		<!-- sedes -->
+		<table style="width:100%;margin-top:20px">
+			<tr>
+			  	<td class="ListaTitulo" colspan="4"><?php echo  _translate("Sedes")?><a class="show" href="#" clase="sedes"></a></td>
+			</tr>
+			<!--<tr class="sedes">
+				<th ><?php echo  _translate("Localidad")?></th>
+				<th ><?php echo  _translate("Provincia")?></th>
+				<th ><?php echo  _translate("Direcci&oacute;")?></th>
+			</tr>-->
+			<?php $impar=false;
+				$lista = $var->opt['Cliente']->get_Lista_Sedes();
+
+				foreach ($lista as $sede){
+					if($impar){
+						$impar=false;
+						$class = 'par';
+					}else{
+						$impar=true;
+						$class = 'impar';
+					}?>
+					<tr class="<?php  echo $class?> sedes" ><
+						<td><a href="<?php echo $appDir.'/Clientes/showSede.php?id='.$sede->get_Id()?>"><?php echo  $sede->get_Localidad();?></a></td>
+						<!--<td><?php echo  $sede->get_Provincia();?></td>
+						<td><?php echo  email($sede->get_Direccion());?></td>-->
+					</tr>
+				<?php }?>
+			<?php
+			//if($permisos->escritura){?>
+			<tr>
+				<td class="Transparente" colspan="6" style="text-align:right;">
+					<?php $url_dest = $appDir."/Clientes/editSedes.php?id=".$var->opt['Cliente']->get_Id();?>
+					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=500,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
+				</td>
+			</tr>
+			<?php //}?>
+		</table>
+
 		<!-- gestores -->
 		<table style="width:100%;margin-top:20px">
 			<tr>

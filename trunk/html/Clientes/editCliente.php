@@ -154,12 +154,6 @@ $disabled = $var->Cliente->get_DisableEdit();
 					<textarea <?php echo $disabled['observaciones']; ?>rows="5" cols="30" name="observaciones"><?php  echo $var->Cliente->get_Observaciones()?></textarea>
 				</td>
 			</tr>
-			<tr >
-				<td class="ColIzq"><?php echo  _translate("Sedes")?>:</td>
-				<td class="ColDer">
-					<textarea <?php echo $disabled['sedes']; ?>rows="5" cols="30" name="sedes"><?php  echo $var->Cliente->get_Sedes()?></textarea>
-				</td>
-			</tr>
 		</table>
 			<br />
 		<!-- Parámetros ocultos -->

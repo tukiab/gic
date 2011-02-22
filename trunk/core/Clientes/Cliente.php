@@ -131,8 +131,13 @@ class Cliente{
 	private $ventas;
 
 	private $observaciones;
-	private $sedes;
 	private $actividad;
+
+	/**
+	 * Ids de las sedes de la empresa
+	 * @var <type>
+	 */
+	private $sedes;
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -203,10 +208,10 @@ class Cliente{
 
 			$this->observaciones = $row['observaciones'];
 			$this->actividad = $row['actividad'];
-			$this->sedes = $row['sedes'];
-
+			
 
 			$this->cargar_Contactos();
+			$this->cargar_Sedes();
 			$this->cargar_Gestores();
 			$this->cargar_Acciones();
 			$this->cargar_Ofertas();
@@ -230,6 +235,20 @@ class Cliente{
 		$this->contactos[] = $row['fk_contacto'];
 	}
 
+	/**
+	 * Carga la lista de sedes asociados al cliente.
+	 */
+	private function cargar_Sedes(){
+		$query = "SELECT id
+					FROM clientes_sedes
+					WHERE fk_cliente = '$this->id'";
+
+		$result = mysql_query($query);
+
+		$this->sedes = array();
+		while($row = mysql_fetch_array($result))
+		$this->sedes[] = $row['id'];
+	}
 	/**
 	 * Carga la lista de usuarios (gestores) asociados al cliente.
 	 */
@@ -284,7 +303,7 @@ class Cliente{
 					INNER JOIN ofertas ON ofertas.id = ventas.fk_oferta
 					WHERE ofertas.fk_cliente = '$this->id'
 					; ";
-FB::info($query);
+
 		$result = mysql_query($query);
 
 		$this->ventas = array();
@@ -304,6 +323,9 @@ FB::info($query);
 		return $this->contactos;
 	}
 
+	public function get_Sedes(){
+		return $this->sedes;
+	}
 	/**
 	 * Devuelve el CP
 	 * @return int $CP
@@ -487,9 +509,7 @@ FB::info($query);
 		return $this->actividad;
 	}
 
-	public function get_Sedes(){
-		return $this->sedes;
-	}
+	
 	/**
 	 * Devuelve la lista de contactos asociados al cliente.
 	 *
@@ -500,10 +520,19 @@ FB::info($query);
 	 */
 	public function get_Lista_Contactos(){
 		$array_Contactos = array();
+		if($this->contactos)
 		foreach($this->contactos as $id_Contacto)
 		array_push($array_Contactos, new Contacto($id_Contacto));
 
 		return $array_Contactos;
+	}
+
+	public function get_Lista_Sedes(){
+		$array = array();
+		foreach($this->sedes as $id)
+			array_push($array, new Sede ($id));
+
+		return $array;
 	}
 
 	/**
@@ -876,8 +905,7 @@ FB::info($query);
 				$disable['observaciones'] = 'readonly="readonly"';
 			if($this->actividad != '')
 				$disable['actividad'] = 'readonly="readonly"';
-			if($this->sedes != '')
-				$disable['sedes'] = 'readonly="readonly"';
+			
 		}
 		//FB::error($disable);
 		return $disable;
@@ -894,6 +922,12 @@ FB::info($query);
 
 		return $id_contacto;
 
+	}
+
+	public function crear_Sede($datos){
+		$sede = new Sede();
+		$datos['id_cliente'] = $this->id;
+		$sede->crear($datos);
 	}
 
 	public function add_Contactos($array_datos_contactos){
@@ -923,11 +957,21 @@ FB::info($query);
 	}
 	
 	public function del_Contacto($id_contacto){
-		$query = "DELETE FROM clientes_rel_contactos WHERE fk_contacto = '$id_contacto' AND fk_cliente = '$this->id'; ";
+		$query = "DELETE FROM clientes_rel_contactos WHERE fk_contacto = '$id_contacto'; ";
+		mysql_query($query);
+
+		$query = "DELETE FROM clientes_sedes_rel_contactos WHERE fk_contacto = '$id_contacto'; ";
 		mysql_query($query);
 		
 		$query = "DELETE FROM contactos WHERE id = '$id_contacto'; ";
 		mysql_query($query);
+	}
+
+	public function tiene_Contacto($id){
+		if($this->contactos)
+		return in_array($id, $this->contactos);
+
+		return false;
 	}
 	
 	public function del_Cliente($borrado_total = 0){
@@ -1154,20 +1198,7 @@ FB::info($query);
 		}
 	}
 
-	public function set_Sedes($texto){
-		$Validar = new Validador();
-		if($this->id && strcmp($this->sedes, $texto) != 0){
-			if($Validar->cadena($texto)){
-				$query = "UPDATE clientes SET sedes='".mysql_real_escape_string($texto)."' WHERE id='$this->id' ";
-				if(!mysql_query($query))
-				throw new Exception("Error al actualizar las sedes en la BBDD.");
-
-				$this->sedes = $texto;
-			}else
-			throw new Exception("Campo sedes incorrecto.");
-		}
-	}
-
+	
 	public function set_Actividad($texto){
 		$Validar = new Validador();
 		if($this->id && strcmp($this->actividad, $texto) != 0){

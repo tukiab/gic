@@ -6,8 +6,7 @@ ALTER TABLE `ofertas` ADD `leida` INT( 1 ) NOT NULL DEFAULT '0';
 
 -- nuevos campos en la tabla clientes
 ALTER TABLE `clientes` ADD `observaciones` LONGTEXT NULL DEFAULT NULL ,
-ADD `actividad` LONGTEXT NULL DEFAULT NULL ,
-ADD `sedes` LONGTEXT NULL DEFAULT NULL ;
+ADD `actividad` LONGTEXT NULL DEFAULT NULL ;
 
 -- VENTAS
 -- nuevos campos de fecha
@@ -33,3 +32,20 @@ ADD `numero_pagos_mensuales` INT( 3 ) NOT NULL DEFAULT '0';
 ALTER TABLE `ventas` ADD `subvenciones` TINYINT( 1 ) NOT NULL DEFAULT '0',
 ADD `certificacion` TINYINT( 1 ) NOT NULL DEFAULT '0',
 ADD `presupuesto_aceptado_certificadora` TINYINT( 1 ) NOT NULL DEFAULT '0';
+
+-- SEDES de los clientes (empresas)
+CREATE TABLE IF NOT EXISTS `clientes_sedes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `localidad` varchar(45) DEFAULT NULL,
+  `CP` int(11) DEFAULT NULL,
+  `provincia` varchar(15) NOT NULL,
+  `direccion` varchar(400) NOT NULL,
+  `fk_cliente` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `clientes_sedes_rel_contactos` (
+  `fk_clientes_sede` int(11) NOT NULL,
+  `fk_contacto` int(11) NOT NULL,
+  PRIMARY KEY (`fk_clientes_sede`,`fk_contacto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
