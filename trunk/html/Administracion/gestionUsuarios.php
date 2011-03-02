@@ -29,7 +29,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td><?php echo  _translate("Nombre");?></td>
 			<td><?php echo  _translate("Apellidos");?></td>
 			<td><?php echo  _translate("Password");?></td>
-                        <td><?php echo  _translate("Email");?></td>
+            <td><?php echo  _translate("Email");?></td>
 			<td><?php echo  _translate("Perfil");?></td>
 			<td colspan="2"><?php echo _translate("Operaciones");?></td>
 
@@ -48,7 +48,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td align="center">
 				<input type="text" name="password" value="<?php if(!$var->opt['guardado']) echo  $var->opt['password'];?>" size="15" />
 			</td>
-                        <td align="center">
+            <td align="center">
 				<input type="text" name="email" value="<?php if(!$var->opt['guardado']) echo  $var->opt['email'];?>" size="15" />
 			</td>
 			<td align="center">
@@ -63,7 +63,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td colspan="2" align="center">
 				<input type="submit" name="crear" value="<?php echo  _translate("Crear");?>" />
 			</td>
-			<input type="text" name="prueba.prueba" />
 		</tr>
 		<!-- Datos de todos los usuarios -->
 		<?php 
@@ -71,7 +70,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 		?>
 		<tr class="ListaTitulo" align="center">
 			<td align="center">
-                            <input type="text" readonly="readonly" name="id_<?php echo $Usuario->get_Id() ;?>" value="<?php echo  $Usuario->get_Id();?>" size="15" />
+				<input type="hidden" readonly="readonly" name="id_<?php echo $Usuario->get_Id() ;?>" value="<?php echo  $Usuario->get_Id();?>" size="15" />
+				<?php $url_dest = $appDir."/Administracion/editUsuario.php?id=".$Usuario->get_Id();?>
+				<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=800,height=600,scrollbars=yes');"><?php echo $Usuario->get_Id() ;?></a>
 			</td>
 			<td align="center">
 				<input type="text" name="nombre_<?php echo $Usuario->get_Id() ;?>" value="<?php echo  $Usuario->get_Nombre();?>" size="15" />
@@ -94,9 +95,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<?php }?>
 				</select>
 			</td>
-			<td align="center">
+			<!--<td align="center">
 				<a href="#" onclick="eliminar('<?php echo $Usuario->get_Id();?>')"><input class="borrar" type="button" value="<?php echo _translate("Eliminar");?>" /></a>
-			</td>
+			</td>-->
 			<td align="center">
 				<a href="#" onclick="guardar('<?php echo $Usuario->get_Id();?>')" ><input type="button" value="<?php echo _translate("Guardar");?>" /></a>
 			</td>

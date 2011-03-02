@@ -143,6 +143,13 @@ CREATE TABLE IF NOT EXISTS `usuarios_departamentos_rel_penalizaciones` (
   PRIMARY KEY (`fk_departamento`,`fk_penalizacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `usuarios_departamentos_rel_tipos_comision` (
+  `fk_departamento` int(11) NOT NULL,
+  `fk_tipo_comision` int(11) NOT NULL,
+  `comision` float NOT NULL,
+  PRIMARY KEY (`fk_departamento`,`fk_tipo_comision`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- tips de venta
 DELETE FROM `tipos_comision`;
 

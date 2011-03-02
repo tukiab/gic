@@ -18,7 +18,7 @@
  	 * @var unknown_type
  	 */
  	private $nombre;
-        private $email;
+	private $email;
  	
  	/**
  	 * Apellidos del usuario.
@@ -30,9 +30,14 @@
  	/**
  	 * Perfil al que pertenece el usuario.
  	 *
- 	 * @var array indexado por id y nombre
+ 	 * @var array indexado por id, nombre
  	 */
  	private $perfil;
+	/**
+	 * departamento asociado al perfil
+	 * @var <type> array indexado por id y nombre
+	 */
+	private $departamento;
  	
  	/**
  	 * Password del Usuario
@@ -44,9 +49,16 @@
  	/**
  	 * Objetivos del usuario
  	 *
- 	 * @var array indexado por los 12 meses
+ 	 * @var array indexado por los id de los 12 meses, y contiene cada posición un array indexado por id, mes y comisión
  	 */
  	private $objetivos = array();
+	private $objetivos_departamento = array();
+
+	private $penalizaciones = array();
+	private $penalizaciones_departamento = array();
+
+	private $comisiones = array();
+	private $comisiones_departamento = array();
  	/**
  	 * Constructor de la clase.
  	 * 
@@ -68,10 +80,11 @@
  	 */
  	private function cargar(){
  		if($this->id){
- 			$query = "SELECT usuarios.*, usuarios_perfiles.nombre as nombre_perfil
+ 			$query = "SELECT usuarios.*, usuarios_perfiles.nombre as nombre_perfil, usuarios_departamento.nombre as nombre_departamento, usuarios_departamento.id as id_departamento
 						FROM usuarios
 						JOIN usuarios_perfiles
 							ON usuarios.fk_perfil = usuarios_perfiles.id
+						JOIN usuarios_departamentos on usuarios_perfiles.fk_departamento = usuarios_departamentos.id
 						WHERE usuarios.id = '$this->id'; ";
  			if(!($result = mysql_query($query)) || mysql_num_rows($result)!=1)
  				throw new Exception("Error al buscar el usuario en la BBDD.");	
@@ -83,8 +96,14 @@
  			$this->nombre = $row['nombre'];
  			$this->apellidos = $row['apellidos']; 			
  			$this->perfil = array('id'=>$row['fk_perfil'], 'nombre'=>$row['nombre_perfil']);
+			if($row['id_departamento'])
+				$this->departamento = array('id' => $row['id_departamento'], 'nombre' => $row['nombre_departamento']);
+			else
+				$this->departamento = null;
  			
- 			$this->cargar_objetivos();
+ 			$this->cargar_Objetivos();
+			$this->cargar_Penalizaciones();
+			$this->cargar_Comisiones();
  		}
  	}
  	
@@ -93,16 +112,85 @@
  	 * Se invoca desde el método {@link cargar()}
  	 *
  	 */
- 	private function cargar_objetivos(){
+ 	private function cargar_Objetivos(){
  		if($this->id){
- 			$query = "SELECT usuarios_objetivos_mensuales.mes, usuarios_rel_objetivos_mensuales.comision
+ 			$query = "SELECT usuarios_objetivos_mensuales.mes as mes, usuarios_rel_objetivos_mensuales.comision as comision, usuarios_objetivos_mensuales.id as id_mes
 						FROM usuarios_rel_objetivos_mensuales
 						INNER JOIN usuarios_objetivos_mensuales ON usuarios_rel_objetivos_mensuales.fk_objetivo = usuarios_objetivos_mensuales.id
 						WHERE usuarios_rel_objetivos_mensuales.fk_usuario = '$this->id'; ";
  			if(!($result = mysql_query($query)))
  				throw new Exception("Error al cargar los objetivos del usuario.".$query);
  			while($row = mysql_fetch_array($result))
- 				$this->objetivos[] = $row;
+ 				$this->objetivos[$row['id_mes']] = $row;
+
+			//Y ahora los objetivos del departamento (en caso de tenerlos)
+			if($this->departamento){
+				$query = "SELECT usuarios_objetivos_mensuales.mes as mes, usuarios_departamentos_rel_objetivos_mensuales.comision as comision,
+								usuarios_objetivos_mensuales.id as id_mes
+							FROM usuarios_objetivos_mensuales
+							INNER JOIN usuarios_departamentos_rel_objetivos_mensuales
+								ON usuarios_departamentos_rel_objetivos_mensuales.fk_objetivo = usuarios_objetivos_mensuales.id
+							WHERE usuarios_departamentos_rel_objetivos_mensuales.fk_departamento = '".$this->departamento['id']."'; ";
+				if(!($result = mysql_query($query)))
+					throw new Exception("Error al cargar los objetivos del departamento del usuario.".$query);
+				while($row = mysql_fetch_array($result))
+					$this->objetivos_departamento[$row['id_mes']] = $row;
+			}
+ 		}
+ 	}
+
+	private function cargar_Penalizaciones(){
+ 		if($this->id){
+ 			$query = "SELECT usuarios_penalizaciones.nombre as nombre,
+							usuarios_rel_penalizaciones.penalizacion as penalizacion, usuarios_penalizaciones.id as id_penalizacion
+						FROM usuarios_rel_penalizaciones
+						INNER JOIN usuarios_penalizaciones ON usuarios_rel_penalizaciones.fk_penalizacion = usuarios_penalizaciones.id
+						WHERE usuarios_rel_penalizaciones.fk_usuario = '$this->id'; ";
+ 			if(!($result = mysql_query($query)))
+ 				throw new Exception("Error al cargar las penalizaciones del usuario.".$query);
+ 			while($row = mysql_fetch_array($result))
+ 				$this->penalizaciones[$row['id_penalizacion']] = $row;
+
+			//Y ahora las del departamento (en caso de tenerlos)
+			if($this->departamento){
+				$query = "SELECT usuarios_penalizaciones.nombre as nombre,
+								usuarios_departamentos_rel_penalizaciones.penalizacion as penalizacion, usuarios_penalizaciones.id as id_penalizacion
+							FROM usuarios_penalizaciones
+							INNER JOIN usuarios_departamentos_rel_penalizaciones
+								ON usuarios_departamentos_rel_penalizaciones.fk_penalizacion = usuarios_penalizaciones.id
+							WHERE usuarios_departamentos_rel_penalizaciones.fk_departamento = '".$this->departamento['id']."'; ";
+				if(!($result = mysql_query($query)))
+					throw new Exception("Error al cargar las penalizaciones del departamento del usuario.".$query);
+				while($row = mysql_fetch_array($result))
+					$this->penalizaciones_departamento[$row['id_penalizacion']] = $row;
+			}
+ 		}
+ 	}
+
+	private function cargar_Comisiones(){
+ 		if($this->id){
+ 			$query = "SELECT tipos_comision.nombre as nombre, usuarios_rel_tipos_comision.comision as comision, tipos_comision.id as id_comision
+						FROM usuarios_rel_tipos_comision
+						INNER JOIN tipos_comision ON usuarios_rel_tipos_comision.fk_tipo_comision = tipos_comision.id
+						WHERE usuarios_rel_tipos_comision.fk_usuario = '$this->id'; ";
+ 			if(!($result = mysql_query($query)))
+ 				throw new Exception("Error al cargar las comisiones del usuario.".$query);
+ 			while($row = mysql_fetch_array($result))
+ 				$this->comisiones[$row['id_comision']] = $row;
+
+			//Y ahora los objetivos del departamento (en caso de tenerlos)
+			if($this->departamento){
+				$query = "SELECT tipos_comision.nombre as nombre, usuarios_departamentos_rel_tipos_comision.comision as comision,
+								tipos_comision.id as id_comision
+							FROM tipos_comision
+							INNER JOIN usuarios_departamentos_rel_tipos_comision
+								ON usuarios_departamentos_rel_tipos_comision.fk_tipo_comision = tipos_comision.id
+							WHERE usuarios_departamentos_rel_tipos_comision.fk_departamento = '".$this->departamento['id']."'; ";
+				if(!($result = mysql_query($query)))
+					throw new Exception("Error al cargar las comisiones del departamento del usuario.".$query);
+				while($row = mysql_fetch_array($result))
+					$this->comisiones_departamento[$row['id_comision']] = $row;
+			}
  		}
  	}
  	
@@ -158,9 +246,12 @@
  	 * @return Perfil $perfil array indexado por id y nombre
  	 */
  	public function get_Perfil(){
- 		return$this->perfil;
+ 		return $this->perfil;
  	}
- 	
+
+	public function get_Departamento(){
+		return $this->departamento;
+	}
  	/**
  	 * Devuelve un array con los objetivos que tiene asignado el usuario.
  	 *
@@ -168,6 +259,32 @@
  	 */
  	public function get_Objetivos(){
  		return $this->objetivos;
+ 	}
+	public function get_Objetivo($id_mes){
+		return $this->objetivos[$id_mes];
+	}
+	public function get_Objetivos_Departamento(){
+ 		return $this->objetivos_departamento;
+ 	}
+
+	public function get_Penalizaciones(){
+ 		return $this->penalizaciones;
+ 	}
+	public function get_Penalizacion($id_pen){
+		return $this->penalizaciones[$id_pen];
+	}
+	public function get_Penalizaciones_Departamento(){
+ 		return $this->penalizaciones_departamento;
+ 	}
+
+	public function get_Comisiones(){
+ 		return $this->comisiones;
+ 	}
+	public function get_Comision($id){
+		return $this->comision[$id];
+	}
+	public function get_Comisiones_Departamento(){
+ 		return $this->comisiones_departamento;
  	}
  	
 	/**
@@ -269,7 +386,7 @@
 			throw new Exception("Error al crear el Usuario.");
 		$this->id = mysql_insert_id();
 		
-		if(isset($datos['objetivos'])){
+		/*if(isset($datos['objetivos'])){
 			//Insertamos los objetivos
 			foreach($datos['objetivos'] as $objetivo){
 				$query = "INSERT INTO usuarios_objetivos (
@@ -285,7 +402,7 @@
 					throw new Exception("Error al crear el Usuario: No se pudieron establecer los objetivos.");
 			}
 		}
-		
+		*/
 					
 		return $this->id;
 	}
@@ -383,8 +500,6 @@
 	public function set_Perfil($id_perfil){
 		$ListaUsuarios = new ListaUsuarios();
 		$array_perfiles = $ListaUsuarios->lista_Perfiles();
-		FB::info($id_perfil);
-		FB::info($array_perfiles);
 
 		if(is_numeric($id_perfil) && in_array($id_perfil, array_keys($array_perfiles))){
 			$query = "UPDATE usuarios SET fk_perfil='$id_perfil' WHERE id='$this->id' ";
@@ -399,6 +514,77 @@
 
 		}else
 		throw new Exception("Debe introducir un perfil v&aacute;lido.");
+	}
+
+	/**
+	 * Establece los objetivos mensuales del usuario
+	 * Borra los objetivos actuales e ingresa los que se les pasa en el array
+	 * @param <array> $objetivos, cada posición indexado por id y comision
+	 */
+	public function set_Objetivos($objetivos){
+		$query = "DELETE FROM usuarios_rel_objetivos_mensuales WHERE fk_usuario = '$this->id';";
+		if(!mysql_query($query))
+			throw new Exception("Error cr&iacute;tico al resetear los objetivos");
+		foreach($objetivos as $obj){			
+			$this->set_Objetivo($obj['id'], $obj['comision'], true);
+		}
+	}
+	public function set_Objetivo($id, $comision, $objetivos_borrados=false){
+		if(!$objetivos_borrados){
+			$query = "DELETE FROM usuarios_rel_objetivos_mensuales WHERE fk_usuario = '$this->id' AND fk_objetivo = '$id';";
+			if(!mysql_query($query))
+				throw new Exception("Error cr&iacute;tico al resetear los objetivos");
+		}
+
+		$query = "INSERT INTO usuarios_rel_objetivos_mensuales
+							(fk_usuario, fk_objetivo, comision)
+							VALUES ('$this->id', '$id', '$comision');";
+		if(!mysql_query($query))
+			throw new Exception("Error cr&iacute;tico al establecer los objetivos");
+	}
+
+	public function set_Penalizaciones($penalizaciones){
+		$query = "DELETE FROM usuarios_rel_penalizaciones WHERE fk_usuario = '$this->id';";
+		if(!mysql_query($query))
+			throw new Exception("Error cr&iacute;tico al resetear las penalizaciones");
+		foreach($penalizaciones as $obj){
+			$this->set_Penalizacion($obj['id'], $obj['penalizacion'], true);
+		}
+	}
+	public function set_Penalizacion($id, $penalizacion, $penalizaciones_borradas=false){
+		if(!$penalizaciones_borradas){
+			$query = "DELETE FROM usuarios_rel_penalizaciones WHERE fk_usuario = '$this->id' AND fk_penalizacion = '$id';";
+			if(!mysql_query($query))
+				throw new Exception("Error cr&iacute;tico al resetear las penalizaciones");
+		}
+
+		$query = "INSERT INTO usuarios_rel_penalizaciones
+							(fk_usuario, fk_penalizacion, penalizacion)
+							VALUES ('$this->id', '$id', '$penalizacion');";
+		if(!mysql_query($query))
+			throw new Exception("Error cr&iacute;tico al establecer las penalizaciones");
+	}
+
+	public function set_Comisiones($comisiones){
+		$query = "DELETE FROM usuarios_rel_objetivos_mensuales WHERE fk_usuario = '$this->id';";
+		if(!mysql_query($query))
+			throw new Exception("Error cr&iacute;tico al resetear las comisiones");
+		foreach($comisiones as $obj){
+			$this->set_Objetivo($obj['id'], $obj['comision'], true);
+		}
+	}
+	public function set_Comision($id, $comision, $comisiones_borrados=false){
+		if(!$comisiones_borrados){
+			$query = "DELETE FROM usuarios_rel_comisiones WHERE fk_usuario = '$this->id' AND fk_tipo_comision = '$id';";
+			if(!mysql_query($query))
+				throw new Exception("Error cr&iacute;tico al resetear las comisiones");
+		}
+
+		$query = "INSERT INTO usuarios_rel_tipos_comision
+							(fk_usuario, fk_tipo_comision, comision)
+							VALUES ('$this->id', '$id', '$comision');";
+		if(!mysql_query($query))
+			throw new Exception("Error cr&iacute;tico al establecer las comisiones");
 	}
  	
 	public function esAdministrador(){

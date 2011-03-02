@@ -90,6 +90,42 @@ class ListaUsuarios implements IIterador{
 		
 		return $perfiles;
 	}
+	function lista_Departamentos(){
+		$perfiles = array();
+		$query = "SELECT id, nombre FROM usuarios_departamentos order by nombre;";
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result))
+			$perfiles[$row['id']] = $row;
+
+		return $perfiles;
+	}
+	function lista_Meses(){
+		$perfiles = array();
+		$query = "SELECT id, mes FROM usuarios_objetivos_mensuales order by id;";
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result))
+			$perfiles[$row['id']] = $row;
+
+		return $perfiles;
+	}
+	function lista_Penalizaciones(){
+		$perfiles = array();
+		$query = "SELECT id, nombre FROM usuarios_penalizaciones order by id;";
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result))
+			$perfiles[$row['id']] = $row;
+
+		return $perfiles;
+	}
+	function lista_Penalizaciones(){
+		$perfiles = array();
+		$query = "SELECT id, nombre FROM tipos_comision order by id;";
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result))
+			$perfiles[$row['id']] = $row;
+
+		return $perfiles;
+	}
 	/**
 	 * Devuelve un array con la lista de Usuario
 	 * 
