@@ -106,12 +106,12 @@ include ($appRoot.'/include/html/mainMenu.php');
 
 <!-- BUSCADOR -->
 
-<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small"> <?php echo  _translate("Mostrar/Ocultar opciones de búsqueda")?></a></i><br/>
+<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small"> <?php echo  _translate("Mostrar/Ocultar opciones de b&oacute;squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
 	<table>
 		<tr class="BusquedaTable">
 			<td colspan="6" class="ListaTitulo">
-				<div style="float:left"><?php echo  _translate("Opciones de búsqueda")?></div>
+				<div style="float:left"><?php echo  _translate("Opciones de b&oacute;squeda")?></div>
 			</td>
 		</tr>		
 		<tr>			
@@ -156,10 +156,11 @@ include ($appRoot.'/include/html/mainMenu.php');
 					
 					$totales = array();
 				?>
-				<?php foreach($var->datos['informes_usuarios'] as $informe_usr){
-					$total_acciones = $informe_usr['total_acciones_usuario'];
-					$total_clientes = $informe_usr['total_clientes_usuario'];					
-					
+				<?php foreach($var->resumen as $user => $informe_usr){
+					$total_usuario = end($informe_usr);
+					$total_acciones = $total_usuario['num_acciones'];
+					$total_clientes = $total_usuario['num_clientes'];
+					if($user){
 					?>
 					<table>
 						<thead>
@@ -168,16 +169,16 @@ include ($appRoot.'/include/html/mainMenu.php');
 									<?php echo _translate("Usuario"); ?>
 								</th>
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Tipo acción"); ?>
+									<?php echo _translate("Tipo acci&oacute;n"); ?>
 								</th>
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Número acciones"); ?>
+									<?php echo _translate("N&uacute;mero acciones"); ?>
 								</th>
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
 									%
 								</th>
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Número de empresas"); ?>
+									<?php echo _translate("N&uacute;mero de empresas"); ?>
 								</th>		
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
 									%
@@ -186,51 +187,61 @@ include ($appRoot.'/include/html/mainMenu.php');
 						</thead>
 						<tbody>							
 							<?php $primero = true;$fila_par=true;
-								foreach($informe_usr['informes'] as $informe_tipo_accion){ ?>
-								<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>	
-									<?php 
-										$tipo_accion = $informe_tipo_accion['tipo'];
-										$num_acciones = $informe_tipo_accion['num_acciones'];
-										$num_clientes = $informe_tipo_accion['num_clientes'];
-										
-									?>
-										<td style="text-align:center;width:5%;">
-											<?php if($primero) echo "<b>".$informe_usr['id_usuario']."</b>"; $primero=false;?>		
-										</td>
-										<td style="text-align:center;width:5%;">
-											<?php echo $tipo_accion; ?>
-										</td>
-										<td style="text-align:center;width:5%;">
-											<?php echo $num_acciones; ?>
-										</td>
-										<td style="text-align:center;width:5%;">
-											<?php if($total_acciones)echo substr($num_acciones*100/$total_acciones,0,4)."%"; ?>		
-										</td>
-										<td style="text-align:center;width:5%;">
-											<?php echo $num_clientes; ?>				
-										</td>
-										<td style="text-align:center;width:5%;">
-											<?php if($total_acciones) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
-										</td>							
-									<?php 
-										$totales[$tipo_accion]['num_acciones'] += $num_acciones;
-										$totales[$tipo_accion]['num_clientes'] += $num_clientes;
-									} ?>
+								
+								foreach($informe_usr as $informe_tipo_accion){ FB::warn($informe_usr);
+									$ULTIMO = ($total_usuario == $informe_tipo_accion);
+
+									if(!$ULTIMO){?>
+										<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
+											<?php
+												$tipo_accion = $informe_tipo_accion['tipo'];
+												$num_acciones = $informe_tipo_accion['num_acciones'];
+												$num_clientes = $informe_tipo_accion['num_clientes'];
+
+											?>
+												<td style="text-align:center;width:5%;">
+													<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
+												</td>
+												<td style="text-align:center;width:5%;">
+													<?php echo $informe_tipo_accion['nombre']; ?>
+												</td>
+												<td style="text-align:center;width:5%;">
+													<?php echo $num_acciones; ?>
+												</td>
+												<td style="text-align:center;width:5%;">
+													<?php if($total_acciones)echo substr($num_acciones*100/$total_acciones,0,4)."%"; ?>
+												</td>
+												<td style="text-align:center;width:5%;">
+													<?php echo $num_clientes; ?>
+												</td>
+												<td style="text-align:center;width:5%;">
+													<?php if($total_acciones) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+												</td>
+										</tr>
+										<?php
+											$totales[$tipo_accion]['num_acciones'] += $num_acciones;
+											$totales[$tipo_accion]['num_clientes'] += $num_clientes;
+									}else{?>
+										<tr>
+											<td style="text-align:center;width:5%;">Total</td><td></td>
+											<td style="text-align:center;width:5%;"><?php echo  $total_acciones;?></td>
+											<td></td>
+											<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+											<td></td>
+										</tr>
+							<?php	}
+								}?>
 									
-								</tr>
-								<tr>
-									<td style="text-align:center;width:5%;">Total</td><td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_acciones;?></td>
-									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
-									<td></td>
-								</tr>
+								
+								
 							</tbody>
 						</table>
 				<?php 
 					$totales['acciones'] += $total_acciones;
 					$totales['clientes'] += $total_clientes;
-				}?>	
+				}else{
+				}
+			}?>
 					<!-- TOTALES -->
 					<?php
 						$total_acciones = $totales['acciones'];
@@ -244,16 +255,16 @@ include ($appRoot.'/include/html/mainMenu.php');
 									<?php echo _translate("Totales"); ?>
 								</th>
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Tipo acción"); ?>
+									<?php echo _translate("Tipo acci&oacute;n"); ?>
 								</th>
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Número acciones"); ?>
+									<?php echo _translate("N&oacute;mero acciones"); ?>
 								</th>
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
 									%
 								</th>
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Número de empresas"); ?>
+									<?php echo _translate("N&oacute;mero de empresas"); ?>
 								</th>		
 								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
 									%

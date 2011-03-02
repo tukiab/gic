@@ -34,6 +34,8 @@ class InformesAcciones{
 	private $lista_Acciones;
 
 	public $gestor;
+
+	public $resumen;
 	/*
 	 *Método que instancia un objeto Busqueda para entregar y recoger los datos necesarios de la interfaz
 	 *
@@ -45,7 +47,8 @@ class InformesAcciones{
 
 		$this->obtener_Listas();
 		//Usamos el método para asignar las opciones pasadas desde la interfaz 	
-		$this->obtener_Opciones($opciones);		
+		$this->obtener_Opciones($opciones);
+		
 		//Buscamos los acciones con los parámetros establecidos en la interfaz
 		if($this->opt['buscar']) $this->datos['informes_usuarios'] = $this->buscar(); else $this->datos['informes_usuarios'] = array();
 		
@@ -79,6 +82,36 @@ class InformesAcciones{
 	}
 
 	private function buscar(){
+		$filtro = "";
+		if($this->opt['fecha_desde'])
+			$filtro .= " AND acciones_de_trabajo.fecha >= '".$this->opt['fecha_desde']."' ";
+		if($this->opt['fecha_hasta'])
+			$filtro .= " AND acciones_de_trabajo.fecha <= '".$this->opt['fecha_hasta']."' ";
+		if($this->opt['id_usuario'])
+			$filtro .= " AND acciones_de_trabajo.fk_usuario = '".$this->opt['id_usuario']."'";
+
+		$query = "SELECT acciones_de_trabajo.fk_usuario as usuario, acciones_de_trabajo.fk_tipo_accion as tipo, acciones_tipos.nombre,
+					COUNT(DISTINCT acciones_de_trabajo.id) as num_acciones,
+					COUNT(DISTINCT acciones_de_trabajo.fk_cliente) as num_clientes
+
+					FROM acciones_de_trabajo
+					INNER JOIN acciones_tipos ON acciones_tipos.id = acciones_de_trabajo.fk_tipo_accion
+					INNER JOIN clientes ON clientes.id = acciones_de_trabajo.fk_cliente
+					WHERE 1 $filtro
+
+					GROUP BY usuario, tipo WITH ROLLUP;";FB::info($query);
+
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result)){
+			$datos[$row['usuario']][] = $row;
+		}
+		FB::info($datos);
+		$this->resumen = $datos;
+		//return $datos;
+
+		foreach($datos as $user => $resumen_usr){
+						
+		}
 		$resultados = array(); //array multidimensional con la información a mostrar..
 		
 		//Iteramos sobre los usuarios
@@ -92,7 +125,7 @@ class InformesAcciones{
 						
 			$resultado_usuario['id_usuario'] = $usuario->get_Id();
 			
-			//Indicamos que vamos a buscar acciones de este usuario
+			//Indicamos que vamos a buscar acciones de este usuario y entre las fechas dadas
 			$filtros = $this->opt;
 			$filtros['id_usuario'] = $usuario->get_Id();
 			

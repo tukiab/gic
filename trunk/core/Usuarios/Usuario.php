@@ -95,13 +95,14 @@
  	 */
  	private function cargar_objetivos(){
  		if($this->id){
- 			$query = "SELECT mes, objetivo
-						FROM usuarios_objetivos
-						WHERE fk_usuario = '$this->id' order by mes; ";
+ 			$query = "SELECT usuarios_objetivos_mensuales.mes, usuarios_rel_objetivos_mensuales.comision
+						FROM usuarios_rel_objetivos_mensuales
+						INNER JOIN usuarios_objetivos_mensuales ON usuarios_rel_objetivos_mensuales.fk_objetivo = usuarios_objetivos_mensuales.id
+						WHERE usuarios_rel_objetivos_mensuales.fk_usuario = '$this->id'; ";
  			if(!($result = mysql_query($query)))
- 				throw new Exception("Error al cargar los objetivos del usuario.");
+ 				throw new Exception("Error al cargar los objetivos del usuario.".$query);
  			while($row = mysql_fetch_array($result))
- 				$this->objetivos[$row['mes']] = $row['objetivo'];
+ 				$this->objetivos[] = $row;
  		}
  	}
  	
@@ -154,7 +155,7 @@
  	/**
  	 * Devuelve el perfil al que pertenece el usuario.
  	 *
- 	 * @return Perfil $perfil array indezado por id y nombre
+ 	 * @return Perfil $perfil array indexado por id y nombre
  	 */
  	public function get_Perfil(){
  		return$this->perfil;

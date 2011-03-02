@@ -49,3 +49,107 @@ CREATE TABLE IF NOT EXISTS `clientes_sedes_rel_contactos` (
   `fk_contacto` int(11) NOT NULL,
   PRIMARY KEY (`fk_clientes_sede`,`fk_contacto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Perfiles
+INSERT INTO `usuarios_perfiles` (`id`, `nombre`) VALUES (NULL, 'Director Técnico');
+INSERT INTO `usuarios_perfiles` (`id`, `nombre`) VALUES (NULL, 'Director Comercial');
+
+-- departamentos
+CREATE TABLE IF NOT EXISTS `usuarios_departamentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `usuarios_departamentos` (`nombre`) VALUES
+('Comercial'),
+('Técnico');
+
+-- departamento del director técnico y del director comercial
+ALTER TABLE `usuarios_perfiles` ADD `fk_departamento` INT( 11 ) NOT NULL ;
+UPDATE `usuarios_perfiles` SET `fk_departamento` = '2' WHERE `usuarios_perfiles`.`id` =6;
+UPDATE `usuarios_perfiles` SET `fk_departamento` = '1' WHERE `usuarios_perfiles`.`id` =7;
+
+-- objetivos mensuales
+DROP TABLE `usuarios_objetivos` ;
+CREATE TABLE IF NOT EXISTS `usuarios_objetivos_mensuales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mes` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `usuarios_objetivos_mensuales` (`mes`) VALUES
+('Enero'),
+('Febrero'),
+('Marzo'),
+('Abril'),
+('Mayo'),
+('Junio'),
+('Julio'),
+('Agosto'),
+('Septiembre'),
+('Octubre'),
+('Noviembre'),
+('Diciembre');
+
+-- Comisiones
+CREATE TABLE IF NOT EXISTS `usuarios_rel_tipos_comision` (
+  `fk_usuario` int(11) NOT NULL,
+  `fk_tipo_comision` int(10) NOT NULL,
+  `comision` float NOT NULL,
+  PRIMARY KEY (`fk_usuario`,`fk_tipo_comision`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `usuarios_rel_objetivos_mensuales` (
+  `fk_usuario` int(11) NOT NULL,
+  `fk_objetivo` int(10) NOT NULL,
+  `comision` float NOT NULL,
+  PRIMARY KEY (`fk_usuario`,`fk_objetivo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `usuarios_departamentos_rel_objetivos_mensuales` (
+  `fk_departamento` int(11) NOT NULL,
+  `fk_objetivo` int(10) NOT NULL,
+  `comision` float NOT NULL,
+  PRIMARY KEY (`fk_departamento`,`fk_objetivo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- penalizaciones
+CREATE TABLE IF NOT EXISTS `usuarios_penalizaciones` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `usuarios_penalizaciones` (`nombre`) VALUES
+('Menos del 50%'),
+('51%-75%'),
+('76%-100%'),
+('101%-120%'),
+('121%-150%'),
+('Más del 150%');
+
+CREATE TABLE IF NOT EXISTS `usuarios_rel_penalizaciones` (
+  `fk_usuario` int(11) NOT NULL,
+  `fk_penalizacion` int(10) NOT NULL,
+  `penalizacion` float NOT NULL,
+  PRIMARY KEY (`fk_usuario`,`fk_penalizacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `usuarios_departamentos_rel_penalizaciones` (
+  `fk_departamento` int(11) NOT NULL,
+  `fk_penalizacion` int(10) NOT NULL,
+  `penalizacion` float NOT NULL,
+  PRIMARY KEY (`fk_departamento`,`fk_penalizacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- tips de venta
+DELETE FROM `tipos_comision`;
+
+INSERT INTO `tipos_comision` (`nombre`) VALUES
+('Consultoría objetivable'),
+('Consultoría NO objetivable'),
+('Formación objetivable'),
+('Formació NO objetivable'),
+('LOPD'),
+('Otras');

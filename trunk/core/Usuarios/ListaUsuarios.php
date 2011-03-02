@@ -83,7 +83,7 @@ class ListaUsuarios implements IIterador{
 	 */
 	function lista_Perfiles(){
 		$perfiles = array();
-		$query = "SELECT id, nombre FROM usuarios_perfiles order by id;";
+		$query = "SELECT id, nombre FROM usuarios_perfiles order by nombre;";
 		$result = mysql_query($query);
 		while($row = mysql_fetch_array($result))
 			$perfiles[$row['id']] = $row;
