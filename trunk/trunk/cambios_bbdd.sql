@@ -63,12 +63,22 @@ CREATE TABLE IF NOT EXISTS `usuarios_departamentos` (
 
 INSERT INTO `usuarios_departamentos` (`nombre`) VALUES
 ('Comercial'),
-('Técnico');
+('Técnico'),
+('Gestión'),
+('Administración');
 
--- departamento del director técnico y del director comercial
+-- departamentos
+ALTER TABLE `usuarios_perfiles` ADD `es_director_departamento` tinyint(1) NOT NULL DEFAULT '0' ;
 ALTER TABLE `usuarios_perfiles` ADD `fk_departamento` INT( 11 ) NOT NULL ;
+UPDATE `usuarios_perfiles` SET `fk_departamento` = '2' WHERE `usuarios_perfiles`.`id` =3;
 UPDATE `usuarios_perfiles` SET `fk_departamento` = '2' WHERE `usuarios_perfiles`.`id` =6;
+UPDATE `usuarios_perfiles` SET `es_director_departamento` = '1' WHERE `usuarios_perfiles`.`id` =6;
+UPDATE `usuarios_perfiles` SET `fk_departamento` = '1' WHERE `usuarios_perfiles`.`id` =1;
+UPDATE `usuarios_perfiles` SET `fk_departamento` = '1' WHERE `usuarios_perfiles`.`id` =2;
 UPDATE `usuarios_perfiles` SET `fk_departamento` = '1' WHERE `usuarios_perfiles`.`id` =7;
+UPDATE `usuarios_perfiles` SET `es_director_departamento` = '1' WHERE `usuarios_perfiles`.`id` =7;
+UPDATE `usuarios_perfiles` SET `fk_departamento` = '3' WHERE `usuarios_perfiles`.`id` =4;
+UPDATE `usuarios_perfiles` SET `fk_departamento` = '4' WHERE `usuarios_perfiles`.`id` =5;
 
 -- objetivos mensuales
 DROP TABLE `usuarios_objetivos` ;
@@ -150,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `usuarios_departamentos_rel_tipos_comision` (
   PRIMARY KEY (`fk_departamento`,`fk_tipo_comision`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- tips de venta
+-- tipos de venta
 DELETE FROM `tipos_comision`;
 
 INSERT INTO `tipos_comision` (`nombre`) VALUES
@@ -160,3 +170,6 @@ INSERT INTO `tipos_comision` (`nombre`) VALUES
 ('Formació NO objetivable'),
 ('LOPD'),
 ('Otras');
+
+-- Cliente principal: Empresa dueña de la aplicación, es el ¿Quién soy?
+ALTER TABLE `clientes` ADD `cliente_principal` TINYINT( 1 ) NOT NULL DEFAULT '0';
