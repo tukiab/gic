@@ -63,10 +63,14 @@ class ListaClientes implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Clientes.
 	 */
 	public function buscar($filtros=null, $page=0, $paso=0){
-		//////FB::info($filtros,'filtros ListaClientes:buscar');
+		//FB::info($filtros,'filtros ListaClientes:buscar');
 		$filtro ="";
 		$join="";
-		
+
+		if(isset($filtros['cliente_principal'])){
+			$filtro.=" AND clientes.cliente_principal = '1' ";
+			$limit = " LIMIT 1 ";
+		}
 		(isset($filtros['id']))?$filtro.=" AND clientes.id = '".trim($filtros['id'])."' ":null;
 		(isset($filtros['razon_social']))?$filtro.=" AND clientes.razon_social LIKE '%".trim($filtros['razon_social'])."%' ":null;
 		(isset($filtros['tipo_cliente']))?$join .= " INNER JOIN clientes_tipos ON clientes.fk_tipo_cliente = '".trim($filtros['tipo_cliente'])."'":null;
@@ -266,6 +270,11 @@ class ListaClientes implements IIterador{
 			$clientes[$row['id']] = $row;
 		
 		return $clientes;
+	}
+
+	public function get_Cliente_Principal(){
+		$this->buscar(array('cliente_principal' => true));
+		return $this->siguiente();
 	}
 }
 ?>

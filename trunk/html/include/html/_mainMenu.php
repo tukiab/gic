@@ -53,12 +53,13 @@ class MainMenu{
 				$this->menus[7][2]= new Menu("$appDir/Proveedores/addProveedor.php", "Nuevo");
 				
 			$this->menus[8][0]= new Menu("#", "Administraci&oacute;n +", "gestores");
-				$this->menus[8][1]= new Menu("$appDir/Administracion/gestionUsuarios.php", "Gestores");
-				$this->menus[8][2]= new Menu("$appDir/Administracion/gestionGrupos.php", "Grupos de empresas");
-				$this->menus[8][3]= new Menu("$appDir/Administracion/gestionTiposProducto.php", "Tipos de producto");
-				$this->menus[8][4]= new Menu("$appDir/Administracion/gestionTiposAccion.php", "Tipos de accion");
-                                $this->menus[8][5]= new Menu("$appDir/Administracion/gestionTiposFormasDePago.php", "Tipos de formas de pago");
-                                $this->menus[8][6]= new Menu("$appDir/Administracion/gestionTiposComision.php", "Tipos de comisi&oacute;n");
+				$this->menus[8][1]= new Menu("$appDir/Administracion/miEmpresa.php", "Administracion");
+				$this->menus[8][2]= new Menu("$appDir/Administracion/gestionUsuarios.php", "Gestores");
+				$this->menus[8][3]= new Menu("$appDir/Administracion/gestionGrupos.php", "Grupos de empresas");
+				$this->menus[8][4]= new Menu("$appDir/Administracion/gestionTiposProducto.php", "Tipos de producto");
+				$this->menus[8][5]= new Menu("$appDir/Administracion/gestionTiposAccion.php", "Tipos de accion");
+                                $this->menus[8][6]= new Menu("$appDir/Administracion/gestionTiposFormasDePago.php", "Tipos de formas de pago");
+                                $this->menus[8][7]= new Menu("$appDir/Administracion/gestionTiposComision.php", "Tipos de comisi&oacute;n");
 				
 			
 		}

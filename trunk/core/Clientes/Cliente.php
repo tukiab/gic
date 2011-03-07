@@ -138,6 +138,12 @@ class Cliente{
 	 * @var <type>
 	 */
 	private $sedes;
+
+	/**
+	 * Indica si el cliente representa a la empresa usuaria de la aplicación
+	 * @var <integer>
+	 */
+	private $cliente_principal;
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -205,6 +211,7 @@ class Cliente{
 			$this->tipo_cliente = array('id'=>$row['id_tipo'], 'nombre'=>$row['nombre_tipo']);
 			$this->grupo_empresas = array('id'=>$row['id_grupo'], 'nombre'=>$row['nombre_grupo']);
 
+			$this_principal = $row['cliente_principal'];
 
 			$this->observaciones = $row['observaciones'];
 			$this->actividad = $row['actividad'];
@@ -509,6 +516,10 @@ class Cliente{
 		return $this->actividad;
 	}
 
+	public function get_Cliente_Principal(){
+		return $this_principal;
+	}
+
 	
 	/**
 	 * Devuelve la lista de contactos asociados al cliente.
@@ -692,6 +703,14 @@ class Cliente{
 		if($coincidencias != '' && ! $datos['continuar'])
                     return($coincidencias);
 		
+		if($datos['cliente_principal']){
+			$cliente_principal = 1;
+			$query = "UPDATE clientes SET cliente_principal = '0' WHERE cliente_principal='1';";
+			if(!mysql_query($query))
+				throw new Excepcion("Error cr&iacute;tico al deshacer la empresa propietaria anterior");
+		}else
+			$cliente_principal = 0;
+
 		$s_into.="";
 		$s_values.="";
 		$validar = new Validador();
@@ -752,13 +771,16 @@ class Cliente{
 			INSERT INTO clientes (  razon_social,									
 									provincia,									
 									fk_tipo_cliente,
-									fk_grupo_empresas								
+									fk_grupo_empresas,
+									cliente_principal
 									$s_into
 								)VALUES(
 									'".mysql_real_escape_string(trim($datos['razon_social']))."',									
 									'".mysql_real_escape_string(trim($datos['provincia']))."',									
 									'".trim($datos['tipo_cliente'])."',
-									'".trim($datos['grupo_empresas'])."'
+									'".trim($datos['grupo_empresas'])."',
+									'$cliente_principal',
+
 									$s_values
 								);
 		";									
@@ -1433,7 +1455,59 @@ class Cliente{
 		}
 	}
 
+	public function editar($datos){
+		if($this->get_Razon_Social() != $datos['razon_social'])
+			$this->set_Razon_Social($datos['razon_social']);
 
+		$tipo_cliente = $this->get_Tipo_Cliente();
+		if($tipo_cliente['id'] != $datos['tipo_cliente'])
+			$this->set_Tipo($datos['tipo_cliente']);
+
+		if($this->get_Localidad() != $datos['localidad'])
+			$this->set_Localidad($datos['localidad']);
+
+		if($this->get_Domicilio() != $datos['domicilio'])
+			$this->set_Domicilio($datos['domicilio']);
+
+		if($this->get_Provincia() != $datos['provincia'])
+			$this->set_Provincia($datos['provincia']);
+
+		$grupo_cliente = $this->get_Grupo_Empresas();
+		if($grupo_cliente['id'] != $datos['grupo_empresas'])
+			$this->set_Grupo_Empresas($datos['grupo_empresas']);
+
+		if($this->get_NIF() != $datos['NIF'])
+			$this->set_NIF($datos['NIF']);
+
+		if($this->get_CP() != $datos['CP'])
+			$this->set_CP($datos['CP']);
+
+		if($this->get_Numero_Empleados() != $datos['numero_empleados'] || $datos['numero_empleados'] == '')
+			$this->set_Numero_Empleados($datos['numero_empleados']);
+
+		if($this->get_Web() != $datos['web'])
+			$this->set_Web($datos['web']);
+
+		if($this->get_Telefono() != $datos['telefono'])
+			$this->set_Telefono($datos['telefono']);
+
+		if($this->get_FAX() != $datos['FAX'])
+			$this->set_FAX($datos['FAX']);
+		if($this->get_Sector() != $datos['sector'])
+			$this->set_Sector($datos['sector']);
+
+		if($this->get_SPA_Actual() != $datos['SPA_actual'])
+			$this->set_SPA_Actual($datos['SPA_actual']);
+
+		if($this->get_Fecha_Renovacion() != $datos['fecha_renovacion'])
+			$this->set_Fecha_Renovacion($datos['fecha_renovacion']);
+
+		if($this->get_Norma_Implantada() != $datos['norma_implantada'])
+			$this->set_Norma_Implantada($datos['norma_implantada']);
+
+		if($this->get_Creditos() != $datos['creditos'])
+			$this->set_Creditos($datos['creditos']);
+	}
 
 }
 ?>
