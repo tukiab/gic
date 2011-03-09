@@ -226,7 +226,7 @@ class Sede{
 		//Comprobando los datos "imprescindibles":
 		$errores = '';
 		if(!is_numeric($datos['id_cliente']) || ! isset($datos['id_cliente']))
-			$errores .= "<br/>Sede: El cliente es obligatorio.";
+			$errores .= "<br/>Sede: La empresa es obligatoria.";
 		if($datos['localidad'] == '' || ! isset($datos['localidad']))
 			$errores .= "<br/>Sede: La localidad es obligatoria.";
 		
@@ -261,6 +261,10 @@ class Sede{
 			$s_into.=",CP";
 			$s_values.=",'".trim($datos['CP'])."'";
 		}
+		if(isset($datos['es_sede_principal']) && $datos['es_sede_principal'] != ''){
+			$s_into.=",es_sede_principal";
+			$s_values.=",'".trim($datos['es_sede_principal'])."'";
+		}
 
 		$query = "
 			INSERT INTO clientes_sedes (  fk_cliente,
@@ -272,9 +276,9 @@ class Sede{
 									$s_values
 								);
 		";									
-									if(!mysql_query($query))
-										throw new Exception("Error al crear la sede.  ");
-									$this->id = mysql_insert_id();
+		if(!mysql_query($query))
+			throw new Exception("Error al crear la sede.  ");
+		$this->id = mysql_insert_id();
 										
 		if(isset($datos['ids_contactos'])){
 			$this->add_Contactos($datos['ids_contactos']);

@@ -36,11 +36,12 @@ ADD `presupuesto_aceptado_certificadora` TINYINT( 1 ) NOT NULL DEFAULT '0';
 -- SEDES de los clientes (empresas)
 CREATE TABLE IF NOT EXISTS `clientes_sedes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `localidad` varchar(45) DEFAULT NULL,
+  `localidad` varchar(45) NOT NULL,
   `CP` int(11) DEFAULT NULL,
-  `provincia` varchar(15) NOT NULL,
-  `direccion` varchar(400) NOT NULL,
+  `provincia` varchar(15) DEFAULT NULL,
+  `direccion` varchar(400) DEFAULT NULL,
   `fk_cliente` int(11) NOT NULL,
+  `es_sede_principal` TINYINT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -50,9 +51,16 @@ CREATE TABLE IF NOT EXISTS `clientes_sedes_rel_contactos` (
   PRIMARY KEY (`fk_clientes_sede`,`fk_contacto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- Hay que introducir las sedes principales de los clientes que ya existen:
+INSERT INTO `clientes_sedes` (`localidad`, `CP`, `provincia`, `direccion`, `fk_cliente`, `es_sede_principal`)
+	SELECT clientes.localidad, clientes.CP, clientes.provincia, clientes.domicilio, clientes.id
+		FROM clientes
+-- y todas son principales:
+UPDATE `clientes_sedes` SET `es_sede_principal`= '1';
+
 -- Perfiles
-INSERT INTO `usuarios_perfiles` (`id`, `nombre`) VALUES (NULL, 'Director Técnico');
-INSERT INTO `usuarios_perfiles` (`id`, `nombre`) VALUES (NULL, 'Director Comercial');
+INSERT INTO `usuarios_perfiles` (`nombre`) VALUES ('Director Técnico');
+INSERT INTO `usuarios_perfiles` (`nombre`) VALUES ('Director Comercial');
 
 -- departamentos
 CREATE TABLE IF NOT EXISTS `usuarios_departamentos` (
@@ -173,3 +181,42 @@ INSERT INTO `tipos_comision` (`nombre`) VALUES
 
 -- Cliente principal: Empresa dueña de la aplicación, es el ¿Quién soy?
 ALTER TABLE `clientes` ADD `cliente_principal` TINYINT( 1 ) NOT NULL DEFAULT '0';
+
+
+-- Proyectos
+CREATE TABLE IF NOT EXISTS `proyectos_estados` (
+  `id` int(3) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `proyectos_estados` (`nombre`) VALUES
+('Pendiente de definición'),
+('Pendiente de asignación'),
+('Pendiente de planificación'),
+('En curso'),
+('Fuera de plazo'),
+('Cerrado');
+
+CREATE TABLE IF NOT EXISTS `proyectos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(500) NOT NULL,
+  `fk_venta` int(11) NOT NULL,
+  `fk_estado` int(3) NOT NULL,
+  `horas_documentacion` int(11) NOT NULL,
+  `horas_auditoria_interna` int(11) NOT NULL,
+  `fecha_inicio` int(11) NOT NULL,
+  `fecha_fin` int(11) NOT NULL,
+  `observaciones` text DEFAULT NULL,
+  `fk_usuario` int(11) NOT NULL,
+  `es_plantilla` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `proyectos_rel_sedes` (
+  `fk_proyecto` int(11) NOT NULL,
+  `fk_sede` int(11) NOT NULL,
+  `horas_desplazamiento` int(11) NOT NULL,
+  `horas_cada_visita` int(11) NOT NULL,
+  `gastos_incurridos` float NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
