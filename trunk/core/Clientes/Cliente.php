@@ -655,32 +655,32 @@ class Cliente{
 		//Comprobando los datos "imprescindibles":
 		$errores = '';
 		if($datos['razon_social'] == '' || ! isset($datos['razon_social']))
-			$errores .= "<br/>Cliente: La raz&oacute;n social es obligatoria.";
+			$errores .= "<br/>Empresa: La raz&oacute;n social es obligatoria.";
 		if($datos['localidad'] == '' || ! isset($datos['localidad']))
-			$errores .= "<br/>Cliente: La localidad es obligatoria.";
+			$errores .= "<br/>Empresa: La localidad es obligatoria.";
 		if($datos['CP'] == '' || ! isset($datos['CP']))
-			$errores .= "<br/>Cliente: El CP es obligatorio.";
+			$errores .= "<br/>Empresa: El CP es obligatorio.";
 		if($datos['sector'] == '' || ! isset($datos['localidad']))
-			$errores .= "<br/>Cliente: El sector es obligatorio.";
+			$errores .= "<br/>Empresa: El sector es obligatorio.";
 		if($datos['provincia'] == '' || ! isset($datos['provincia']))
-			$errores .= "<br/>Cliente: La provincia es obligatoria.";
+			$errores .= "<br/>Empresa: La provincia es obligatoria.";
 		if($datos['tipo_cliente'] == '' || ! isset($datos['tipo_cliente']))
-			$errores .= "<br/>Cliente: El tipo de cliente es obligatorio.";
+			$errores .= "<br/>Empresa: El tipo de cliente es obligatorio.";
 		
 		if(isset($datos['NIF']) && !$validar->nif_cif($datos['NIF']))
-			$errores .= "<br/>Cliente: El CIF/NIF es incorrecto.";
+			$errores .= "<br/>Empresa: El CIF/NIF es incorrecto.";
 			
 		if(!isset($datos['gestor']))
-			$errores .= "<br/>Cliente: Gestor no v&aacute;lido.";		
+			$errores .= "<br/>Empresa: Gestor no v&aacute;lido.";
 		if(isset($datos['telefono'])){
 			if($datos['telefono'] == '')
-				$errores .= "<br/>Cliente: El tele&eacute;fono es obligatorio.";
+				$errores .= "<br/>Empresa: El tele&eacute;fono es obligatorio.";
 			if(!$validar->telefono($datos['telefono']))
 				$errores .= "<br/>El n&uacute;mero de tel&eacute;fono no es v&aacute;lido";
-		}else $errores .= "<br/>Cliente: El tele&eacute;fono es obligatorio."; 
+		}else $errores .= "<br/>Empresa: El tele&eacute;fono es obligatorio.";
 
 		if(!is_numeric($datos['grupo_empresas']) || !in_array($datos['grupo_empresas'], array_keys($array_grupos_empresas)))
-			$errores .= "<br/>Cliente: Grupo de empresas no v&aacute;lido.";
+			$errores .= "<br/>Empresa: Grupo de empresas no v&aacute;lido.";
 		
 			
 		if($errores != '') throw new Exception($errores);
@@ -798,11 +798,25 @@ class Cliente{
 									'".trim($datos['gestor'])."',
 									'1'
 								);";	//FB::info($query);
-									if(!mysql_query($query)){
-                                                                                $this->del_Cliente();
-										throw new Exception("Error al crear el Cliente: No se pudo establecer el gestor.");
-                                                                        }
-										
+		if(!mysql_query($query)){
+			$this->del_Cliente();
+			throw new Exception("Error al crear el Empresa: No se pudo establecer el gestor.");
+		 }
+		
+		 //Los datos de localidad, provincia etc son los datos de la sede principal del cliente/empresa.
+		 //Lo metemos directamente, en lugar de llamar al método crear_Sede
+		 $query = "INSERT INTO clientes_sedes (localidad, CP, provincia, direccion, fk_cliente, es_sede_principal)
+						VALUES ('".mysql_real_escape_string(trim($datos['localidad']))."',
+								'".mysql_real_escape_string(trim($datos['CP']))."',
+								'".mysql_real_escape_string(trim($datos['provincia']))."',
+								'".mysql_real_escape_string(trim($datos['domicilio']))."',
+								'$this->id',
+								'1');";
+		 if(!mysql_query($query)){
+			$this->del_Cliente();
+			throw new Exception("Error al crear el Empresa: No se pudo establecer la sede principal.");
+		 }
+
 		if(isset($datos['contactos'])){
 			$this->add_Contactos($datos['contactos']);
 		}
@@ -811,7 +825,7 @@ class Cliente{
 			//Lo relacionamos y salimos
 			$this->relacionar_Contacto($id_contacto);
 		}
-									return $this->id;
+		return $this->id;
 	}
 	
 	/**
