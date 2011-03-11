@@ -201,15 +201,16 @@ INSERT INTO `proyectos_estados` (`nombre`) VALUES
 CREATE TABLE IF NOT EXISTS `proyectos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(500) NOT NULL,
-  `fk_venta` int(11) NOT NULL,
+  `fk_venta` int(11) DEFAULT NULL,
   `fk_estado` int(3) NOT NULL,
-  `horas_documentacion` int(11) NOT NULL,
-  `horas_auditoria_interna` int(11) NOT NULL,
-  `fecha_inicio` int(11) NOT NULL,
-  `fecha_fin` int(11) NOT NULL,
+  `horas_documentacion` int(11) DEFAULT NULL,
+  `horas_auditoria_interna` int(11) DEFAULT NULL,
+  `fecha_inicio` int(11) DEFAULT NULL,
+  `fecha_fin` int(11) DEFAULT NULL,
   `observaciones` text DEFAULT NULL,
-  `fk_usuario` int(11) NOT NULL,
+  `fk_usuario` int(11) DEFAULT NULL,
   `es_plantilla` tinyint(1) NOT NULL DEFAULT '0',
+  `importe` float DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 

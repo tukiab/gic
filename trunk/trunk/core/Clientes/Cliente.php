@@ -330,6 +330,10 @@ class Cliente{
 		return $this->contactos;
 	}
 
+	/**
+	 * Devuelve el array con los ids de las sedes de la empresa
+	 * @return <type>
+	 */
 	public function get_Sedes(){
 		return $this->sedes;
 	}
