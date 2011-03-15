@@ -23,7 +23,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <?php //if($permisos->escritura){?>
 <div align="center">
 <form id="frmUsuarios" action="<?php echo  $_SERVER['_SELF'];?>" method="POST">
-	<table>
+	<table style="border:none;">
 		<tr class="ListaTitulo">
 			<td><?php echo  _translate("Id");?></td>
 			<td><?php echo  _translate("Nombre");?></td>
@@ -103,6 +103,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 			</td>
 		</tr>
 		<?php  }?>
+		<tr style="font-weight: bold;text-align: left;background: #fff;">
+			<td colspan="7" style="border: 1px solid #ccc;padding: 5px 5px 5px 20px;">&uarr; Acceda al usuario para editar las comisiones</td></tr>
 		</table>
 			<br />
 

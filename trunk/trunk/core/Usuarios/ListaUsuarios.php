@@ -117,7 +117,7 @@ class ListaUsuarios implements IIterador{
 
 		return $perfiles;
 	}
-	function lista_Penalizaciones(){
+	function lista_Tipos_Comision(){
 		$perfiles = array();
 		$query = "SELECT id, nombre FROM tipos_comision order by id;";
 		$result = mysql_query($query);

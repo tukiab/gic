@@ -80,14 +80,14 @@
  	 */
  	private function cargar(){
  		if($this->id){
- 			$query = "SELECT usuarios.*, usuarios_perfiles.nombre as nombre_perfil, usuarios_departamento.nombre as nombre_departamento, usuarios_departamento.id as id_departamento
+ 			$query = "SELECT usuarios.*, usuarios_perfiles.nombre as nombre_perfil, usuarios_departamentos.nombre as nombre_departamento, usuarios_departamentos.id as id_departamento
 						FROM usuarios
 						JOIN usuarios_perfiles
 							ON usuarios.fk_perfil = usuarios_perfiles.id
 						JOIN usuarios_departamentos on usuarios_perfiles.fk_departamento = usuarios_departamentos.id
 						WHERE usuarios.id = '$this->id'; ";
  			if(!($result = mysql_query($query)) || mysql_num_rows($result)!=1)
- 				throw new Exception("Error al buscar el usuario en la BBDD.");	
+ 				throw new Exception("Error al buscar el usuario en la BBDD.");
  			$row = mysql_fetch_array($result);
  			
  			$this->nombre = $row['nombre'];
@@ -119,7 +119,7 @@
 						INNER JOIN usuarios_objetivos_mensuales ON usuarios_rel_objetivos_mensuales.fk_objetivo = usuarios_objetivos_mensuales.id
 						WHERE usuarios_rel_objetivos_mensuales.fk_usuario = '$this->id'; ";
  			if(!($result = mysql_query($query)))
- 				throw new Exception("Error al cargar los objetivos del usuario.".$query);
+ 				throw new Exception("Error al cargar los objetivos del usuario.");
  			while($row = mysql_fetch_array($result))
  				$this->objetivos[$row['id_mes']] = $row;
 
@@ -132,7 +132,7 @@
 								ON usuarios_departamentos_rel_objetivos_mensuales.fk_objetivo = usuarios_objetivos_mensuales.id
 							WHERE usuarios_departamentos_rel_objetivos_mensuales.fk_departamento = '".$this->departamento['id']."'; ";
 				if(!($result = mysql_query($query)))
-					throw new Exception("Error al cargar los objetivos del departamento del usuario.".$query);
+					throw new Exception("Error al cargar los objetivos del departamento del usuario.");
 				while($row = mysql_fetch_array($result))
 					$this->objetivos_departamento[$row['id_mes']] = $row;
 			}
@@ -147,7 +147,7 @@
 						INNER JOIN usuarios_penalizaciones ON usuarios_rel_penalizaciones.fk_penalizacion = usuarios_penalizaciones.id
 						WHERE usuarios_rel_penalizaciones.fk_usuario = '$this->id'; ";
  			if(!($result = mysql_query($query)))
- 				throw new Exception("Error al cargar las penalizaciones del usuario.".$query);
+ 				throw new Exception("Error al cargar las penalizaciones del usuario.");
  			while($row = mysql_fetch_array($result))
  				$this->penalizaciones[$row['id_penalizacion']] = $row;
 
@@ -160,7 +160,7 @@
 								ON usuarios_departamentos_rel_penalizaciones.fk_penalizacion = usuarios_penalizaciones.id
 							WHERE usuarios_departamentos_rel_penalizaciones.fk_departamento = '".$this->departamento['id']."'; ";
 				if(!($result = mysql_query($query)))
-					throw new Exception("Error al cargar las penalizaciones del departamento del usuario.".$query);
+					throw new Exception("Error al cargar las penalizaciones del departamento del usuario.");
 				while($row = mysql_fetch_array($result))
 					$this->penalizaciones_departamento[$row['id_penalizacion']] = $row;
 			}
@@ -174,7 +174,7 @@
 						INNER JOIN tipos_comision ON usuarios_rel_tipos_comision.fk_tipo_comision = tipos_comision.id
 						WHERE usuarios_rel_tipos_comision.fk_usuario = '$this->id'; ";
  			if(!($result = mysql_query($query)))
- 				throw new Exception("Error al cargar las comisiones del usuario.".$query);
+ 				throw new Exception("Error al cargar las comisiones del usuario.");
  			while($row = mysql_fetch_array($result))
  				$this->comisiones[$row['id_comision']] = $row;
 
@@ -187,7 +187,7 @@
 								ON usuarios_departamentos_rel_tipos_comision.fk_tipo_comision = tipos_comision.id
 							WHERE usuarios_departamentos_rel_tipos_comision.fk_departamento = '".$this->departamento['id']."'; ";
 				if(!($result = mysql_query($query)))
-					throw new Exception("Error al cargar las comisiones del departamento del usuario.".$query);
+					throw new Exception("Error al cargar las comisiones del departamento del usuario.");
 				while($row = mysql_fetch_array($result))
 					$this->comisiones_departamento[$row['id_comision']] = $row;
 			}
@@ -504,7 +504,7 @@
 		if(is_numeric($id_perfil) && in_array($id_perfil, array_keys($array_perfiles))){
 			$query = "UPDATE usuarios SET fk_perfil='$id_perfil' WHERE id='$this->id' ";
 			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el perfil en la BBDD.".$query);
+			throw new Exception("Error al actualizar el perfil en la BBDD.");
 
 			$query = "SELECT id, nombre FROM usuarios_perfiles WHERE id= '$id_perfil' limit 1;";
 			$rs = mysql_query($query);
