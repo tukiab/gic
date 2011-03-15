@@ -202,6 +202,7 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(500) NOT NULL,
   `fk_venta` int(11) DEFAULT NULL,
+  `fk_cliente` int(11) NOT NULL,
   `fk_estado` int(3) NOT NULL,
   `horas_documentacion` int(11) DEFAULT NULL,
   `horas_auditoria_interna` int(11) DEFAULT NULL,
@@ -220,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `proyectos_rel_sedes` (
   `horas_desplazamiento` int(11) NOT NULL,
   `horas_cada_visita` int(11) NOT NULL,
   `gastos_incurridos` float NOT NULL,
+  PRIMARY KEY (`fk_proyecto`,`fk_sede`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --- tareas técnicas
