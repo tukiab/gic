@@ -129,6 +129,7 @@ class Cliente{
 	 */
 	private $ofertas;
 	private $ventas;
+	private $proyectos;
 
 	private $observaciones;
 	private $actividad;
@@ -223,6 +224,7 @@ class Cliente{
 			$this->cargar_Acciones();
 			$this->cargar_Ofertas();
 			$this->cargar_Ventas();
+			$this->cargar_Proyectos();
 		}
 	}
 
@@ -318,6 +320,19 @@ class Cliente{
 		$this->ventas[] = $row['id'];
 	}
 
+	private function cargar_Proyectos(){
+		$query = "SELECT proyectos.id
+					FROM proyectos
+					WHERE proyectos.fk_cliente = '$this->id'
+					; ";
+
+		$result = mysql_query($query);
+
+		$this->proyectos = array();
+		while($row = mysql_fetch_array($result))
+		$this->proyectos[] = $row['id'];
+	}
+
 	/*
 	 * Métodos observadores.
 	 ***********************/
@@ -410,6 +425,13 @@ class Cliente{
 		return $this->ventas;
 	}
 
+	/**
+	 * Devuelve un array de ids de proyectos
+	 * @return <type> 
+	 */
+	public function get_Proyectos(){
+		return $this->proyectos;
+	}
 	/**
 	 * Devuelve los Gestores
 	 * @return array $gestores
@@ -602,6 +624,13 @@ class Cliente{
 		$arra= array();
 		foreach($this->ventas as $id)
 			array_push($arra, new Venta($id));
+
+		return $arra;
+	}
+	public function get_Lista_Proyectos(){
+		$arra= array();
+		foreach($this->proyectos as $id)
+			array_push($arra, new Proyecto($id));
 
 		return $arra;
 	}

@@ -154,7 +154,7 @@ $(document).ready(function(){
                     <?php echo  _translate('Raz&oacute;n social')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"></input>
+                    <input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"/>
             </td>
 
             <td class="busquedaIzda">
@@ -208,7 +208,7 @@ $(document).ready(function(){
                     <?php echo  _translate('CIF/NIF')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="NIF" value="<?php  echo $var->opt['NIF']?>"></input>
+                    <input type="text" size="15"name="NIF" value="<?php  echo $var->opt['NIF']?>"/>
             </td>
     </tr>
     <tr>
@@ -216,13 +216,13 @@ $(document).ready(function(){
                     <?php echo  _translate('Domicilio')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="domicilio" value="<?php  echo $var->opt['domicilio']?>"></input>
+                    <input type="text" size="15"name="domicilio" value="<?php  echo $var->opt['domicilio']?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('Localidad')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="localidad" value="<?php  echo $var->opt['localidad']?>"></input>
+                    <input type="text" size="15"name="localidad" value="<?php  echo $var->opt['localidad']?>"/>
             </td>
     </tr>
     <tr>
@@ -230,13 +230,13 @@ $(document).ready(function(){
                     <?php echo  _translate('N&uacute;mero empleados desde')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="numero_empleados_min" value="<?php  echo $var->opt['numero_empleados_min']?>"></input>
+                    <input type="text" size="15"name="numero_empleados_min" value="<?php  echo $var->opt['numero_empleados_min']?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('N&uacute;mero empleados hasta')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="numero_empleados_max" value="<?php  echo $var->opt['numero_empleados_max']?>"></input>
+                    <input type="text" size="15"name="numero_empleados_max" value="<?php  echo $var->opt['numero_empleados_max']?>"/>
             </td>
     </tr>
     <tr>
@@ -244,13 +244,13 @@ $(document).ready(function(){
                     <?php echo  _translate('CP')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="CP" value="<?php  echo $var->opt['CP']?>"></input>
+                    <input type="text" size="15"name="CP" value="<?php  echo $var->opt['CP']?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('Sector')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="sector" value="<?php  echo $var->opt['sector']?>"></input>
+                    <input type="text" size="15"name="sector" value="<?php  echo $var->opt['sector']?>"/>
             </td>
     </tr>
     <tr>
@@ -258,13 +258,13 @@ $(document).ready(function(){
             <?php echo  _translate('Fecha renovaci&oacute;n desde')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" class="fecha" size="12" name="fecha_renovacion_desde" value="<?php  echo timestamp2date($var->opt['fecha_renovacion_desde'])?>"></input>
+                    <input type="text" class="fecha" size="12" name="fecha_renovacion_desde" value="<?php  echo timestamp2date($var->opt['fecha_renovacion_desde'])?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('Fecha renovaci&oacute;n hasta')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" class="fecha" size="12" name="fecha_renovacion_hasta" value="<?php  echo timestamp2date($var->opt['fecha_renovacion_hasta'])?>"></input>
+                    <input type="text" class="fecha" size="12" name="fecha_renovacion_hasta" value="<?php  echo timestamp2date($var->opt['fecha_renovacion_hasta'])?>"/>
             </td>
     </tr>
     <tr>
@@ -272,13 +272,13 @@ $(document).ready(function(){
                     <?php echo  _translate('SPA Actual')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="SPA_actual" value="<?php  echo $var->opt['SPA_actual']?>"></input>
+                    <input type="text" size="15"name="SPA_actual" value="<?php  echo $var->opt['SPA_actual']?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('Norma implantada')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="norma_implantada" value="<?php  echo $var->opt['norma_implantada']?>"></input>
+                    <input type="text" size="15"name="norma_implantada" value="<?php  echo $var->opt['norma_implantada']?>"/>
             </td>
     </tr>
     <tr>
@@ -286,13 +286,13 @@ $(document).ready(function(){
                     <?php echo  _translate('Cr&eacute;ditos desde')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="creditos_desde" value="<?php  echo $var->opt['creditos_desde']?>"></input>
+                    <input type="text" size="15"name="creditos_desde" value="<?php  echo $var->opt['creditos_desde']?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('Cr&eacute;ditos hasta')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="creditos_hasta" value="<?php  echo $var->opt['creditos_hasta']?>"></input>
+                    <input type="text" size="15"name="creditos_hasta" value="<?php  echo $var->opt['creditos_hasta']?>"/>
             </td>
     </tr>
     <tr>
@@ -300,7 +300,7 @@ $(document).ready(function(){
                     <?php echo  _translate('Web')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="web" value="<?php  echo $var->opt['web']?>"></input>
+                    <input type="text" size="15"name="web" value="<?php  echo $var->opt['web']?>"/>
             </td>
 
             <td class="busquedaIzda" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>>
@@ -328,13 +328,13 @@ $(document).ready(function(){
                     <?php echo  _translate('Nombre contacto')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="nombre_contacto" value="<?php  echo $var->opt['contacto']['nombre']?>"></input>
+                    <input type="text" size="15"name="nombre_contacto" value="<?php  echo $var->opt['contacto']['nombre']?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('Tel&eacute;fono contacto')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="telefono_contacto" value="<?php  echo $var->opt['contacto']['telefono']?>"></input>
+                    <input type="text" size="15"name="telefono_contacto" value="<?php  echo $var->opt['contacto']['telefono']?>"/>
             </td>
     </tr>
     <tr>
@@ -342,13 +342,13 @@ $(document).ready(function(){
                     <?php echo  _translate('Email contacto')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="email_contacto" value="<?php  echo $var->opt['contacto']['email']?>"></input>
+                    <input type="text" size="15"name="email_contacto" value="<?php  echo $var->opt['contacto']['email']?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('Cargo contacto')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="cargo_contacto" value="<?php  echo $var->opt['contacto']['cargo']?>"></input>
+                    <input type="text" size="15"name="cargo_contacto" value="<?php  echo $var->opt['contacto']['cargo']?>"/>
             </td>
     </tr>
 
@@ -380,7 +380,7 @@ $(document).ready(function(){
                     <?php echo  _translate('N&uacute;mero de empresas por p&aacute;gina')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"></input>
+                    <input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"/>
             </td>
             <td colspan="2" style="text-align:right;background: none;" >
                     <input type="submit" id="mostrar" name="mostrar" value="<?php echo  _translate("Buscar Empresas")?>" />

@@ -445,16 +445,16 @@ if($var->opt['msg']){?>
 			<!-- proyectos -->
 			<table>
 				<tr>
-					<td class="ListaTitulo" colspan="7"><?php echo _translate("Proyectos PENDIENTE")?><a class="show" href="#" clase="proyectos"></a></td>
+					<td class="ListaTitulo" colspan="7"><?php echo _translate("Proyectos")?><a class="show" href="#" clase="proyectos"></a></td>
 				</tr>
 				<tr class="proyectos">
 					<th ><?php echo  _translate("Gestor")?></th>
-					<th ><?php echo  _translate("C&oacute;digo")?></th>
+					<th ><?php echo  _translate("Id")?></th>
 					<th ><?php echo  _translate("Nombre")?></th>
 					<th ><?php echo  _translate("Fecha inicio")?></th>
 				</tr>
 				<?php $impar=false;
-					/*$lista = $var->opt['Cliente']->get_Lista_Proyectos();
+					$lista = $var->opt['Cliente']->get_Lista_Proyectos();
 					foreach ($lista as $proyecto){
 						if($impar){
 							$impar=false;
@@ -464,15 +464,15 @@ if($var->opt['msg']){?>
 							$class = 'impar';
 						}?>
 						<tr class="<?php  echo $class?> proyectos" >
-							<td><?php echo $proyecto->get_Usuario(); ?></td>
+							<td><?php echo $proyecto->get_Id_Usuario(); ?></td>
 							<td >
-								<a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $proyecto->get_Codigo()?>&nbsp;&nbsp;</a>
+								<a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $proyecto->get_Id()?>&nbsp;&nbsp;</a>
 							</td>
-							<td ><?php echo  $proyecto->get_Nombre_Proyecto();?></td>
+							<td ><?php echo  $proyecto->get_Nombre();?></td>
 							<td ><?php echo  timestamp2date($proyecto->get_Fecha_Inicio());?></td>
 						</tr>
 					<?php
-					}*/?>
+					}?>
 			</table>
 	</div>
 </div>

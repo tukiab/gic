@@ -279,7 +279,7 @@ class Accion{
 	 */
 	public function set_Descripcion($descripcion){
 
-		if(is_numeric($descripcion)){
+		if($descripcion){
 			$query = "UPDATE acciones_de_trabajo SET descripcion='$descripcion' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 			throw new Exception("Error al actualizar la descripci&oacute;n en la BBDD.");

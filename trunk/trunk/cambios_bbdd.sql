@@ -221,3 +221,31 @@ CREATE TABLE IF NOT EXISTS `proyectos_rel_sedes` (
   `horas_cada_visita` int(11) NOT NULL,
   `gastos_incurridos` float NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--- tareas técnicas
+CREATE TABLE IF NOT EXISTS `tareas_tecnicas_tipos` (
+  `id` int(3) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `tareas_tecnicas_tipos` (`nombre`) VALUES
+('Visita'),
+('Horas documentación');
+
+CREATE TABLE IF NOT EXISTS `tareas_tecnicas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_proyecto` int(11) NOT NULL,
+  `fk_sede` int(11) NOT NULL,
+  `fk_tipo` int(3) NOT NULL,
+  `fecha` int(11) NOT NULL,
+  `horas_desplazamiento` int(11) DEFAULT NULL,
+  `horas_visita` int(11) DEFAULT NULL,
+  `horas_despacho` int(11) DEFAULT NULL,
+  `horas_auditoria_interna` int(11) DEFAULT NULL,
+  `observaciones` text DEFAULT NULL,
+  `fk_usuario` int(11) DEFAULT NULL,
+  `incentivable` tinyint(1) NOT NULL DEFAULT '0',
+  `importe` float DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
