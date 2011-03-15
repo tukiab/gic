@@ -528,13 +528,18 @@ class Venta{
 				if($datos['plazos'][$i])
 					$this->add_Plazo($datos['plazos'][$i],$datos['estados'][$i]);		
 			}
-			//por �ltimo aceptamos la oferta asociada y hacemos al cliente "Cliente definitivo"
+			//Aceptamos la oferta asociada y hacemos al cliente "Cliente definitivo"
 			$oferta = new Oferta($datos['id_oferta']);
 			$oferta->set_Estado(2);
 			
 			$cliente = $oferta->get_Cliente();
 			$cliente->set_Tipo(2);
 
+			//Por último creamos el proyecto asociado
+			$datosProyecto['id_venta'] = $this->id;
+			$proyecto = new Proyecto();
+			$proyecto->crear($datosProyecto);
+			
             return $this->id;
 	}
 	

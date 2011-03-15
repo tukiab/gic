@@ -326,7 +326,8 @@ class Cliente{
 					WHERE proyectos.fk_cliente = '$this->id'
 					; ";
 
-		$result = mysql_query($query);
+		if(!$result = mysql_query($query))
+			throw new Exception('Error al cargar los proyectos de la empresa');
 
 		$this->proyectos = array();
 		while($row = mysql_fetch_array($result))

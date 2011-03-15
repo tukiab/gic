@@ -224,7 +224,6 @@ $(document).ready(function(){
 <div class="listado" style="width:94%;margin-left:2em;">
 <label class="nota"><?php  echo $var->datos['lista_proyectos']->num_Resultados()." ".Resultados?></label>
 <?php if($gestor_actual->esAdministrador()){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
-<input onclick="if(confirm('Este proceso puede tardar varios minutos. Confirme la exportacion'))window.open('exportAll.php','_blank');" type="button" value="<?php echo  _translate("Exportar todo")?>" />		
 <?php }?>
 <table>
     <thead>
@@ -353,9 +352,7 @@ $(document).ready(function(){
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>
                             <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
                             <input type="hidden" id="asignar_gestor" name="asignar_gestor" value="0"/>
-                            <input type="hidden" id="agregar_grupos" name="agregar_grupos" value="0"/>
-                            <input id="mostrarGestores" type="button" value="<?php echo  _translate("Agregar gestores")?>" />
-                            <input id="mostrarGrupos" type="button" value="<?php echo  _translate("Agregar grupo")?>" />
+                            <input id="mostrarGestores" type="button" value="<?php echo  _translate("Asignar gestores")?>" />
                     </td>
             </tr>
             <?php }?>
