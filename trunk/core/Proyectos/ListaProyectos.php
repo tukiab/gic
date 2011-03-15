@@ -75,6 +75,7 @@ class ListaProyectos implements IIterador{
 		(isset($filtros['fecha_fin_desde']))?$filtro.=" AND proyectos.fecha_fin_desde >= '".trim($filtros['fecha_fin_desde'])."' ":null;
 		(isset($filtros['fecha_fin_hasta']))?$filtro.=" AND proyectos.fecha_fin_hasta <= '".trim($filtros['fecha_fin_hasta'])."' ":null;
 
+		(isset($filtros['gestor']))?$filtros['id_usuario']=$filtros['gestor']:null;
 		(isset($filtros['id_usuario']))?$filtro .= " AND proyectos.fk_usuario = '".trim($filtros['id_usuario'])."'":null;
 		(isset($filtros['id_cliente']))?$filtro .= " AND proyectos.fk_cliente = '".trim($filtros['fk_cliente'])."'":null;
 		
@@ -89,11 +90,20 @@ class ListaProyectos implements IIterador{
 				case 'nombre':
 						$order_by = " proyectos.nombre ";
 					break;
-				case 'id_estado':
+				case 'estado':
 						$order_by = "proyectos.fk_estado";
+					break;
+				case 'fecha_inicio':
+						$order_by = "proyectos.fecha_inicio";
 					break;
 				case 'fecha_fin':
 						$order_by = "proyectos.fecha_fin";
+					break;
+				case 'gestor':
+						$order_by = "proyectos.fk_usuario";
+					break;
+				case 'id_usuario':
+						$order_by = "proyectos.fk_usuario";
 					break;
 			}
 			if($order_by){
@@ -128,6 +138,15 @@ class ListaProyectos implements IIterador{
 	function lista_Estados(){            
 		$tipos = array();
 		$query = "SELECT id, nombre FROM proyectos_estados;";
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result))
+			$tipos[$row['id']] = $row;
+
+		return $tipos;
+	}
+	function lista_Gestores(){
+		$tipos = array();
+		$query = "SELECT id, nombre FROM usuarios;";
 		$result = mysql_query($query);
 		while($row = mysql_fetch_array($result))
 			$tipos[$row['id']] = $row;

@@ -139,8 +139,9 @@ class Proyecto{
 	 * Carga la definición teórica del proyecto
 	 */
 	private function cargar_Definicion(){
-		$query = "SELECT fk_sede as id_sede, horas_deslazamiento, horas_cada_visita, numero_visitas, gastos_incurridos
+		$query = "SELECT fk_sede as id_sede, horas_deslazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, sedes.nombre as nombre_sede
 					FROM proyectos_rel_sedes
+					INNER JOIN sedes ON proyectos_rel_sedes.fk_sede = sede.id
 					WHERE fk_proyecto = '$this->id';";
 
 		$result = mysql_query($query);
@@ -228,7 +229,7 @@ class Proyecto{
 	}
 	/**
 	 * Indica la definición teórica del proyecto
-	 * @var Array indexado por id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos
+	 * @var Array indexado por id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, nombre_sede
 	 */
 	public function get_Definicion_Sedes(){return $this->definicion_sedes ;}
 
@@ -364,6 +365,8 @@ class Proyecto{
 	 * @return integer $id_proyecto Id del Proyecto.
 	 */
 	public function definir($datos){
+		if($this->id_estado > 1)
+			throw new Exception ('El proyecto ya ha sido definido');
 		//Comprobando los datos "imprescindibles":
 		$errores = '';
 		$validar = new Validador();
@@ -437,10 +440,10 @@ class Proyecto{
 		$this->observaciones = trim($datos['observaciones']);
 		if(isset($datos['id_usuario'])){
 			$this->id_usuario = trim($datos['id_usuario']);
-			$this->id_estado = 3; //pendiente de planificación, se acaba de definir y tiene técnico asignado
+			$this->set_Estado(3); //pendiente de planificación, se acaba de definir y tiene técnico asignado
 		}else{
 			if($this->id_usuario)
-				$this->id_estado = 2; //Pendiente de asignación, está definido pero sin técnico asignado
+				$this->set_Estado(2); //Pendiente de asignación, está definido pero sin técnico asignado
 		}
 		$this->cargar_Estado();
 
@@ -514,6 +517,34 @@ class Proyecto{
 		$query = "DELETE FROM proyectos_rel_sedes WHERE fk_proyecto = '$this->id';";
 		mysql_query($query);
 	}
-	
+	private function asignar_Gestor($id){
+		if($id){
+			if(!$this->id_usuario){
+				$query = "UPDATE proyectos set fk_usuario = '$id' WHERE id = '$this->id'";
+				if(!mysql_query($query))
+					throw new Excepcion("Error al asignar el gestor al proyecto");
+				$this->id_usuario = $id;
+				$this->set_Estado(3);
+			}
+		}
+	}
+
+	/**
+	 * Cambia el estado del proyecto
+	 * @param <integer> $id
+	 */
+	private function set_Estado($id){
+		if($this->id_estado < $id){
+			$query = "UPDATE proyectos set fk_estado = '$id' WHERE id = '$this->id'";
+			if(!mysql_query($query))
+				throw new Exception('Error al guardar el estado en la bbdd');
+			$this->id_estado = $id;
+			$this->cargar_Estado();
+		}
+	}
+
+	public function cerrar(){
+		$this->set_Estado(6);
+	}
 }
 ?>
