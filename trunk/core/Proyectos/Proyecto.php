@@ -46,6 +46,13 @@ class Proyecto{
 	private $fecha_inicio;
 	private $fecha_fin;
 	private $observaciones;
+
+	/**
+	 * Array con las tareas realizadas en el proyecto.
+	 * @var array Indexado por id, fecha, tipo, horas_desplazamiento, horas_visita,
+	 * horas_despacho, horas_auditoria_interna, incentivable, id_sede, observaciones, id_usuario, localidad
+	 */
+	private $tareas;
 	/**
 	 * Gestor (técnico) que está asignado al proyecto
 	 * @var integer
@@ -131,6 +138,7 @@ class Proyecto{
 			$this->estado = array('id'=>$row['id_estado'], 'nombre'=>$row['nombre_estado']);
 			
 			$this->cargar_Definicion();
+			$this->cargar_Tareas();
 		}
 	}
 
@@ -139,9 +147,9 @@ class Proyecto{
 	 * Carga la definición teórica del proyecto
 	 */
 	private function cargar_Definicion(){
-		$query = "SELECT fk_sede as id_sede, horas_deslazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, sedes.nombre as nombre_sede
+		$query = "SELECT fk_sede as id_sede, horas_deslazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, clientes_sedes.localidad
 					FROM proyectos_rel_sedes
-					INNER JOIN sedes ON proyectos_rel_sedes.fk_sede = sede.id
+					INNER JOIN clientes_sedes ON proyectos_rel_sedes.fk_sede = clientes_sedes.id
 					WHERE fk_proyecto = '$this->id';";
 
 		$result = mysql_query($query);
@@ -149,6 +157,21 @@ class Proyecto{
 		$this->definicion_sedes = array();
 		while($row = mysql_fetch_array($result))
 		$this->definicion_sedes[$row['id_sede']] = $row;
+	}
+
+	private function cargar_Tareas(){
+		$query = "SELECT id, fecha, fk_tipo as tipo, horas_desplazamiento, horas_visita,
+						horas_despacho, horas_auditoria_interna, incentivable, fk_sede as id_sede,
+						observaciones, fk_usuario as id_usuario, sedes. localidad
+					FROM tareas_tecnicas
+					INNER JOIN clientes_sedes ON clientes_sedes.id = tareas_tecnica.fk_sede
+					WHERE fk_proyecto = '$this->id';";
+
+		$result = mysql_query($query);
+
+		$this->tareas = array();
+		while($row = mysql_fetch_array($result))
+		$this->tareas[$row['id']] = $row;
 	}
 
 
@@ -227,9 +250,19 @@ class Proyecto{
 	public function get_Cliente(){
 		return new Cliente($this->id_cliente);
 	}
+
+	/**
+	 * Devuelve el array de tareas
+	 * @return array Indexado por id, fecha, tipo, horas_desplazamiento, horas_visita,
+	 * horas_despacho, horas_auditoria_interna, incentivable, id_sede, observaciones, id_usuario, localidad
+	 *
+	 */
+	public function get_Tareas(){
+		return $this->tareas;
+	}
 	/**
 	 * Indica la definición teórica del proyecto
-	 * @var Array indexado por id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, nombre_sede
+	 * @var Array indexado por id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, localidad
 	 */
 	public function get_Definicion_Sedes(){return $this->definicion_sedes ;}
 
@@ -311,7 +344,13 @@ class Proyecto{
 	public function get_Coste_Horario_Venta(){
 		return $this->get_Precio_Venta()/$this->get_Horas_Totales();
 	}
-	
+
+	public function get_Unidades(){
+		$numero_meses = get_Numero_Meses($this->fecha_inicio, $this->fecha_fin);
+		if($this->get_Horas_Totales())
+			return $this->get_Horas_Totales()/(8*$numero_meses);
+		return 0;
+	}
 
 	/*
 	 * Métodos Modificadores. 
@@ -481,7 +520,16 @@ class Proyecto{
 
 		return $this->id;
 	}
+	/**
+	 * Crea una tarea en la bbdd
+	 */
+	public function add_Tarea($datos){
+		$tarea = new Tarea();
+		$datos['id_proyecto'] = $this->id;
 
+		$tarea->crear($datos);
+		$this->cargar_Tareas();
+	}
 	/**
 	 * Define una sede dada por un array con todos los campos
 	 * @param <type> $definicion
