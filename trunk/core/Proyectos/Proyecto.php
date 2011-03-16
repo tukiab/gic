@@ -147,13 +147,13 @@ class Proyecto{
 	 * Carga la definición teórica del proyecto
 	 */
 	private function cargar_Definicion(){
-		$query = "SELECT fk_sede as id_sede, horas_deslazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, clientes_sedes.localidad
+		$query = "SELECT fk_sede as id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, clientes_sedes.localidad
 					FROM proyectos_rel_sedes
 					INNER JOIN clientes_sedes ON proyectos_rel_sedes.fk_sede = clientes_sedes.id
 					WHERE fk_proyecto = '$this->id';";
 
 		if(!$result = mysql_query($query))
-			throw new Exception('Error al cargar la definici&oacute;n del proyecto');
+			throw new Exception('Error al cargar la definici&oacute;n del proyecto'.$query);
 
 		$this->definicion_sedes = array();
 		while($row = mysql_fetch_array($result))
@@ -161,14 +161,15 @@ class Proyecto{
 	}
 
 	private function cargar_Tareas(){
-		$query = "SELECT id, fecha, fk_tipo as tipo, horas_desplazamiento, horas_visita,
+		$query = "SELECT tareas_tecnicas.id, fecha, fk_tipo as tipo, horas_desplazamiento, horas_visita,
 						horas_despacho, horas_auditoria_interna, incentivable, fk_sede as id_sede,
-						observaciones, fk_usuario as id_usuario, sedes. localidad
+						observaciones, fk_usuario as id_usuario, clientes_sedes.localidad
 					FROM tareas_tecnicas
-					INNER JOIN clientes_sedes ON clientes_sedes.id = tareas_tecnica.fk_sede
+					INNER JOIN clientes_sedes ON clientes_sedes.id = tareas_tecnicas.fk_sede
 					WHERE fk_proyecto = '$this->id';";
 
-		$result = mysql_query($query);
+		if(!$result = mysql_query($query))
+			throw new Exception('Error al cargar las tareas del proyecto');
 
 		$this->tareas = array();
 		while($row = mysql_fetch_array($result))
@@ -352,7 +353,7 @@ class Proyecto{
 	}
 
 	public function get_Unidades(){
-		$numero_meses = get_Numero_Meses($this->fecha_inicio, $this->fecha_fin);
+		$numero_meses = getNumeroMeses($this->fecha_inicio, $this->fecha_fin);
 		if($this->get_Horas_Totales())
 			return $this->get_Horas_Totales()/(8*$numero_meses);
 		return 0;

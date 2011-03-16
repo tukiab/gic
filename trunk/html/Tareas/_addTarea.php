@@ -90,7 +90,7 @@ class AddTarea{
 		$this->Proyecto = new Proyecto($this->opt['proyecto']);
 		
 		@(isset($opciones['id_sede']))?$this->opt['sede']=$opciones['id_sede']:null;
-		$this->Proyecto = new Sede($this->opt['sede']);
+		$this->Sede = new Sede($this->opt['sede']);
 		
 		isset($opciones['guardar'])?$this->opt['guardar']=$opciones['guardar']:null;
 	}

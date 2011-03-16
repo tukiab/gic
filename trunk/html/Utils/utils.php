@@ -313,4 +313,7 @@ function impArrayTelefono($t){
 	$tel = getArrayTelefono($t);
 	return $tel[0]."&#8212;".$tel[1]."&#8212;".$tel[2];
 }
+function getNumeroMeses($f1, $f2){
+	return ($f1-$f2)/(1000*60*60*24*30);
+}
 ?>

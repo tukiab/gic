@@ -24,7 +24,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 
 	function cambia_tipo(id_tipo){
 		$('.tipo').hide();
-		$('.'+id_tipo).show();
+		$('.tipo'+id_tipo).show();
 	}
 
 	$(document).ready(function(){
