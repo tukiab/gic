@@ -290,6 +290,12 @@ class Tarea{
 			$this->incentivable = 1;
 
 		$this->observaciones = mysql_real_escape_string($datos['observaciones']);
+
+		//Por último comprobamos que el usuario que crea la tarea es el asignado al proyecto
+		$proyecto = new Proyecto($this->id_proyecto);
+		if($this->id_usuario != $proyecto->get_Id_Usuario())
+			throw new Exception('Tarea: no puede crear una tarea en un proyecto al que no est&aacute; asignado');
+
 		//Si todo ha ido bien:
 		return $this->guardar();
 	}
@@ -352,7 +358,7 @@ class Tarea{
 			$this->observaciones = $observaciones;
 
 		}else
-		throw new Exception("Debe introducir una descripcion v&aacute;lida.");
+		throw new Exception("Debe introducir una descripci&oacute;n v&aacute;lida.");
 	}
 
 	/**
