@@ -219,6 +219,7 @@ CREATE TABLE IF NOT EXISTS `proyectos_rel_sedes` (
   `fk_proyecto` int(11) NOT NULL,
   `fk_sede` int(11) NOT NULL,
   `horas_desplazamiento` int(11) NOT NULL,
+  `numero_visitas` int(11) NOT NULL,
   `horas_cada_visita` int(11) NOT NULL,
   `gastos_incurridos` float NOT NULL,
   PRIMARY KEY (`fk_proyecto`,`fk_sede`)

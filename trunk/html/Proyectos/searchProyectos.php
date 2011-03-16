@@ -268,7 +268,7 @@ $(document).ready(function(){
                     ?>
             </th>
 			<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-                    <a href="#" onClick="javascript:orderBy('fecha_fin')" ><?php echo  _translate("Fecha de finalizaci&oacute;")?></a>
+                    <a href="#" onClick="javascript:orderBy('fecha_fin')" ><?php echo  _translate("Fecha de finalizaci&oacute;n")?></a>
                     <?php
                             if($var->opt['order_by']=='fecha_fin' && $var->opt['order_by_asc_desc']=='ASC')
                                     echo  "&uarr;";
@@ -424,7 +424,7 @@ header("Expires: 0");
                             <?php echo  _translate("Fecha de inicio")?>
                     </th>
 					<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-                            <?php echo  _translate("Fecha de finalizacion")?>
+                            <?php echo  _translate("Fecha de finalizaci&oacute;n")?>
                     </th>
                     <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
                             <?php echo  _translate("Gestor asignado")?>

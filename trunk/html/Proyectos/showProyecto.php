@@ -22,7 +22,7 @@ else
 		float:right;width:55%;height:370px;margin-left:4%;
 	}
 	#derecha table{
-		width:90%;
+		width:60%;
 		margin-bottom:20px;
 	}
 </style>
@@ -81,7 +81,7 @@ $venta = $var->Proyecto->get_Venta();?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Id proyecto")?>:</td>
 				<td class="ColDer"><?php echo  ($var->Proyecto->get_Id());?></td>
 			</tr>
-			<tr>
+			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Nombre")?>:</td>
 				<td class="ColDer">
 					<?php echo  $var->Proyecto->get_Nombre()?>
@@ -105,8 +105,8 @@ $venta = $var->Proyecto->get_Venta();?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Venta")?>:</td>
 				<td class="ColDer">
 					<?php if($venta){?>
-						<a href="<?php echo  $appDir.'/Ventas/showVenta.php?id='.$cliente->get_Id(); ?>">
-							<?php echo  impArrayTelefono($var->Proyecto->get_FAX());?>
+						<a href="<?php echo  $appDir.'/Ventas/showVenta.php?id='.$venta->get_Id(); ?>">
+							<?php echo  $venta->get_Nombre();?>
 						</a>
 					<?php }?>
 				</td>
@@ -133,7 +133,7 @@ $venta = $var->Proyecto->get_Venta();?>
 					<?php echo  $var->Proyecto->get_Observaciones();?>
 				</td>
 			</tr>
-			<tr>
+			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("T&eacute;cnico asignado")?>:</td>
 				<td class="ColDer">
 					<?php echo  $var->Proyecto->get_Id_Usuario();?>
@@ -153,7 +153,7 @@ $venta = $var->Proyecto->get_Venta();?>
 	
 	<!-- **************** DEFINICIÓN **************** -->
 	<div id="derecha">
-		<table style="width:100%;">
+		<table>
 			<tr>
 				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Definici&oacute;n")?><a class="show" href="#" clase="definicion"></a></td>
 			</tr>
@@ -163,7 +163,7 @@ $venta = $var->Proyecto->get_Venta();?>
 			</tr>
 			<tr class="definicion">
 				<td class="ColIzq" nowrap><?php echo  _translate("Horas auditor&iacute;a interna")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Auditoria_Interna();?></td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Auditoria_Interna();?></td>
 			</tr>
 			<tr class="definicion">
 				<td class="ColIzq" nowrap><?php echo  _translate("Precio de venta")?>:</td>
@@ -199,7 +199,7 @@ $venta = $var->Proyecto->get_Venta();?>
 			</tr>
 		</table>
 		<!-- DEFINICIÓN DESGLOSADA POR SEDES -->
-		<table style="width:100%;">
+		<table>
 			<tr>
 				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Desglose por sedes")?><a class="show" href="#" clase="desglose"></a></td>
 			</tr>

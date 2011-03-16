@@ -152,7 +152,8 @@ class Proyecto{
 					INNER JOIN clientes_sedes ON proyectos_rel_sedes.fk_sede = clientes_sedes.id
 					WHERE fk_proyecto = '$this->id';";
 
-		$result = mysql_query($query);
+		if(!$result = mysql_query($query))
+			throw new Exception('Error al cargar la definici&oacute;n del proyecto');
 
 		$this->definicion_sedes = array();
 		while($row = mysql_fetch_array($result))
@@ -335,14 +336,19 @@ class Proyecto{
 	 * @var integer
 	 */
 	public function get_Carga_Trabajo_Mensual(){
-		return $this->get_Horas_Totales()/$this->get_Duracion();
+		if($this->get_Duracion())
+			return $this->get_Horas_Totales()/$this->get_Duracion();
+
+		return 0;
 	}
 	/**
 	 * Precio de venta / horas totales
 	 * @var <type>
 	 */
 	public function get_Coste_Horario_Venta(){
-		return $this->get_Precio_Venta()/$this->get_Horas_Totales();
+		if($this->get_Horas_Totales())
+			return $this->get_Precio_Venta()/$this->get_Horas_Totales();
+		return 0;
 	}
 
 	public function get_Unidades(){
