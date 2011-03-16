@@ -19,12 +19,21 @@ else
 ?>
 <style type="text/css">
 	#derecha{
-		float:right;width:55%;height:370px;margin-left:4%;
+		float:left;width:40%;height:370px;margin-left:4%;
 	}
 	#derecha table{
-		width:60%;
+		width:100%;
 		margin-bottom:20px;
 	}
+	td.center{
+		text-align: center;
+	}
+	td.ColDer, td.ColIzq{
+		width: 50%;
+	}
+	table{
+		border:none;
+}
 </style>
 <script language="JavaScript" type="text/javascript">
 function eliminar(borrado_total){
@@ -149,98 +158,28 @@ $venta = $var->Proyecto->get_Venta();?>
 			</tr>
 			<?php //}?>
 		</table>
-	</div>
-	
-	<!-- **************** DEFINICIÓN **************** -->
-	<div id="derecha">
-		<table>
-			<tr>
-				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Definici&oacute;n")?><a class="show" href="#" clase="definicion"></a></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Horas documentaci&oacute;n")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Documentacion();?></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Horas auditor&iacute;a interna")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Auditoria_Interna();?></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Precio de venta")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Precio_Venta();?>&euro;</td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Horas de desplazamiento")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Desplazamiento();?></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Horas de cada visita")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Cada_Visita();?></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("N&uacute;mero de visitas")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Numero_Visitas();?></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Gastos incurridos")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Gastos_Incurridos();?></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Horas totales")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Totales();?></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Carga de trabajo")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Carga_Trabajo_Mensual();?></td>
-			</tr>
-			<tr class="definicion">
-				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Coste_Horario_Venta();?></td>
-			</tr>
-		</table>
-		<!-- DEFINICIÓN DESGLOSADA POR SEDES -->
-		<table>
-			<tr>
-				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Desglose por sedes")?><a class="show" href="#" clase="desglose"></a></td>
-			</tr>
-			<tr  class="desglose">
-				<td>Sede</td>
-				<td>Horas de desplazamiento</td>
-				<td>Horas de cada visita</td>
-				<td>N&uacute;mero de visitas</td>
-				<td>Gastos incurridos</td>
-			</tr>
-			<?php foreach($var->Proyecto->get_Definicion_Sedes() as $definicion){?>
-			<tr class="desglose">
-				<td class="ListaTitulo" colspan="2"><?php echo $definicion['localidad'];?></td>
-				<td class="ColDer"><?php echo  $definicion['horas_desplazamiento'];?></td>
-				<td class="ColDer"><?php echo  $definicion['horas_cada_visita'];?></td>
-				<td class="ColDer"><?php echo  $definicion['numero_visitas'];?></td>
-				<td class="ColDer"><?php echo  $definicion['gastos_incurridos'];?></td>
-			</tr>
-			<?php }?>
-		</table>
 		<!-- TAREAS DEL PROYECTO -->
 		<table style="width:100%;">
 			<tr>
-				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
+				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
 			</tr>
+
 			<tr class="tareas">
-				<td>Sede</td>
-				<td>Fecha</td>
-				<td>Horas de desplazamiento</td>
-				<td>Horas de visita</td>
-				<td>Horas de despacho</td>
-				<td>Horas de auditor&iacute;a interna</td>
+				<th>Sede</th>
+				<th>Fecha</th>
+				<th>Horas de desplazamiento</th>
+				<th>Horas de visita</th>
+				<th>Horas de despacho</th>
+				<th>Horas de auditor&iacute;a interna</th>
 			</tr>
 			<?php foreach($var->Proyecto->get_Tareas() as $tarea){?>
 			<tr class="tareas">
-				<td class="ColDer"><?php echo  $tarea['localidad'];?></td>
-				<td class="ColDer"><?php echo timestamp2date($tarea['fecha']);?></td>
-				<td class="ColDer"><?php echo  $tarea['horas_desplazamiento'];?></td>
-				<td class="ColDer"><?php echo  $tarea['horas_visita'];?></td>
-				<td class="ColDer"><?php echo  $tarea['horas_despacho'];?></td>
-				<td class="ColDer"><?php echo  $tarea['horas_auditoria'];?></td>
+				<td class="center"><?php echo  $tarea['localidad'];?></td>
+				<td class="center"><?php echo timestamp2date($tarea['fecha']);?></td>
+				<td class="center"><?php echo  $tarea['horas_desplazamiento'];?></td>
+				<td class="center"><?php echo  $tarea['horas_visita'];?></td>
+				<td class="center"><?php echo  $tarea['horas_despacho'];?></td>
+				<td class="center"><?php echo  $tarea['horas_auditoria'];?></td>
 			</tr>
 			<?php }?>
 		</table>
@@ -249,29 +188,103 @@ $venta = $var->Proyecto->get_Venta();?>
 				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Sedes de la empresa")?><a class="show" href="#" clase="sedes"></a></td>
 			</tr>
 			<tr class="sedes">
-				<td>Sede</td>
-				<td>Nueva tarea</td>
+				<th>Sede</th>
+				<th>Nueva tarea</th>
 			</tr>
-			<?php 
+			<?php
 			$Cliente = $var->Proyecto->get_Cliente();
-			foreach($Cliente->get_Sedes as $id_sede){
-				$sede = new Sede($id_Sede);?>
+			foreach($Cliente->get_Lista_Sedes() as $sede){
+				?>
 			<tr class="sedes">
-				<td class="ColDer"><?php echo  $sede->get_Localidad();?></td>
-				<td class="ColDer">
-					<?php $url_dest = $appDir.'/Ofertas/addOferta.php?id_sede='.$sede->get_Id().'&id_proyecto='.$var->Proyecto->get_Id();
+				<td class="center"><?php echo  $sede->get_Localidad();?></td>
+				<td class="center">
+					<?php $url_dest = $appDir.'/Tareas/addTarea.php?id_sede='.$sede->get_Id().'&id_proyecto='.$var->Proyecto->get_Id();
 					//Éste bot&oacute;n tiene que aparecer si el proyecto no está cerrado o fuera de plazo y si el usuario es el gestor asignado al proyecto
 					//if($permisos->permisoLectura($url_dest) && ($permisos->isInRol(9) || $permisos->isInRol(5) || $permisos->isInRol(6))){
 					$estados_prohibidos = array(5,6);
-					if(!in_array($estado['id'], $estados_prohibidos) && $var->usuario->get_Id() == $var->Proyecto->get_Id_Usuario()){?>
+					if(!in_array($estado['id'], $estados_prohibidos) &&
+							($var->usuario->get_Id() == $var->Proyecto->get_Id_Usuario()
+								|| $var->usuario->esAdministradorTotal())){?>
 						<label title="<?php echo  _translate("A&ntilde;adir tarea")?>">
-							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><input type="button" name="addOferta" value="<?php echo  _translate("Nueva Oportunidad")?>" /></a>						
+							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');">Nueva tarea</a>
 						</label>
 					<?php }?>
 				</td>
 			</tr>
 			<?php }?>
 		</table>
+	</div>
+	
+	<!-- **************** DEFINICIÓN **************** -->
+	<div id="derecha">
+		<table style="width:100%;">
+			<tr>
+				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Definici&oacute;n")?><a class="show" href="#" clase="definition"></a></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Horas documentaci&oacute;n")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Documentacion();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Horas auditor&iacute;a interna")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Auditoria_Interna();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Precio de venta")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Precio_Venta();?>&euro;</td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Horas de desplazamiento")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Desplazamiento();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Horas de cada visita")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Cada_Visita();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("N&uacute;mero de visitas")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Numero_Visitas();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Gastos incurridos")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Gastos_Incurridos();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Horas totales")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Totales();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Carga de trabajo")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Carga_Trabajo_Mensual();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Coste_Horario_Venta();?></td>
+			</tr>
+		</table>
+		<!-- DEFINICIÓN DESGLOSADA POR SEDES -->
+		<table  style="width:100%;">
+			<tr>
+				<td class="ListaTitulo" colspan="5"><?php echo  _translate("Desglose por sedes")?><a class="show" href="#" clase="desglose"></a></td>
+			</tr>
+			<tr  class="desglose">
+				<th>Sede</th>
+				<th>Horas de desplazamiento</th>
+				<th>Horas de cada visita</th>
+				<th>N&uacute;mero de visitas</th>
+				<th>Gastos incurridos</th>
+			</tr>
+			<?php foreach($var->Proyecto->get_Definicion_Sedes() as $definicion){?>
+			<tr class="desglose">
+				<td class="ListaTitulo" colspan="2"><?php echo $definicion['localidad'];?></td>
+				<td class="center"><?php echo  $definicion['horas_desplazamiento'];?></td>
+				<td class="center"><?php echo  $definicion['horas_cada_visita'];?></td>
+				<td class="center"><?php echo  $definicion['numero_visitas'];?></td>
+				<td class="center"><?php echo  $definicion['gastos_incurridos'];?></td>
+			</tr>
+			<?php }?>
+		</table>
+		
 	</div>
 </div>
 <input type="hidden" id="eliminar" name="eliminar" value="0"/>
