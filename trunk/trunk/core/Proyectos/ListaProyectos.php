@@ -75,8 +75,8 @@ class ListaProyectos implements IIterador{
 		(isset($filtros['fecha_fin_desde']))?$filtro.=" AND proyectos.fecha_fin_desde >= '".trim($filtros['fecha_fin_desde'])."' ":null;
 		(isset($filtros['fecha_fin_hasta']))?$filtro.=" AND proyectos.fecha_fin_hasta <= '".trim($filtros['fecha_fin_hasta'])."' ":null;
 
-		(isset($filtros['gestor']))?$filtros['id_usuario']=$filtros['gestor']:null;
-		(isset($filtros['id_usuario']))?$filtro .= " AND proyectos.fk_usuario = '".trim($filtros['id_usuario'])."'":null;
+		(isset($filtros['gestor']) && $filtros['gestor'] != 0)?$filtros['id_usuario']=$filtros['gestor']:null;
+		(isset($filtros['id_usuario']) && $filtros['id_usuario']!=0)?$filtro .= " AND proyectos.fk_usuario = '".trim($filtros['id_usuario'])."'":null;
 		(isset($filtros['id_cliente']))?$filtro .= " AND proyectos.fk_cliente = '".trim($filtros['fk_cliente'])."'":null;
 		
 		(isset($filtros['es_plantilla']))?$filtro .= " AND proyectos.es_plantilla = '".trim($filtros['es_plantilla'])."'":null;
@@ -125,7 +125,7 @@ class ListaProyectos implements IIterador{
 				    GROUP BY proyectos.id $order
 					$limit;";
 		
-		//FB::info($query,'query ListaProyectos:buscar');
+		FB::info($query,'query ListaProyectos:buscar');
 		$this->result = @mysql_query($query);
 
 		//Obtenemos el número total de resultados sin paginar:

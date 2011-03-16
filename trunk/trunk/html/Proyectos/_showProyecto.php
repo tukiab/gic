@@ -50,7 +50,7 @@ class ShowProyecto{
 		header("Location: searchProyectos.php?msg=proyecto borrado");
 	}
 
-	private function eliminar(){
+	private function cerrar(){
 		$this->Proyecto->cerrar();
 	}
 	/**
