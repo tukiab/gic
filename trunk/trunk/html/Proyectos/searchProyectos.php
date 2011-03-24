@@ -142,9 +142,9 @@ $(document).ready(function(){
                     <select name="estado">
 						<?php
 						$estado_seleccionado = $var->opt['estado'];?>
-						<option value="0" <?php if($estado_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+						<option value="0" <?php if($estado_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 						<?php foreach($var->datos['lista_estados'] as $estado){?>
-						<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $estado['nombre']?></option>
+						<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
 						<?php }?>
                     </select>
             </td>
@@ -165,16 +165,16 @@ $(document).ready(function(){
     </tr>
 	<tr>
             <td class="busquedaIzda">
-            <?php echo  _translate('Fecha finalizaci&oacute:n desde')?> &nbsp;
+            <?php echo  _translate('Fecha finalizaci&oacuten desde')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" class="fecha" size="12" name="fecha_finalizacion_desde" value="<?php  echo timestamp2date($var->opt['fecha_finalizacion_desde'])?>"/>
+                    <input type="text" class="fecha" size="12" name="fecha_fin_desde" value="<?php  echo timestamp2date($var->opt['fecha_fin_desde'])?>"/>
             </td>
             <td class="busquedaIzda">
                     <?php echo  _translate('Fecha finalizaci&oacute;n hasta')?> &nbsp;
             </td>
             <td class="busquedaDcha">
-                    <input type="text" class="fecha" size="12" name="fecha_finalizacion_hasta" value="<?php  echo timestamp2date($var->opt['fecha_finalizacion_hasta'])?>"/>
+                    <input type="text" class="fecha" size="12" name="fecha_fin_hasta" value="<?php  echo timestamp2date($var->opt['fecha_fin_hasta'])?>"/>
             </td>
     </tr>
     <tr>
@@ -185,9 +185,9 @@ $(document).ready(function(){
                     <select name="gestor">
                             <?php
                             $gestor_seleccionado = $var->opt['gestor'];?>
-                            <option value="0" <?php if($gestor_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+                            <option value="0" <?php if($gestor_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
                             <?php foreach($var->datos['lista_gestores'] as $gestor){?>
-                            <option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $gestor['id']?></option>
+                            <option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  'selected="selected"';?>><?php  echo $gestor['id']?></option>
                             <?php }?>
                     </select>
             </td>
@@ -373,9 +373,9 @@ $(document).ready(function(){
 				<select name="gestor_asignar">
 					<?php
 					$gestor_seleccionado = $var->opt['gestor_asignar'];?>
-					<option value="0" <?php if($gestor_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Ninguno")?></option>
+					<option value="0" <?php if($gestor_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Ninguno")?></option>
 					<?php foreach($var->datos['lista_gestores'] as $gestor){?>
-					<option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $gestor['id']?></option>
+					<option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  'selected="selected"';?>><?php  echo $gestor['id']?></option>
 					<?php }?>
 				</select>                    
             </td>
