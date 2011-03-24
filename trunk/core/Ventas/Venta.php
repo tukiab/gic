@@ -409,6 +409,9 @@ class Venta{
 			$errores .= "<br/>La fecha estimada de formaci&oacute;n es obligatoria.";
 		if($datos['fecha_pago_inicial'] == '' || ! isset($datos['fecha_pago_inicial']))
 			$errores .= "<br/>La fecha de pago inicial es obligatoria.";
+
+		if($datos['fecha_inicio'] > $datos['fecha_estimada_formacion'])
+			throw new Exception ('La fecha de inicio ha de ser anterior a la fecha de finalizaci&oacute;n');
 					
 		if($errores != '') throw new Exception($errores);
 		//Si todo ha ido bien:

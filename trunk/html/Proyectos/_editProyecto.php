@@ -91,19 +91,18 @@ class EditProyecto{
 				
 						$this->Proyecto = new Proyecto($datos_proyecto['id']);
 						try{
-							if($this->Proyecto->get_Nombre_Proyecto() != $datos['nombre'])
-								$this->Proyecto->set_Nombre($datos['nombre']);
+							$this->Proyecto->set_Nombre($datos_proyecto['nombre']);
 							
-							if($this->Proyecto->get_Fecha_Inicio() != $datos_proyecto['fecha_inicio'])
-								$this->Proyecto->set_Fecha_Inicio(date2timestamp($datos_proyecto['fecha_inicio']));
+							if($datos_proyecto['fecha_inicio'] > $datos_proyecto['fecha_fin'])
+								throw new Exception('La fecha de inicio ha de ser anterior a la de finalizaci&oacute;n');
 
-							if($this->Proyecto->get_Fecha_Fin() != $datos_proyecto['fecha_fin'])
-								$this->Proyecto->set_Fecha_Fin(date2timestamp($datos_proyecto['fecha_fin']));
+							$this->Proyecto->set_Fecha_Inicio(date2timestamp($datos_proyecto['fecha_inicio']));
+
+							$this->Proyecto->set_Fecha_Fin(date2timestamp($datos_proyecto['fecha_fin']));
 								
-							if($this->Proyecto->get_Observaciones() != $datos_proyecto['observaciones'])
-								$this->Proyecto->set_Observaciones($datos_proyecto['observaciones']);
+							$this->Proyecto->set_Observaciones($datos_proyecto['observaciones']);
 							
-								$this->msg = "Guardado";
+							$this->msg = "Guardado";
 						}catch(Exception $e){
 							$this->msg= $e->getMessage();
 						}

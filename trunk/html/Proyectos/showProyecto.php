@@ -77,7 +77,7 @@ if($var->opt['msg']){?>
 <?php $nombre = $var->Proyecto->get_Nombre();
 $cliente = $var->Proyecto->get_Cliente();
 $venta = $var->Proyecto->get_Venta();?>
-<div id="titulo"><?php echo  $nombre?></div>
+<div id="titulo"><?php echo  $nombre;?></div>
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
 <div id="contenedor" >
 	<!-- **************** DATOS DEL CLIENTE **************** -->
@@ -130,7 +130,7 @@ $venta = $var->Proyecto->get_Venta();?>
 			</tr>
 			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Duraci&oacute;n")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Duracion();?></td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Duracion();?> d&iacute;as</td>
 			</tr>
 			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Unidades")?>:</td>
@@ -261,6 +261,14 @@ $venta = $var->Proyecto->get_Venta();?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
 				<td class="ColDer"><?php echo  $var->Proyecto->get_Coste_Horario_Venta();?></td>
 			</tr>
+			<?php if(!$var->Proyecto->esta_Definido()){?>
+			<tr>
+				<td class="Transparente" colspan="6" style="text-align:right;">
+					<?php $url_dest = $appDir."/Proyectos/definirProyecto.php?id=".$var->Proyecto->get_Id();?>
+					<label class="nota"><a href="<?php echo $url_dest?>"><?php echo  _translate("Definir")?></a></label>
+				</td>
+			</tr>
+			<?php }?>
 		</table>
 		<!-- DEFINICIÓN DESGLOSADA POR SEDES -->
 		<table  style="width:100%;">
@@ -282,7 +290,7 @@ $venta = $var->Proyecto->get_Venta();?>
 				<td class="center"><?php echo  $definicion['numero_visitas'];?></td>
 				<td class="center"><?php echo  $definicion['gastos_incurridos'];?></td>
 			</tr>
-			<?php }?>
+			<?php }?>			
 		</table>
 		
 	</div>

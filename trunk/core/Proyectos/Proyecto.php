@@ -285,6 +285,14 @@ class Proyecto{
 		
 		return $cont;
 	}
+
+	/**
+	 * Indica si el proyecto está definido
+	 * @return <type>
+	 */
+	public function esta_Definido(){
+		return $this->definicion_sedes;
+	}
 	/**
 	 * Horas de visita totales de todas las sedes
 	 * @var integer
@@ -326,11 +334,11 @@ class Proyecto{
 		return ($this->get_Horas_Documentacion()+$this->get_Horas_Documentacion()+$this->get_Horas_Cada_Visita()*$this->get_Numero_Visitas()+$this->get_Horas_Auditoria_Interna());
 	}
 	/**
-	 * Duración del proyecto
+	 * Duración del proyecto en días
 	 * @return timestamp
 	 */
 	public function get_Duracion(){
-		return $this->fecha_fin - $this->fecha_inicio;
+		return ceil(($this->fecha_fin - $this->fecha_inicio) / (60 * 60 * 24));
 	}
 	/**
 	 * Horas totales / Duración
@@ -377,16 +385,28 @@ class Proyecto{
 			$cliente = $venta->get_Cliente();
 			$this->id_cliente = $cliente->get_Id();
 			$this->importe = $venta->get_Importe();
+			$this->nombre = $venta->get_Nombre_Venta();
+			$this->fecha_inicio = $venta->get_Fecha_Inicio();
+			$this->fecha_fin = $venta->get_Fecha_Estimada_Formacion();
 		}else{
 			if(!isset($datos['id_cliente']))
-				throw new Exception('Debe indicar al menos la Proyecto del proyecto');
+				throw new Exception('Debe indicar al menos la empresa del proyecto');
+			if(!isset($datos['nombre']))
+				throw new Exception('Debe indicar el nombre del proyecto');
+			if(isset($datos['fecha_inicio']) && isset($datos['fecha_fin']))				
+			if($datos['fecha_inicio'] > $datos['fecha_fin'])
+				throw new Exception('La fecha de inicio ha de ser anterior a la de finalizaci&oacute;n');
 			$this->id_venta = null;
 			$this->id_cliente = $datos['id_cliente'];
 			$this->importe = 0;
+			$this->fecha_inicio = $datos['fecha_inicio'];
+			$this->fecha_fin = $datos['fecha_fin'];
 		}
 		$this->id_estado = 1;
 
-		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado) VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado' ); ";
+		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio, fecha_fin)
+					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
+								'$this->fecha_inicio', '$this->fecha_fin' ); ";
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto');
 
@@ -460,20 +480,20 @@ class Proyecto{
 		$cliente = $this->get_Cliente();
 		$sedes = $cliente->get_Sedes();
 		foreach($sedes as $id_sede){
-			if(!is_numeric(trim($datos['definicion_sedes'][$id_sede]['horas_desplazamiento']) )
-				|| !is_numeric(trim($datos['definicion_sedes'][$id_sede]['horas_cada_visita']))
-				|| !is_numeric(trim($datos['definicion_sedes'][$id_sede]['numero_visitas']))
-				|| !is_numeric(trim($datos['definicion_sedes'][$id_sede]['gastos_incurridos']))){
+			if(!is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_horas_desplazamiento']) )
+				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_horas_cada_visita']))
+				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']))
+				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']))){
 					 
 					$errores .= '<br/>Proyecto: debe definir los datos de definici&oacute;n de todas las sedes de la empresa';
 					continue;
 			}else{
 				//id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos
 				$this->definicion_sedes[$id_sede] = array('id_sede' => $id_sede,
-															'horas_desplazamiento' => trim($datos['definicion_sedes'][$id_sede]['horas_desplazamiento']),
-															'horas_cada_visita' => trim($datos['definicion_sedes'][$id_sede]['horas_cada_visita']),
-															'numero_visitas' => trim($datos['definicion_sedes'][$id_sede]['numero_visitas']),
-															'gastos_incurridos' => trim($datos['definicion_sedes'][$id_sede]['gastos_incurridos']),);
+															'horas_desplazamiento' => trim($datos['definicion_sedes_'.$id_sede.'_horas_desplazamiento']),
+															'horas_cada_visita' => trim($datos['definicion_sedes_'.$id_sede.'_horas_cada_visita']),
+															'numero_visitas' => trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']),
+															'gastos_incurridos' => trim($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']),);
 			}
 
 		}
@@ -596,6 +616,40 @@ class Proyecto{
 			$this->id_estado = $id;
 			$this->cargar_Estado();
 		}
+	}
+
+	public function set_Fecha_Inicio($fecha){
+		$query = "UPDATE proyectos SET fecha_inicio='$fecha' WHERE id = '$this->id';";
+		if(!mysql_query($query))
+			throw new Exception('Error al actualizar la fecha de inicio del proyecto');
+
+		$this->fecha_inicio = $fecha;
+	}
+
+	public function set_Fecha_Fin($fecha){
+		$query = "UPDATE proyectos SET fecha_fin='$fecha' WHERE id = '$this->id';";
+		if(!mysql_query($query))
+			throw new Exception('Error al actualizar la fecha de finalizaci&oacute;n del proyecto');
+
+		$this->fecha_fin = $fecha;
+	}
+
+	public function set_Nombre($nombre){
+		if($nombre){
+			$query = "UPDATE proyectos SET nombre='".mysql_real_escape_string($nombre)."' WHERE id = '$this->id';";
+			if(!mysql_query($query))
+				throw new Exception('Error al actualizar el nombre del proyecto');
+
+			$this->nombre = $nombre;
+		}
+	}
+
+	public function set_Observaciones($nombre){
+		$query = "UPDATE proyectos SET observaciones='".mysql_real_escape_string($nombre)."' WHERE id = '$this->id';";
+		if(!mysql_query($query))
+			throw new Exception('Error al actualizar las observaciones del proyecto');
+
+		$this->observaciones = $nombre;
 	}
 
 	public function cerrar(){

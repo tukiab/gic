@@ -87,7 +87,7 @@
 						JOIN usuarios_departamentos on usuarios_perfiles.fk_departamento = usuarios_departamentos.id
 						WHERE usuarios.id = '$this->id'; ";
  			if(!($result = mysql_query($query)) || mysql_num_rows($result)!=1)
- 				throw new Exception("Error al buscar el usuario en la BBDD.");
+ 				throw new Exception("Error al cargar el usuario.");
  			$row = mysql_fetch_array($result);
  			
  			$this->nombre = $row['nombre'];
