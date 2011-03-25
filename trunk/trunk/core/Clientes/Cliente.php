@@ -565,6 +565,10 @@ class Cliente{
 		return $array_Contactos;
 	}
 
+	/**
+	 * Devuelve un array con instancias Sede de las sedes de la empresa
+	 * @return array
+	 */
 	public function get_Lista_Sedes(){
 		$array = array();
 		foreach($this->sedes as $id)
