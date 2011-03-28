@@ -316,4 +316,14 @@ function impArrayTelefono($t){
 function getNumeroMeses($f1, $f2){
 	return ($f1-$f2)/(1000*60*60*24*30);
 }
+
+function getIdClientePrincipal(){
+	$listaClientes = new ListaClientes();
+	$filtros['cliente_principal'] = true;
+	$listaClientes->buscar($filtros);
+	while($cliente = $listaClientes->siguiente())
+		return $cliente->get_Id();
+
+	return 0;
+}
 ?>

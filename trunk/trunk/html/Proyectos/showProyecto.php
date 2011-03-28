@@ -145,7 +145,18 @@ $venta = $var->Proyecto->get_Venta();?>
 			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("T&eacute;cnico asignado")?>:</td>
 				<td class="ColDer">
-					<?php echo  $var->Proyecto->get_Id_Usuario();?>
+					<?php 
+					if($var->Proyecto->get_Id_Usuario())echo  $var->Proyecto->get_Id_Usuario();
+					else{?>
+					<select  name="id_usuario">
+						<?php $usuario_sel = $var->opt['id_usuario'];?>
+						<option value="" ><?php echo _translate("No asignar");?></option>
+						<?php foreach($var->datos['lista_tecnicos'] as $user){?>
+						<option value="<?php  echo $user->get_Id()?>" <?php if($user->get_Id() == $usuario_sel) echo 'selected="selected"';?>><?php  echo $user->get_Id()?></option>
+						<?php }?>
+					</select>
+					<input type="submit" value="asignar" name="asignar" />
+					<?php }?>
 				</td>
 			</tr>
 			<?php 
@@ -284,11 +295,11 @@ $venta = $var->Proyecto->get_Venta();?>
 			</tr>
 			<?php foreach($var->Proyecto->get_Definicion_Sedes() as $definicion){?>
 			<tr class="desglose">
-				<td class="ListaTitulo" colspan="2"><?php echo $definicion['localidad'];?></td>
-				<td class="center"><?php echo  $definicion['horas_desplazamiento'];?></td>
-				<td class="center"><?php echo  $definicion['horas_cada_visita'];?></td>
-				<td class="center"><?php echo  $definicion['numero_visitas'];?></td>
-				<td class="center"><?php echo  $definicion['gastos_incurridos'];?></td>
+				<td class="ListaTitulo"><?php echo $definicion['localidad'];?></td>
+				<td class="center"><?php echo $definicion['horas_desplazamiento'];?></td>
+				<td class="center"><?php echo $definicion['horas_cada_visita'];?></td>
+				<td class="center"><?php echo $definicion['numero_visitas'];?></td>
+				<td class="center"><?php echo $definicion['gastos_incurridos'];?></td>
 			</tr>
 			<?php }?>			
 		</table>

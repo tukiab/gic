@@ -268,6 +268,9 @@ class Proyecto{
 	 */
 	public function get_Definicion_Sedes(){return $this->definicion_sedes ;}
 
+	public function get_Definicion_Sede($id_sede){
+		return $this->definicion_sedes[$id_sede];
+	}
 	/**
 	 * Devuelve el importe
 	 * @return integer
@@ -388,25 +391,40 @@ class Proyecto{
 			$this->nombre = $venta->get_Nombre_Venta();
 			$this->fecha_inicio = $venta->get_Fecha_Inicio();
 			$this->fecha_fin = $venta->get_Fecha_Estimada_Formacion();
+			$this->id_estado = 1;
 		}else{
-			if(!isset($datos['id_cliente']))
-				throw new Exception('Debe indicar al menos la empresa del proyecto');
 			if(!isset($datos['nombre']))
 				throw new Exception('Debe indicar el nombre del proyecto');
-			if(isset($datos['fecha_inicio']) && isset($datos['fecha_fin']))				
+			if(!isset($datos['fecha_inicio']))
+				throw new Exception('Debe indicar la fecha de inicio del proyecto');
+			if(isset($datos['fecha_fin']))
 			if($datos['fecha_inicio'] > $datos['fecha_fin'])
 				throw new Exception('La fecha de inicio ha de ser anterior a la de finalizaci&oacute;n');
 			$this->id_venta = null;
-			$this->id_cliente = $datos['id_cliente'];
 			$this->importe = 0;
 			$this->fecha_inicio = $datos['fecha_inicio'];
 			$this->fecha_fin = $datos['fecha_fin'];
-		}
-		$this->id_estado = 1;
+			$this->estado = 2;
 
-		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio, fecha_fin)
+			//el cliente de este tipo de proyectos es la empresa principal:
+			$listaUsuarios = new ListaUsuarios();
+			$this->id_cliente = $listaUsuarios->get_Id_Cliente_Principal();
+			if(!$this->id_cliente)
+				throw new Exception('No se ha definido la empresa usuaria de GIC, contacte con su administrador');
+
+			//Si se asigna el gestor directamente
+			if($datos['id_usuario']){
+				$this->id_usuario = trim($datos['id_usuario']);
+				$campo = ', fk_usuario';
+				$value = ", '$this->id_usuario'";
+				$this->estado = 3;
+			}
+		}
+		
+
+		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio, fecha_fin $campos)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->fecha_fin' ); ";
+								'$this->fecha_inicio', '$this->fecha_fin' $value); ";
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto');
 
@@ -430,7 +448,7 @@ class Proyecto{
 	 * @param array $datos Array indexado con todos los atributos para definir un Proyecto.
 	 * @return integer $id_proyecto Id del Proyecto.
 	 */
-	public function definir($datos){
+	public function definir($datos){ FB::info($datos);
 		if($this->id_estado > 1)
 			throw new Exception ('El proyecto ya ha sido definido');
 		//Comprobando los datos "imprescindibles":
@@ -463,7 +481,7 @@ class Proyecto{
 		if($datos['fecha_inicio'] == '' || ! isset($datos['fecha_inicio']))
 			$errores .= "<br/>Proyecto: Campo fecha de inicio obligatorio.";
 		else{
-			if($validar->fecha(trim($datos['fecha_inicio'])))
+			if(is_numeric(trim($datos['fecha_inicio'])))
 				$this->fecha_inicio = trim($datos['fecha_inicio']);
 			else
 				$errores .= '<br/>Proyecto: Campo fecha de inicio inv&aacute;lido';
@@ -471,7 +489,7 @@ class Proyecto{
 		if($datos['fecha_fin'] == '' || ! isset($datos['fecha_fin']))
 			$errores .= "<br/>Proyecto: Campo fecha de fin obligatorio.";
 		else{
-			if($validar->fecha(trim($datos['fecha_fin'])))
+			if(is_numeric(trim($datos['fecha_fin'])))
 				$this->fecha_fin = trim($datos['fecha_fin']);
 			else
 				$errores .= '<br/>Proyecto: Campo fecha de fin inv&aacute;lido';
@@ -489,7 +507,7 @@ class Proyecto{
 					continue;
 			}else{
 				//id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos
-				$this->definicion_sedes[$id_sede] = array('id_sede' => $id_sede,
+				$definicion_sedes[$id_sede] = array('id_sede' => $id_sede,
 															'horas_desplazamiento' => trim($datos['definicion_sedes_'.$id_sede.'_horas_desplazamiento']),
 															'horas_cada_visita' => trim($datos['definicion_sedes_'.$id_sede.'_horas_cada_visita']),
 															'numero_visitas' => trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']),
@@ -513,7 +531,7 @@ class Proyecto{
 		}
 		$this->cargar_Estado();
 
-		return $this->guardar_Definicion();
+		return $this->guardar_Definicion($definicion_sedes);
 	}
 	
 	/**
@@ -521,18 +539,18 @@ class Proyecto{
 	 *
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar_Definicion(){
+	private function guardar_Definicion($definicion_sedes){
 		$query = "UPDATE proyectos 
 					SET horas_documentacion = '$this->horas_documentacion',
-					SET horas_auditoria_interna = '$this->horas_auditoria_interna',
-					SET nombre = '$this->nombre',
-					SET fecha_inicio = '$this->fecha_inicio',
-					SET fecha_fin = '$this->fecha_fin',
-					SET importe = '$this->importe',
-					SET es_plantilla = '$this->es_plantilla',
-					SET observaciones = '$this->observaciones',
-					SET fk_usuario = '$this->id_usuario',
-					SET fk_estado = '$this->id_estado'
+					horas_auditoria_interna = '$this->horas_auditoria_interna',
+					nombre = '$this->nombre',
+					fecha_inicio = '$this->fecha_inicio',
+					fecha_fin = '$this->fecha_fin',
+					importe = '$this->importe',
+					es_plantilla = '$this->es_plantilla',
+					observaciones = '$this->observaciones',
+					fk_usuario = '$this->id_usuario',
+					fk_estado = '$this->id_estado'
 
 				WHERE id = '$this->id';";
 
@@ -541,7 +559,7 @@ class Proyecto{
 
 		//Ahora guardamos la definición teórica de cada sede: borramos la definición actual e insertamos cada nueva definición
 		$this->del_Definicion_Sedes();
-		foreach($this->definicion_sedes as $definicion){
+		foreach($definicion_sedes as $definicion){
 			$this->definir_Sede($definicion);
 		}
 
@@ -563,15 +581,17 @@ class Proyecto{
 	 */
 	private function definir_Sede($definicion){
 		if(!$this->existe_Definicion_Sede($definicion['id_sede'])){
-			$query = "INSERT INTO proyectos_rel_sedes (horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos)
-							VALUES ('".$definicion['horas_desplazamiento']."', '".$definicion['horas_cada_visita']."',
+			$query = "INSERT INTO proyectos_rel_sedes (fk_proyecto, fk_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos)
+							VALUES ('".$this->id."', '".$definicion['id_sede']."',
+									'".$definicion['horas_desplazamiento']."', '".$definicion['horas_cada_visita']."',
 									'".$definicion['numero_visitas']."', '".$definicion['gastos_incurridos']."');";
 		}else{
 			$query = "UPDATE proyectos_rel_sedes
-						SET horas_desplazamiento'".$definicion['horas_desplazamiento']."',
-							horas_cada_visita'".$definicion['horas_cada_visita']."',
-							numero_visitas'".$definicion['numero_visitas']."',
-							gastos_incurridos'".$definicion['gastos_incurridos']."'";
+						SET horas_desplazamiento = '".$definicion['horas_desplazamiento']."',
+							horas_cada_visita = '".$definicion['horas_cada_visita']."',
+							numero_visitas = '".$definicion['numero_visitas']."',
+							gastos_incurridos = '".$definicion['gastos_incurridos']."'
+						WHERE fk_proyecto='$this->id' AND fk_sede = '".$definicion['id_sede']."'";
 		}
 
 		if(!mysql_query($query))
@@ -650,6 +670,17 @@ class Proyecto{
 			throw new Exception('Error al actualizar las observaciones del proyecto');
 
 		$this->observaciones = $nombre;
+	}
+
+	public function asignar($id_usuario){
+		if(!$this->id_usuario && $this->id_estado == 2){
+			$query = "UPDATE proyectos SET fk_usuario = '".trim($id_usuario)."' WHERE id = '$this->id';";
+			if(!mysql_query($query))
+				throw new Exception('Error al asignar el t&eacute;cnico');
+
+			$this->id_usuario = trim($id_usuario);
+			$this->set_Estado(3);
+		}
 	}
 
 	public function cerrar(){

@@ -67,21 +67,22 @@ class DefinirProyecto{
 		$this->Proyecto = new Proyecto($this->opt['id']);
 
 		($opciones['nombre'])?$this->opt['nombre'] = $opciones['nombre']:$this->opt['nombre'] = $this->Proyecto->get_Nombre();
-		($opciones['horas_documentacion'])?$this->opt['horas_documentacion'] = $opciones['horas_documentacion']:null;
-		($opciones['horas_auditoria_interna'])?$this->opt['horas_auditoria_interna'] = $opciones['horas_auditoria_interna']:null;
-		($opciones['es_plantilla'])?$this->opt['es_plantilla'] = $opciones['es_plantilla']:null;
+		($opciones['horas_documentacion'])?$this->opt['horas_documentacion'] = $opciones['horas_documentacion']:$this->opt['horas_documentacion'] = $this->Proyecto->get_Horas_Documentacion();
+		($opciones['horas_auditoria_interna'])?$this->opt['horas_auditoria_interna'] = $opciones['horas_auditoria_interna']:$this->opt['horas_auditoria_interna'] = $this->Proyecto->get_Horas_Auditoria_Interna();
+		($opciones['es_plantilla'])?$this->opt['es_plantilla'] = $opciones['es_plantilla']:$this->opt['es_plantilla'] = $this->Proyecto->get_Es_Plantilla();
 
 		($opciones['fecha_inicio'])?$this->opt['fecha_inicio'] = date2timestamp($opciones['fecha_inicio']):$this->opt['fecha_inicio'] = $this->Proyecto->get_Fecha_Inicio();
 		($opciones['fecha_fin'])?$this->opt['fecha_fin'] = date2timestamp($opciones['fecha_fin']):$this->opt['fecha_fin'] = $this->Proyecto->get_Fecha_Fin();
 
 		($opciones['id_plantilla'])?$this->opt['id_plantilla'] = $opciones['id_plantilla']:null;
 
-		$Cliente = $var->Proyecto->get_Cliente();
+		$Cliente = $this->Proyecto->get_Cliente();
 			foreach($Cliente->get_Lista_Sedes() as $sede){
-				($opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']:null;
-				($opciones['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']:null;
-				($opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas']:null;
-				($opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']:null;
+				$definicion_sede = $this->Proyecto->get_Definicion_Sede($sede->get_Id());
+				($opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']:$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$definicion_sede['horas_desplazamiento'];
+				($opciones['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']:$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']=$definicion_sede['horas_cada_visita'];
+				($opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas']:$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$definicion_sede['numero_visitas'];
+				($opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']:$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$definicion_sede['gastos_incurridos'];
 			}
 
 	}
@@ -89,7 +90,8 @@ class DefinirProyecto{
 	private function definir_Proyecto(){
 
 		$this->Proyecto->definir($this->opt);
-		$this->msg = "Proyecto definido";						
+		//Redirigimos al proyecto
+		//header('Location: showProyecto.php?id='.$this->Proyecto->get_Id());
 	}
 
 	/**

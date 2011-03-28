@@ -40,9 +40,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 		  <td class="busquedaDcha" >
 			<select  name="tipo_cliente">
 				<?php $tipo_cliente_seleccionado = $var->opt['tipo_cliente'];?>
-				<option value="0" <?php if($tipo_cliente_seleccionado == 0) echo "SELECTED"; ?>><?php echo _translate("Elegir una opci&oacute;n");?></option>
+				<option value="0" <?php if($tipo_cliente_seleccionado == 0) echo 'selected="selected"'; ?>><?php echo _translate("Elegir una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_tipos_clientes'] as $tipo){?>
-				<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_cliente_seleccionado) echo  "SELECTED";?>><?php  echo $tipo['nombre']?></option>
+				<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_cliente_seleccionado) echo  'selected="selected"';?>><?php  echo $tipo['nombre']?></option>
 				<?php }?> 
 			</select>
 		  </td>
@@ -53,9 +53,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<select  name="grupo_empresas">
 				<?php 
 				$grupo_empresas_seleccionado = $var->opt['grupo_empresas'];?>
-				<option value="0" <?php if($grupo_empresas_seleccionado == 0) echo "SELECTED"; ?>><?php echo _translate("Elegir una opci&oacute;n");?></option>
+				<option value="0" <?php if($grupo_empresas_seleccionado == 0) echo 'selected="selected"'; ?>><?php echo _translate("Elegir una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_grupos_empresas'] as $tipo){?>
-				<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $grupo_empresas_seleccionado) echo  "SELECTED";?>><?php  echo $tipo['nombre']?></option>
+				<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $grupo_empresas_seleccionado) echo  'selected="selected"';?>><?php  echo $tipo['nombre']?></option>
 				<?php }?> 
 				</select><label class="nota"><a href="<?php  echo $appDir."/Administracion/gestionGrupos.php"?>"><?php echo  _translate("Nuevo")?></a></label>
 		  </td>
