@@ -111,7 +111,8 @@ a:hover {
 	text-decoration:overline underline;
 }
 label.nota{
-	font-size:xx-small;
+	font-size:12px;
+	display:block;
 }
 
 input[type=button],input[type=submit]{
@@ -924,5 +925,15 @@ a.show{
 	display:block;
 	float:right;
 	font-size:11px;
+	text-align: right;
+}
+
+.wrap{
+	margin: 0 auto;
+	width: 940px;
+	padding-top: 20px;
+}
+
+tr.botones{
 	text-align: right;
 }

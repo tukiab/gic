@@ -61,9 +61,10 @@ class ListaUsuarios implements IIterador{
 		
 		(isset($filtros['id']))?$filtro.=" AND usuarios.id = '".$filtros['id']."' ":null;
 		(isset($filtros['password']))?$filtro.=" AND usuarios.password LIKE '%".$filtros['password']."%' ":null;
-		(isset($filtros['perfil']))?$join .= " INNER JOIN usuarios_perfiles ON usuarios.fk_perfil = '".$filtros['perfil']."'":null;
+		(isset($filtros['perfil']))?$join = " INNER JOIN usuarios_perfiles ON usuarios.fk_perfil = '".$filtros['perfil']."'":null;
 		(isset($filtros['nombre']))?$filtro.=" AND usuarios.nombre LIKE '%".$filtros['nombre']."%' ":null;
 		(isset($filtros['apellidos']))?$filtro.=" AND usuarios.apellidos LIKE '".$filtros['apellidos']."' ":null;
+		(isset($filtros['perfiles']))?$join = " INNER JOIN usuarios_perfiles ON usuarios.fk_perfil IN '".$filtros['perfiles']."'":null;
 		
 		$query = "SELECT usuarios.id
 					FROM usuarios
@@ -141,6 +142,15 @@ class ListaUsuarios implements IIterador{
 			$usuarios[$row['id']] = $row;
 		
 		return $usuarios;
+	}
+
+	public function get_Id_Cliente_Principal(){
+		$filtros['cliente_principal'] = true;
+		$this->buscar($filtros);
+		while($cliente = $this->siguiente())
+			return $cliente->get_Id();
+
+		return 0;
 	}
 	
 }

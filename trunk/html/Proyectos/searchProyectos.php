@@ -27,6 +27,18 @@ $(function(){
         });
 });
 
+$(function(){
+        $("#mostrarGestores").click(function(event) {
+                event.preventDefault();
+                $("#gestores").slideToggle();
+        });
+});
+
+function asignar_gestor(){
+        $('#asignar_gestor').val(1);
+        $('#frm_clientes').submit();
+}
+
 function repagina(nav){
         document.forms[0].navigation.value=nav;
         mostrar = document.getElementById("mostrar");
@@ -139,9 +151,9 @@ $(document).ready(function(){
                     <?php echo  _translate('Estado')?>
             </td>
             <td class="busquedaDcha">
-                    <select name="estado">
+                    <select name="id_estado">
 						<?php
-						$estado_seleccionado = $var->opt['estado'];?>
+						$estado_seleccionado = $var->opt['id_estado'];?>
 						<option value="0" <?php if($estado_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 						<?php foreach($var->datos['lista_estados'] as $estado){?>
 						<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
@@ -218,13 +230,17 @@ $(document).ready(function(){
 </table>
 </div>
 <br/>
-<label class="nota"><a href=<?php echo  $appDir.'/Proyectos/addProyecto.php';?>>>> <?php echo  _translate("A&ntilde;adir proyecto nueva")?> <<</a></label><br/>
+<?php //if($permisos->escritura){ ?>
+<label class="nota"><a href=<?php echo  $appDir.'/Proyectos/addProyecto.php';?>>>> <?php echo  _translate("Crear proyecto directamente")?> <<</a></label><br/>
 <br/>
+<?php //}?>
 <!-- RESULTADOS -->
 <div class="listado" style="width:94%;margin-left:2em;">
 <label class="nota"><?php  echo $var->datos['lista_proyectos']->num_Resultados()." ".Resultados?></label>
+<!--
 <?php if($gestor_actual->esAdministrador()){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <?php }?>
+-->
 <table>
     <thead>
         <tr>
@@ -352,7 +368,7 @@ $(document).ready(function(){
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>
                             <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
                             <input type="hidden" id="asignar_gestor" name="asignar_gestor" value="0"/>
-                            <input id="mostrarGestores" type="button" value="<?php echo  _translate("Asignar gestores")?>" />
+                            <input id="mostrarGestores" type="button" value="<?php echo  _translate("Asignar t&eacute;cnico")?>" />
                     </td>
             </tr>
             <?php }?>
@@ -364,27 +380,26 @@ $(document).ready(function(){
 <table>
     <tr class="BusquedaTable">
             <td class="ListaTitulo">
-                    <?php echo  _translate("Seleccione el gestor a asignar a los proyectos")?>
+                    <?php echo  _translate("Seleccione el t&eacute;cnico a asignar a los proyectos")?>
             </td>
-    </tr>
-    <?php foreach($var->datos['lista_gestores'] as $gestor){?>
+    </tr>    
     <tr>
             <td class="busquedaIzda">
 				<select name="gestor_asignar">
 					<?php
 					$gestor_seleccionado = $var->opt['gestor_asignar'];?>
-					<option value="0" <?php if($gestor_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Ninguno")?></option>
-					<?php foreach($var->datos['lista_gestores'] as $gestor){?>
-					<option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  'selected="selected"';?>><?php  echo $gestor['id']?></option>
+					<option value="" ><?php echo  _translate("Seleccionar")?></option>
+					<?php while($gestor=$var->datos['lista_tecnicos']->siguiente()){?>
+					<option value="<?php  echo $gestor->get_Id()?>" <?php if($gestor->get_Id() == $gestor_seleccionado) echo  'selected="selected"';?>><?php  echo $gestor->get_Id()?></option>
 					<?php }?>
 				</select>                    
             </td>
     </tr>
-    <?php }?>
+    
     <tr>
             <td class="busquedaIzda" style="text-align: right;background:none">
                     <input type="button" onclick="parent.tb_remove();" value="Cancelar" />
-                    <input type="button" onclick="parent.asignar_gestor();" value="Agregar" />
+                    <input type="button" onclick="parent.asignar_gestor();" value="Asignar" />
             </td>
     </tr>
 </table>

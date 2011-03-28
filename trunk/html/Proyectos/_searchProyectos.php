@@ -138,7 +138,7 @@ class BusquedaProyectos{
 		@($opciones['gestor_asignar'])?$this->opt['gestor_asignar']=$opciones['gestor_asignar']:null;
 		@($opciones['seleccionados'])?$this->opt['seleccionados']=$opciones['seleccionados']:null;
 		@($opciones['nombre'])?$this->opt['nombre']=$opciones['nombre']:null;
-		@($opciones['estado'] != 0)?$this->opt['estado']=$opciones['estado']:null;
+		@($opciones['id_estado'] != 0)?$this->opt['id_estado']=$opciones['id_estado']:null;
 		@($opciones['fecha_inicio_desde'])?$this->opt['fecha_inicio_desde']=date2timestamp($opciones['fecha_inicio_desde']):null;
 		@($opciones['fecha_inicio_hasta'])?$this->opt['fecha_inicio_hasta']=date2timestamp($opciones['fecha_inicio_hasta']):null;
 		@($opciones['fecha_fin_desde'])?$this->opt['fecha_fin_desde']=date2timestamp($opciones['fecha_fin_desde']):null;
@@ -162,6 +162,10 @@ class BusquedaProyectos{
 	 private function obtener_Listas(){	 	
 	 	$this->datos['lista_estados'] = $this->lista_Proyectos->lista_Estados();
 	 	$this->datos['lista_gestores'] = $this->lista_Proyectos->lista_Gestores();
+
+		$listaUsuarios = new ListaUsuarios();
+		$filtros['perfiles'] = '(3,6)'; //técnicos y directores técnicos
+		$this->datos['lista_tecnicos'] = $listaUsuarios->buscar();	
 	 }
 	 
 	 private function get_Variables_Paginado($opciones){
