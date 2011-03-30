@@ -14,19 +14,23 @@ class infoUsuario{
 	public $nombre;
 	public $perfil;
 	public $usuario;
+
 	public $lista_acciones_hoy;
 	public $lista_acciones_no_leidas;
 	public $lista_ofertas;
 	public $lista_ofertas_pendientes;
     public $lista_ventas;
 	public $lista_alarmas=array();//Matriz indexada por a�o con lista de clientes que cumplen la renovaci�n en ese a�o (en los 3 pr�ximos meses)
+
+	public $lista_proyectos;
 	
 	private $DB_perfiles;
 	private $DB_usuarios;
 	private $DB_acciones;
 	private $DB_ofertas;
-        private $DB_ventas;
+    private $DB_ventas;
 	private $DB_clientes; //para las alarmas de las fechas de renovaci�n
+	private $DB_proyectos;
 	
 	public function infoUsuario($id_usuario, $nombre, $opciones){
 		$this->DB_perfiles = new datosPerfiles();
@@ -36,6 +40,7 @@ class infoUsuario{
 		$this->DB_ofertas = new ListaOfertas();
         $this->DB_ventas = new ListaVentas();
 		$this->DB_clientes = new ListaClientes();
+		$this->DB_proyectos = new ListaProyectos();
 
 		$datos = $this->DB_usuarios->getDatosUsuario($id_usuario);
 
@@ -48,17 +53,33 @@ class infoUsuario{
 		if($this->opt['guardar'])
 			$this->guardar();
 
-
-		$this->obtener_Acciones();
-		$this->obtener_Ofertas();
-        $this->obtener_Ventas();
-		$this->obtener_Alarmas();
+		$perfil = $this->usuario->get_Perfil();
+		if(esPerfilComercial($perfil['id'])){
+			$this->obtener_Acciones();
+			$this->obtener_Ofertas();
+			$this->obtener_Ventas();
+			$this->obtener_Alarmas();
+		}
+		if(esPerfilTecnico ($perfil['id'])){
+			$this->obtener_Proyectos();
+		}
 	}
 
 	private function obtener_Opciones($opciones){
 		($opciones['guardar'])?$this->opt['guardar']=$opciones['guardar']:null;
 		($opciones['ids_acciones_leer'])?$this->opt['ids_acciones_leer']=$opciones['ids_acciones_leer']:null;
 		($opciones['ids_ofertas_leer'])?$this->opt['ids_ofertas_leer']=$opciones['ids_ofertas_leer']:null;
+	}
+
+	private function obtener_Proyectos(){
+		global $gestor_actual;
+		if(!$gestor_actual->esAdministradorTotal())
+			$filtros['id_usuario'] = $this->usuario->get_Id();
+		$filtros['estados'] = '(1.2.4.5)';
+		$filtros['order_by'] = 'estado';
+
+		$this->DB_proyectos->buscar($filtros);
+		$this->lista_proyectos = $this->DB_proyectos;
 	}
 	private function obtener_Acciones(){
 		global $gestor_actual;
@@ -99,7 +120,7 @@ class infoUsuario{
 		$this->lista_ofertas_pendientes = $DB_Ofertas;
 	}
 
-        private function obtener_Ventas(){
+    private function obtener_Ventas(){
 		global $gestor_actual;
 		if(!$gestor_actual->esAdministradorTotal())
 			$filtros['id_usuario'] = $this->usuario->get_Id();
@@ -112,7 +133,7 @@ class infoUsuario{
 		$this->lista_ventas = $this->DB_ventas;
 	}
 
-	private function obtener_alarmas(){
+	private function obtener_Alarmas(){
 		global $gestor_actual;
 		
 		$filtros['id_usuario'] = $gestor_actual->get_Id();

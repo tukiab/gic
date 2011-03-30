@@ -79,6 +79,12 @@ class Proyecto{
 	 * @var integer
 	 */
 	private $importe;
+
+	/**
+	 * Indica si el proyecto se puede cerrar
+	 * @var boolean (1 o 0)
+	 */
+	private $cerrar;
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -133,6 +139,7 @@ class Proyecto{
 			$this->id_usuario = $row['id_usuario'];
 			$this->es_plantilla = $row['es_plantilla'];
 			$this->importe = $row['importe'];
+			$this->cerrar = $row['cerrar'];
 
 			$this->id_estado = $row['id_estado'];
 			$this->estado = array('id'=>$row['id_estado'], 'nombre'=>$row['nombre_estado']);
@@ -253,6 +260,9 @@ class Proyecto{
 		return new Cliente($this->id_cliente);
 	}
 
+	public function get_Cerrar(){
+		return $this->cerrar;
+	}
 	/**
 	 * Devuelve el array de tareas
 	 * @return array Indexado por id, fecha, tipo, horas_desplazamiento, horas_visita,
@@ -420,11 +430,15 @@ class Proyecto{
 				$this->estado = 3;
 			}
 		}
-		
 
-		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio, fecha_fin $campos)
+		$this->cerrar = 1;
+		if(isset($datos['cerrar']))
+			$this->cerrar = $datos['cerrar'];		
+
+		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio, fecha_fin, cerrar $campos)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->fecha_fin' $value); ";
+								'$this->fecha_inicio', '$this->fecha_fin', '$this->cerrar' $value); ";
+		
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto');
 
@@ -684,6 +698,9 @@ class Proyecto{
 	}
 
 	public function cerrar(){
+		if(!$this->cerrar)
+			throw new Exception('Este proyecto no se puede cerrar');
+
 		$this->set_Estado(6);
 	}
 }

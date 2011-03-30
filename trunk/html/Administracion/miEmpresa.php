@@ -6,16 +6,13 @@ require ($appRoot.'/Autentificacion/Usuarios.php');
 include ($appRoot.'/Utils/lang.php');
 include_once ($appRoot.'/Utils/utils.php');
 //Opciones
-include ('_showCliente.php');
+include ('_miEmpresa.php');
 	$var = new MiEmpresa($_GET);
 
-if($var->opt['mostrar_cabecera']){
 	include($appRoot.'/include/html/header.php');
 	include($appRoot.'/include/html/mainMenu.php');
 	include($appRoot.'/include/html/bottomMenu.php');
-}
-else
-	include ($appRoot.'/include/html/popupHeader.php');
+
 ?>
 <script language="JavaScript" type="text/javascript">
 
@@ -32,9 +29,9 @@ if($var->opt['msg']){?>
 <div id="titulo">Mi empresa</div>
 
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
-<div id="contenedor" >
+<div id="contenedor" align="center">
 <?php
-if($var->Cliente && !$var->opt['editar']){
+if($var->Cliente->get_Razon_Social() && !$var->opt['editar']){
 $razon_social = $var->Cliente->get_Razon_Social();?>
 
 	<!-- **************** DATOS DEL CLIENTE **************** -->	
@@ -187,8 +184,12 @@ $razon_social = $var->Cliente->get_Razon_Social();?>
 				<input type="text"  name="sector" value="<?php echo  trim(stripslashes($var->opt['sector']));?>" />
 			</td>
 		</tr>
+		<tr class="botones">
+			<td colspan="2">
+				<input type="submit" value="Guardar" name="guardar" />
+			</td>
+		</tr>
 	</table>
-	<input type="submit" value="Guardar" name="guardar" />
 	<?php }?>
 </div>
 </form>

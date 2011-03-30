@@ -937,3 +937,13 @@ a.show{
 tr.botones{
 	text-align: right;
 }
+
+div.aviso_sistema{
+	position: fixed;
+	top: 40px;
+	right:10px;
+	background: #DEE3DC;
+	color:gray;
+	font-size: 11px;
+	font-style: italic;
+}

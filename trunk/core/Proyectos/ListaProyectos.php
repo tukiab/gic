@@ -67,9 +67,14 @@ class ListaProyectos implements IIterador{
 		$filtro ="";
 		$join="";
 
+		(!isset($filtros['con_cerrar']))?$filtro.=" AND cerrar = 1 ":null;
+
 		(isset($filtros['id']))?$filtro.=" AND proyectos.id = '".trim($filtros['id'])."' ":null;
 		(isset($filtros['nombre']))?$filtro.=" AND proyectos.nombre LIKE '%".trim($filtros['nombre'])."%' ":null;
-		(isset($filtros['id_estado']))?$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado = '".trim($filtros['id_estado'])."'":null;
+		if(isset($filtros['id_estado']))
+			$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado = '".trim($filtros['id_estado'])."'";
+		else if(isset($filtros['estados']))
+			$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado IN '".trim($filtros['estados'])."'";
 		(isset($filtros['fecha_inicio_desde']))?$filtro.=" AND proyectos.fecha_inicio >= '".trim($filtros['fecha_inicio_desde'])."' ":null;
 		(isset($filtros['fecha_inicio_hasta']))?$filtro.=" AND proyectos.fecha_inicio <= '".trim($filtros['fecha_inicio_hasta'])."' ":null;
 		(isset($filtros['fecha_fin_desde']))?$filtro.=" AND proyectos.fecha_fin >= '".trim($filtros['fecha_fin_desde'])."' ":null;

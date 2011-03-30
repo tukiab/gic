@@ -252,3 +252,6 @@ CREATE TABLE IF NOT EXISTS `tareas_tecnicas` (
   `importe` float DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+-- Flag para indicar si el proyecto se puede cerrar
+ALTER TABLE `proyectos` ADD `cerrar` TINYINT( 1 ) NOT NULL DEFAULT '1';

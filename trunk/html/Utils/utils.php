@@ -326,4 +326,16 @@ function getIdClientePrincipal(){
 
 	return 0;
 }
+function perfilesTecnicos(){
+	return array(3,4,5,6);
+}
+function perfilesComerciales(){
+	return array(1,2,4,5,7);
+}
+function esPerfilComercial($id_perfil){
+	return in_array($id_perfil,  perfilesComerciales());
+}
+function esPerfilTecnico($id_perfil){
+	return in_array($id_perfil, perfilesTecnicos());
+}
 ?>
