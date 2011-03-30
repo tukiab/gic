@@ -6,6 +6,7 @@ include("_mainMenu.php");
 	//Inicializando..
 	$var_menu = new MainMenu($_SESSION['usuario_login']);
 ?>
+
 <div id="menuh">
 	<a id="logo" href="<?php echo $appDir;?>/pepe"><img src="<?php echo $appDir;?>/Graficas/img/logo.png" /></a>
 	<ul>
@@ -13,7 +14,6 @@ include("_mainMenu.php");
         <li > <a href=<?php echo  "$appDir/Autentificacion/Logout.php"?> ><?php echo  _translate("Salir")?></a></li>
 	</ul>
 </div>
-
 
 <?php 
 	/* Función recursiva para imprimir el menú principal y sus submenús */
@@ -38,3 +38,18 @@ include("_mainMenu.php");
 	}
 ?>
 
+<?php
+if($_SESSION['usuario_login'])
+	if(!getIdClientePrincipal()){?>
+	<div class="aviso_sistema">
+		<?php
+		$usuario = new Usuario($_SESSION['usuario_login']);
+		if($usuario->esAdministradorTotal()){
+	?>
+		No se han definido los datos de su empresa, acceda <strong><a href="<?php echo $appDir?>/Administracion/miEmpresa.php">aqu&iacute;</a></strong>
+
+<?php }else{?>
+		No se han definido los datos de su empresa, consulte con el administrador.
+<?php }
+	}?>
+	</div>

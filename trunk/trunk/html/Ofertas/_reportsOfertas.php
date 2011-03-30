@@ -76,7 +76,7 @@ class InformesOfertas{
 		@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;			
 		
 		@($opciones['buscar'])?$this->opt['buscar']=$opciones['buscar']:null;
-		
+		@($opciones['exportar'])?$this->opt['exportar']=$opciones['exportar']:null;		
 	}
 
 	private function buscar(){

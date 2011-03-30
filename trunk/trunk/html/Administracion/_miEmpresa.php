@@ -74,6 +74,8 @@ class MiEmpresa{
 	private function guardar(){
 		if(!$this->Cliente){
 			$this->Cliente = new Cliente();
+			$this->opt['grupo_empresas'] = 1;
+			$this->opt['tipo_cliente'] = 2;
 			$this->Cliente->crear($this->opt);
 		}else{
 			$this->Cliente->editar($this->opt);

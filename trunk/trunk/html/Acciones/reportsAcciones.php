@@ -150,6 +150,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 </div>
 <br/>
 <!-- RESULTADOS -->
+<?php if($gestor_actual->esAdministrador()){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+<?php }?>
 		<div class="listado" style="width:94%;margin-left:2em;">
 		
 			<?php 
@@ -239,7 +241,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<?php 
 					$totales['acciones'] += $total_acciones;
 					$totales['clientes'] += $total_clientes;
-				}else{
 				}
 			}?>
 					<!-- TOTALES -->
@@ -317,8 +318,173 @@ include ($appRoot.'/include/html/mainMenu.php');
 </div>
 <br />
 <br />
-<?php }?>
+
 <?php 
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
 ?>
+<?php }
+
+// ----- ¡¡VAMONOS QUE NOS VAMOS A EXPORTAR!! ----- //
+else{
+header("Content-type: application/vnd.ms-excel;charset=latin");
+header("Content-Disposition: attachment; filename=archivo.xls");
+header("Pragma: no-cache");
+header("Expires: 0");
+?>
+<?php }?>
+<?php 
+	$totales = array();
+?>
+<?php foreach($var->resumen as $user => $informe_usr){
+	$total_usuario = end($informe_usr);
+	$total_acciones = $total_usuario['num_acciones'];
+	$total_clientes = $total_usuario['num_clientes'];
+	if($user){
+	?>
+	<table>
+		<thead>
+			<tr>
+				<th>
+					<?php echo _translate("Usuario"); ?>
+				</th>
+				<th>
+					<?php echo _translate("Tipo acci&oacute;n"); ?>
+				</th>
+				<th>
+					<?php echo _translate("N&uacute;mero acciones"); ?>
+				</th>
+				<th>
+					%
+				</th>
+				<th>
+					<?php echo _translate("N&uacute;mero de empresas"); ?>
+				</th>
+				<th>
+					%
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php $primero = true;$fila_par=true;
+
+				foreach($informe_usr as $informe_tipo_accion){ FB::warn($informe_usr);
+					$ULTIMO = ($total_usuario == $informe_tipo_accion);
+
+					if(!$ULTIMO){?>
+						<tr>
+							<?php
+								$tipo_accion = $informe_tipo_accion['tipo'];
+								$num_acciones = $informe_tipo_accion['num_acciones'];
+								$num_clientes = $informe_tipo_accion['num_clientes'];
+
+							?>
+								<td>
+									<?php if($primero) echo $user; $primero=false;?>
+								</td>
+								<td>
+									<?php echo $informe_tipo_accion['nombre']; ?>
+								</td>
+								<td>
+									<?php echo $num_acciones; ?>
+								</td>
+								<td>
+									<?php if($total_acciones)echo substr($num_acciones*100/$total_acciones,0,4)."%"; ?>
+								</td>
+								<td>
+									<?php echo $num_clientes; ?>
+								</td>
+								<td>
+									<?php if($total_acciones) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+								</td>
+						</tr>
+						<?php
+							$totales[$tipo_accion]['num_acciones'] += $num_acciones;
+							$totales[$tipo_accion]['num_clientes'] += $num_clientes;
+					}else{?>
+						<tr>
+							<td>Total</td><td></td>
+							<td><?php echo  $total_acciones;?></td>
+							<td></td>
+							<td><?php echo  $total_clientes;?></td>
+							<td></td>
+						</tr>
+			<?php	}
+				}?>
+			</tbody>
+		</table>
+<?php
+	$totales['acciones'] += $total_acciones;
+	$totales['clientes'] += $total_clientes;
+}
+}?>
+	<?php
+		//Totales
+		$total_acciones = $totales['acciones'];
+		$total_clientes = $totales['clientes'];
+	?>
+
+	<table>
+		<thead>
+			<tr>
+				<th>
+					<?php echo _translate("Totales"); ?>
+				</th>
+				<th>
+					<?php echo _translate("Tipo acci&oacute;n"); ?>
+				</th>
+				<th>
+					<?php echo _translate("N&oacute;mero acciones"); ?>
+				</th>
+				<th>
+					%
+				</th>
+				<th>
+					<?php echo _translate("N&oacute;mero de empresas"); ?>
+				</th>
+				<th>
+					%
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+	<?php $primero = true;$fila_par=true;
+	if($var->opt['buscar'])
+	 foreach($informe_usr['informes'] as $informe_tipo_accion){ ?>
+
+	<?php
+		$tipo_accion = $informe_tipo_accion['tipo'];
+		$num_acciones = $totales[$tipo_accion]['num_acciones'];
+		$num_clientes = $totales[$tipo_accion]['num_clientes'];
+	?>
+			<tr>
+				<td style="text-align:center;width:5%;">
+					<?php if($primero) echo "TOTALES"; $primero=false;?>
+				</td>
+				<td style="text-align:center;width:5%;">
+					<?php echo $tipo_accion; ?>
+				</td>
+				<td style="text-align:center;width:5%;">
+					<?php echo $num_acciones; ?>
+				</td>
+				<td style="text-align:center;width:5%;">
+					<?php if($total_acciones)echo substr($num_acciones*100/$total_acciones,0,4)."%"; ?>
+				</td>
+				<td style="text-align:center;width:5%;">
+					<?php echo $num_clientes; ?>
+				</td>
+				<td style="text-align:center;width:5%;">
+					<?php if($total_acciones)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+				</td>
+			<?php } ?>
+			</tr>
+			<tr>
+				<td style="text-align:center;width:5%;">Total</td><td></td>
+				<td style="text-align:center;width:5%;"><?php echo  $total_acciones;?></td>
+				<td></td>
+				<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+				<td></td>
+			</tr>
+
+		</tbody>
+	</table>

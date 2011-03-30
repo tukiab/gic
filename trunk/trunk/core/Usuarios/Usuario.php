@@ -385,25 +385,21 @@
 		if(!mysql_query($query))
 			throw new Exception("Error al crear el Usuario.");
 		$this->id = mysql_insert_id();
-		
-		/*if(isset($datos['objetivos'])){
-			//Insertamos los objetivos
-			foreach($datos['objetivos'] as $objetivo){
-				$query = "INSERT INTO usuarios_objetivos (
-											fk_usuario,
-											mes,
-											objetivo
-										) VALUES (
-											'$this->id',
-											'".trim($objetivos['mes'])."',
-											'".trim($objetivos['objetivo'])."',
-										);";	
-				if(!mysql_query($query))
-					throw new Exception("Error al crear el Usuario: No se pudieron establecer los objetivos.");
-			}
+
+		//creamos los proyectos asociado al Usuario si es técnico o director técnico
+		if($this->perfil == 3 || $this->perfil == 6){
+			$proyecto = new Proyecto();
+			$datos['nombre'] = 'Horas no remuneradas '.$this->id;
+			$datos['fecha_inicio'] = time();
+			$datos['id_usuario'] = $this->id;
+			$datos['cerrar'] = 0;
+			$proyecto->crear($datos);
+
+			$proyecto_remuneradas = new Proyecto();
+			$datos['nombre'] = 'Horas remuneradas '.$this->id;
+			$proyecto_remuneradas->crear($datos);
 		}
-		*/
-					
+		
 		return $this->id;
 	}
 	
