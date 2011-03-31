@@ -10,7 +10,7 @@ include ('_searchOfertas.php');
 
 //Instanciamso la clase busqueda de ofertas.
 $var = new BusquedaOfertas($_GET);
-FB::info($var);
+
 if(!$var->opt['exportar']){
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
@@ -96,26 +96,26 @@ include ($appRoot.'/include/html/mainMenu.php');
 <form method="GET" id="frm_ofertas" action="<?php echo  $_SERVER['_SELF']?>">
 
 <!-- BUSCADOR -->
-<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de b�squeda")?></a></i><br/>
+<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de b&uacute;squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
 	<table>
 		<tr class="BusquedaTable">
 			<td colspan="6" class="ListaTitulo">
-				<div style="float:left"><?php echo  _translate("Opciones de b�squeda")?></div>
+				<div style="float:left"><?php echo  _translate("Opciones de b&uacute;squeda")?></div>
 			</td>
 		</tr>		
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('C�digo')?> &nbsp; 
+				<?php echo  _translate('C&oacute;digo')?> &nbsp;
 			</td>
 			<td class="busquedaDcha">
-				<input type="text" size="15"name="codigo" value="<?php  echo $var->opt['codigo']?>"></input>
+				<input type="text" size="15"name="codigo" value="<?php  echo $var->opt['codigo']?>" />
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Nombre')?> &nbsp; 
 			</td>
 			<td class="busquedaDcha">
-				<input type="text" size="15"name="nombre_oferta" value="<?php  echo $var->opt['nombre_oferta']?>"></input>
+				<input type="text" size="15"name="nombre_oferta" value="<?php  echo $var->opt['nombre_oferta']?>" />
 			</td>
 		</tr>
 		<tr>
@@ -161,7 +161,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				</select>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Probabilidad de contrataci�n')?>
+				<?php echo  _translate('Probabilidad de contrataci&oacute;n')?>
 			</td>
 			<td class="busquedaDcha">
 				<select name="probabilidad_contratacion">
@@ -176,16 +176,16 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</tr>
 		<tr>			
 			<td class="busquedaIzda">
-				<?php echo  _translate('N�mero desde')?> &nbsp;
+				<?php echo  _translate('N&uacute;mero desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" size="12" name="codigo_desde" value="<?php  echo ($var->opt['codigo_desde'])?>"></input>
+				<input type="text" size="12" name="codigo_desde" value="<?php  echo ($var->opt['codigo_desde'])?>" />
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('N�mero hasta')?> &nbsp;
+				<?php echo  _translate('N&uacute;mero hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" size="12" name="codigo_hasta" value="<?php  echo ($var->opt['codigo_hasta'])?>"></input>
+				<input type="text" size="12" name="codigo_hasta" value="<?php  echo ($var->opt['codigo_hasta'])?>" />
 			</td>
 		</tr>
 		<tr>			
@@ -193,27 +193,27 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<?php echo  _translate('Fecha desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_desde" value="<?php  echo timestamp2date($var->opt['fecha_desde'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_desde" value="<?php  echo timestamp2date($var->opt['fecha_desde'])?>" />
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_hasta" value="<?php  echo timestamp2date($var->opt['fecha_hasta'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_hasta" value="<?php  echo timestamp2date($var->opt['fecha_hasta'])?>" />
 			</td>
 		</tr>
 		<tr>			
 			<td class="busquedaIzda">
-				<?php echo  _translate('Fecha de definici�n desde')?> &nbsp;
+				<?php echo  _translate('Fecha de definici&oacute;n desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_definicion_desde" value="<?php  echo timestamp2date($var->opt['fecha_definicion_desde'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_definicion_desde" value="<?php  echo timestamp2date($var->opt['fecha_definicion_desde'])?>" />
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Fecha de definici�n hasta')?> &nbsp;
+				<?php echo  _translate('Fecha de definici&oacute;n hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_definicion_hasta" value="<?php  echo timestamp2date($var->opt['fecha_definicion_hasta'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_definicion_hasta" value="<?php  echo timestamp2date($var->opt['fecha_definicion_hasta'])?>" />
 			</td>
 		</tr>
 		<tr>
@@ -221,21 +221,21 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<?php echo  _translate('Importe desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" size="12" name="importe_desde" value="<?php  echo$var->opt['importe_desde']?>"></input>
+				<input type="text" size="12" name="importe_desde" value="<?php  echo$var->opt['importe_desde']?>" />
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Importe hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" size="12" name="importe_hasta" value="<?php  echo $var->opt['importe_hasta']?>"></input>
+				<input type="text" size="12" name="importe_hasta" value="<?php  echo $var->opt['importe_hasta']?>" />
 			</td>
 		</tr>
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('N�mero de ofertas por p�gina')?> &nbsp;
+				<?php echo  _translate('N&uacute;mero de ofertas por p&aacute;gina')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"></input>
+				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>" />
 			</td>
 				<td class="busquedaIzda" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
@@ -271,7 +271,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<input type="hidden" name="navigation" value="" />
 				<input type="hidden" name="page" value="<?php echo  $var->datos['page']?>" />
 				<input type="hidden" name="total" id="total" value="<?php  echo  $var->datos['lista_ofertas']->num_Resultados();?>" />
-				<!-- Criterios de ordenaci�n -->
+				<!-- Criterios de ordenaci&uacute;n -->
 				<input type="hidden" id="order_by" name="order_by" value="<?php echo  $var->opt['order_by']?>" />
 				<input type="hidden" id="order_by_asc_desc" name="order_by_asc_desc" value="<?php echo  $var->opt['order_by_asc_desc']?>" />
 			</td>
@@ -291,7 +291,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							<input type=checkbox id="chk_todos"/>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('codigo')" ><?php echo  _translate("C�digo")?></a>
+							<a href="#" onClick="javascript:orderBy('codigo')" ><?php echo  _translate("C&oacute;digo")?></a>
 							<?php 
 								if($var->opt['order_by']=='codigo' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";
@@ -299,7 +299,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Raz�n social empresa");?></th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Raz&oacute;n social empresa");?></th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Gestor");?></th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Tipo");?></th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
@@ -325,7 +325,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							?>
 						</th>		
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('fecha_definicion')" ><?php echo  _translate("Fecha de definici�n")?></a>
+							<a href="#" onClick="javascript:orderBy('fecha_definicion')" ><?php echo  _translate("Fecha de definici&oacute;n")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_definicion' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";

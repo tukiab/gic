@@ -187,7 +187,7 @@ class Cliente{
 			if(!($result = mysql_query($query)))
                             throw new Exception("Error al cargar la empresa de la BBDD");
 			else if(mysql_num_rows($result) == 0)
-                            throw new Exception("No se ha encontrado la empresa en la BBDD ".$this->id);
+                            throw new Exception("No se ha encontrado la empresa en la BBDD ".$query);
 
 			$row = mysql_fetch_array($result);
 

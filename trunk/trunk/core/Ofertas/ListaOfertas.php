@@ -154,7 +154,7 @@ class ListaOfertas implements IIterador{
 					$order		
 					$limit;";
 		
-		//FB::info($query,'query ListaOfertas:buscar');
+	//	FB::info($query,'query ListaOfertas:buscar');
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

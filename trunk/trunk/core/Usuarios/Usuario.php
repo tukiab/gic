@@ -517,7 +517,7 @@
 	 * Borra los objetivos actuales e ingresa los que se les pasa en el array
 	 * @param <array> $objetivos, cada posición indexado por id y comision
 	 */
-	public function set_Objetivos($objetivos){
+	public function set_Objetivos($objetivos){ 
 		$query = "DELETE FROM usuarios_rel_objetivos_mensuales WHERE fk_usuario = '$this->id';";
 		if(!mysql_query($query))
 			throw new Exception("Error cr&iacute;tico al resetear los objetivos");
@@ -534,7 +534,7 @@
 
 		$query = "INSERT INTO usuarios_rel_objetivos_mensuales
 							(fk_usuario, fk_objetivo, comision)
-							VALUES ('$this->id', '$id', '$comision');";
+							VALUES ('$this->id', '$id', '$comision');";FB::error($query);
 		if(!mysql_query($query))
 			throw new Exception("Error cr&iacute;tico al establecer los objetivos");
 	}
@@ -556,29 +556,29 @@
 
 		$query = "INSERT INTO usuarios_rel_penalizaciones
 							(fk_usuario, fk_penalizacion, penalizacion)
-							VALUES ('$this->id', '$id', '$penalizacion');";
+							VALUES ('$this->id', '$id', '$penalizacion');";FB::warn($query);
 		if(!mysql_query($query))
 			throw new Exception("Error cr&iacute;tico al establecer las penalizaciones");
 	}
 
 	public function set_Comisiones($comisiones){
-		$query = "DELETE FROM usuarios_rel_objetivos_mensuales WHERE fk_usuario = '$this->id';";
+		$query = "DELETE FROM usuarios_rel_tipos_comision WHERE fk_usuario = '$this->id';";
 		if(!mysql_query($query))
 			throw new Exception("Error cr&iacute;tico al resetear las comisiones");
 		foreach($comisiones as $obj){
-			$this->set_Objetivo($obj['id'], $obj['comision'], true);
+			$this->set_Comision($obj['id'], $obj['comision'], true);
 		}
 	}
 	public function set_Comision($id, $comision, $comisiones_borrados=false){
 		if(!$comisiones_borrados){
-			$query = "DELETE FROM usuarios_rel_comisiones WHERE fk_usuario = '$this->id' AND fk_tipo_comision = '$id';";
+			$query = "DELETE FROM usuarios_rel_tipos_comision WHERE fk_usuario = '$this->id' AND fk_tipo_comision = '$id';";
 			if(!mysql_query($query))
 				throw new Exception("Error cr&iacute;tico al resetear las comisiones");
 		}
 
 		$query = "INSERT INTO usuarios_rel_tipos_comision
 							(fk_usuario, fk_tipo_comision, comision)
-							VALUES ('$this->id', '$id', '$comision');";
+							VALUES ('$this->id', '$id', '$comision');";FB::info($query);
 		if(!mysql_query($query))
 			throw new Exception("Error cr&iacute;tico al establecer las comisiones");
 	}

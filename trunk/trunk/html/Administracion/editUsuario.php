@@ -131,9 +131,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 						<input type="button" onClick="cerrar()" value="<?php echo  _translate("Cerrar")?>"/>
 					</td>
 					<td style="text-align:right;">
-						<input type="button" onclick="$('select').removeAttr('disabled');
-							$('#guardar').val('guardar');
-						$('#frm').submit();"  value="<?php echo  _translate("Guardar")?>" />
+						<input type="submit" name="guardar" value="<?php echo  _translate("Guardar")?>" />
 					</td>
 				</tr>
 			</table>

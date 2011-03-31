@@ -51,7 +51,7 @@ class TipoDeProducto{
 			$query = "SELECT productos_tipos.*
 					FROM productos_tipos
 					WHERE id = '$this->id'";
-			FB::info($query,'TipoDeProducto->cargar: QUERY');
+			
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el tipo de producto de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -156,6 +156,11 @@ class TipoDeProducto{
 	}
 
 	public function eliminar(){
+		$query = "SELECT id FROM ofertas WHERE ofertas.fk_tipo_producto ='$this->id' LIMIT 1;";
+		$result = mysql_query($query);
+		while($row = mysql_fetch_array($result))
+			throw new Exception("No se puede eliminar el tipo de producto porque tiene ofertas asociadas");
+
 		$query = "DELETE FROM productos_tipos WHERE id = '$this->id';";
 		mysql_query($query);
 	}	

@@ -112,14 +112,14 @@ INSERT INTO `usuarios_objetivos_mensuales` (`mes`) VALUES
 
 -- Comisiones
 CREATE TABLE IF NOT EXISTS `usuarios_rel_tipos_comision` (
-  `fk_usuario` int(11) NOT NULL,
+  `fk_usuario` varchar(15) NOT NULL,
   `fk_tipo_comision` int(10) NOT NULL,
   `comision` float NOT NULL,
   PRIMARY KEY (`fk_usuario`,`fk_tipo_comision`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `usuarios_rel_objetivos_mensuales` (
-  `fk_usuario` int(11) NOT NULL,
+  `fk_usuario` varchar(15) NOT NULL,
   `fk_objetivo` int(10) NOT NULL,
   `comision` float NOT NULL,
   PRIMARY KEY (`fk_usuario`,`fk_objetivo`)
@@ -148,7 +148,7 @@ INSERT INTO `usuarios_penalizaciones` (`nombre`) VALUES
 ('Más del 150%');
 
 CREATE TABLE IF NOT EXISTS `usuarios_rel_penalizaciones` (
-  `fk_usuario` int(11) NOT NULL,
+  `fk_usuario`varchar(15) NOT NULL,
   `fk_penalizacion` int(10) NOT NULL,
   `penalizacion` float NOT NULL,
   PRIMARY KEY (`fk_usuario`,`fk_penalizacion`)

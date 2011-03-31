@@ -110,6 +110,11 @@ function listaMeses(){
 		);
 	return $lista;
 }
+
+function obtenerMes($ts){
+	$info = getdate($ts);
+	return $info['mon'];
+}
 /**
  * 
  * @return $lista lista con años para mostrar en los desplegables
