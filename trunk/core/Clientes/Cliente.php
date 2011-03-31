@@ -185,9 +185,9 @@ class Cliente{
 						WHERE clientes.id = '$this->id'";
 			//FB::info($query,'Cliente->cargar: QUERY');
 			if(!($result = mysql_query($query)))
-                            throw new Exception("Error al cargar el Cliente de la BBDD");
+                            throw new Exception("Error al cargar la empresa de la BBDD");
 			else if(mysql_num_rows($result) == 0)
-                            throw new Exception("No se ha encontrado el Cliente en la BBDD ".$this->id);
+                            throw new Exception("No se ha encontrado la empresa en la BBDD ".$this->id);
 
 			$row = mysql_fetch_array($result);
 
@@ -817,13 +817,11 @@ class Cliente{
 									'".mysql_real_escape_string(trim($datos['provincia']))."',									
 									'".trim($datos['tipo_cliente'])."',
 									'".trim($datos['grupo_empresas'])."',
-									'$cliente_principal',
-
+									'$cliente_principal'
 									$s_values
-								);
-		";									
+								);";									
 									if(!mysql_query($query))
-										throw new Exception("Error al crear el Cliente.  ");
+										throw new Exception("Error al crear la empresa. ".$query);
 									$this->id = mysql_insert_id();
 
 									//Insertamos el gestor
