@@ -7,7 +7,7 @@
  * valores para los desplegables de la interfaz a partir de la BBDD.
  *
  */
-class InformesOfertas{
+class InformesVentas{
 
 
 	/*
@@ -26,12 +26,12 @@ class InformesOfertas{
 
 
 	/*
-	 *Variable auxiliar de uso interno para contener el objeto Lista_Ofertas
+	 *Variable auxiliar de uso interno para contener el objeto Lista_Ventas
 	 *
 	 *@var object
 	 *
 	 */
-	private $lista_Ofertas;
+	private $lista_Ventas;
 
 	public $gestor;
 
@@ -49,12 +49,12 @@ class InformesOfertas{
 		//Usamos el método para asignar las opciones pasadas desde la interfaz
 		$this->obtener_Opciones($opciones);
 
-		//Buscamos los ofertas con los parámetros establecidos en la interfaz
+		//Buscamos los ventas con los parámetros establecidos en la interfaz
 		if($this->opt['buscar'] || $this->opt['exportar'])
 			$this->buscar();
 
 		//Hacemos accesible esta informacion desde fuera de la clase
-		$this->datos['lista_ofertas']=$this->lista_Ofertas;
+		$this->datos['lista_ventas']=$this->lista_Ventas;
 	}
 
 	private function obtener_Listas(){
@@ -85,25 +85,27 @@ class InformesOfertas{
 	private function buscar(){
 		$filtro = "";
 		if($this->opt['fecha_desde'])
-			$filtro .= " AND ofertas.fecha >= '".$this->opt['fecha_desde']."' ";
+			$filtro .= " AND ventas.fecha >= '".$this->opt['fecha_desde']."' ";
 		if($this->opt['fecha_hasta'])
-			$filtro .= " AND ofertas.fecha <= '".$this->opt['fecha_hasta']."' ";
+			$filtro .= " AND ventas.fecha <= '".$this->opt['fecha_hasta']."' ";
 		if($this->opt['id_usuario'])
-			$filtro .= " AND ofertas.fk_usuario = '".$this->opt['id_usuario']."'";
+			$filtro .= " AND ventas.fk_usuario = '".$this->opt['id_usuario']."'";
 
-		$query = "SELECT ofertas.fecha as fecha, ofertas.fk_usuario as usuario, 
-						ofertas.fk_tipo_producto as tipo, productos_tipos.nombre, 
+		$query = "SELECT ventas.fecha_aceptado as fecha, ofertas.fk_usuario as usuario,
+						ofertas.fk_tipo_producto as tipo, productos_tipos.nombre,
 						SUM(ofertas.importe) as importe,
-						COUNT(DISTINCT ofertas.id) as num_ofertas,
+						COUNT(DISTINCT ventas.id) as num_ventas,
 						COUNT(DISTINCT ofertas.fk_cliente) as num_clientes
-					FROM ofertas
+					FROM ventas
+					INNER JOIN ofertas
+						ON ofertas.id = ventas.fk_oferta
 					INNER JOIN productos_tipos
 						ON productos_tipos.id = ofertas.fk_tipo_producto
 					INNER JOIN clientes
 						ON clientes.id = ofertas.fk_cliente
 					WHERE 1 $filtro
 					GROUP BY usuario, tipo WITH ROLLUP;";
-FB::info($query);
+
 		$result = mysql_query($query);
 		$datos = array();
 		while($row = mysql_fetch_array($result)){

@@ -6,10 +6,10 @@ include ($appRoot.'/Utils/lang.php');
 include ($appRoot.'/Utils/utils.php');
 
 //Opciones
-include ('_reportsOfertas.php');
+include ('_reportsVentas.php');
 
-//Instanciamso la clase busqueda de ofertas.
-$var = new InformesOfertas($_GET);
+//Instanciamso la clase busqueda de ventas.
+$var = new InformesVentas($_GET);
 
 if(!$var->opt['exportar']){
 include ($appRoot.'/include/html/header.php');
@@ -92,7 +92,7 @@ if(!$var->opt['exportar']){
 		function eliminar(){
 			if(confirm('Confirmar borrado')){
 				$('#eliminar').val(1);
-				$('#frm_ofertas').submit();
+				$('#frm_ventas').submit();
 			}
 		}
 
@@ -109,10 +109,10 @@ if(!$var->opt['exportar']){
 	table{color:#000;}
 	table td, table th{padding:4px;}
 </style>
-<div id="titulo"><?php echo  _translate("Ofertas")?></div>
+<div id="titulo"><?php echo  _translate("Ventas")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
 <div id="contenedor" align="center">
-<form method="GET" id="frm_ofertas" action="<?php echo  $_SERVER['_SELF']?>">
+<form method="GET" id="frm_ventas" action="<?php echo  $_SERVER['_SELF']?>">
 
 <!-- BUSCADOR -->
 
@@ -181,10 +181,13 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 							<?php echo _translate("Fecha"); ?>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							Objetivo
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
 							<?php echo _translate("Tipo producto"); ?>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<?php echo _translate("N&uacute;mero ofertas"); ?>
+							<?php echo _translate("N&uacute;mero ventas"); ?>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
 							%
@@ -206,7 +209,7 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 				<tbody>
 			<?php foreach($var->resumen as $user => $informe_usr){
 				$total_usuario = end($informe_usr);
-				$total_ofertas = $total_usuario['num_ofertas'];
+				$total_ventas = $total_usuario['num_ventas'];
 				$total_clientes = $total_usuario['num_clientes'];
 				$total_importe = $total_usuario['importe'];
 				if($user){
@@ -220,7 +223,7 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 								<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
 									<?php
 										$tipo_producto = $informe_tipo_producto['tipo'];
-										$num_ofertas = $informe_tipo_producto['num_ofertas'];
+										$num_ventas = $informe_tipo_producto['num_ventas'];
 										$num_clientes = $informe_tipo_producto['num_clientes'];
 										$importe = $informe_tipo_producto['importe'];
 									?>
@@ -231,13 +234,18 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 											<?php echo timestamp2date($informe_tipo_producto['fecha']);?>
 										</td>
 										<td style="text-align:center;width:5%;">
+											<?php $usuario = new Usuario($user);
+											$objetivo = $usuario->get_Objetivo(obtenerMes($informe_tipo_producto['fecha']));
+											echo $objetivo['comision'];?>
+										</td>
+										<td style="text-align:center;width:5%;">
 											<?php echo $informe_tipo_producto['nombre']; ?>
 										</td>
 										<td style="text-align:center;width:5%;">
-											<?php echo $num_ofertas; ?>
+											<?php echo $num_ventas; ?>
 										</td>
 										<td style="text-align:center;width:5%;">
-											<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
+											<?php if($total_ventas)echo substr($num_ventas*100/$total_ventas,0,4)."%"; ?>
 										</td>
 										<td style="text-align:center;width:5%;">
 											<?php echo $num_clientes; ?>
@@ -253,10 +261,10 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 										</td>
 								</tr>
 								<?php
-									$totales[$tipo_producto]['num_ofertas'] += $num_ofertas;
+									$totales[$tipo_producto]['num_ventas'] += $num_ventas;
 									$totales[$tipo_producto]['num_clientes'] += $num_clientes;
 									$totales[$tipo_producto]['importe'] += $importe;
-									$totales['tipos'][$tipo_producto]['ofertas']	+= $num_ofertas;
+									$totales['tipos'][$tipo_producto]['ventas']	+= $num_ventas;
 									$totales['tipos'][$tipo_producto]['clientes']	+= $num_clientes;
 									$totales['tipos'][$tipo_producto]['importe']	+= $importe;
 									$totales['tipos'][$tipo_producto]['nombre'] = $informe_tipo_producto['nombre'];
@@ -265,7 +273,7 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 									<td style="text-align:center;width:5%;">Total</td>
 									<td></td>
 									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
+									<td style="text-align:center;width:5%;"><?php echo  $total_ventas;?></td>
 									<td></td>
 									<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
 									<td></td>
@@ -275,22 +283,22 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 					<?php	}
 						}?>
 			<?php
-				$totales['ofertas']	+= $total_ofertas;
+				$totales['ventas']	+= $total_ventas;
 				$totales['clientes']	+= $total_clientes;
 				$totales['importe']	+= $total_importe;
 			}
 		}
 		}?>
 				<?php
-					$total_ofertas = $totales['ofertas'];
+					$total_ventas = $totales['ventas'];
 					$total_clientes = $totales['clientes'];
 					$total_importe = $totales['importe'];
 				?>
 				<?php $primero = true;$fila_par=true;
-				if($var->opt['buscar'] || $var->opt['exportar'])
+				if(($var->opt['buscar'] || $var->opt['exportar']) && $totales['tipos'])
 				 foreach($totales['tipos'] as $informe_tipo_producto){
 					$nombre = $informe_tipo_producto['nombre'];
-					$num_ofertas = $informe_tipo_producto['ofertas'];
+					$num_ventas = $informe_tipo_producto['ventas'];
 					$num_clientes = $informe_tipo_producto['clientes'];
 					$importe = $informe_tipo_producto['importe'];
 				?>
@@ -299,14 +307,15 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
 							<td></td>
+							<td></td>
 							<td style="text-align:center;width:5%;">
 								<?php echo $nombre; ?>
 							</td>
 							<td style="text-align:center;width:5%;">
-								<?php echo $num_ofertas; ?>
+								<?php echo $num_ventas; ?>
 							</td>
 							<td style="text-align:center;width:5%;">
-								<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
+								<?php if($total_ventas)echo substr($num_ventas*100/$total_ventas,0,4)."%"; ?>
 							</td>
 							<td style="text-align:center;width:5%;">
 								<?php echo $num_clientes; ?>
@@ -324,7 +333,7 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 						</tr>
 						<tr>
 							<td style="text-align:center;width:5%;">Total</td><td></td><td></td>
-							<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
+							<td style="text-align:center;width:5%;"><?php echo  $total_ventas;?></td>
 							<td></td>
 							<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
 							<td></td>

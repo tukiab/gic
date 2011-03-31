@@ -44,6 +44,7 @@ class MainMenu{
 			$this->menus[6][0]= new Menu("#", "Informes +", "informes");
 				$this->menus[6][1] = new Menu("$appDir/Acciones/reportsAcciones.php", "Acciones", "acciones");
 				$this->menus[6][2] = new Menu("$appDir/Ofertas/reportsOfertas.php", "Ofertas", "ofertas");
+				$this->menus[6][3] = new Menu("$appDir/Ventas/reportsVentas.php", "Ventas", "ventas");
 				
 			$this->menus[7][0]= new Menu("#", "Colaboradores +", "colaboradores");
 				$this->menus[7][1]= new Menu("$appDir/Colaboradores/searchColaboradores.php", "Listado");

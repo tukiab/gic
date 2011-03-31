@@ -63,12 +63,32 @@ class EditUsuario{
 
 	private function obtener_Opciones($opciones){
 		(isset($opciones['id']))?$this->opt['id'] = $opciones['id']:null;
-		foreach($this->datos['lista_meses'] as $obj_mes)
-			(isset($opciones['obj_'.$obj_mes['id']]))?$this->opt['obj_'.$obj_mes['id']]=$opciones['obj_'.$obj_mes['id']]:$this->opt['obj_'.$obj_mes['id']]=0;
-		foreach($this->datos['lista_penalizaciones'] as $obj_mes)
-			(isset($opciones['penalizacion_'.$obj_mes['id']]))?$this->opt['penalizacion_'.$obj_mes['id']]=$opciones['penalizacion_'.$obj_mes['id']]:$this->opt['penalizacion_'.$obj_mes['id']]=0;
-		foreach($this->datos['lista_tipos_comision'] as $obj_mes)
-			(isset($opciones['comision_'.$obj_mes['id']]))?$this->opt['comision_'.$obj_mes['id']]=$opciones['comision_'.$obj_mes['id']]:$this->opt['comision_'.$obj_mes['id']]=0;
+
+		foreach($this->datos['lista_meses'] as $objetivo_mes)
+			if(isset($opciones['objetivo_'.$objetivo_mes['id']]))
+				$this->opt['objetivo_'.$objetivo_mes['id']]=$opciones['objetivo_'.$objetivo_mes['id']];
+			else{
+				$objetivo = $this->Usuario->get_Objetivo($objetivo_mes['id']);
+				$this->opt['objetivo_'.$objetivo_mes['id']]=$objetivo['comision'];
+			}
+
+		foreach($this->datos['lista_penalizaciones'] as $penalizacion)
+			if(isset($opciones['penalizacion_'.$penalizacion['id']]))
+				$this->opt['penalizacion_'.$penalizacion['id']]=$opciones['penalizacion_'.$penalizacion['id']];
+			else{
+				$penalizacion = $this->Usuario->get_Penalizacion($penalizacion['id']);
+				$this->opt['penalizacion_'.$penalizacion['id']]= $penalizacion['penalizacion'];
+			}
+
+		foreach($this->datos['lista_tipos_comision'] as $comision)
+			if(isset($opciones['comision_'.$comision['id']]))
+				$this->opt['comision_'.$comision['id']]=$opciones['comision_'.$comision['id']];
+			else{
+				$comision = $this->Usuario->get_Comision ($comision['id']);
+				$this->opt['comision_'.$comision['id']]=$comision['comision'];
+			}
+
+		(isset($opciones['guardar']))?$this->opt['guardar']=$opciones['guardar']:null;
 	}
 
 	private function obtener_Datos(){
@@ -81,12 +101,12 @@ class EditUsuario{
 		$objetivos = array();
 		$penalizaciones = array();
 		$comisiones = array();
-		foreach($this->datos['lista_meses'] as $obj_mes)
-			$objetivos[] = array('id' => $obj_mes['id'], 'comision' => $this->opt['obj_'.$obj_mes['id']]);
-		foreach($this->datos['lista_penalizaciones'] as $obj_mes)
-			$penalizaciones[] = array('id' => $obj_mes['id'], 'penalizacion' => $this->opt['penalizacion_'.$obj_mes['id']]);
-		foreach($this->datos['lista_tipos_comision'] as $obj_mes)
-			$comisiones[] = array('id' => $obj_mes['id'], 'comision' => $this->opt['comision_'.$obj_mes['id']]);
+		foreach($this->datos['lista_meses'] as $objetivo_mes)
+			$objetivos[] = array('id' => $objetivo_mes['id'], 'comision' => $this->opt['objetivo_'.$objetivo_mes['id']]);
+		foreach($this->datos['lista_penalizaciones'] as $penalizacion)
+			$penalizaciones[] = array('id' => $penalizacion['id'], 'penalizacion' => $this->opt['penalizacion_'.$penalizacion['id']]);
+		foreach($this->datos['lista_tipos_comision'] as $comision)
+			$comisiones[] = array('id' => $comision['id'], 'comision' => $this->opt['comision_'.$comision['id']]);
 
 		$this->Usuario->set_Objetivos($objetivos);
 		$this->Usuario->set_Penalizaciones($penalizaciones);
