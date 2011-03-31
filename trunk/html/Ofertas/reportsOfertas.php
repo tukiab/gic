@@ -10,7 +10,7 @@ include ('_reportsOfertas.php');
 
 //Instanciamso la clase busqueda de ofertas.
 $var = new InformesOfertas($_GET);
-FB::info($var);
+
 if(!$var->opt['exportar']){
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
@@ -18,14 +18,14 @@ include ($appRoot.'/include/html/mainMenu.php');
 ?>
 <!-- Funciones varias para mejorar la interfaz -->
 <script language="JavaScript" type="text/javascript">
-<!--
+
 		$(function(){
 			$("#mostrarBusqueda").click(function(event) {
 				event.preventDefault();
 				$("#opcionesBusqueda").slideToggle();
 			});
 		});
-		
+
 		function repagina(nav){
 			document.forms[0].navigation.value=nav;
 			mostrar = document.getElementById("mostrar");
@@ -39,7 +39,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 		function irpag(numpag){
 			var valorpag=document.getElementById('numpag').value;
 			mostrar = document.getElementById("mostrar");
-			
+
 			valorpag=parseInt(valorpag);
 			if(valorpag=="" || valorpag==undefined)
 				valorpag='1';
@@ -69,7 +69,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 			}
 			return opc;
 		}
-		
+
 		//OrdenaciÃ³n:
 			//variables: 'order_by' y 'order_by_asc_desc'
 		function orderBy(order_by){
@@ -77,28 +77,31 @@ include ($appRoot.'/include/html/mainMenu.php');
 				$('#order_by_asc_desc').attr('value', 'DESC');
 			else
 				$('#order_by_asc_desc').attr('value', 'ASC');
-			
+
 			$('#order_by').attr('value', order_by);
 			$('#mostrar').click();
-		}				
-	//-->
+		}
+
 		function eliminar(){
 			if(confirm('Confirmar borrado')){
 				$('#eliminar').val(1);
 				$('#frm_ofertas').submit();
-			}		
+			}
 		}
-	
+
 	$(document).ready(function(){
 		$('#chk_todos').click(function(){
 			if($('#chk_todos').attr("checked"))
 				$('.chk').attr("checked", "checked");
 			else
-				$('.chk').removeAttr("checked");			
+				$('.chk').removeAttr("checked");
 		});
 	});
 </script>
-
+<style type="text/css">
+	table{color:#000;}
+	table td, table th{padding:4px;}
+</style>
 <div id="titulo"><?php echo  _translate("Ofertas")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
 <div id="contenedor" align="center">
@@ -106,25 +109,25 @@ include ($appRoot.'/include/html/mainMenu.php');
 
 <!-- BUSCADOR -->
 
-<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small"> <?php echo  _translate("Mostrar/Ocultar opciones de b�squeda")?></a></i><br/>
+<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small"> <?php echo  _translate("Mostrar/Ocultar opciones de b&oacute;squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
 	<table>
 		<tr class="BusquedaTable">
 			<td colspan="6" class="ListaTitulo">
-				<div style="float:left"><?php echo  _translate("Opciones de b�squeda")?></div>
+				<div style="float:left"><?php echo  _translate("Opciones de b&oacute;squeda")?></div>
 			</td>
-		</tr>		
-		<tr>			
+		</tr>
+		<tr>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha desde')?> &nbsp;
 			</td>
-			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_desde" value="<?php  echo timestamp2date($var->opt['fecha_desde'])?>"> />
+			<td class="busquedaDcha">
+				<input type="text" class="fecha" size="12" name="fecha_desde" value="<?php  echo timestamp2date($var->opt['fecha_desde'])?>" />
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha hasta')?> &nbsp;
 			</td>
-			<td class="busquedaDcha"> 
+			<td class="busquedaDcha">
 				<input type="text" class="fecha" size="12" name="fecha_hasta" value="<?php  echo timestamp2date($var->opt['fecha_hasta'])?>" />
 			</td>
 		</tr>
@@ -132,14 +135,14 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td class="busquedaIzda" <?php if(!$gestor_actual->esAdministrador()) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php if(!$gestor_actual->esAdministrador()) echo 'style="display:none"';?>> 
+			<td class="busquedaDcha" <?php if(!$gestor_actual->esAdministrador()) echo 'style="display:none"';?>>
 				<select name="id_usuario">
-					<?php 
+					<?php
 					$gestor_seleccionado = $var->opt['id_usuario'];?>
 					<option value="0" <?php if($gestor_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Todos")?></option>
 					<?php foreach($var->datos['lista_gestores'] as $gestor){?>
 					<option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $gestor['id']?></option>
-					<?php }?> 
+					<?php }?>
 				</select>
 			</td>
 			<td colspan="2" style="text-align:right;background: none;" >
@@ -150,167 +153,160 @@ include ($appRoot.'/include/html/mainMenu.php');
 </div>
 <br/>
 <!-- RESULTADOS -->
+<?php if($gestor_actual->esAdministrador() && $var->resumen){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+<?php }?>
 		<div class="listado" style="width:94%;margin-left:2em;">
-		
-			<?php 
-					
-					$totales = array();
+			<?php
+				$totales = array();
+			?>
+			<?php
+			if($var->resumen){?>
+			<table>
+				<thead>
+					<tr>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("Usuario"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("Fecha"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("Tipo acci&oacute;n"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("N&uacute;mero ofertas"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							%
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("N&uacute;mero de empresas"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							%
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+			<?php foreach($var->resumen as $user => $informe_usr){
+				$total_usuario = end($informe_usr);
+				$total_ofertas = $total_usuario['num_ofertas'];
+				$total_clientes = $total_usuario['num_clientes'];
+				if($user){
 				?>
-				<?php foreach($var->datos['informes_usuarios'] as $informe_usr){
-					$total_ofertas = $informe_usr['total_ofertas_usuario'];
-					$total_clientes = $informe_usr['total_clientes_usuario'];					
-					
-					?>
-					<table>
-						<thead>
-							<tr>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Usuario"); ?>
-								</th>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Tipo producto"); ?>
-								</th>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("N&uacute;mero ofertas"); ?>
-								</th>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									%
-								</th>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("N&uacute;mero de empresas"); ?>
-								</th>		
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									%
-								</th>	
-							</tr>
-						</thead>
-						<tbody>							
-							<?php $primero = true;$fila_par=true;
-								foreach($informe_usr['informes'] as $informe_tipo_oferta){ ?>
-								<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>	
-									<?php 
-										$tipo_oferta = $informe_tipo_oferta['tipo'];
-										$num_ofertas = $informe_tipo_oferta['num_ofertas'];
-										$num_clientes = $informe_tipo_oferta['num_clientes'];
-										
+					<?php $primero = true;$fila_par=true;
+
+						foreach($informe_usr as $informe_tipo_producto){
+							$ULTIMO = ($total_usuario == $informe_tipo_producto);
+
+							if(!$ULTIMO){?>
+								<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
+									<?php
+										$tipo_producto = $informe_tipo_producto['tipo'];
+										$num_ofertas = $informe_tipo_producto['num_ofertas'];
+										$num_clientes = $informe_tipo_producto['num_clientes'];
 									?>
 										<td style="text-align:center;width:5%;">
-											<?php if($primero) echo "<b>".$informe_usr['id_usuario']."</b>"; $primero=false;?>		
+											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
 										<td style="text-align:center;width:5%;">
-											<?php echo $tipo_oferta; ?>
+											<?php echo timestamp2date($informe_tipo_producto['fecha']);?>
+										</td>
+										<td style="text-align:center;width:5%;">
+											<?php echo $informe_tipo_producto['nombre']; ?>
 										</td>
 										<td style="text-align:center;width:5%;">
 											<?php echo $num_ofertas; ?>
 										</td>
 										<td style="text-align:center;width:5%;">
-											<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>		
+											<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
 										</td>
 										<td style="text-align:center;width:5%;">
-											<?php echo $num_clientes; ?>				
+											<?php echo $num_clientes; ?>
 										</td>
 										<td style="text-align:center;width:5%;">
 											<?php if($total_ofertas) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
-										</td>							
-									<?php 
-										$totales[$tipo_oferta]['num_ofertas'] += $num_ofertas;
-										$totales[$tipo_oferta]['num_clientes'] += $num_clientes;
-									} ?>
-									
+										</td>
 								</tr>
+								<?php
+									$totales[$tipo_producto]['num_ofertas'] += $num_ofertas;
+									$totales[$tipo_producto]['num_clientes'] += $num_clientes;
+									$totales['tipos'][$tipo_producto]['ofertas']	+= $num_ofertas;
+									$totales['tipos'][$tipo_producto]['clientes']	+= $num_clientes;
+									$totales['tipos'][$tipo_producto]['nombre'] = $informe_tipo_producto['nombre'];
+							}else{?>
 								<tr>
-									<td style="text-align:center;width:5%;">Total</td><td></td>
+									<td style="text-align:center;width:5%;">Total</td>
+									<td></td>
+									<td></td>
 									<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
 									<td></td>
 									<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
 									<td></td>
 								</tr>
-							</tbody>
-						</table>
-				<?php 
-					$totales['ofertas'] += $total_ofertas;
-					$totales['clientes'] += $total_clientes;
-				}?>	
-					<!-- TOTALES -->
-					<?php
-						$total_ofertas = $totales['ofertas'];
-						$total_clientes = $totales['clientes'];
-					?>
-					
-					<table>
-						<thead>
-							<tr>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Totales"); ?>
-								</th>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("Tipo producto"); ?>
-								</th>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("N&uacute;mero ofertas"); ?>
-								</th>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									%
-								</th>
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									<?php echo _translate("N&uacute;mero de empresas"); ?>
-								</th>		
-								<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-									%
-								</th>	
-							</tr>
-						</thead>
-						<tbody>	
-					<?php $primero = true;$fila_par=true;
-					if($var->opt['buscar'])
-					 foreach($informe_usr['informes'] as $informe_tipo_oferta){ ?>
-					
-					<?php 
-						$tipo_oferta = $informe_tipo_oferta['tipo'];
-						$num_ofertas = $totales[$tipo_oferta]['num_ofertas'];
-						$num_clientes = $totales[$tipo_oferta]['num_clientes'];
-					?>			
-							<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
-								<td style="text-align:center;width:5%;">
-									<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
-								</td>
-								<td style="text-align:center;width:5%;">
-									<?php echo $tipo_oferta; ?>
-								</td>
-								<td style="text-align:center;width:5%;">
-									<?php echo $num_ofertas; ?>
-								</td>
-								<td style="text-align:center;width:5%;">
-									<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>		
-								</td>
-								<td style="text-align:center;width:5%;">
-									<?php echo $num_clientes; ?>				
-								</td>
-								<td style="text-align:center;width:5%;">
-									<?php if($total_ofertas)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
-								</td>							
-							<?php } ?>
-							</tr>
-							<tr>
-								<td style="text-align:center;width:5%;">Total</td><td></td>
-								<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
-								<td></td>
-								<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
-								<td></td>
-							</tr>						
-		
-						</tbody>
-					</table>
+					<?php	}
+						}?>
+			<?php
+				$totales['ofertas']	+= $total_ofertas;
+				$totales['clientes']	+= $total_clientes;
+			}
+		}
+		}?>
+				<!-- TOTALES -->
+				<?php
+					$total_ofertas = $totales['ofertas'];
+					$total_clientes = $totales['clientes'];
+				?>
+				<?php $primero = true;$fila_par=true;
+				if($var->opt['buscar'])
+				 foreach($totales['tipos'] as $informe_tipo_producto){ ?>
+				<?php
+					$nombre = $informe_tipo_producto['nombre'];
+					$num_ofertas = $informe_tipo_producto['ofertas'];
+					$num_clientes = $informe_tipo_producto['clientes'];
+				?>
+						<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
+							<td style="text-align:center;width:5%;">
+								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
+							</td>
+							<td></td>
+							<td style="text-align:center;width:5%;">
+								<?php echo $nombre; ?>
+							</td>
+							<td style="text-align:center;width:5%;">
+								<?php echo $num_ofertas; ?>
+							</td>
+							<td style="text-align:center;width:5%;">
+								<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
+							</td>
+							<td style="text-align:center;width:5%;">
+								<?php echo $num_clientes; ?>
+							</td>
+							<td style="text-align:center;width:5%;">
+								<?php if($total_ofertas)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+							</td>
+						<?php } ?>
+						</tr>
+						<tr>
+							<td style="text-align:center;width:5%;">Total</td><td></td><td></td>
+							<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
+							<td></td>
+							<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+							<td></td>
+						</tr>
+
+					</tbody>
+				</table>
 		</div>
 </form>
 </div>
-<br />
-<br />
-<?php 
+
+<?php
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
 ?>
 <?php }
+
 // ----- ¡¡VAMONOS QUE NOS VAMOS A EXPORTAR!! ----- //
 else{
 header("Content-type: application/vnd.ms-excel;charset=latin");
@@ -318,152 +314,148 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 ?>
+
+
+<?php
+				$totales = array();
+			?>
+			<?php
+			if($var->resumen){?>
+			<table>
+				<thead>
+					<tr>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("Usuario"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("Fecha"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("Tipo acci&oacute;n"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("N&uacute;mero ofertas"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							%
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							<?php echo _translate("N&uacute;mero de empresas"); ?>
+						</th>
+						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+							%
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+			<?php foreach($var->resumen as $user => $informe_usr){
+				$total_usuario = end($informe_usr);
+				$total_ofertas = $total_usuario['num_ofertas'];
+				$total_clientes = $total_usuario['num_clientes'];
+				if($user){
+				?>
+					<?php $primero = true;$fila_par=true;
+
+						foreach($informe_usr as $informe_tipo_producto){
+							$ULTIMO = ($total_usuario == $informe_tipo_producto);
+
+							if(!$ULTIMO){?>
+								<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
+									<?php
+										$tipo_producto = $informe_tipo_producto['tipo'];
+										$num_ofertas = $informe_tipo_producto['num_ofertas'];
+										$num_clientes = $informe_tipo_producto['num_clientes'];
+									?>
+										<td style="text-align:center;width:5%;">
+											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
+										</td>
+										<td style="text-align:center;width:5%;">
+											<?php echo timestamp2date($informe_tipo_producto['fecha']);?>
+										</td>
+										<td style="text-align:center;width:5%;">
+											<?php echo $informe_tipo_producto['nombre']; ?>
+										</td>
+										<td style="text-align:center;width:5%;">
+											<?php echo $num_ofertas; ?>
+										</td>
+										<td style="text-align:center;width:5%;">
+											<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
+										</td>
+										<td style="text-align:center;width:5%;">
+											<?php echo $num_clientes; ?>
+										</td>
+										<td style="text-align:center;width:5%;">
+											<?php if($total_ofertas) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+										</td>
+								</tr>
+								<?php
+									$totales[$tipo_producto]['num_ofertas'] += $num_ofertas;
+									$totales[$tipo_producto]['num_clientes'] += $num_clientes;
+									$totales['tipos'][$tipo_producto]['ofertas']	+= $num_ofertas;
+									$totales['tipos'][$tipo_producto]['clientes']	+= $num_clientes;
+									$totales['tipos'][$tipo_producto]['nombre'] = $informe_tipo_producto['nombre'];
+							}else{?>
+								<tr>
+									<td style="text-align:center;width:5%;">Total</td>
+									<td></td>
+									<td></td>
+									<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
+									<td></td>
+									<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+									<td></td>
+								</tr>
+					<?php	}
+						}?>
+			<?php
+				$totales['ofertas']	+= $total_ofertas;
+				$totales['clientes']	+= $total_clientes;
+			}
+		}
+		}?>
+				<?php
+					$total_ofertas = $totales['ofertas'];
+					$total_clientes = $totales['clientes'];
+				?>
+				<?php $primero = true;$fila_par=true;
+
+				 foreach($totales['tipos'] as $informe_tipo_producto){ ?>
+				<?php
+					$nombre = $informe_tipo_producto['nombre'];
+					$num_ofertas = $informe_tipo_producto['ofertas'];
+					$num_clientes = $informe_tipo_producto['clientes'];
+				?>
+						<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
+							<td style="text-align:center;width:5%;">
+								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
+							</td>
+							<td></td>
+							<td style="text-align:center;width:5%;">
+								<?php echo $nombre; ?>
+							</td>
+							<td style="text-align:center;width:5%;">
+								<?php echo $num_ofertas; ?>
+							</td>
+							<td style="text-align:center;width:5%;">
+								<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
+							</td>
+							<td style="text-align:center;width:5%;">
+								<?php echo $num_clientes; ?>
+							</td>
+							<td style="text-align:center;width:5%;">
+								<?php if($total_ofertas)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+							</td>
+						<?php } ?>
+						</tr>
+						<tr>
+							<td style="text-align:center;width:5%;">Total</td><td></td><td></td>
+							<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
+							<td></td>
+							<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+							<td></td>
+						</tr>
+
+					</tbody>
+				</table>
+
+
 <?php }?>
-<?php
-	$totales = array();
-?>
-<?php foreach($var->datos['informes_usuarios'] as $informe_usr){
-	$total_ofertas = $informe_usr['total_ofertas_usuario'];
-	$total_clientes = $informe_usr['total_clientes_usuario'];
-
-	?>
-	<table>
-		<thead>
-			<tr>
-				<th>
-					<?php echo _translate("Usuario"); ?>
-				</th>
-				<th>
-					<?php echo _translate("Tipo producto"); ?>
-				</th>
-				<th>
-					<?php echo _translate("Numero ofertas"); ?>
-				</th>
-				<th>
-					%
-				</th>
-				<th>
-					<?php echo _translate("Numero de empresas"); ?>
-				</th>
-				<th>
-					%
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php $primero = true;$fila_par=true;
-				foreach($informe_usr['informes'] as $informe_tipo_oferta){ ?>
-				<tr>
-					<?php
-						$tipo_oferta = $informe_tipo_oferta['tipo'];
-						$num_ofertas = $informe_tipo_oferta['num_ofertas'];
-						$num_clientes = $informe_tipo_oferta['num_clientes'];
-
-					?>
-						<td>
-							<?php if($primero) echo "<b>".$informe_usr['id_usuario']."</b>"; $primero=false;?>
-						</td>
-						<td>
-							<?php echo $tipo_oferta; ?>
-						</td>
-						<td>
-							<?php echo $num_ofertas; ?>
-						</td>
-						<td>
-							<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
-						</td>
-						<td>
-							<?php echo $num_clientes; ?>
-						</td>
-						<td>
-							<?php if($total_ofertas) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
-						</td>
-					<?php
-						$totales[$tipo_oferta]['num_ofertas'] += $num_ofertas;
-						$totales[$tipo_oferta]['num_clientes'] += $num_clientes;
-					} ?>
-
-				</tr>
-				<tr>
-					<td>Total</td><td></td>
-					<td><?php echo  $total_ofertas;?></td>
-					<td></td>
-					<td><?php echo  $total_clientes;?></td>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
-<?php
-	$totales['ofertas'] += $total_ofertas;
-	$totales['clientes'] += $total_clientes;
-}?>
-	<!-- TOTALES -->
-	<?php
-		$total_ofertas = $totales['ofertas'];
-		$total_clientes = $totales['clientes'];
-	?>
-
-	<table>
-		<thead>
-			<tr>
-				<th>
-					<?php echo _translate("Totales"); ?>
-				</th>
-				<th>
-					<?php echo _translate("Tipo producto"); ?>
-				</th>
-				<th>
-					<?php echo _translate("Numero ofertas"); ?>
-				</th>
-				<th>
-					%
-				</th>
-				<th>
-					<?php echo _translate("Numero de empresas"); ?>
-				</th>
-				<th>
-					%
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-	<?php $primero = true;$fila_par=true;
-	if($var->opt['buscar'])
-	 foreach($informe_usr['informes'] as $informe_tipo_oferta){ ?>
-
-	<?php
-		$tipo_oferta = $informe_tipo_oferta['tipo'];
-		$num_ofertas = $totales[$tipo_oferta]['num_ofertas'];
-		$num_clientes = $totales[$tipo_oferta]['num_clientes'];
-	?>
-			<tr >
-				<td>
-					<?php if($primero) echo "TOTALES"; $primero=false;?>
-				</td>
-				<td>
-					<?php echo $tipo_oferta; ?>
-				</td>
-				<td>
-					<?php echo $num_ofertas; ?>
-				</td>
-				<td>
-					<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
-				</td>
-				<td>
-					<?php echo $num_clientes; ?>
-				</td>
-				<td>
-					<?php if($total_ofertas)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
-				</td>
-			<?php } ?>
-			</tr>
-			<tr>
-				<td>Total</td><td></td>
-				<td><?php echo  $total_ofertas;?></td>
-				<td></td>
-				<td><?php echo  $total_clientes;?></td>
-				<td></td>
-			</tr>
-
-		</tbody>
-	</table>

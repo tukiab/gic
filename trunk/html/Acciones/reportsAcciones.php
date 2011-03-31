@@ -231,6 +231,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 								<?php
 									$totales[$tipo_accion]['num_acciones'] += $num_acciones;
 									$totales[$tipo_accion]['num_clientes'] += $num_clientes;
+									$totales['tipos'][$tipo_accion]['acciones']	+= $num_acciones;
+									$totales['tipos'][$tipo_accion]['clientes']	+= $num_clientes;
+									$totales['tipos'][$tipo_accion]['nombre'] = $informe_tipo_accion['nombre'];
 							}else{?>
 								<tr>
 									<td style="text-align:center;width:5%;">Total</td>
@@ -246,9 +249,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<?php
 				$totales['acciones']	+= $total_acciones;
 				$totales['clientes']	+= $total_clientes;
-				$totales['tipos'][$tipo_accion]['acciones']	+= $total_acciones;
-				$totales['tipos'][$tipo_accion]['clientes']	+= $total_clientes;
-				$totales['tipos'][$tipo_accion]['nombre'] = $informe_tipo_accion['nombre'];
+				
 			}
 		}
 		}?>
@@ -391,6 +392,9 @@ header("Expires: 0");
 								<?php
 									$totales[$tipo_accion]['num_acciones'] += $num_acciones;
 									$totales[$tipo_accion]['num_clientes'] += $num_clientes;
+									$totales['tipos'][$tipo_accion]['acciones']	+= $num_acciones;
+									$totales['tipos'][$tipo_accion]['clientes']	+= $num_clientes;
+									$totales['tipos'][$tipo_accion]['nombre'] = $informe_tipo_accion['nombre'];
 							}else{?>
 								<tr>
 									<td style="text-align:center;width:5%;">Total</td>
@@ -406,9 +410,6 @@ header("Expires: 0");
 			<?php
 				$totales['acciones']	+= $total_acciones;
 				$totales['clientes']	+= $total_clientes;
-				$totales['tipos'][$tipo_accion]['acciones']	+= $total_acciones;
-				$totales['tipos'][$tipo_accion]['clientes']	+= $total_clientes;
-				$totales['tipos'][$tipo_accion]['nombre'] = $informe_tipo_accion['nombre'];
 			}
 		}
 		}?>
