@@ -106,11 +106,8 @@ class InformesAcciones{
 		$datos = array();
 		while($row = mysql_fetch_array($result)){
 			$datos[$row['usuario']][] = $row;
-		}
-		
+		}		
 		$this->resumen = $datos;		
-	}
-	 
+	}	 
 }
 ?>
-
