@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `clientes_sedes_rel_contactos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Hay que introducir las sedes principales de los clientes que ya existen:
-INSERT INTO `clientes_sedes` (`localidad`, `CP`, `provincia`, `direccion`, `fk_cliente`, `es_sede_principal`)
+INSERT INTO `clientes_sedes` (`localidad`, `CP`, `provincia`, `direccion`, `fk_cliente`)
 	SELECT clientes.localidad, clientes.CP, clientes.provincia, clientes.domicilio, clientes.id
 		FROM clientes
 -- y todas son principales:

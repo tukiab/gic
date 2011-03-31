@@ -31,7 +31,7 @@ if($var->opt['msg']){?>
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
 <div id="contenedor" align="center">
 <?php
-if($var->Cliente->get_Razon_Social() && !$var->opt['editar']){
+if($var->Cliente && $var->Cliente->get_Razon_Social() && !$var->opt['editar']){
 $razon_social = $var->Cliente->get_Razon_Social();?>
 
 	<!-- **************** DATOS DEL CLIENTE **************** -->	

@@ -80,8 +80,8 @@ class MiEmpresa{
 		}else{
 			$this->Cliente->editar($this->opt);
 		}
-
-		$this->opt['msg'] = 'Guardado';
+		header("Location: ../Clientes/showCliente.php?id=".$this->Cliente->get_Id());
+		//$this->opt['msg'] = 'Guardado';
 	}
 	
 }
