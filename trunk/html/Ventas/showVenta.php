@@ -248,12 +248,12 @@ else{?>
 		<?php }*/?>
 
 	</table>
-	
+	<!--
 	<div class="bottomMenu">
 		<table>
 			<tr>
 				<td colspan="2" style="text-align:right;" nowrap>
-				<?php FB::info($var->opt['Venta']); if($gestor_actual->esAdministradorTotal()){?>
+				<?php if($gestor_actual->esAdministradorTotal()){?>
 							<label title="<?php echo  _translate("BORRAR")?>">
 								<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar venta")?>" /></a>
 								<input type="hidden" id="eliminar" name="eliminar" value="0"/>
@@ -270,6 +270,7 @@ else{?>
 			</tr>
 		</table>
 	</div>
+	-->
 </div>
 </form>
 <?php }?>
