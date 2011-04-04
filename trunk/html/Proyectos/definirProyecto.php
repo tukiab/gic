@@ -10,7 +10,7 @@ require ($appRoot.'/Autentificacion/Usuarios.php');
 include ($appRoot.'/Utils/lang.php');
 include_once($appRoot.'/Utils/utils.php');
 	include ('_definirProyecto.php');
-	$var = new DefinirProyecto($_GET);
+	$var = new DefinirProyecto($_GET); FB::warn($var);
 		
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
@@ -18,7 +18,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <script type="text/javascript">
 function cargar_plantilla(id_proyecto){
 	$('#id_plantilla').val(id_proyecto);
-	$('frm_definicion').submit();
+	$('#frm_definicion').submit();
 }
 </script>
 <style type="text/css">
@@ -117,7 +117,7 @@ function cargar_plantilla(id_proyecto){
 				</tr>
 			</table>
 			<input  type="hidden" name="id" value="<?php echo  $var->opt['id'];?>" />
-			<input  type="hidden" name="id_plantilla" value="<?php echo  $var->opt['id_plantilla'];?>" />
+			<input  type="hidden" id="id_plantilla" name="id_plantilla" />
 		</div>
 		<div id="plantillas">
 			<!-- Plantillas -->
@@ -134,7 +134,7 @@ function cargar_plantilla(id_proyecto){
 				<?php while($proyecto = $var->ListaProyectos->siguiente()){?>
 				<tr>
 					<td><?php echo $proyecto->get_Nombre()?></td>
-					<td><input type="button" value="Cargar" onclick="cargar_plantilla('<?php echo $proyecto->get_Id(); ?>')"/>td>
+					<td><input type="button" value="Cargar" onclick="cargar_plantilla('<?php echo $proyecto->get_Id(); ?>')"/></td>
 				</tr>
 			<?php }?>
 			</table>

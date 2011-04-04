@@ -41,25 +41,26 @@
 	}
 	
 	/**
-	 * Valida si una hora viene en formato HH:MM:SS 
+	 * Valida si una hora viene en formato HH:MM
 	 * 
 	 */
 	function hora($hora){
-
-		$regexp 	= "^([[:digit:]]{2})\:([[:digit:]]{2})\:([[:digit:]]{2})$";
+		
+		//$regexp 	= "^([[:digit:]]{2})\:([[:digit:]]{2})\:([[:digit:]]{2})$";
 		$regexp2 	= "^([[:digit:]]{2})\:([[:digit:]]{2})$";
 	  	
-	  	if(!eregi($regexp, $hora) && !eregi($regexp2, $hora)){
+	  	if(!eregi($regexp2, $hora)){
 	  		return false;
 		}
 	  	$valido = true;	
-		$arraux = split(':',$hora);
+		$arraux = split(':',$hora); 
 		
 	  	if($arraux[0]>23 || $arraux[0]<0)
 			$valido = false;
-		if($arraux[1]>59 || $arraux[1]<0 || $arraux[2]>59 || $arraux[2]<0)
+		
+		if($arraux[1]>59 || $arraux[1]<0)
 			$valido = false;
-			
+
 		return $valido;
 	}
 	
@@ -138,47 +139,6 @@
 	  	if($valido==false) $this->error=true;
 	  	return $valido;
 	  }
-	  
-	/**
-	 * Validación de código de centro
-	 */
-	function codigoCentro($data){
-	  	$valido = false;
-	  	//8 dígitos máximo, 2 como mínimo
-	  	$regexp = "^[[:digit:]]{2,8}$";
-	  	
-	  	if(eregi($regexp, $data))
-	  		$valido = true;
-	
-	  	if($valido==false) $this->error=true;
-		return $valido;  	
-	  }
-	  
-	  function email($data){
-	  	$valido = false;
-	  	$regexp = "^([_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
-	  	
-	  	if(eregi($regexp, $data))
-	  		$valido = true;
-	
-	  	if($valido==false) $this->error=true;
-		return $valido; 
-	  }
-	  
- 	/**
-	 * Validación de código de incidencia
-	 */
-	function codigoIncidencia($data){
-	  	$valido = false;
-	  	//8 dígitos máximo, 2 como mínimo
-	  	$regexp = "^[[:digit:]]{1,11}$";
-	  	
-	  	if(eregi($regexp, $data))
-	  		$valido = true;
-	
-	  	if($valido==false) $this->error=true;
-		return $valido;  	
-	  }		  
 	  
  	/**
  	 * Validación de cualquier cadena de búsqueda sin patrón definido.

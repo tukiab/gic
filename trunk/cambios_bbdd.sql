@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
   `fecha_inicio` int(11) DEFAULT NULL,
   `fecha_fin` int(11) DEFAULT NULL,
   `observaciones` text DEFAULT NULL,
-  `fk_usuario` int(11) DEFAULT NULL,
+  `fk_usuario` varchar(15) DEFAULT NULL,
   `es_plantilla` tinyint(1) NOT NULL DEFAULT '0',
   `importe` float DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -255,3 +255,14 @@ CREATE TABLE IF NOT EXISTS `tareas_tecnicas` (
 
 -- Flag para indicar si el proyecto se puede cerrar
 ALTER TABLE `proyectos` ADD `cerrar` TINYINT( 1 ) NOT NULL DEFAULT '1';
+
+
+-- Planificación
+CREATE TABLE IF NOT EXISTS `visitas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_proyecto` int(11) NOT NULL,
+  `fecha` int(11) NOT NULL,
+  `hora` varchar(5) NOT NULL,
+  `fk_usuario` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;

@@ -50,11 +50,11 @@ class DefinirProyecto{
 			
 			$this->obtenerOpciones($opciones);
 			$this->obtenerDatos();
-
+FB::info($this->opt);
 			if($this->opt['id_plantilla'])
-				$this->cargar_plantilla();
+				$this->cargar_Plantilla();
 			else if($opciones['guardar'])
-				$this->definir_Proyecto($opciones);			
+				$this->definir_Proyecto();			
 
 		}catch(Exception $e){
 			$this->msg= $e->getMessage();
@@ -84,14 +84,13 @@ class DefinirProyecto{
 				($opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas']:$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$definicion_sede['numero_visitas'];
 				($opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']:$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$definicion_sede['gastos_incurridos'];
 			}
-
 	}
 	
 	private function definir_Proyecto(){
-
+		//FB::info('definir');
 		$this->Proyecto->definir($this->opt);
 		//Redirigimos al proyecto
-		//header('Location: showProyecto.php?id='.$this->Proyecto->get_Id());
+		header('Location: showProyecto.php?id='.$this->Proyecto->get_Id());
 	}
 
 	/**

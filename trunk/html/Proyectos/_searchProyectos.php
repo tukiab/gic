@@ -149,6 +149,9 @@ class BusquedaProyectos{
 		
 		@($opciones['msg'])?$this->opt['msg']=$opciones['msg']:null;
 
+		@($opciones['informe'])?$this->opt['informe']=$opciones['informe']:null;
+
+
 		@(isset($opciones['gestor']))?$this->opt['gestor']=$opciones['gestor']:$this->opt['gestor']=$_SESSION['usuario_login'];
 		if($this->opt['gestor'])
 			$this->opt['id_usuario'] = $this->opt['gestor'];

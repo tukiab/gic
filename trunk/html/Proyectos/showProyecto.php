@@ -66,7 +66,8 @@ $(document).ready(function()
 });
 </script>
 
-<?php 
+<?php
+FB::error($permisos);
 if($var->opt['msg']){?>
 	<div id="error_msg" ><?php echo$var->opt['msg']?>
 	<?php if($var->opt['eliminar']){?>
@@ -76,7 +77,8 @@ if($var->opt['msg']){?>
 <?php }?>
 <?php $nombre = $var->Proyecto->get_Nombre();
 $cliente = $var->Proyecto->get_Cliente();
-$venta = $var->Proyecto->get_Venta();?>
+$venta = $var->Proyecto->get_Venta();
+$estado = $var->Proyecto->get_Estado();?>
 <div id="titulo"><?php echo  $nombre;?></div>
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
 <div id="contenedor" >
@@ -145,18 +147,24 @@ $venta = $var->Proyecto->get_Venta();?>
 			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("T&eacute;cnico asignado")?>:</td>
 				<td class="ColDer">
-					<?php 
-					if($var->Proyecto->get_Id_Usuario())echo  $var->Proyecto->get_Id_Usuario();
-					else{?>
-					<select  name="id_usuario">
-						<?php $usuario_sel = $var->opt['id_usuario'];?>
-						<option value="" ><?php echo _translate("No asignar");?></option>
-						<?php foreach($var->datos['lista_tecnicos'] as $user){?>
-						<option value="<?php  echo $user->get_Id()?>" <?php if($user->get_Id() == $usuario_sel) echo 'selected="selected"';?>><?php  echo $user->get_Id()?></option>
-						<?php }?>
-					</select>
-					<input type="submit" value="asignar" name="asignar" />
-					<?php }?>
+					<?php
+					if($var->Proyecto->get_Id_Usuario())
+						echo  $var->Proyecto->get_Id_Usuario();
+					else{
+						$estado = $var->Proyecto->get_Estado();
+						if($estado['id'] == 2){//pendiente de asignación
+						?>
+						<select  name="id_usuario" onchange="if(this.value)$('#asignar').show();else $('#asignar').hide();" style="width:180px;">
+							<?php $usuario_sel = $var->opt['id_usuario'];?>
+							<option value="" ><?php echo _translate("No asignar");?></option>
+							<?php while($user=$var->datos['lista_tecnicos']->siguiente()){?>
+							<option value="<?php  echo $user->get_Id()?>" <?php if($user->get_Id() == $usuario_sel) echo 'selected="selected"';?>><?php  echo $user->get_Id()?></option>
+							<?php }?>
+						</select>
+						<input style="display:none;float:right;" id="asignar" type="submit" value="asignar" name="asignar" />
+					<?php }
+						else echo "No se puede asignar un t&eacute;cnico en este estado";
+					}?>
 				</td>
 			</tr>
 			<?php 
@@ -303,7 +311,42 @@ $venta = $var->Proyecto->get_Venta();?>
 			</tr>
 			<?php }?>			
 		</table>
+
+		<!-- PLANIFICACIÓN -->
+		<table  style="width:100%;">			
+			<tr>
+				<td class="ListaTitulo" colspan="3"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
+			</tr>
+			<tr><th>Fecha</th><th colspan="2">Hora</th></tr>
+		<?php
+		if($var->Proyecto->get_Planificacion()){?>
 		
+			<?php
+			foreach($var->Proyecto->get_Planificacion() as $planificacion){
+		?>
+			<tr class="planificacion">
+				<td><?php echo date("D m Y", $planificacion['fecha']); ?></td>
+				<td colspan="2"><?php echo $planificacion['hora'];?></td>
+			</tr>
+		<?php
+			}?>
+		<?php
+		}if($estado['id'] == 3  || ($estado['id'] == 4 && count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas())){ //pendiente de planificación
+			if(count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas()){			
+				$num_visitas = $var->Proyecto->get_Numero_visitas();
+				$planificadas = count($var->Proyecto->get_Planificacion());
+				$quedan = $num_visitas-$planificadas;
+				?>
+			<tr class="planificacion"><td colspan="3"> <?php echo "Quedan ".$quedan." visitas por planificar"?> </td></tr>
+			<tr class="planificacion">
+				<td> <input type="text" class="fecha" name="fecha_visita" id="fecha_visita" /> </td>
+				<td> <input type="text" name="hora_visita" id="hora_visita" </td>
+				<td> <input type="submit" name="planificar" id="planificar" value="insertar visita" /> </td>
+			</tr>
+		<?php 
+			}
+		} ?>
+		</table>
 	</div>
 </div>
 <input type="hidden" id="eliminar" name="eliminar" value="0"/>
@@ -314,11 +357,13 @@ $venta = $var->Proyecto->get_Venta();?>
 	<table>
 		<tr>
 			<td colspan="2" style="text-align:right;" nowrap>
-				<?php //if($gestor_actual->esAdministradorTotal()){?>
+				<?php 
+				
+				if($estado['id'] != 6 ){//cerrado?>
 					<label title="<?php echo  _translate("Cerrar")?>">
 						<a href="#" onclick="cerrar();"><input type="button" value="<?php echo  _translate("Cerrar proyecto")?>" /></a>
 					</label>
-				<?php //}?>					
+				<?php }?>					
 			</td>
 		</tr>
 	</table>
