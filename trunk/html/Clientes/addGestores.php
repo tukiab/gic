@@ -20,7 +20,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 <div id="titulo"><?php echo  _translate("A&ntilde;adir gestores")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 <div id="contenedor" align="center">
-<?php //if($permisos->escritura){?>
+<?php if($permisos->administracion){?>
 <form id="frmGestores" action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 	<table>
 		<tr>
@@ -59,9 +59,9 @@ include ($appRoot.'/include/html/popupHeader.php');
 </div>
 </form>
 </div>
-<?php /*}else{
+<?php }else{
 echo  _translate("No tiene permisos suficientes");
-}*/?>
+}?>
 <script language="JavaScript" type="text/javascript">
 	<!--
 	function cerrar(){

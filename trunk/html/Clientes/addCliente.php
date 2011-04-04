@@ -18,8 +18,11 @@ include ($appRoot.'/include/html/mainMenu.php');
 	?>
 <div id="titulo"><?php echo  _translate("Registrar Empresa")?></div>
 	<?php echo  ($var->opt['error_msg'])?"<div id=\"error_msg\" >".$var->opt['error_msg']."</div>":null;?>
+
+<?php if($permisos->escritura){?>
+
 <div id="contenedor" align="center">	
-	<form method="GET" target="">	
+	<form method="GET" target="" action="">
 
 	<?php $gestor = $var->opt['gestor_obj']; $perfil = $gestor->get_Perfil(); $id_perfil = $perfil['id'];
 	 if(esAdministrador($id_perfil)){?>
@@ -196,19 +199,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 		  	  <?php }?>
 			</tr>
 		</table>
-
-	<!-- <div class="MenuInferiorFijo">
-	  <table>
-		<tr>
-		  <?php //if($permisos->escritura){?>
-			  <td>
-				<input style="width:100%" id='guardar' name='guardar' type="submit" value="<?php echo  _translate("Guardar")?>"/>
-			  </td>
-			  
-		  <?php //}?>
-	    </tr>
-	  </table>
-	</div> -->
 	</form>
 </div>
 	<script type="text/javascript">
@@ -253,3 +243,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 		include($appRoot.'/include/html/bottomMenu.php');
 		include($appRoot.'/include/html/footer.php');
 	?>
+<?php }else{
+	echo _translate("No tiene suficientes permisos");
+}?>

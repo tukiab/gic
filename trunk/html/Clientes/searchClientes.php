@@ -17,6 +17,7 @@ include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
 
 ?>
+<?php if($permisos->lectura){?>
 <!-- Funciones varias para mejorar la interfaz -->
 <script language="JavaScript" type="text/javascript">
 <!--
@@ -139,7 +140,6 @@ $(document).ready(function(){
 <?php }?>
 <div id="contenedor" align="center">
 <form method="GET" id="frm_clientes" action="<?php echo  $_SERVER['_SELF']?>">
-
 <!-- BUSCADOR -->
 <i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de b&uacute;squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
@@ -303,10 +303,10 @@ $(document).ready(function(){
                     <input type="text" size="15"name="web" value="<?php  echo $var->opt['web']?>"/>
             </td>
 
-            <td class="busquedaIzda" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>>
+            <td class="busquedaIzda" <?php if(!$permisos->administracion)/*if(!$var->gestor->esAdministrador())*/ echo 'style="display:none"';?>>
                     <?php echo  _translate('Gestor')?> &nbsp;
             </td>
-            <td class="busquedaDcha" <?php if(!$var->gestor->esAdministrador())echo 'style="display:none"';?>>
+            <td class="busquedaDcha" <?php if(!$permisos->administracion)/*if(!$var->gestor->esAdministrador())*/echo 'style="display:none"';?>>
                     <select name="gestor">
                             <?php
                             $gestor_seleccionado = $var->opt['gestor'];?>
@@ -400,7 +400,8 @@ $(document).ready(function(){
 <!-- RESULTADOS -->
 <div class="listado" style="width:94%;margin-left:2em;">
 <label class="nota"><?php  echo $var->datos['lista_clientes']->num_Resultados()." ".Resultados?></label>
-<?php if($gestor_actual->esAdministrador()){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+<?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
+<input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <input onclick="if(confirm('Este proceso puede tardar varios minutos. Confirme la exportacion'))window.open('exportAll.php','_blank');" type="button" value="<?php echo  _translate("Exportar todo")?>" />		
 <?php }?>
 <table>
@@ -631,22 +632,25 @@ $(document).ready(function(){
                     </div>
             </td>
         </tr>
-            <?php if($gestor_actual->esAdministrador()){?>
+            <?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
             <tr>
                     <td colspan="16" style="text-align: right;">
-                            <a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>
                             <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
                             <input type="hidden" id="agregar_gestores" name="agregar_gestores" value="0"/>
                             <input type="hidden" id="agregar_grupos" name="agregar_grupos" value="0"/>
-                            <input id="mostrarGestores" type="button" value="<?php echo  _translate("Agregar gestores")?>" />
-                            <input id="mostrarGrupos" type="button" value="<?php echo  _translate("Agregar grupo")?>" />
+                            <?php if($permisos->administracion){?>
+								<a href="#" onclick="eliminar();">
+									<input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" />
+								</a>
+								<input id="mostrarGestores" type="button" value="<?php echo  _translate("Agregar gestores")?>" />
+								<input id="mostrarGrupos" type="button" value="<?php echo  _translate("Agregar grupo")?>" />
+							<?php }?>
                     </td>
             </tr>
             <?php }?>
     </tbody>
 </table>
-<!-- <input type="hidden" name="id_usuario" id="id_usuario" value="<?php  echo $var->opt['id_usuario']?>" /> -->
 </div>
 <div id="gestores" style="display:none">
 <table>
@@ -687,9 +691,6 @@ $(document).ready(function(){
                             <option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $grupo_empresas_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $tipo['nombre']?></option>
                             <?php }?>
                     </select>
-
-
-
             </td>
     </tr>
     <tr>
@@ -816,4 +817,6 @@ header("Expires: 0");
     </tbody>
 </table>
 <?php }?>
-
+<?php }else{
+	echo _translate("No tiene suficientes permisos");
+}?>

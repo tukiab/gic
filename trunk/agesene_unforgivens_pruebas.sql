@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-03-2011 a las 17:47:34
+-- Tiempo de generación: 04-04-2011 a las 14:11:25
 -- Versión del servidor: 5.1.41
 -- Versión de PHP: 5.3.2-1ubuntu4.5
 
@@ -4171,10 +4171,33 @@ CREATE TABLE IF NOT EXISTS `permisos_usuarios_perfiles` (
 
 INSERT INTO `permisos_usuarios_perfiles` (`fk_perfil`, `fk_proceso`, `lectura`, `escritura`, `administracion`) VALUES
 (1, 1, 1, 0, 0),
+(1, 2, 0, 0, 0),
+(1, 3, 1, 1, 0),
+(1, 4, 0, 0, 0),
 (2, 1, 1, 0, 0),
+(2, 2, 0, 0, 0),
+(2, 3, 1, 1, 0),
+(2, 4, 0, 0, 0),
 (3, 1, 1, 0, 0),
+(3, 2, 0, 0, 0),
+(3, 3, 1, 0, 0),
+(3, 4, 1, 1, 0),
 (4, 1, 1, 0, 0),
-(5, 1, 1, 0, 0);
+(4, 2, 1, 1, 0),
+(4, 3, 1, 1, 1),
+(4, 4, 1, 1, 1),
+(5, 1, 1, 1, 1),
+(5, 2, 1, 1, 1),
+(5, 3, 1, 1, 1),
+(5, 4, 1, 1, 1),
+(6, 1, 1, 0, 0),
+(6, 2, 0, 0, 0),
+(6, 3, 1, 0, 0),
+(6, 4, 1, 1, 1),
+(7, 1, 1, 0, 0),
+(7, 2, 0, 0, 0),
+(7, 3, 1, 1, 1),
+(7, 4, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -4207,14 +4230,17 @@ CREATE TABLE IF NOT EXISTS `procesos` (
   `nombre` varchar(170) NOT NULL,
   `descripcion` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcar la base de datos para la tabla `procesos`
 --
 
 INSERT INTO `procesos` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'Proceso genérico', 'Proceso por defecto');
+(1, 'Proceso genérico', 'Proceso por defecto'),
+(2, 'Administración', 'Administración de la aplicación'),
+(3, 'Gestión comercial', 'Gestión comercial'),
+(4, 'Gestión técnica', 'Gestión técnica');
 
 -- --------------------------------------------------------
 
@@ -4404,7 +4430,7 @@ CREATE TABLE IF NOT EXISTS `scripts` (
   PRIMARY KEY (`id`),
   KEY `ruta` (`ruta`),
   KEY `menu` (`menu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=58 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=61 ;
 
 --
 -- Volcar la base de datos para la tabla `scripts`
@@ -4417,55 +4443,58 @@ INSERT INTO `scripts` (`id`, `ruta`, `menu`, `descripcion`, `fk_proceso`) VALUES
 (5, '/Usuarios/AtajosUsuario.php', 'inicio', '', 1),
 (6, '/Clientes/searchClientes.php', 'clientes', '', 1),
 (8, '/Usuario/controlTareas.php', 'inicio', '', 1),
-(9, '/Clientes/addCliente.php', 'inicio', '', 1),
+(9, '/Clientes/addCliente.php', 'inicio', '', 3),
 (10, '/Clientes/showCliente.php', 'inicio', '', 1),
-(11, '/Clientes/editCliente.php', 'inicio', '', 1),
+(11, '/Clientes/editCliente.php', 'inicio', '', 3),
 (12, '/Clientes/busquedaHistorial.php', 'inicio', '', 1),
-(13, '/Clientes/editContactos.php', 'inicio', '', 1),
-(14, '/Clientes/addClientes.php', 'inicio', '', 1),
-(15, '/Clientes/addGestores.php', 'inicio', '', 1),
+(13, '/Clientes/editContactos.php', 'inicio', '', 3),
+(14, '/Clientes/addClientes.php', 'inicio', '', 3),
+(15, '/Clientes/addGestores.php', 'inicio', '', 3),
 (16, '/Llamadas/incidenciasCliente.php', 'inicio', '', 1),
-(17, '/Clientes/addAccion.php', 'inicio', '', 1),
-(18, '/Clientes/addOferta.php', 'inicio', '', 1),
+(17, '/Clientes/addAccion.php', 'inicio', '', 3),
+(18, '/Clientes/addOferta.php', 'inicio', '', 3),
 (19, '/Clientes/showOferta.php', 'inicio', '', 1),
 (20, '/Clientes/showAccion.php', 'inicio', '', 1),
 (21, '/Ofertas/searchOfertas.php', 'inicio', '', 1),
 (22, '/Ventas/searchVentas.php', 'inicio', '', 1),
 (23, '/Acciones/searchAcciones.php', 'inicio', '', 1),
-(24, '/Acciones/reportsAcciones.php', 'inicio', '', 1),
-(25, '/Ofertas/reportsOfertas.php', 'inicio', '', 1),
-(26, '/Colaboradores/searchColaboradores.php', 'inicio', '', 1),
-(27, '/Colaboradores/addColaborador.php', 'inicio', '', 1),
+(24, '/Acciones/reportsAcciones.php', 'inicio', '', 3),
+(25, '/Ofertas/reportsOfertas.php', 'inicio', '', 3),
+(26, '/Colaboradores/searchColaboradores.php', 'inicio', '', 2),
+(27, '/Colaboradores/addColaborador.php', 'inicio', '', 2),
 (28, '/Proveedores/searchProveedores.php', 'inicio', '', 1),
-(29, '/Proveedores/addProveedor.php', 'inicio', '', 1),
-(30, '/Administracion/gestionUsuarios.php', 'inicio', '', 1),
-(31, '/Administracion/gestionGrupos.php', 'inicio', '', 1),
-(32, '/Administracion/gestionTiposProducto.php', 'inicio', '', 1),
-(33, '/Administracion/gestionTiposAccion.php', 'inicio', '', 1),
-(34, '/Administracion/gestionTiposFormasDePago.php', 'inicio', '', 1),
-(35, '/Administracion/gestionTiposComision.php', 'inicio', '', 1),
-(36, '/Facturas/searchFacturas.php', 'inicio', '', 1),
-(37, '/Colaboradores/editColaborador.php', 'inicio', '', 1),
-(38, '/Ofertas/addOferta.php', 'inicio', '', 1),
+(29, '/Proveedores/addProveedor.php', 'inicio', '', 2),
+(30, '/Administracion/gestionUsuarios.php', 'inicio', '', 2),
+(31, '/Administracion/gestionGrupos.php', 'inicio', '', 2),
+(32, '/Administracion/gestionTiposProducto.php', 'inicio', '', 2),
+(33, '/Administracion/gestionTiposAccion.php', 'inicio', '', 2),
+(34, '/Administracion/gestionTiposFormasDePago.php', 'inicio', '', 2),
+(35, '/Administracion/gestionTiposComision.php', 'inicio', '', 2),
+(36, '/Facturas/searchFacturas.php', 'inicio', '', 3),
+(37, '/Colaboradores/editColaborador.php', 'inicio', '', 2),
+(38, '/Ofertas/addOferta.php', 'inicio', '', 3),
 (39, '/Ofertas/showOferta.php', 'inicio', '', 1),
-(40, '/Ventas/addVenta.php', 'inicio', '', 1),
+(40, '/Ventas/addVenta.php', 'inicio', '', 3),
 (41, '/Ventas/showVenta.php', 'inicio', '', 1),
-(42, '/Ofertas/editOferta.php', 'inicio', '', 1),
+(42, '/Ofertas/editOferta.php', 'inicio', '', 3),
 (43, '/Clientes/exportAll.php', 'inicio', '', 1),
-(44, '/Facturas/addFactura.php', 'inicio', '', 1),
-(45, '/Facturas/showFactura.php', 'inicio', '', 1),
-(46, '/Facturas/editFactura.php', 'inicio', '', 1),
-(47, '/Facturas/imprimirFacturaPDF.php', 'inicio', '', 1),
-(48, '/Proyectos/searchProyectos.php', 'inicio', '', 1),
-(49, '/Administracion/miEmpresa.php', 'inicio', '', 1),
-(50, '/Proyectos/showProyecto.php', 'inicio', '', 1),
-(51, '/Proyectos/editProyecto.php', 'inicio', '', 1),
-(52, '/Tareas/addTarea.php', 'inicio', '', 1),
-(53, '/Proyectos/definirProyecto.php', 'inicio', '', 1),
-(54, '/Proyectos/addProyecto.php', 'inicio', '', 1),
-(55, '/Acciones/addAccion.php', 'inicio', '', 1),
-(56, '/Ventas/reportsVentas.php', 'inicio', '', 1),
-(57, '/Administracion/editUsuario.php', 'inicio', '', 1);
+(44, '/Facturas/addFactura.php', 'inicio', '', 3),
+(45, '/Facturas/showFactura.php', 'inicio', '', 3),
+(46, '/Facturas/editFactura.php', 'inicio', '', 3),
+(47, '/Facturas/imprimirFacturaPDF.php', 'inicio', '', 3),
+(48, '/Proyectos/searchProyectos.php', 'inicio', '', 4),
+(49, '/Administracion/miEmpresa.php', 'inicio', '', 2),
+(50, '/Proyectos/showProyecto.php', 'inicio', '', 4),
+(51, '/Proyectos/editProyecto.php', 'inicio', '', 4),
+(52, '/Tareas/addTarea.php', 'inicio', '', 4),
+(53, '/Proyectos/definirProyecto.php', 'inicio', '', 4),
+(54, '/Proyectos/addProyecto.php', 'inicio', '', 4),
+(55, '/Acciones/addAccion.php', 'inicio', '', 3),
+(56, '/Ventas/reportsVentas.php', 'inicio', '', 3),
+(57, '/Administracion/editUsuario.php', 'inicio', '', 2),
+(58, '/Planificacion/', 'inicio', '', 4),
+(59, '/Planificacion/index.php', 'inicio', '', 4),
+(60, '/Clientes/rel_Sedes_Contactos.php', 'inicio', '', 3);
 
 -- --------------------------------------------------------
 
@@ -4922,3 +4951,23 @@ CREATE TABLE IF NOT EXISTS `ventas_plazos` (
 
 INSERT INTO `ventas_plazos` (`id`, `fecha`, `fk_venta`, `fk_estado`) VALUES
 (1, 1284501600, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `visitas`
+--
+
+CREATE TABLE IF NOT EXISTS `visitas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_proyecto` int(11) NOT NULL,
+  `fecha` int(11) NOT NULL,
+  `hora` varchar(5) NOT NULL,
+  `fk_usuario` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Volcar la base de datos para la tabla `visitas`
+--
+

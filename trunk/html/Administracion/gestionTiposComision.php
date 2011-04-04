@@ -23,7 +23,7 @@ if(!$_GET['id_cliente']){ //Si se cumple viene de un "nuevo" en addComision
 <div id="titulo"><?php echo  _translate("Tipos de comision")?></div>
 		<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\" >".$var->opt['msg']."</div>":null;?>
 <br />
-<?php //if($permisos->escritura){?>
+<?php if($permisos->escritura){?>
 <div align="center">
 <form id="frmTipos" action="<?php echo  $_SERVER['_SELF']?>" method="POST">
 	<table>
@@ -84,9 +84,9 @@ if(!$_GET['id_cliente']){ //Si se cumple viene de un "nuevo" en addComision
 <input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $var->opt['id_cliente'] ?>" />
 </form>
 </div>
-<?php /*}else{
+<?php }else{
 echo  _translate("No tiene permisos suficientes");
-}*/?>
+}?>
 <script language="JavaScript" type="text/javascript">
 	<!--
 	function eliminar(id_tipocomision){

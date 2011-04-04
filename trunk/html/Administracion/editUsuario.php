@@ -25,8 +25,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 
 <br />
-<?php
-?>
+<?php if($permisos->escritura){?>
 	<form id="frm" action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 		<div class="izqder">
 			<table>
@@ -137,7 +136,9 @@ include ($appRoot.'/include/html/popupHeader.php');
 			</table>
 		</div>
 	</form>
-<?php //}?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <script language="JavaScript" type="text/javascript">
 	function cerrar(){
 		opener.location=opener.location.href;

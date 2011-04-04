@@ -266,3 +266,9 @@ CREATE TABLE IF NOT EXISTS `visitas` (
   `fk_usuario` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+INSERT INTO procesos (nombre, descripcion) VALUES
+('Administración','Administración de la aplicación'),
+('Gestión comercial', 'Gestión comercial'),
+('Gestión técnica', 'Gestión técnica');
+

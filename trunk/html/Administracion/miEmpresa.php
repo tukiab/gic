@@ -27,7 +27,7 @@ if($var->opt['msg']){?>
 	</div>
 <?php }?>
 <div id="titulo">Mi empresa</div>
-
+<?php if($permisos->escritura){?>
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
 <div id="contenedor" align="center">
 <?php
@@ -110,7 +110,9 @@ $razon_social = $var->Cliente->get_Razon_Social();?>
 				</td>
 			</tr>						
 		</table>
+	
 		<input type="submit" value="Editar" name="editar" />
+	
 	<?php
 }else{?>
 	<table>
@@ -189,9 +191,13 @@ $razon_social = $var->Cliente->get_Razon_Social();?>
 				<input type="submit" value="Guardar" name="guardar" />
 			</td>
 		</tr>
+		
 	</table>
 	<?php }?>
 </div>
 </form>
 
 <?php include($appRoot.'/include/html/footer.php')?>
+<?php }else{
+	echo _translate("No tiene permisos suficientes");
+}?>

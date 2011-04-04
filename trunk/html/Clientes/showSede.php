@@ -23,27 +23,11 @@ else
 		margin-bottom:20px;
 	}
 </style>
-<script language="JavaScript" type="text/javascript">
-$(document).ready(function()
-{
-	// ********** ACORDEÓN ********** //
-/*	$('#myAccordion').Accordion({
-		headerSelector: 'dt',
-		panelSelector: 'dd',
-		activeClass: 'myAccordionActive',
-		hoverClass: 'myAccordionHover',
-		panelHeight: 300,
-		speed: 300
-		}
-	);*/		
-	//********** ACORDEÓN ********** //
-});
-</script>
-
 <?php 
 if($var->opt['msg']){?>
 	<div id="error_msg" ><?php echo$var->opt['msg']?></div>
 <?php }?>
+<?php if($permisos->lectura){?>
 <?php $localidad = $var->Sede->get_Localidad();?>
 <div id="titulo"><?php echo  $localidad?></div>
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
@@ -117,14 +101,14 @@ if($var->opt['msg']){?>
 					</tr>
 				<?php }?>
 			<?php 
-			//if($permisos->escritura){?>
+			if($permisos->administracion){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/rel_Sedes_Contactos.php?id=".$var->Sede->get_Id();?>
 					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=500,scrollbars=yes');"><?php echo  _translate("Editar los contactos de la sede")?></a></label>
 				</td>
 			</tr>
-			<?php //}?>
+			<?php }?>
 		</table>
 </div>
 <input type=hidden name="id" value="<?php echo $var->opt['id']?>"/>
@@ -141,5 +125,7 @@ if($var->opt['msg']){?>
 </div>
 
 </form>
-
+<?php }else{
+	echo _translate("No tiene suficientes permisos");
+}?>
 <?php include($appRoot.'/include/html/footer.php')?>

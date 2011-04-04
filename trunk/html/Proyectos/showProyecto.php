@@ -325,7 +325,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			foreach($var->Proyecto->get_Planificacion() as $planificacion){
 		?>
 			<tr class="planificacion">
-				<td><?php echo date("D m Y", $planificacion['fecha']); ?></td>
+				<td><?php echo imprimirFecha($planificacion['fecha']); ?></td>
 				<td colspan="2"><?php echo $planificacion['hora'];?></td>
 			</tr>
 		<?php

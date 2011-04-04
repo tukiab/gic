@@ -14,7 +14,7 @@ $var = new BusquedaClientes($opt);
 
 ?>
 
-<?php if($gestor_actual->esAdministrador()){?>		
+<?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
 	<input type="submit" style="display:none" id="exportar_todo" name="exportar_todo" value="<?php echo  _translate("Exportar todo")?>" />		
 <?php }?>
 		 

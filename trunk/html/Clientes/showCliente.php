@@ -71,6 +71,7 @@ if($var->opt['msg']){?>
 	<?php }?>
 	</div>
 <?php }?>
+<?php if($permisos->lectura){?>
 <?php $razon_social = $var->opt['Cliente']->get_Razon_Social();?>
 <div id="titulo"><?php echo  $razon_social?></div>		
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
@@ -197,14 +198,14 @@ if($var->opt['msg']){?>
 				<td class="ColDer"><?php  echo $var->opt['Cliente']->get_Observaciones()?></td>
 			</tr>
 			<?php 
-			//if($permisos->administracion){?>
+			if($permisos->escritura){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/editCliente.php?id=".$var->opt['Cliente']->get_Id();?>
 					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=800,height=600,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
 				</td>
 			</tr>
-			<?php //}?>
+			<?php }?>
 		</table>
 		<!-- contactos -->
 		<table style="width:100%;margin-top:20px">
@@ -236,14 +237,14 @@ if($var->opt['msg']){?>
 					</tr>
 				<?php }?>
 			<?php 
-			//if($permisos->escritura){?>
+			if($permisos->escritura){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/editContactos.php?id=".$var->opt['Cliente']->get_Id();?>
 					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=500,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
 				</td>
 			</tr>
-			<?php //}?>
+			<?php }?>
 		</table>
 
 		<!-- sedes -->
@@ -251,11 +252,6 @@ if($var->opt['msg']){?>
 			<tr>
 			  	<td class="ListaTitulo" colspan="4"><?php echo  _translate("Sedes")?><a class="show" href="#" clase="sedes"></a></td>
 			</tr>
-			<!--<tr class="sedes">
-				<th ><?php echo  _translate("Localidad")?></th>
-				<th ><?php echo  _translate("Provincia")?></th>
-				<th ><?php echo  _translate("Direcci&oacute;")?></th>
-			</tr>-->
 			<?php $impar=false;
 				$lista = $var->opt['Cliente']->get_Lista_Sedes();
 
@@ -274,14 +270,14 @@ if($var->opt['msg']){?>
 					</tr>
 				<?php }?>
 			<?php
-			//if($permisos->escritura){?>
+			if($permisos->escritura){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/editSedes.php?id=".$var->opt['Cliente']->get_Id();?>
 					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=500,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
 				</td>
 			</tr>
-			<?php //}?>
+			<?php }?>
 		</table>
 
 		<!-- gestores -->
@@ -292,12 +288,11 @@ if($var->opt['msg']){?>
 			<tr class="gestores">
 				<th ><?php echo  _translate("Id Gestor")?></th>
 				<th ><?php echo  _translate("Nombre Gestor")?></th>
-				<?php if($gestor_actual->esAdministradorTotal()){?>
+				<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
 				<th ><?php echo  _translate("Eliminar")?></th>
 				<?php } ?>
 			</tr>
 			<?php $impar=false;
-                        FB::info($var->opt['Cliente']);
 				$listaGestores = $var->opt['Cliente']->get_Lista_Gestores();
 				$i = 0;
                                 
@@ -312,24 +307,23 @@ if($var->opt['msg']){?>
 					<tr class="<?php  echo $class?> gestores" >
 						<td ><?php echo  $usuario->get_Id();?></td>
 						<td ><?php echo  $usuario->get_Nombre_Y_Apellidos();?></td>
-						<?php if($gestor_actual->esAdministradorTotal()){?>
+						<?php  if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
 						<td ><a href="#" onclick="eliminarGestor('<?php echo $usuario->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
 						<?php }?>
 					</td>
 					</tr>
 				<?php $i=1;
 				}?>
+			<?php  if($permisos->administracion){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/addGestores.php?id=".$var->opt['Cliente']->get_Id(); $perfil = $var->usuario->get_Perfil()?>
 					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=1000,height=260,scrollbars=yes');"><?php if(esAdministrador($perfil['id'])) echo  _translate("A&ntilde;adir")?></a></label>
 				</td>
 			</tr>
+			<?php }?>
 		</table>
-
-
-	</div>
-	
+	</div>	
 	<!-- **************** ACCIONES Y OFERTAS, CONTACTOS Y GESTORES **************** -->
 	<div id="derecha">
 				<table>
@@ -344,7 +338,7 @@ if($var->opt['msg']){?>
 						<th ><?php echo  _translate("Fecha")?></th>
 						<th ><?php echo  _translate("Fecha Siguiente")?></th>
 						<th ><?php echo  _translate("Comentario")?></th>
-						<?php if($gestor_actual->esAdministradorTotal()){?>
+						<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
 						<th ><?php echo  _translate("Eliminar")?></th>
 						<?php } ?>
 					</tr>
@@ -368,7 +362,7 @@ if($var->opt['msg']){?>
 							<td ><?php echo  timestamp2date($accion->get_Fecha());?></td>
 							<td ><?php echo  timestamp2date($accion->get_Fecha_Siguiente_Accion());?></td>
 							<td ><?php echo  $accion->get_Descripcion();?></td>
-							<?php if($gestor_actual->esAdministradorTotal()){?>
+							<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
 								<td ><a href="#" onclick="eliminarAccion('<?php echo $accion->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
 								<?php }?>
 						</tr>
@@ -485,68 +479,41 @@ if($var->opt['msg']){?>
 	<table>
 		<tr>
 			<td colspan="2" style="text-align:right;" nowrap>
-			<?php //if($var->opt['mostrar_cabecera']){?>
-			
 				<?php //Enlaces a otros scripts: Comprobando permisos del destino: ?>
 					
 					<?php $url_dest = $appDir.'/Acciones/addAccion.php?id_cliente='.$var->opt['Cliente']->get_Id();
-					//if($permisos->permisoLectura($url_dest)){?>
+					if($permisos->permisoEscritura($url_dest)){?>
 						<label title="<?php echo  _translate("Nueva acci&oacute;n")?>">
 							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=1000,height=600,scrollbars=yes');"><input type="button" name="addAccion" value="<?php echo  _translate("Nueva Acci&oacute;n")?>" /></a>
 						</label>
-					<?php //}?>
+					<?php }?>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<?php $url_dest = $appDir.'/Ofertas/addOferta.php?id_cliente='.$var->opt['Cliente']->get_Id();
-					//Éste bot&oacute;n tiene que aparecer si el usuario pertenece a Problemas (rol=5 &oacute; 6) (el 9 es de administrador)
-					//if($permisos->permisoLectura($url_dest) && ($permisos->isInRol(9) || $permisos->isInRol(5) || $permisos->isInRol(6))){?>			
+					if($permisos->permisoEscritura($url_dest)){?>
 						<label title="<?php echo  _translate("Nueva oferta")?>">
 							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><input type="button" name="addOferta" value="<?php echo  _translate("Nueva Oferta")?>" /></a>						
 						</label>
-					<?php //}?>
+					<?php }?>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<?php $url_dest = $appDir.'/Ofertas/addOferta.php?es_oportunidad=1&id_cliente='.$var->opt['Cliente']->get_Id();
-					//Éste bot&oacute;n tiene que aparecer si el usuario pertenece a Problemas (rol=5 &oacute; 6) (el 9 es de administrador)
-					//if($permisos->permisoLectura($url_dest) && ($permisos->isInRol(9) || $permisos->isInRol(5) || $permisos->isInRol(6))){?>			
+					if($permisos->permisoEscritura($url_dest)){?>
 						<label title="<?php echo  _translate("Nueva oportunidad")?>">
 							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><input type="button" name="addOferta" value="<?php echo  _translate("Nueva Oportunidad")?>" /></a>						
 						</label>
-					<?php //}?>
-					<?php if($gestor_actual->esAdministradorTotal()){?>
+					<?php }?>
+					<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
 						<label title="<?php echo  _translate("BORRAR")?>">
 							<a href="#" onclick="eliminar(false);"><input class="borrar" type="button" value="<?php echo  _translate("Borrar empresa")?>" /></a>
 													
 						</label>
 					<?php }?>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-			<!--		&nbsp;&nbsp;&nbsp;&nbsp;
-					<?php  /*$url_dest = $appDir.'/Llamadas/incidenciasCliente.php?id='.$var->opt['Cliente']->get_Id();
-					if($permisos->permisoLectura($url_dest)){?>			
-						<label title="<?php echo  $var->opt['lista_Incidencias']->num_Resultados()." incidencias";?>">
-							<a href="<?php echo  $url_dest?>"><input <?php if($var->opt['lista_Incidencias']->num_Resultados()) echo  "warning";?> type="button" name="volver" value="<?php echo  _translate("Incidencias")?>" /></a>
-						</label>
-					<?php }?>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<?php $url_dest = $appDir.'/Problemas/busqueda.php?mostrar=Actualizar&mas_opciones=on&cod_centro='.$var->opt['Cliente']->get_Cod_Cliente();
-					if($permisos->permisoLectura($url_dest)){?>
-						<label title="<?php echo  $var->opt['lista_Problemas']->num_Resultados()." problemas";?>">
-							<a href="<?php echo  $url_dest?>"><input <?php if($var->opt['lista_Problemas']->num_Resultados()) echo  "warning";?> type="button" name="volver" value="<?php echo  _translate("Problemas")?>" /></a>						
-						</label>
-					<?php }?>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<?php $url_dest = $appDir.'/Cambios/busquedaRFC.php?buscar=Buscar&cod_centro='.$var->opt['Cliente']->get_Cod_Cliente();
-					if($permisos->permisoLectura($url_dest)){?>
-						<label title="<?php echo  "Consultar RFCs";?>">
-							<a href="<?php echo  $url_dest?>"><input type="button" name="volver" value="<?php echo  _translate("RFCs")?>" /></a>						
-						</label>
-					<?php }*/?> -->
-			<?php //}else{?>
-				<!-- <input type="button" onClick="cerrar()" value="Cerrar"/> -->
-			<?php //}?>
 			</td>
 		</tr>
 	</table>
 </div>
-
 </form>
-
+<?php }else{
+	echo _translate("No tiene suficientes permisos");
+}?>
 <?php include($appRoot.'/include/html/footer.php')?>
