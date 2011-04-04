@@ -127,6 +127,7 @@ $(document).ready(function(){
     <?php }?>
     </div>
 <?php }?>
+<?php if($permisos->lectura){?>
 <div id="contenedor" align="center">
 <form method="GET" id="frm_proyectos" action="<?php echo  $_SERVER['_SELF']?>">
 
@@ -238,7 +239,7 @@ $(document).ready(function(){
 <div class="listado" style="width:94%;margin-left:2em;">
 <label class="nota"><?php  echo $var->datos['lista_proyectos']->num_Resultados()." ".Resultados?></label>
 
-<?php if($gestor_actual->esAdministrador()){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+<?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <?php }?>
 
 <table>
@@ -469,13 +470,14 @@ $(document).ready(function(){
                     </div>
             </td>
         </tr>
-            <?php if($gestor_actual->esAdministrador()){?>
+            <?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
             <tr>
                     <td colspan="23" style="text-align: right;">
-                            <a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>
                             <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
                             <input type="hidden" id="asignar_gestor" name="asignar_gestor" value="0"/>
+
+							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
 							<input type="hidden" id="informe" name="informe" value="<?php echo $var->opt['informe']?>" />
                             <input id="mostrarGestores" type="button" value="<?php echo  _translate("Asignar t&eacute;cnico")?>" />
                     </td>
@@ -504,13 +506,14 @@ $(document).ready(function(){
 				</select>                    
             </td>
     </tr>
-    
+    <?php if($permisos->administracion){?>
     <tr>
             <td class="busquedaIzda" style="text-align: right;background:none">
                     <input type="button" onclick="parent.tb_remove();" value="Cancelar" />
                     <input type="button" onclick="parent.asignar_gestor();" value="Asignar" />
             </td>
     </tr>
+	<?php }?>
 </table>
 </div>		
 </form>
@@ -684,3 +687,6 @@ header("Expires: 0");
     }?>    
 </table>
 <?php }?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>

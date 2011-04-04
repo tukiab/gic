@@ -24,10 +24,11 @@ include ($appRoot.'/include/html/mainMenu.php');
 		$('#precio_total').val(precio);
 	}*/
 </script>
-	<form method="GET" target=""><br/>
+	<form method="GET" target="" action=""><br/>
 		<div id="titulo">Proceso de venta - Aceptar <?php if( $var->opt['Oferta']->get_Es_Oportunidad_De_Negocio()) echo "Oportunindad" ; else echo "Oferta"." - ";?><br/><?php echo $var->opt['Oferta']->get_Nombre_Oferta(); ?></div>
 		<?php echo  ($var->opt['error_msg'])?"<div id=\"error_msg\" >".$var->opt['error_msg']."</div>":null;?>
-		
+		<?php if($permisos->escritura){?>
+
 	<div align="center">
 	  <table style="margin-top:8ex;margin-left:2%;margin-right:2%;">
 	  	<tr>
@@ -305,3 +306,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 //		include($appRoot.'/include/html/bottomMenu.php');
 //		include($appRoot.'/include/html/footer.php');
 	?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>

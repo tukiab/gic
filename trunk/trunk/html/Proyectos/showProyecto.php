@@ -67,7 +67,7 @@ $(document).ready(function()
 </script>
 
 <?php
-FB::error($permisos);
+
 if($var->opt['msg']){?>
 	<div id="error_msg" ><?php echo$var->opt['msg']?>
 	<?php if($var->opt['eliminar']){?>
@@ -75,6 +75,7 @@ if($var->opt['msg']){?>
 	<?php }?>
 	</div>
 <?php }?>
+<?php if($permisos->lectura){?>
 <?php $nombre = $var->Proyecto->get_Nombre();
 $cliente = $var->Proyecto->get_Cliente();
 $venta = $var->Proyecto->get_Venta();
@@ -168,14 +169,16 @@ $estado = $var->Proyecto->get_Estado();?>
 				</td>
 			</tr>
 			<?php 
-			//if($permisos->administracion){?>
+			if($permisos->escritura){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Proyectos/editProyecto.php?id=".$var->Proyecto->get_Id();?>
-					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=800,height=600,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
+					<label class="nota">
+						<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=800,height=600,scrollbars=yes');">
+						<?php echo  _translate("Editar")?></a></label>
 				</td>
 			</tr>
-			<?php //}?>
+			<?php }?>
 		</table>
 		<!-- TAREAS DEL PROYECTO -->
 		<table style="width:100%;">
@@ -218,9 +221,9 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="center"><?php echo  $sede->get_Localidad();?></td>
 				<td class="center">
 					<?php $url_dest = $appDir.'/Tareas/addTarea.php?id_sede='.$sede->get_Id().'&id_proyecto='.$var->Proyecto->get_Id();
-					//Éste bot&oacute;n tiene que aparecer si el proyecto no está cerrado o fuera de plazo y si el usuario es el gestor asignado al proyecto
-					//if($permisos->permisoLectura($url_dest) && ($permisos->isInRol(9) || $permisos->isInRol(5) || $permisos->isInRol(6))){
+					//Éste bot&oacute;n tiene que aparecer si el proyecto no está cerrado o fuera de plazo y si el usuario es el gestor asignado al proyecto					
 					$estados_prohibidos = array(5,6);
+					if($permisos->escritura)
 					if(!in_array($estado['id'], $estados_prohibidos) &&
 							($var->usuario->get_Id() == $var->Proyecto->get_Id_Usuario()
 								|| $var->usuario->esAdministradorTotal())){?>
@@ -280,7 +283,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
 				<td class="ColDer"><?php echo  $var->Proyecto->get_Coste_Horario_Venta();?></td>
 			</tr>
-			<?php if(!$var->Proyecto->esta_Definido()){?>
+			<?php if($permisos->escritura) if(!$var->Proyecto->esta_Definido()){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Proyectos/definirProyecto.php?id=".$var->Proyecto->get_Id();?>
@@ -341,7 +344,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			<tr class="planificacion">
 				<td> <input type="text" class="fecha" name="fecha_visita" id="fecha_visita" /> </td>
 				<td> <input type="text" name="hora_visita" id="hora_visita" </td>
-				<td> <input type="submit" name="planificar" id="planificar" value="insertar visita" /> </td>
+				<td> <?php if($permisos->escritura){?><input type="submit" name="planificar" id="planificar" value="insertar visita" /> <?php }?></td>
 			</tr>
 		<?php 
 			}
@@ -358,7 +361,7 @@ $estado = $var->Proyecto->get_Estado();?>
 		<tr>
 			<td colspan="2" style="text-align:right;" nowrap>
 				<?php 
-				
+				if($permisos->administracion)
 				if($estado['id'] != 6 ){//cerrado?>
 					<label title="<?php echo  _translate("Cerrar")?>">
 						<a href="#" onclick="cerrar();"><input type="button" value="<?php echo  _translate("Cerrar proyecto")?>" /></a>
@@ -370,5 +373,7 @@ $estado = $var->Proyecto->get_Estado();?>
 </div>
 
 </form>
-
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php include($appRoot.'/include/html/footer.php')?>

@@ -36,7 +36,8 @@ include ($appRoot.'/include/html/popupHeader.php');
 <form method="GET" target="" action="">
 	<div id="titulo"><?php echo $var->Proyecto->get_Nombre()." - ".$var->Sede->get_Localidad()."<br/>"; echo _translate("Nueva Tarea");?></div>
 	<?php echo  ($var->opt['error_msg'])?"<div id=\"error_msg\" >".$var->opt['error_msg']."</div>":null;?>
-		
+	<?php if($permisos->escritura){?>
+	
 	<div align="center">
 		<table style="margin-top:8ex;margin-left:2%;margin-right:2%;">
 			<tr>
@@ -51,7 +52,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 						foreach($var->datos['lista_tipos_tareas'] as $tipo){
 						?>
 						<option value="<?php echo $tipo['id']?>"
-								<?php if($tipo['id'] == $tipo_seleccionado) echo  "selected:\"selected\"";?>>
+								<?php if($tipo['id'] == $tipo_seleccionado) echo  "selected=\"selected\"";?>>
 							<?php  echo $tipo['nombre']?>
 						</option>
 						<?php }?>
@@ -115,4 +116,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 			</tr>
 		</table>
 	</div>
+	<?php }else{
+	echo  _translate("No tiene permisos suficientes");
+	}?>
 </form>

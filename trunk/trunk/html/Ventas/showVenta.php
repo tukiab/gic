@@ -39,7 +39,9 @@ if($var->opt['msg']){
 }
 else{?>
 <?php $titulo = $var->opt['Venta']->get_Nombre();?>
-		
+
+<?php if($permisos->lectura){ ?>
+
 <form id="frm" action="<?php echo  $_SERVER['PHP_SELF'];?>" method="GET">
 <div align="center" style="margin-top:40px">
 	<table class="ConDatos">
@@ -234,18 +236,7 @@ else{?>
 				<?php echo  $var->opt['Venta']->get_Observaciones()?>
 			</td>
 		</tr>
-		<?php /*$i=1;$plazos = $var->opt['Venta']->get_Plazos();
-		if($plazos)
-			foreach($plazos as $plazo){?>
-		<tr>
-			<td class="ColIzq" nowrap><?php echo  _translate("Plazo ".$i)?>:</td>
-			<td class="ColDer">
-				<?php  echo timestamp2date($plazo['fecha']); $i++;
-				if($plazo['fk_estado'] == 1) echo " -- PENDIENTE"; else echo " -- ACEPTADO";
-				?>
-			</td>
-		</tr>
-		<?php }*/?>
+		
 
 	</table>
 	<!--
@@ -253,7 +244,7 @@ else{?>
 		<table>
 			<tr>
 				<td colspan="2" style="text-align:right;" nowrap>
-				<?php if($gestor_actual->esAdministradorTotal()){?>
+				<?php if($permisos->administracion){?>
 							<label title="<?php echo  _translate("BORRAR")?>">
 								<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar venta")?>" /></a>
 								<input type="hidden" id="eliminar" name="eliminar" value="0"/>
@@ -273,5 +264,8 @@ else{?>
 	-->
 </div>
 </form>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php }?>
 <?php include($appRoot.'/include/html/footer.php')?>
