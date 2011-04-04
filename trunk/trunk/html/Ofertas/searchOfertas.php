@@ -92,6 +92,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 
 <div id="titulo"><?php echo  _translate("Ofertas")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
+<?php if($permisos->lectura){?>
+
 <div id="contenedor" align="center">
 <form method="GET" id="frm_ofertas" action="<?php echo  $_SERVER['_SELF']?>">
 
@@ -283,7 +285,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <!-- RESULTADOS -->
 		<div class="listado" style="width:94%;margin-left:2em;">
 		<label class="nota"><?php  echo $var->datos['lista_ofertas']->num_Resultados()." ".Resultados?></label>
-		<?php if($gestor_actual->esAdministrador()){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
+		<?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
 			<table>
 				<thead>
 					<tr>
@@ -400,7 +402,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($gestor_actual->esAdministrador()){?>
+					<?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
@@ -410,16 +412,16 @@ include ($appRoot.'/include/html/mainMenu.php');
 					<?php }?>
 				</tbody>
 			</table>
-		<!-- <input type="hidden" name="id_usuario" id="id_usuario" value="<?php  echo $var->opt['id_usuario']?>" /> -->		
-		
 		</div>
-
 </form>
 </div>
 <br />
 <br />
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php 
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
 ?>
-<?php }
+<?php }?>

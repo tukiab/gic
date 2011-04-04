@@ -10,7 +10,7 @@ include ('_reportsOfertas.php');
 
 //Instanciamso la clase busqueda de ofertas.
 $var = new InformesOfertas($_GET);
-
+if($permisos->administracion){
 if(!$var->opt['exportar']){
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
@@ -339,3 +339,6 @@ if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar'])
 </form>
 </div>
 <?php }?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>

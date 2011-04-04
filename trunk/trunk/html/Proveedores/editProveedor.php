@@ -21,7 +21,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 
 <br />
-<?php //if($permisos->administracion){?>
+<?php if($permisos->administracion){?>
 	<form action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 		<table >
 			<tr class="ListaTitulo">
@@ -78,7 +78,9 @@ include ($appRoot.'/include/html/popupHeader.php');
 			</table>
 		</div>
 	</form>
-<?php //}?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <script language="JavaScript" type="text/javascript">
 	<!--
 	function cerrar(){

@@ -10,7 +10,7 @@ include ('_index.php');
 
 //Instanciamso la clase busqueda de visitas.
 $var = new BusquedaVisitas($_GET);
-FB::info($var);
+
 if(!$var->opt['exportar']){
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
@@ -101,6 +101,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 
 <div id="titulo"><?php echo  _translate("Planificaci&oacute;n")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
+
+<?php if($permisos->escritura){?>
 <div id="contenedor" align="center">
 <form method="GET" id="frm_visitas" action="<?php echo  $_SERVER['_SELF']?>">
 
@@ -279,8 +281,11 @@ include ($appRoot.'/include/html/mainMenu.php');
 </div>
 <br />
 <br />
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php 
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
 ?>
-<?php }
+<?php } ?>

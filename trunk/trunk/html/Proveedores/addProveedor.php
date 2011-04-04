@@ -13,15 +13,16 @@ include_once($appRoot.'/Utils/utils.php');
 	$var = new AddProveedor ($_GET);
 		
 include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
-	
-	?>
-	
+include ($appRoot.'/include/html/mainMenu.php');	
+	?>	
 <div id="titulo"><?php echo  _translate("Registrar Proveedor")?></div>
 	<?php echo  ($var->opt['error_msg'])?"<div id=\"error_msg\" >".$var->opt['error_msg']."</div>":null;?>
-		
+
+	<?php if($permisos->administracion){?>
+
+
 <div id="contenedor">	
-	<form method="GET" target="">	
+	<form method="GET" target="" action="">
 	<div align="center">
 	<label class="nota"><a href="<?php  echo $appDir."/Proveedores/addProveedores.php"?>"><?php echo  _translate("Introducir varios proveedores desde archivo")?></a></label><br/>
 	  <table style="margin-top:0.2ex;margin-left:2%;margin-right:2%;">
@@ -170,6 +171,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 	}
 	
 	</script>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 	<?php 
 		include($appRoot.'/include/html/bottomMenu.php');
 		include($appRoot.'/include/html/footer.php');

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 04-04-2011 a las 14:11:25
+-- Tiempo de generación: 04-04-2011 a las 14:50:26
 -- Versión del servidor: 5.1.41
 -- Versión de PHP: 5.3.2-1ubuntu4.5
 
@@ -4430,7 +4430,7 @@ CREATE TABLE IF NOT EXISTS `scripts` (
   PRIMARY KEY (`id`),
   KEY `ruta` (`ruta`),
   KEY `menu` (`menu`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=61 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=64 ;
 
 --
 -- Volcar la base de datos para la tabla `scripts`
@@ -4460,10 +4460,10 @@ INSERT INTO `scripts` (`id`, `ruta`, `menu`, `descripcion`, `fk_proceso`) VALUES
 (23, '/Acciones/searchAcciones.php', 'inicio', '', 1),
 (24, '/Acciones/reportsAcciones.php', 'inicio', '', 3),
 (25, '/Ofertas/reportsOfertas.php', 'inicio', '', 3),
-(26, '/Colaboradores/searchColaboradores.php', 'inicio', '', 2),
-(27, '/Colaboradores/addColaborador.php', 'inicio', '', 2),
-(28, '/Proveedores/searchProveedores.php', 'inicio', '', 1),
-(29, '/Proveedores/addProveedor.php', 'inicio', '', 2),
+(26, '/Colaboradores/searchColaboradores.php', 'inicio', '', 3),
+(27, '/Colaboradores/addColaborador.php', 'inicio', '', 3),
+(28, '/Proveedores/searchProveedores.php', 'inicio', '', 3),
+(29, '/Proveedores/addProveedor.php', 'inicio', '', 3),
 (30, '/Administracion/gestionUsuarios.php', 'inicio', '', 2),
 (31, '/Administracion/gestionGrupos.php', 'inicio', '', 2),
 (32, '/Administracion/gestionTiposProducto.php', 'inicio', '', 2),
@@ -4471,7 +4471,7 @@ INSERT INTO `scripts` (`id`, `ruta`, `menu`, `descripcion`, `fk_proceso`) VALUES
 (34, '/Administracion/gestionTiposFormasDePago.php', 'inicio', '', 2),
 (35, '/Administracion/gestionTiposComision.php', 'inicio', '', 2),
 (36, '/Facturas/searchFacturas.php', 'inicio', '', 3),
-(37, '/Colaboradores/editColaborador.php', 'inicio', '', 2),
+(37, '/Colaboradores/editColaborador.php', 'inicio', '', 3),
 (38, '/Ofertas/addOferta.php', 'inicio', '', 3),
 (39, '/Ofertas/showOferta.php', 'inicio', '', 1),
 (40, '/Ventas/addVenta.php', 'inicio', '', 3),
@@ -4494,7 +4494,10 @@ INSERT INTO `scripts` (`id`, `ruta`, `menu`, `descripcion`, `fk_proceso`) VALUES
 (57, '/Administracion/editUsuario.php', 'inicio', '', 2),
 (58, '/Planificacion/', 'inicio', '', 4),
 (59, '/Planificacion/index.php', 'inicio', '', 4),
-(60, '/Clientes/rel_Sedes_Contactos.php', 'inicio', '', 3);
+(60, '/Clientes/rel_Sedes_Contactos.php', 'inicio', '', 3),
+(61, '/Proveedores/editProveedor.php', 'inicio', '', 3),
+(62, '/Proveedores/editContactos.php', 'inicio', '', 3),
+(63, '/Proveedores/showProveedor.php', 'inicio', '', 3);
 
 -- --------------------------------------------------------
 

@@ -10,7 +10,9 @@ include ('_searchFacturas.php');
 
 //Instanciamso la clase busqueda de facturas.
 $var = new BusquedaFacturas($_GET);
-FB::info($var);
+
+
+
 if(!$var->opt['exportar']){
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
@@ -101,6 +103,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 
 <div id="titulo"><?php echo  _translate("Facturas")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
+<?php if($permisos->lectura){?>
 <div id="contenedor" align="center">
 <form method="GET" id="frm" action="<?php echo  $_SERVER['_SELF']?>">
 
@@ -380,10 +383,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 					<?php }?>
 				</tbody>
 			</table>
-		<!-- <input type="hidden" name="id_usuario" id="id_usuario" value="<?php  echo $var->opt['id_usuario']?>" /> -->		
-		
 		</div>
-
 </form>
 </div>
 <br />
@@ -392,4 +392,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
 ?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php }
+?>

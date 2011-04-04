@@ -18,8 +18,10 @@ include ($appRoot.'/include/html/mainMenu.php');
 	?>
 <div id="titulo"><?php echo  _translate("Registrar Colaborador")?></div>
 	<?php echo  ($var->opt['error_msg'])?"<div id=\"error_msg\" >".$var->opt['error_msg']."</div>":null;?>
+<?php if($permisos->escritura){?>
+
 <div id="contenedor" align="center">	
-	<form method="GET" target="">	
+	<form method="GET" target="" action>
 
 	<?php $gestor = $var->opt['gestor_obj']; $perfil = $gestor->get_Perfil(); $id_perfil = $perfil['id'];
 	 if(esAdministrador($id_perfil)){?>
@@ -168,6 +170,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 	}
 	
 	</script>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 	<?php 
 		include($appRoot.'/include/html/bottomMenu.php');
 		include($appRoot.'/include/html/footer.php');

@@ -101,6 +101,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 <div id="titulo"><?php echo  _translate("Proveedores")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
 <br />
+<?php if($permisos->lectura){?>
+
 <div id="contenedor" align="center">
 <form id="frm_proveedores" method="GET" action="<?php echo  $_SERVER['_SELF']?>">
 
@@ -212,7 +214,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 							?>
 						</th>					
 						<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Web")?></th>		
-						<!--<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Operaciones")?></th>-->	
 					</tr>
 				</thead>
 				<tbody>
@@ -267,7 +268,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 						</div>
 					</td>
 					</tr>
-				<?php if($gestor_actual->esAdministrador()){?>
+				<?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
@@ -277,14 +278,14 @@ include ($appRoot.'/include/html/mainMenu.php');
 					<?php }?>
 				</tbody>
 			</table>
-		<!-- <input type="hidden" name="id_usuario" id="id_usuario" value="<?php  echo $var->opt['id_usuario']?>" /> -->		
-		
 		</div>
-
 </form>
 </div>
 <br />
 <br />
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php 
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
