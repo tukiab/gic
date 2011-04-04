@@ -12,16 +12,16 @@ include_once($appRoot.'/Utils/utils.php');
 	include ('_addAccion.php');
 	$var = new AddAccion ($_GET);
 		
-include ($appRoot.'/include/html/popupHeader.php');
-	
+include ($appRoot.'/include/html/popupHeader.php');	
 	?>
-<style tyoe="text/css">
+
+<style type="text/css">
 	input[type=text],select{max-width: 150px;}
 </style>
-	<form method="GET" target="">
-		<div id="titulo" style="font-size:small;"><?php echo _translate("Nueva Acci&oacute;n")?></div>
+<div id="titulo" style="font-size:small;"><?php echo _translate("Nueva Acci&oacute;n")?></div>
 		<?php echo  ($var->opt['error_msg'])?"<div id=\"error_msg\" >".$var->opt['error_msg']."</div>":null;?>
-		
+<?php if($permisos->escritura){?>
+	<form method="GET" target="" action="">
 	<div align="center">
 	  <table style="margin-top:4.2ex;margin-left:2%;margin-right:2%;">
 	  	<tr>
@@ -76,14 +76,11 @@ include ($appRoot.'/include/html/popupHeader.php');
 			<td>
 				<input type="button" onClick="cerrar()" value="<?php echo  _translate("Cerrar")?>"/>
 			</td>
-		  <?php //if($permisos->escritura){?>
-			  
+		  <?php if($permisos->escritura){?>			  
 			  <td>
 				<input id='guardar' name='guardar' type="submit" value="<?php echo  _translate("Guardar")?>"/>
 			  </td>
-			  
-			  
-		  <?php //}?>
+		  <?php }?>
 	    </tr>
 	  </table>
 	</div> 
@@ -101,3 +98,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 //		include($appRoot.'/include/html/bottomMenu.php');
 //		include($appRoot.'/include/html/footer.php');
 	?>
+
+<?php }else{
+	echo _translate("No tiene suficientes permisos");
+}?>

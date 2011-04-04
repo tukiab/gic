@@ -20,7 +20,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 <div id="titulo"><?php echo  _translate("Editar Contactos")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 <br />
-<?php //if($permisos->escritura){?>
+<?php if($permisos->escritura){?>
 <div id="contenedor" style="margin-top: 100px;" align="center">
 
 <form action="<?php echo  $_SERVER['_SELF']?>" method="GET">
@@ -51,7 +51,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 						<input <?php echo $disabled['email']; ?> type="text" name="<?php echo  $count."_"?>email" value="<?php echo  $Contacto->get_Email();?>" size="9" />
 							<input type="hidden" name="<?php echo  $count."_"?>id" value="<?php echo  $Contacto->get_Id();?>" size="9" />
 					</td>
-					<?php if($var->gestor->esAdministradorTotal()){?>
+					<?php if($permisos->administracion){//if($gestor->esAdministrador()){?>
 					<td align="center">
 						<input class="borrar" type="button" name="eliminacontacto" value="Eliminar" onclick="javascript: if(confirm('Confirme que desea eliminar este contacto')){window.location = 'editContactos.php?id=<?php  echo  $var->Cliente->get_Id();?>&eliminar=<?php echo  $Contacto->get_Id();?>&edit=contactos';}"  />
 					</td>
@@ -94,9 +94,9 @@ include ($appRoot.'/include/html/popupHeader.php');
 </div>
 </form>
 </div>
-<?php /*}else{
+<?php }else{
 echo  _translate("No tiene permisos suficientes");
-}*/?>
+}?>
 <script language="JavaScript" type="text/javascript">
 	<!--
 	function cerrar(){

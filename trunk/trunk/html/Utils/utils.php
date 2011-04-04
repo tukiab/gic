@@ -61,33 +61,41 @@ function timestamp2date($ts){
  */
 function dayOfTheWeek($dia, $mes, $year){
 	$ts = mktime(0,0,0,$mes,$dia,$year);
+	return get_Nombre_Dia_Semana($ts);
+}
+function get_Nombre_Dia_Semana($ts){
 	$number_day = date("w",$ts);
-	//FB::info($ts, "timestamp");
-	//$fecha = date("Y/m/d", $ts);
-	//FB::info($fecha, "en date");
+
 	switch($number_day){
 		case 0:
-			return "Dom";
+			return "Domingo";
 			break;
 		case 1:
-			return "Lun";
+			return "Lunes";
 			break;
 		case 2:
-			return "Mar";
+			return "Martes";
 			break;
 		case 3:
-			return "Mie";
+			return "Mi&eacute;rcoles";
 			break;
 		case 4:
-			return "Jue";
+			return "Jueves";
 			break;
 		case 5:
-			return "Vie";
+			return "Viernes";
 			break;
 		case 6:
-			return "Sab";
+			return "S&aacute;bado";
 			break;
 	}
+}
+
+function imprimirFecha($ts, $diaSemana=false){
+	if($diaSemana)
+		return get_Nombre_Dia_Semana ($ts)." ".date("d", $ts)." de ".get_Nombre_Mes ($ts)." de ".date("Y", $ts);
+	else
+		return date("d", $ts)." de ".get_Nombre_Mes ($ts)." de ".date("Y", $ts);
 }
 /**
  * 
@@ -183,24 +191,24 @@ function obtenerNombreMes($mes){
 	}
 	return $nombre;
 }
+function get_Nombre_Mes($ts){
+	return(obtenerNombreMes(date("m",$ts)));
+}
 /**
  * 
  * @param dia, mes y año
  * @return boolean es_laborable Boolean que indica si la fecha pasada es laborable o no
  */
-//TODO Mejorar la función para que acceda a alguna parte donde se indique si un día es laborable o no.
-function esLaborable($dia, $mes, $year){
-	$day = dayOfTheWeek($dia, $mes, $year);
-	if($day == "Dom" || $day == "Sab") //Sábado o Domingo
+function esLaborable($ts){
+	$day = date("w", $ts);
+	if($day == 0|| $day == 6) //Sábado o Domingo
 		return 0;
-	if(es_Festivo($dia, $mes, $year))
+	if(es_Festivo($ts))
 		return 0;
 		
 	return 1;
 }
-function es_Festivo($dia, $mes, $year){
-	$date = $dia."/".$mes."/".$year;
-	$fecha_ts = date2timestamp($date);
+function es_Festivo($fecha_ts){
 	
 	$query = "SELECT * FROM dias_festivos WHERE fecha='$fecha_ts' limit 1;";
 	$rs = mysql_query($query);

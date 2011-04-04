@@ -14,6 +14,7 @@ include ('_addClientes.php');
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
 ?>
+<?php if($permisos->administracion){?>
 
 <script language="JavaScript" type="text/javascript">
 
@@ -80,3 +81,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
 ?>
+
+<?php }else{
+	echo _translate("No tiene suficientes permisos");
+}?>

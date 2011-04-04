@@ -216,16 +216,19 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<?php while($visita = $var->datos['lista_visitas']->siguiente() ){
 					$pro = $visita->get_Proyecto();
 					$proyecto = new Proyecto($pro['id']);
+					$style_laborable = "";
+					if(!esLaborable($visita->get_Fecha()))
+						$style_laborable = 'background: red';
 					?>
-					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
+					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> style="<?php echo $style_laborable?>">
 						<td style="text-align:center;width:5%;">
 							<?php echo date("Y",$visita->get_Fecha());?>
 						</td>
 						<td style="text-align:center;width:5%;">
-							<?php echo date("F",$visita->get_Fecha());?>
+							<?php echo get_Nombre_Mes($visita->get_Fecha());?>
 						</td>
 						<td style="text-align:center;width:5%;">
-							<?php echo date("l",$visita->get_Fecha());?>
+							<?php echo get_Nombre_Dia_Semana($visita->get_Fecha());?>
 						</td>
 						<td style="text-align:center;width:5%;">
 							<?php echo $visita->get_Hora();?>

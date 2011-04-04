@@ -101,6 +101,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 
 <div id="titulo"><?php echo  _translate("Acciones")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
+<?php if($permisos->lectura){?>
 <div id="contenedor" align="center">
 <form method="GET" id="frm_acciones" action="<?php echo  $_SERVER['_SELF']?>">
 
@@ -186,10 +187,10 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"/>
 			</td>
-				<td class="busquedaIzda" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>>
+				<td class="busquedaIzda" <?php /*if(!$var->gestor->esAdministrador())*/ if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>> 
+			<td class="busquedaDcha" <?php /*if(!$var->gestor->esAdministrador())*/ if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<select name="gestor">
 					<?php 
 					$gestor_seleccionado = $var->opt['gestor'];?>
@@ -337,7 +338,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($gestor_actual->esAdministrador()){?>
+					<?php if($permisos->escritura){//if($gestor_actual->esAdministrador()){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
@@ -346,17 +347,19 @@ include ($appRoot.'/include/html/mainMenu.php');
 					</tr>
 					<?php }?>
 				</tbody>
-			</table>
-		<!-- <input type="hidden" name="id_usuario" id="id_usuario" value="<?php  echo $var->opt['id_usuario']?>" /> -->		
-		
+			</table>	
 		</div>
 
 </form>
 </div>
 <br />
 <br />
+
+<?php } ?>
+<?php }else{
+	echo _translate("No tiene suficientes permisos");
+}?>
 <?php 
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
 ?>
-<?php }

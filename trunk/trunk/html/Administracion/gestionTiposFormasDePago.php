@@ -22,7 +22,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <div id="titulo"><?php echo  _translate("Tipos de forma de pago")?></div>
 		<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\" >".$var->opt['msg']."</div>":null;?>
 <br />
-<?php //if($permisos->escritura){?>
+<?php if($permisos->escritura){?>
 <div align="center">
 <form id="frmTipos" action="<?php echo  $_SERVER['_SELF']?>" method="POST">
 	<table>
@@ -81,9 +81,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 <input type="hidden" id="guardar" name="guardar" value="" />
 </form>
 </div>
-<?php /*}else{
+<?php }else{
 echo  _translate("No tiene permisos suficientes");
-}*/?>
+}?>
 <script language="JavaScript" type="text/javascript">
 	<!--
 	function eliminar(id_tipoformadepago){
