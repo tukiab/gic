@@ -40,6 +40,7 @@ class ShowProyecto{
 			if($this->opt['eliminar']) $this->eliminar();
 			if($this->opt['cerrar']) $this->cerrar();
 			if($this->opt['asignar']) $this->asignar();
+			if($this->opt['planificar']) $this->insertar_visita();
 			
 		}catch(Exception $e){
 			$this->opt['msg'] = $e->getMessage();
@@ -56,7 +57,11 @@ class ShowProyecto{
 	}
 
 	private function asignar(){
-		$var->Proyecto->asignar($this->opt['id_usuario']);
+		$this->Proyecto->asignar($this->opt['id_usuario']);
+	}
+
+	private function insertar_visita(){
+		$this->Proyecto->add_Visita($this->opt);
 	}
 	/**
 	 * Obtiene los parámetros necesarios pasados al constructor.
@@ -64,7 +69,7 @@ class ShowProyecto{
 	 * @param Array $opciones Array de opciones pasados al constructor.
 	 */
 	private function get_Opciones($opciones){
-		//FB::info($opciones, 'opciones _showProyecto');
+
 		//Indispensable, el id de la Proyecto:
 		@(isset($opciones['id'])?$this->opt['id']=$opciones['id']:null);
 		@($opciones['eliminar'])?$this->opt['eliminar']=true:$this->opt['eliminar']=false;
@@ -72,6 +77,11 @@ class ShowProyecto{
 		@($opciones['asignar'])?$this->opt['asignar']=true:$this->opt['asignar']=false;
 		@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;
 		@($opciones['borrado_total'])?$this->opt['borrado_total']=true:$this->opt['borrado_total']=false;
+
+		@($opciones['planificar'])?$this->opt['planificar']=$opciones['planificar']:null;
+		@($opciones['hora_visita'])?$this->opt['hora_visita']=$opciones['hora_visita']:null;
+		@($opciones['fecha_visita'])?$this->opt['fecha_visita']=date2timestamp($opciones['fecha_visita']):null;
+		
 		//Opciones de si mostrar o no la cabecera de la página:
 		@(isset($opciones['head'])?$this->opt['mostrar_cabecera']=false:$this->opt['mostrar_cabecera']=true);
 	}
@@ -79,7 +89,8 @@ class ShowProyecto{
 	private function get_Datos(){
 		$listaUsuarios = new ListaUsuarios();
 		$filtros['perfiles'] = '(3,6)'; //técnicos y directores técnicos
-		$this->datos['lista_tecnicos'] = $listaUsuarios->buscar();
+		$listaUsuarios->buscar($filtros);
+		$this->datos['lista_tecnicos'] = $listaUsuarios;
 	}
 }
 ?>

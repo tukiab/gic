@@ -53,8 +53,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 			</td>
 			<td align="center">
 				<select name="perfil">
-				<?php foreach($var->datos['lista_perfiles'] as $perfil){ 
-					
+				<?php foreach($var->datos['lista_perfiles'] as $perfil){ 					
 				?>
 					<option value="<?php echo $perfil['id'];?>" <?php if($var->opt['perfil'] == $perfil['id'] && !$var->opt['guardado'])  echo 'selected="selected"';?>><?php  echo $perfil['nombre'];?></option>
 				<?php }?>
@@ -91,7 +90,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<?php foreach($var->datos['lista_perfiles'] as $perfil){ 
 					$perfil_usuario = $Usuario->get_Perfil();
 				?>
-					<option value="<?php echo $perfil['id'];?>" <?php if($perfil['id'] == $perfil_usuario['id']) echo  "selected:\"selected\"";?>><?php  echo $perfil['nombre'];?></option>
+					<option value="<?php echo $perfil['id'];?>" <?php if($perfil['id'] == $perfil_usuario['id']) echo  'selected="selected"';?>><?php  echo $perfil['nombre'];?></option>
 				<?php }?>
 				</select>
 			</td>

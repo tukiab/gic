@@ -81,6 +81,12 @@ class Proyecto{
 	private $importe;
 
 	/**
+	 * Planificación del proyecto realizada por el técnico
+	 * @var array indexado por fecha y hora
+	 */
+	private $planificacion;
+
+	/**
 	 * Indica si el proyecto se puede cerrar
 	 * @var boolean (1 o 0)
 	 */
@@ -120,7 +126,7 @@ class Proyecto{
 				    		INNER JOIN proyectos_estados
 								ON proyectos.fk_estado = proyectos_estados.id
 						WHERE proyectos.id = '$this->id'";
-			//FB::info($query,'Proyecto->cargar: QUERY');
+
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el Proyecto de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -136,7 +142,7 @@ class Proyecto{
 			$this->fecha_inicio = $row['fecha_inicio'];
 			$this->fecha_fin = $row['fecha_fin'];
 			$this->observaciones = $row['observaciones'];
-			$this->id_usuario = $row['id_usuario'];
+			$this->id_usuario = $row['fk_usuario'];
 			$this->es_plantilla = $row['es_plantilla'];
 			$this->importe = $row['importe'];
 			$this->cerrar = $row['cerrar'];
@@ -146,6 +152,7 @@ class Proyecto{
 			
 			$this->cargar_Definicion();
 			$this->cargar_Tareas();
+			$this->cargar_Planificacion();
 		}
 	}
 
@@ -183,6 +190,18 @@ class Proyecto{
 		$this->tareas[$row['id']] = $row;
 	}
 
+	private function cargar_Planificacion(){
+		$query = "SELECT visitas.fecha, visitas.hora, visitas.fk_usuario, visitas.id
+					FROM visitas
+					WHERE fk_proyecto = '$this->id' ORDER BY fecha, hora";
+
+		if(!$result = mysql_query($query))
+			throw new Exception('Error al cargar la planificaci&oacute;n del proyecto');
+
+		$this->planificacion = array();
+		while($row = mysql_fetch_array($result))
+		$this->planificacion[$row['id']] = $row;
+	}
 
 	/*
 	 * Métodos observadores.
@@ -220,11 +239,29 @@ class Proyecto{
 	 * @var integer
 	 */
 	public function get_Horas_Documentacion(){return $this->horas_documentacion ;}
+	public function get_Horas_Documentacion_Reales(){
+		$cont = 0;
+		foreach($this->tareas as $tarea){
+			if($tarea['tipo'] == 1)
+				$count += $tarea['horas_despacho'];
+		}
+
+		return $cont;
+	}
 	/**
 	 * Horas de auditoría interna
 	 * @var integer
 	 */
 	public function get_Horas_Auditoria_Interna(){return $this->horas_auditoria_interna ;}
+	public function get_Horas_Auditoria_Interna_Reales(){
+		$cont = 0;
+		foreach($this->tareas as $tarea){
+			if($tarea['tipo'] == 1)
+				$count += $tarea['horas_auditoria_interna'];
+		}
+
+		return $cont;
+	}
 	/**
 	 * Nombre del proyecto
 	 * @var string
@@ -272,6 +309,29 @@ class Proyecto{
 	public function get_Tareas(){
 		return $this->tareas;
 	}
+
+	public function get_Horas_Remuneradas(){
+		$cont = 0;
+		foreach($this->tareas as $tarea){
+			$cont += ($tarea['incentivable'])?$tarea['horas_auditoria_interna']+$tarea['horas_despacho']+$tarea['horas_visita']:0;
+		}
+
+		return $cont;
+	}
+
+	public function get_Horas_No_Remuneradas(){
+		$cont = 0;
+		foreach($this->tareas as $tarea){
+			$cont += ($tarea['incentivable'])?0:$tarea['horas_auditoria_interna']+$tarea['horas_despacho']+$tarea['horas_visita'];
+		}
+
+		return $cont;
+	}
+
+	public function get_Planificacion(){
+		return $this->planificacion;
+	}
+	
 	/**
 	 * Indica la definición teórica del proyecto
 	 * @var Array indexado por id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, localidad
@@ -296,6 +356,14 @@ class Proyecto{
 		foreach($this->definicion_sedes as $definicion)
 			$cont += $definicion['horas_desplazamiento'];
 		
+		return $cont;
+	}
+
+	public function get_Horas_Desplazamiento_Reales(){
+		$cont = 0;
+		foreach($this->tareas as $tarea)
+			$cont += $tarea['horas_desplazamiento'];
+
 		return $cont;
 	}
 
@@ -328,6 +396,14 @@ class Proyecto{
 		
 		return $cont;
 	}
+	public function get_Numero_Visitas_Reales(){
+		$cont = 0;
+		foreach($this->tareas as $tarea){
+			$cont += ($tarea['tipo'] == 1)?1:0;
+		}
+
+		return $cont;
+	}
 	/**
 	 * Gastos incurridos totales de todas las sedes
 	 * @var integer
@@ -344,7 +420,11 @@ class Proyecto{
 	 * @var <type>
 	 */
 	public function get_Horas_Totales(){
-		return ($this->get_Horas_Documentacion()+$this->get_Horas_Documentacion()+$this->get_Horas_Cada_Visita()*$this->get_Numero_Visitas()+$this->get_Horas_Auditoria_Interna());
+		return ($this->get_Horas_Documentacion()+$this->get_Horas_Desplazamiento()+$this->get_Horas_Cada_Visita()*$this->get_Numero_Visitas()+$this->get_Horas_Auditoria_Interna());
+	}
+
+	public function get_Horas_Totales_Reales(){
+		return ($this->get_Horas_Documentacion_Reales() +$this->get_Horas_Auditoria_Interna_Reales());
 	}
 	/**
 	 * Duración del proyecto en días
@@ -375,7 +455,7 @@ class Proyecto{
 
 	public function get_Unidades(){
 		$numero_meses = getNumeroMeses($this->fecha_inicio, $this->fecha_fin);
-		if($this->get_Horas_Totales())
+		if($this->get_Horas_Totales() && getNumeroMeses($this->fecha_inicio, $this->fecha_fin))
 			return $this->get_Horas_Totales()/(8*$numero_meses);
 		return 0;
 	}
@@ -462,7 +542,7 @@ class Proyecto{
 	 * @param array $datos Array indexado con todos los atributos para definir un Proyecto.
 	 * @return integer $id_proyecto Id del Proyecto.
 	 */
-	public function definir($datos){ FB::info($datos);
+	public function definir($datos){  
 		if($this->id_estado > 1)
 			throw new Exception ('El proyecto ya ha sido definido');
 		//Comprobando los datos "imprescindibles":
@@ -527,7 +607,6 @@ class Proyecto{
 															'numero_visitas' => trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']),
 															'gastos_incurridos' => trim($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']),);
 			}
-
 		}
 		
 		if($errores != '') throw new Exception($errores);
@@ -536,12 +615,15 @@ class Proyecto{
 		$this->importe = ($datos['importe'] && is_numeric(trim($datos['importe'])))?trim($datos['importe']):$this->importe;
 		$this->es_plantilla = (isset($datos['es_plantilla']))?1:0;
 		$this->observaciones = trim($datos['observaciones']);
+		
 		if(isset($datos['id_usuario'])){
 			$this->id_usuario = trim($datos['id_usuario']);
 			$this->set_Estado(3); //pendiente de planificación, se acaba de definir y tiene técnico asignado
 		}else{
 			if($this->id_usuario)
-				$this->set_Estado(2); //Pendiente de asignación, está definido pero sin técnico asignado
+				$this->set_Estado(3); //Pendiente de asignación, está definido pero sin técnico asignado
+			else
+				$this->set_Estado(2);
 		}
 		$this->cargar_Estado();
 
@@ -589,6 +671,7 @@ class Proyecto{
 		$tarea->crear($datos);
 		$this->cargar_Tareas();
 	}
+
 	/**
 	 * Define una sede dada por un array con todos los campos
 	 * @param <type> $definicion
@@ -616,16 +699,36 @@ class Proyecto{
 	private function existe_Definicion_Sede($id_sede){
 		return in_array($id_sede, array_keys($this->definicion_sedes));
 	}
+
+	public function add_Visita($datos){
+		$visita = new Visita();
+		$datos_visita['fecha'] = $datos['fecha_visita'];
+		$datos_visita['hora'] = $datos['hora_visita'];
+		$datos_visita['id_proyecto'] = $this->id;
+		$datos_visita['id_usuario'] = $this->id_usuario;
+
+		$visita->crear($datos_visita);
+		$this->cargar_Planificacion();
+
+		if($this->estado['id'] == 3)//pendiente de planificación
+			$this->set_Estado(4);
+	}
 	
 	public function del_Proyecto(){		
 		$query = "DELETE FROM proyectos WHERE id = '$this->id';";
 		mysql_query($query);
 		$this->del_Definicion_Sedes();
+		foreach($this->planificacion as $planificacion){
+			$visita = new Visita($planificacion['id']);
+			$visita->del_Visita();
+		}
+
 	}
 	private function del_Definicion_Sedes(){
 		$query = "DELETE FROM proyectos_rel_sedes WHERE fk_proyecto = '$this->id';";
 		mysql_query($query);
 	}
+	
 	private function asignar_Gestor($id){
 		if($id){
 			if(!$this->id_usuario){
@@ -643,6 +746,7 @@ class Proyecto{
 	 * @param <integer> $id
 	 */
 	private function set_Estado($id){
+
 		if($this->id_estado < $id){
 			$query = "UPDATE proyectos set fk_estado = '$id' WHERE id = '$this->id'";
 			if(!mysql_query($query))

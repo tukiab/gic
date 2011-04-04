@@ -64,7 +64,7 @@ class ListaUsuarios implements IIterador{
 		(isset($filtros['perfil']))?$join = " INNER JOIN usuarios_perfiles ON usuarios.fk_perfil = '".$filtros['perfil']."'":null;
 		(isset($filtros['nombre']))?$filtro.=" AND usuarios.nombre LIKE '%".$filtros['nombre']."%' ":null;
 		(isset($filtros['apellidos']))?$filtro.=" AND usuarios.apellidos LIKE '".$filtros['apellidos']."' ":null;
-		(isset($filtros['perfiles']))?$join = " INNER JOIN usuarios_perfiles ON usuarios.fk_perfil IN '".$filtros['perfiles']."'":null;
+		(isset($filtros['perfiles']))?$join = " INNER JOIN usuarios_perfiles ON usuarios.fk_perfil IN ".$filtros['perfiles']:null;
 		
 		$query = "SELECT usuarios.id
 					FROM usuarios
