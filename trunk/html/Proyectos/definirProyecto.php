@@ -33,6 +33,8 @@ function cargar_plantilla(id_proyecto){
 </style>
 <form method="GET" target="" action="" id="frm_definicion">
 	<div id="titulo"><?php echo $var->Proyecto->get_Nombre();?></div>
+	<?php if($permisos->administracion){?>
+
 	<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 	<div class="wrap" style="width:60%">
 		<div style="float:left;">
@@ -150,4 +152,7 @@ function cargar_plantilla(id_proyecto){
 			</tr>
 		</table>
 	</div>
+	<?php }else{
+	echo  _translate("No tiene permisos suficientes");
+	}?>
 </form>

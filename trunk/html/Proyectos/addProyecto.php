@@ -18,6 +18,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 	?>
 <div id="titulo"><?php echo  _translate("Registrar Proyecto")?></div>
 <?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
+<?php if($permisos->administracion){?>
+
 <div id="contenedor" align="center">	
 	<form method="GET" target="" action="">
 	<table>
@@ -62,7 +64,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 		</table>
 	</form>
 </div>
-	
+	<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 	<?php 
 		include($appRoot.'/include/html/bottomMenu.php');
 		include($appRoot.'/include/html/footer.php');

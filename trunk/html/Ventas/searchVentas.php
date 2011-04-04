@@ -101,16 +101,18 @@ include ($appRoot.'/include/html/mainMenu.php');
 
 <div id="titulo"><?php echo  _translate("Ventas")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
+<?php if($permisos->lectura){?>
+
 <div id="contenedor" align="center">
 <form method="GET" id="frm_ventas" action="<?php echo  $_SERVER['_SELF']?>">
 
 <!-- BUSCADOR -->
-<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de búsqueda")?></a></i><br/>
+<i><a href="#" id="mostrarBusqueda" style="font-size:xx-small">>> <?php echo  _translate("Mostrar/Ocultar opciones de b&uacute;squeda")?></a></i><br/>
 <div id="opcionesBusqueda">
 	<table>
 		<tr class="BusquedaTable">
 			<td colspan="6" class="ListaTitulo">
-				<div style="float:left"><?php echo  _translate("Opciones de búsqueda")?></div>
+				<div style="float:left"><?php echo  _translate("Opciones de b&uacute;squeda")?></div>
 			</td>
 		</tr>		
 		<tr>
@@ -121,7 +123,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<input type="text" size="15"name="nombre" value="<?php  echo $var->opt['nombre']?>"></input>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Código oferta/oportunidad')?> &nbsp; 
+				<?php echo  _translate('C&oacute;digo oferta/oportunidad')?> &nbsp;
 			</td>
 			<td class="busquedaDcha">
 				<input type="text" size="15"name="codigo" value="<?php  echo $var->opt['codigo']?>"></input>
@@ -142,7 +144,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				</select>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Tipo de comisión')?>
+				<?php echo  _translate('Tipo de comisi&oacute;n')?>
 			</td>
 			<td class="busquedaDcha">
 				<select name="tipo_comision">
@@ -173,13 +175,13 @@ include ($appRoot.'/include/html/mainMenu.php');
 		
 		<tr>			
 			<td class="busquedaIzda">
-				<?php echo  _translate('Fecha asignación a técnico desde')?> &nbsp;
+				<?php echo  _translate('Fecha asignaci&oacute;n a t&eacute;cnico desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" class="fecha" size="12" name="fecha_asignacion_tecnico_desde" value="<?php  echo timestamp2date($var->opt['fecha_asignacion_tecnico_desde'])?>"></input>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Fecha asignación a técnico hasta')?> &nbsp;
+				<?php echo  _translate('Fecha asignaci&oacute;n a t&eacute;cnico hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" class="fecha" size="12" name="fecha_asignacion_tecnico_hasta" value="<?php  echo timestamp2date($var->opt['fecha_asignacion_tecnico_hasta'])?>"></input>
@@ -202,7 +204,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 		
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Formación bonificada')?>
+				<?php echo  _translate('Formaci&oacute;n bonificada')?>
 			</td>
 			<td class="busquedaDcha">
 				<select name="formacion_bonificada">
@@ -214,10 +216,10 @@ include ($appRoot.'/include/html/mainMenu.php');
 				
 				</select>
 			</td>
-			<td class="busquedaIzda" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>>
+			<td class="busquedaIzda" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>> 
+			<td class="busquedaDcha" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<select name="gestor">
 					<?php 
 					$gestor_seleccionado = $var->opt['gestor'];?>
@@ -232,7 +234,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 		
 		<tr>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Número de ventas por página')?> &nbsp;
+				<?php echo  _translate('N&uacute;mero de ventas por p&aacute;gina')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"></input>
@@ -243,7 +245,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<input type="hidden" name="navigation" value="" />
 				<input type="hidden" name="page" value="<?php echo  $var->datos['page']?>" />
 				<input type="hidden" name="total" id="total" value="<?php  echo  $var->datos['lista_ventas']->num_Resultados();?>" />
-				<!-- Criterios de ordenación -->
+				<!-- Criterios de ordenaci&aacute;n -->
 				<input type="hidden" id="order_by" name="order_by" value="<?php echo  $var->opt['order_by']?>" />
 				<input type="hidden" id="order_by_asc_desc" name="order_by_asc_desc" value="<?php echo  $var->opt['order_by_asc_desc']?>" />
 			</td>
@@ -255,7 +257,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <!-- RESULTADOS -->
 		<div class="listado" style="width:94%;margin-left:2em;">
 		<label class="nota"><?php  echo $var->datos['lista_ventas']->num_Resultados()." ".Resultados?></label>
-		<?php if($gestor_actual->esAdministrador()){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
+		<?php if($permisos->administracion){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
 			<table>
 				<thead>
 					<tr>
@@ -282,7 +284,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 						</th>
 						
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('tipo_comision')" ><?php echo  _translate("Tipo comisión")?></a>
+							<a href="#" onClick="javascript:orderBy('tipo_comision')" ><?php echo  _translate("Tipo comisi&oacute;n")?></a>
 							<?php 
 								if($var->opt['order_by']=='tipo_comision' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";
@@ -292,7 +294,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 						</th>
 						
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('formacion_bonificada')" ><?php echo  _translate("Formación bonificada")?></a>
+							<a href="#" onClick="javascript:orderBy('formacion_bonificada')" ><?php echo  _translate("Formaci&oacute;n bonificada")?></a>
 							<?php 
 								if($var->opt['order_by']=='formacion_bonificada' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";
@@ -321,7 +323,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							?>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
-							<a href="#" onClick="javascript:orderBy('fecha_asignacion_tecnico')" ><?php echo  _translate("Fecha asignación técnico")?></a>
+							<a href="#" onClick="javascript:orderBy('fecha_asignacion_tecnico')" ><?php echo  _translate("Fecha asignaci&oacute;n t&eacute;cnico")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_asignacion_tecnico' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";
@@ -401,7 +403,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($gestor_actual->esAdministrador()){?>
+					<?php if($permisos->administracion){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
@@ -411,16 +413,16 @@ include ($appRoot.'/include/html/mainMenu.php');
 					<?php }?>
 				</tbody>
 			</table>
-		<!-- <input type="hidden" name="id_usuario" id="id_usuario" value="<?php  echo $var->opt['id_usuario']?>" /> -->		
-		
 		</div>
-
 </form>
 </div>
 <br />
 <br />
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php 
 include($appRoot.'/include/html/bottomMenu.php');
 include ($appRoot.'/include/html/footer.php');
 ?>
-<?php }
+<?php }?>
