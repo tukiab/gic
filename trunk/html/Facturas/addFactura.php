@@ -11,11 +11,11 @@ include ($appRoot.'/Utils/lang.php');
 include_once($appRoot.'/Utils/utils.php');
 	include ('_addFactura.php');
 	$var = new AddFactura ($_GET);
-		FB::info($var->opt);
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');	
 	?>
-	<form method="GET" target=""><br/>
+<?php if($permisos->administracion){?>
+	<form method="GET" target="" action><br/>
 		<div id="titulo">Crear factura </div>
 		<?php echo  ($var->opt['error_msg'])?"<div id=\"error_msg\" >".$var->opt['error_msg']."</div>":null;?>
 		
@@ -128,3 +128,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 //		include($appRoot.'/include/html/bottomMenu.php');
 //		include($appRoot.'/include/html/footer.php');
 	?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>

@@ -15,14 +15,13 @@ include ('_editFactura.php');
 	$var = new EditFactura($_GET);
 
 include ($appRoot.'/include/html/popupHeader.php');
-
 ?>
 <div id="titulo"><?php echo  _translate("Editar Factura")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
-
 <br />
-<?php 
-?>
+
+<?php if($permisos->administracion){?>
+
 	<form id="frm" action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 		<table >
 			<tr class="ListaTitulo">
@@ -108,4 +107,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 	};
 
 </script>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php include($appRoot.'/include/html/footer.php')?>

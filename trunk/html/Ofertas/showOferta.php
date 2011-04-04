@@ -28,6 +28,8 @@ else
 	}
 </script>
 <br/>
+<?php if($permisos->lectura){?>
+
 <div id="titulo"><?php echo  $cliente->get_Razon_Social()." - ".$var->opt['Oferta']->get_Nombre_Oferta();?></div>
 <?php 
 if($var->opt['msg']){
@@ -116,7 +118,7 @@ else{?>
 			<td class="ColIzq" nowrap><?php echo  _translate("Aceptado")?>:</td>
 			<td class="ColDer"><?php  if($var->opt['Oferta']->get_Aceptado())echo  _translate("S&Iacute;"); else echo  "NO";?></td>
 		</tr>		<?php 
-		//if($permisos->administracion){?>
+		if($permisos->administracion){?>
 		<tr>
 			<td class="Transparente" colspan="6" style="text-align:right;">
 				<?php $url_dest = $appDir."/Ofertas/editOferta.php?id=".$var->opt['Oferta']->get_Id();?>
@@ -125,14 +127,14 @@ else{?>
 				<?php } ?>
 			</td>
 		</tr>
-		<?php //}?>
+		<?php }?>
 	</table>
 	
 	<div class="bottomMenu">
 		<table>
 			<tr>
 				<td colspan="2" style="text-align:right;" nowrap>
-				<?php if($gestor_actual->esAdministradorTotal() && !$var->opt['Oferta']->get_Aceptado()){?>
+				<?php if($permisos->administracion /*if($gestor_actual->esAdministradorTotal()*/ && !$var->opt['Oferta']->get_Aceptado()){?>
 							<label title="<?php echo  _translate("BORRAR")?>">
 								<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar oferta")?>" /></a>
 								<input type="hidden" id="eliminar" name="eliminar" value="0"/>
@@ -150,4 +152,7 @@ else{?>
 </div>
 </form>
 <?php }?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php include($appRoot.'/include/html/footer.php')?>

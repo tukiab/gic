@@ -4,6 +4,7 @@ include ('../appRoot.php');
 include_once($appRoot."/Utils/tcpdf/tcpdf.php");
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
+if($permisos->lectura){
 /* El proceso a seguir es:
  * 
  * 	- Obtener la lista de tareas del usuario (realizado en el objeto de tipo imprimirFacturaPDF
@@ -158,4 +159,4 @@ $Factura = $var->Factura;
 		
 	//Fichero de Salida
 	$tcpdf->Output("Factura_".$Factura->get_Numero_Factura()."pdf", "I");
-?>
+}?>

@@ -29,6 +29,8 @@ else
 </script>
 <br/>
 <div id="titulo"><?php echo  $cliente->get_Razon_Social()." - ".$var->opt['Factura']->get_Numero_Factura();?></div>
+<?php if($permisos->lectura){?>
+
 <?php 
 if($var->opt['msg']){
 	echo  "<div id=\"error_msg\" >".$var->opt['msg']."</div>";
@@ -95,7 +97,7 @@ else{?>
 			</td>
 		</tr>
 		<?php 
-		//if($permisos->administracion){?>
+		if($permisos->administracion){?>
 		<tr>
 			<td class="Transparente" colspan="6" style="text-align:right;">
 				<?php $url_dest = $appDir."/Facturas/editFactura.php?id=".$var->opt['Factura']->get_Id();?>
@@ -104,14 +106,14 @@ else{?>
 				
 			</td>
 		</tr>
-		<?php //}?>
+		<?php }?>
 	</table>
 	
 	<div class="bottomMenu">
 		<table>
 			<tr>
 				<td colspan="2" style="text-align:right;" nowrap>
-				<?php if($gestor_actual->esAdministradorTotal()){?>
+				<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
 							<label title="<?php echo  _translate("BORRAR")?>">
 								<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar factura")?>" /></a>
 								<input type="hidden" id="eliminar" name="eliminar" value="0"/>
@@ -130,4 +132,7 @@ else{?>
 </div>
 </form>
 <?php }?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php include($appRoot.'/include/html/footer.php')?>

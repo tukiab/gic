@@ -24,6 +24,7 @@ if($var->opt['msg']){
 }
 else{?>
 <?php $razon_social = $var->opt['Proveedor']->get_Razon_Social();?>
+<?php if($permisos->lectura){?>
 <div id="titulo"><?php echo  $razon_social?></div>		
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
 <div id="contenedor" align="center">
@@ -38,7 +39,7 @@ else{?>
 				<td class="ColDer"><?php echo  ($var->opt['Proveedor']->get_NIF());?></td>
 			</tr>
 			<tr>
-				<td class="ColIzq" nowrap><?php echo  _translate("Razón social")?>:</td>
+				<td class="ColIzq" nowrap><?php echo  _translate("Razï¿½n social")?>:</td>
 				<td class="ColDer">
 					<?php echo  $var->opt['Proveedor']->get_Razon_Social()?>
 				</td>
@@ -68,14 +69,14 @@ else{?>
 				</td>
 			</tr>
 			<?php 
-			//if($permisos->administracion){?>
+			if($permisos->administracion){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Proveedores/editProveedor.php?NIF=".$var->opt['Proveedor']->get_NIF();?>
 					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
 				</td>
 			</tr>
-			<?php //}?>
+			<?php }?>
 		</table>
 	</div>
 <br/>
@@ -90,8 +91,8 @@ else{?>
 		</tr>
  		<tr>				
 			<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Nombre Contacto")?></th>
-			<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Teléfono")?></th>
-			<!-- <th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Móvil")?></th> -->
+			<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Telï¿½fono")?></th>
+			<!-- <th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Mï¿½vil")?></th> -->
 			<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Email")?></th>
 			<th style="font-weight: normal;font-size:x-small;"><?php echo  _translate("Cargo")?></th>
 		</tr>
@@ -114,15 +115,15 @@ else{?>
 					<td align="center"><?php echo  $contacto->get_Cargo();?></td>
 				</tr>
 			<?php }?>
-		<?php //Cualquiera que tenga permiso de escritura en "Incidencias" puede editar los contactos
-		//if($permisos->escritura){?>
+		<?php 
+		if($permisos->administracion){?>
 		<tr>
 			<td class="Transparente" colspan="6" style="text-align:right;">
 				<?php $url_dest = $appDir."/Proveedores/editContactos.php?NIF=".$var->opt['Proveedor']->get_NIF();?>
 				<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=260,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
 			</td>
 		</tr>
-		<?php //}?>
+		<?php }?>
 	</table>	
 </div>
 
@@ -130,5 +131,8 @@ else{?>
 
 </div>
 </form>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>
 <?php }?>
 <?php include($appRoot.'/include/html/footer.php')?>

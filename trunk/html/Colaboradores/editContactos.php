@@ -20,7 +20,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 <div id="titulo"><?php echo  _translate("Editar Contactos")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 <br />
-<?php //if($permisos->escritura){?>
+<?php if($permisos->escritura){?>
 <div id="contenedor" style="margin-top: 100px;" align="center">
 
 <form action="<?php echo  $_SERVER['_SELF']?>" method="GET">
@@ -94,9 +94,9 @@ include ($appRoot.'/include/html/popupHeader.php');
 </div>
 </form>
 </div>
-<?php /*}else{
+<?php }else{
 echo  _translate("No tiene permisos suficientes");
-}*/?>
+}?>
 <script language="JavaScript" type="text/javascript">
 	<!--
 	function cerrar(){

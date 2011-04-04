@@ -15,10 +15,11 @@ include_once($appRoot.'/Utils/utils.php');
 include ($appRoot.'/include/html/popupHeader.php');
 	
 	?>
-	<form method="GET" target=""><br/>
+
+	<form method="GET" target="" action=""><br/>
 		<div id="titulo"><?php echo $var->opt['cliente_obj']->get_Razon_Social()." - "; if($var->opt['es_oportunidad_de_negocio']) echo _translate("Nueva Oportunidad"); else echo _translate("Nueva Oferta");?></div>
 		<?php echo  ($var->opt['error_msg'])?"<div id=\"error_msg\" >".$var->opt['error_msg']."</div>":null;?>
-		
+<?php if($permisos->escritura){?>
 	<div align="center">
 	  <table style="margin-top:8ex;margin-left:2%;margin-right:2%;">
 	  	<tr>
@@ -158,3 +159,6 @@ include ($appRoot.'/include/html/popupHeader.php');
 //		include($appRoot.'/include/html/bottomMenu.php');
 //		include($appRoot.'/include/html/footer.php');
 	?>
+<?php }else{
+echo  _translate("No tiene permisos suficientes");
+}?>

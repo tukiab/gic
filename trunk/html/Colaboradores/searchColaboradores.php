@@ -16,6 +16,7 @@ include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
 
 ?>
+<?php if($permisos->lectura){?>
 <!-- Funciones varias para mejorar la interfaz -->
 <script language="JavaScript" type="text/javascript">
 <!--
@@ -107,7 +108,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <!-- RESULTADOS -->
 		<div class="listado" style="width:94%;margin-left:2em;">
 		<label class="nota"><?php  echo $var->datos['lista_colaboradores']->num_Resultados()." ".Resultados?></label>
-		<?php if($gestor_actual->esAdministrador() && false){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /><?php }?>
+		<?php if($permisos->administracion /*$gestor_actual->esAdministrador()*/ && false){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /><?php }?>
 			<table>
 				<thead>
 					<tr>
@@ -191,13 +192,15 @@ include ($appRoot.'/include/html/mainMenu.php');
 							<?php  echo $colaborador->get_CP()?>
 						</td>
 						<td style="text-align:center;width:5%;">
-
+						<?php if($permisos->administracion){?>
 							<?php $url_dest = $appDir."/Colaboradores/editContactos.php?id=".$colaborador->get_Id();?>
 							<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=500,scrollbars=yes');">
-							<?php  foreach($colaborador->get_Lista_Contactos() as $contacto) 
+						<?php }?>
+						<?php  foreach($colaborador->get_Lista_Contactos() as $contacto)
 							echo $contacto->get_Nombre()."<br/>"?>
 							</a></label>
-						</td>					
+						</td>
+						
 					</tr>
 				<?php }
 				}?>	
@@ -224,7 +227,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($gestor_actual->esAdministrador()){?>
+					<?php if($permisos->administracion /*$gestor_actual->esAdministrador()*/){?>
 					<tr>
 						<td colspan="14" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
@@ -233,11 +236,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 					</tr>
 					<?php }?>
 				</tbody>
-			</table>
-		<!-- <input type="hidden" name="id_usuario" id="id_usuario" value="<?php  echo $var->opt['id_usuario']?>" /> -->		
-		
+			</table>	
 		</div>
-
 </form>
 </div>
 <br />
@@ -335,3 +335,6 @@ header("Expires: 0");
 </table>
 <?php }?>
 
+<?php }else{
+	echo _translate("No tiene suficientes permisos");
+}?>
