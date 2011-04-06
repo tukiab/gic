@@ -52,7 +52,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td align="center">
 				<input type="text" name="nombre_<?php echo $Grupo->get_Id() ?>" value="<?php echo  $Grupo->get_Nombre();?>" size="15" />
 			</td>
-			<?php if($permisos->administracion){ ?><td align="center">
+			<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal()){ ?><td align="center">
 				<a href="#" onclick="eliminar('<?php echo $Grupo->get_Id();?>')"><input class="borrar" type="button" value="<?php echo _translate("Eliminar")?>"/></a>
 			</td>
 			<td align="center">

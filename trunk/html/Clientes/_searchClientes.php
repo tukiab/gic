@@ -44,7 +44,7 @@ class BusquedaClientes{
 	public function __construct($opciones){
 		
 		try{
-			FB::info($opciones, "BusquedaClientes:Opciones");
+			
 			$this->gestor = new Usuario($_SESSION['usuario_login']);
 			//Usamos el método para asignar las opciones pasadas desde la interfaz 	
 			$this->obtener_Opciones($opciones);
@@ -66,11 +66,11 @@ class BusquedaClientes{
 				$this->opt['exportar'] = 1;
 				$this->lista_Clientes->buscar();
 			}
-			else{
-			//Buscamos los clientes con los parámetros establecidos en la interfaz
-			$this->lista_Clientes->buscar($this->opt, $this->datos['page'], $this->datos['paso']);
+			else if($this->opt['mostrar']){
+				//Buscamos los clientes con los parámetros establecidos en la interfaz
+				$this->lista_Clientes->buscar($this->opt, $this->datos['page'], $this->datos['paso']);
 			}
-			//$this->lista_Clientes->buscar($this->opt);
+			
 			$total = $this->lista_Clientes->num_Resultados();
 			$this->datos['lastPage'] = @($total/$this->datos['paso']); 
 			$this->datos['lastPage'] = floor ($this->datos['lastPage']);
@@ -90,7 +90,7 @@ class BusquedaClientes{
 		$this->datos['lista_clientes']=$this->lista_Clientes;
 		if(!$this->opt['borrado_total']){		
 			foreach($this->opt['seleccionados'] as $idCliente){
-				$cliente = new Cliente($idCliente);FB::error($cliente);
+				$cliente = new Cliente($idCliente);
 				if(count($cliente->get_Acciones()) > 0 || count($cliente->get_Ofertas()) > 0)
 					throw new Exception("Existen clientes seleccionados con acciones u ofertas. Confirme el borrado");
 			}
@@ -128,20 +128,24 @@ class BusquedaClientes{
 	private function obtener_Opciones($opciones){
 		
 		//Asignar opciones según se nos pase desde la interfaz para construir una busqueda.	
-		
+		global $permisos;
 		
 		$id_usuario = $_SESSION['usuario_login'];
 		$usuario = new Usuario($id_usuario);
 		
 		$perfil_usuario = $usuario->get_Perfil();
-		if($perfil_usuario['id'] != 5 && $perfil_usuario['id'] != 4)
+		if(!$permisos->administracion && !esPerfilTecnico($perfil_usuario['id'])){
 			$this->opt['id_usuario'] = $id_usuario;
+		}
 		else
 			@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;			
+
+					FB::info($this->opt['id_usuario']);
 
 		@($opciones['exportar'])?$this->opt['exportar']=$opciones['exportar']:null;		
 		@($opciones['exportar_todo'])?$this->opt['exportar_todo']=$opciones['exportar_todo']:null;
 
+		@($opciones['mostrar'])?$this->opt['mostrar']=true:$this->opt['mostrar']=false;
 		@($opciones['eliminar'])?$this->opt['eliminar']=true:$this->opt['eliminar']=false;		
 		@($opciones['borrado_total'])?$this->opt['borrado_total']=true:$this->opt['borrado_total']=false;
 		@($opciones['agregar_gestores'])?$this->opt['agregar_gestores']=true:$this->opt['agregar_gestores']=false;

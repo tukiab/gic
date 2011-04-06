@@ -113,7 +113,8 @@ else{?>
 		<table>
 			<tr>
 				<td colspan="2" style="text-align:right;" nowrap>
-				<?php if($permisos->administracion){?>
+				<?php $usuario = new Usuario($_SESSION['usuario_login']);
+					if($permisos->administracion && $usuario->esAdministradorTotal()){?>
 							<label title="<?php echo  _translate("BORRAR")?>">
 								<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar factura")?>" /></a>
 								<input type="hidden" id="eliminar" name="eliminar" value="0"/>

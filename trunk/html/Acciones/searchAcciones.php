@@ -10,7 +10,7 @@ include ('_searchAcciones.php');
 
 //Instanciamso la clase busqueda de acciones.
 $var = new BusquedaAcciones($_GET);
-FB::info($var);
+//FB::info($var);
 if(!$var->opt['exportar']){
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
@@ -143,9 +143,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<select name="tipo_accion">
 				<?php 
 				$tipo_seleccionado = $var->opt['tipo_accion'];?>
-				<option value="0" <?php if($tipo_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+				<option value="0" <?php if($tipo_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 				<?php foreach($var->datos['lista_tipos_acciones'] as $tipo){?>
-				<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $tipo['nombre']?></option>
+				<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_seleccionado) echo  'selected="selected"';?>><?php  echo $tipo['nombre']?></option>
 				<?php }?> 
 				</select>
 			</td>
@@ -187,16 +187,16 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"/>
 			</td>
-				<td class="busquedaIzda" <?php  if(!$permisos->administracion) echo 'style="display:none"';?>>
+				<td class="busquedaIzda" <?php $perfil = $var->gestor->get_Perfil(); if(!$permisos->administracion && !esPerfilTecnico($perfil['id'])) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php  if(!$permisos->administracion) echo 'style="display:none"';?>>
+			<td class="busquedaDcha" <?php  if(!$permisos->administracion && !esPerfilTecnico($perfil['id'])) echo 'style="display:none"';?>>
 				<select name="gestor">
 					<?php 
 					$gestor_seleccionado = $var->opt['gestor'];?>
-					<option value="0" <?php if($gestor_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+					<option value="0" <?php if($gestor_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 					<?php foreach($var->datos['lista_gestores'] as $gestor){?>
-					<option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $gestor['id']?></option>
+					<option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  'selected="selected"';?>><?php  echo $gestor['id']?></option>
 					<?php }?> 
 				</select>
 			</td>
@@ -338,7 +338,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($permisos->escritura){//if($permisos->administracion){?>
+					<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal()){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
