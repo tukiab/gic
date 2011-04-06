@@ -84,18 +84,21 @@ class BusquedaOfertas{
 	 */
 	
 	private function obtener_Opciones($opciones){
-		
+				global $permisos;
+
 		//Asignar opciones según se nos pase desde la interfaz para construir una busqueda.	
 		$id_usuario = $_SESSION['usuario_login'];
 		$usuario = new Usuario($id_usuario);
 		
 		$perfil_usuario = $usuario->get_Perfil();
-		if($perfil_usuario['id'] != 5 && $perfil_usuario['id'] != 4)
+		if(!$permisos->administracion && !esPerfilTecnico($perfil_usuario['id']))
 			$this->opt['id_usuario'] = $id_usuario;
 		else
 			@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;			
 
 		@($opciones['exportar'])?$this->opt['exportar']=$opciones['exportar']:null;		
+
+				@($opciones['mostrar'])?$this->opt['mostrar']=true:$this->opt['mostrar']=false;
 
 		@($opciones['eliminar'])?$this->opt['eliminar']=true:$this->opt['eliminar']=false;		
 		@($opciones['seleccionados'])?$this->opt['seleccionados']=$opciones['seleccionados']:null;

@@ -8,6 +8,7 @@ class GestionGrupos{
 		public $opt;		
 		public $datos;
 		private $DB_grupos;
+		public $gestor;
 	
 	/**
 	 * Constructor:
@@ -17,6 +18,7 @@ class GestionGrupos{
 
 		try{
 			$usuario = new Usuario($_SESSION['usuario_login']);
+			$this->gestor = $usuario;
 			$perfil = $usuario->get_Perfil();
 			$this->opt['esAdministrador'] = esAdministrador($perfil['id']);
 

@@ -501,7 +501,7 @@ if($var->opt['msg']){?>
 							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><input type="button" name="addOferta" value="<?php echo  _translate("Nueva Oportunidad")?>" /></a>						
 						</label>
 					<?php }?>
-					<?php if($permisos->administracion){?>
+					<?php if($permisos->administracion && $usuario->esAdministradorTotal()){?>
 						<label title="<?php echo  _translate("BORRAR")?>">
 							<a href="#" onclick="eliminar(false);"><input class="borrar" type="button" value="<?php echo  _translate("Borrar empresa")?>" /></a>
 													

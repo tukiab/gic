@@ -164,9 +164,9 @@ $(document).ready(function(){
                     <select name="tipo_cliente">
                     <?php
                     $tipo_cliente_seleccionado = $var->opt['tipo_cliente'];?>
-                    <option value="0" <?php if($tipo_cliente_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+                    <option value="0" <?php if($tipo_cliente_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
                     <?php foreach($var->datos['lista_tipos_clientes'] as $tipo){?>
-                    <option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_cliente_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $tipo['nombre']?></option>
+                    <option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_cliente_seleccionado) echo  'selected="selected"';?>><?php  echo $tipo['nombre']?></option>
                     <?php }?>
                     </select>
             </td>
@@ -198,9 +198,9 @@ $(document).ready(function(){
                     <select name="grupo_empresas">
                     <?php
                     $grupo_empresas_seleccionado = $var->opt['grupo_empresas'];?>
-                    <option value="0" <?php if($grupo_empresas_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+                    <option value="0" <?php if($grupo_empresas_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
                     <?php foreach($var->datos['lista_grupos_empresas'] as $tipo){?>
-                    <option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $grupo_empresas_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $tipo['nombre']?></option>
+                    <option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $grupo_empresas_seleccionado) echo  'selected="selected"';?>><?php  echo $tipo['nombre']?></option>
                     <?php }?>
                     </select>
             </td>
@@ -303,16 +303,16 @@ $(document).ready(function(){
                     <input type="text" size="15"name="web" value="<?php  echo $var->opt['web']?>"/>
             </td>
 
-            <td class="busquedaIzda" <?php if(!$permisos->administracion)/*if(!$var->gestor->esAdministrador())*/ echo 'style="display:none"';?>>
+            <td class="busquedaIzda" <?php $perfil = $var->gestor->get_Perfil(); if(!$permisos->administracion && !esPerfilTecnico($perfil['id'])) echo 'style="display:none"';?>>
                     <?php echo  _translate('Gestor')?> &nbsp;
             </td>
-            <td class="busquedaDcha" <?php if(!$permisos->administracion)/*if(!$var->gestor->esAdministrador())*/echo 'style="display:none"';?>>
+            <td class="busquedaDcha" <?php if(!$permisos->administracion && !esPerfilTecnico($perfil['id'])) echo 'style="display:none"';?>>
                     <select name="gestor">
                             <?php
                             $gestor_seleccionado = $var->opt['gestor'];?>
-                            <option value="0" <?php if($gestor_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+                            <option value="0" <?php if($gestor_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
                             <?php foreach($var->datos['lista_gestores'] as $gestor){?>
-                            <option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $gestor['id']?></option>
+                            <option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  'selected="selected"';?>><?php  echo $gestor['id']?></option>
                             <?php }?>
                     </select>
             </td>
@@ -639,10 +639,11 @@ $(document).ready(function(){
                             <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
                             <input type="hidden" id="agregar_gestores" name="agregar_gestores" value="0"/>
                             <input type="hidden" id="agregar_grupos" name="agregar_grupos" value="0"/>
-                            <?php if($permisos->administracion){?>
+                            <?php if($permisos->administracion  && $var->gestor->esAdministradorTotal()){?>
 								<a href="#" onclick="eliminar();">
 									<input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" />
 								</a>
+							<?php } if($permisos->administracion){?>
 								<input id="mostrarGestores" type="button" value="<?php echo  _translate("Agregar gestores")?>" />
 								<input id="mostrarGrupos" type="button" value="<?php echo  _translate("Agregar grupo")?>" />
 							<?php }?>
@@ -688,7 +689,7 @@ $(document).ready(function(){
                             <?php
                             $grupo_empresas_seleccionado = $var->opt['grupo_seleccionado'];?>
                             <?php foreach($var->datos['lista_grupos_empresas'] as $tipo){?>
-                            <option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $grupo_empresas_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $tipo['nombre']?></option>
+                            <option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $grupo_empresas_seleccionado) echo  'selected="selected"';?>><?php  echo $tipo['nombre']?></option>
                             <?php }?>
                     </select>
             </td>

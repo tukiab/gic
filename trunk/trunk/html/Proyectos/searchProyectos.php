@@ -476,10 +476,12 @@ $(document).ready(function(){
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>
                             <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
                             <input type="hidden" id="asignar_gestor" name="asignar_gestor" value="0"/>
-
-							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
 							<input type="hidden" id="informe" name="informe" value="<?php echo $var->opt['informe']?>" />
                             <input id="mostrarGestores" type="button" value="<?php echo  _translate("Asignar t&eacute;cnico")?>" />
+
+							<?php if($var->gestor->esAdministradorTotal()){?>
+							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
+							<?php }?>
                     </td>
             </tr>
             <?php }?>

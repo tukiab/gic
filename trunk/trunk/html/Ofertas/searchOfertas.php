@@ -128,9 +128,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<select name="estado_oferta">
 				<?php 
 				$estado_seleccionado = $var->opt['estado_oferta'];?>
-				<option value="0" <?php if($estado_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+				<option value="0" <?php if($estado_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 				<?php foreach($var->datos['lista_estados_ofertas'] as $estado){?>
-				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $estado['nombre']?></option>
+				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
 				<?php }?> 
 				</select>
 			</td>
@@ -141,9 +141,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<select name="producto">
 				<?php 
 				$estado_seleccionado = $var->opt['producto'];?>
-				<option value="0" <?php if($estado_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+				<option value="0" <?php if($estado_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 				<?php foreach($var->datos['lista_tipos_productos'] as $estado){?>
-				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $estado['nombre']?></option>
+				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
 				<?php }?> 
 				</select>
 			</td>
@@ -156,9 +156,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<select name="proveedor">
 				<?php 
 				$estado_seleccionado = $var->opt['proveedor'];?>
-				<option value="0" <?php if($estado_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+				<option value="0" <?php if($estado_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 				<?php foreach($var->datos['lista_proveedores_ofertas'] as $estado){?>
-				<option value="<?php  echo $estado['NIF']?>" <?php if($estado['NIF'] == $estado_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $estado['nombre']?></option>
+				<option value="<?php  echo $estado['NIF']?>" <?php if($estado['NIF'] == $estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
 				<?php }?> 
 				</select>
 			</td>
@@ -169,9 +169,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<select name="probabilidad_contratacion">
 				<?php 
 				$estado_seleccionado = $var->opt['probabilidad_contratacion'];?>
-				<option value="0" <?php if($estado_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+				<option value="0" <?php if($estado_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 				<?php foreach($var->datos['lista_probabilidades'] as $estado){?>
-				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $estado['nombre']?></option>
+				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
 				<?php }?> 
 				</select>
 			</td>
@@ -239,16 +239,16 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>" />
 			</td>
-				<td class="busquedaIzda" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
+				<td class="busquedaIzda" <?php $perfil = $var->gestor->get_Perfil(); if(!$permisos->administracion && !esPerfilTecnico($perfil['id'])) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
+			<td class="busquedaDcha" <?php if(!$permisos->administracion && !esPerfilTecnico($perfil['id'])) echo 'style="display:none"';?>>
 				<select name="gestor">
 					<?php 
 					$gestor_seleccionado = $var->opt['gestor'];?>
-					<option value="0" <?php if($gestor_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
+					<option value="0" <?php if($gestor_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 					<?php foreach($var->datos['lista_gestores'] as $gestor){?>
-					<option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $gestor['id']?></option>
+					<option value="<?php  echo $gestor['id']?>" <?php if($gestor['id'] == $gestor_seleccionado) echo  'selected="selected"';?>><?php  echo $gestor['id']?></option>
 					<?php }?> 
 				</select>
 			</td>
@@ -263,9 +263,9 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<select name="es_oportunidad_de_negocio">
 					<?php 
 					$oferta_seleccionado = $var->opt['es_oportunidad_de_negocio'];?>
-					<option value="2" <?php if($oferta_seleccionado == 2) echo  "selected:\"selected\"";?>><?php echo  _translate("Cualquiera")?></option>
-					<option value="0" <?php if($oferta_seleccionado == 0) echo  "selected:\"selected\"";?>><?php echo  _translate("Ofertas")?></option>
-					<option value="1" <?php if($oferta_seleccionado == 1) echo  "selected:\"selected\"";?>><?php echo  _translate("Oportunidades")?></option>
+					<option value="2" <?php if($oferta_seleccionado == 2) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
+					<option value="0" <?php if($oferta_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Ofertas")?></option>
+					<option value="1" <?php if($oferta_seleccionado == 1) echo  'selected="selected"';?>><?php echo  _translate("Oportunidades")?></option>
 				</select>
 			</td>
 			<td colspan="2" style="text-align:right;background: none;" >
@@ -402,7 +402,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($permisos->administracion){//if($permisos->administracion){?>
+					<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal()){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
