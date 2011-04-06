@@ -134,7 +134,7 @@ else{?>
 		<table>
 			<tr>
 				<td colspan="2" style="text-align:right;" nowrap>
-				<?php if($permisos->administracion /*if($gestor_actual->esAdministradorTotal()*/ && !$var->opt['Oferta']->get_Aceptado()){?>
+				<?php if($permisos->administracion  && !$var->opt['Oferta']->get_Aceptado()){?>
 							<label title="<?php echo  _translate("BORRAR")?>">
 								<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar oferta")?>" /></a>
 								<input type="hidden" id="eliminar" name="eliminar" value="0"/>

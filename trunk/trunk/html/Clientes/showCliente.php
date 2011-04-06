@@ -288,7 +288,7 @@ if($var->opt['msg']){?>
 			<tr class="gestores">
 				<th ><?php echo  _translate("Id Gestor")?></th>
 				<th ><?php echo  _translate("Nombre Gestor")?></th>
-				<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
+				<?php if($permisos->administracion){?>
 				<th ><?php echo  _translate("Eliminar")?></th>
 				<?php } ?>
 			</tr>
@@ -307,7 +307,7 @@ if($var->opt['msg']){?>
 					<tr class="<?php  echo $class?> gestores" >
 						<td ><?php echo  $usuario->get_Id();?></td>
 						<td ><?php echo  $usuario->get_Nombre_Y_Apellidos();?></td>
-						<?php  if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
+						<?php  if($permisos->administracion){?>
 						<td ><a href="#" onclick="eliminarGestor('<?php echo $usuario->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
 						<?php }?>
 					</td>
@@ -338,7 +338,7 @@ if($var->opt['msg']){?>
 						<th ><?php echo  _translate("Fecha")?></th>
 						<th ><?php echo  _translate("Fecha Siguiente")?></th>
 						<th ><?php echo  _translate("Comentario")?></th>
-						<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
+						<?php if($permisos->administracion){?>
 						<th ><?php echo  _translate("Eliminar")?></th>
 						<?php } ?>
 					</tr>
@@ -362,7 +362,7 @@ if($var->opt['msg']){?>
 							<td ><?php echo  timestamp2date($accion->get_Fecha());?></td>
 							<td ><?php echo  timestamp2date($accion->get_Fecha_Siguiente_Accion());?></td>
 							<td ><?php echo  $accion->get_Descripcion();?></td>
-							<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
+							<?php if($permisos->administracion){?>
 								<td ><a href="#" onclick="eliminarAccion('<?php echo $accion->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
 								<?php }?>
 						</tr>
@@ -501,7 +501,7 @@ if($var->opt['msg']){?>
 							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><input type="button" name="addOferta" value="<?php echo  _translate("Nueva Oportunidad")?>" /></a>						
 						</label>
 					<?php }?>
-					<?php if($permisos->administracion){//if($gestor_actual->esAdministradorTotal()){?>
+					<?php if($permisos->administracion){?>
 						<label title="<?php echo  _translate("BORRAR")?>">
 							<a href="#" onclick="eliminar(false);"><input class="borrar" type="button" value="<?php echo  _translate("Borrar empresa")?>" /></a>
 													

@@ -133,10 +133,10 @@ include ($appRoot.'/include/html/mainMenu.php');
 			</td>
 		</tr>
 		<tr>
-			<td class="busquedaIzda" <?php if($permisos->escritura)/* if(!$gestor_actual->esAdministrador())*/ echo 'style="display:none"';?>>
+			<td class="busquedaIzda" <?php if($permisos->escritura)/* */ echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php if($permisos->escritura)/* if(!$gestor_actual->esAdministrador())*/ echo 'style="display:none"';?>>
+			<td class="busquedaDcha" <?php if($permisos->escritura)/* */ echo 'style="display:none"';?>>
 				<select name="id_usuario">
 					<?php 
 					$gestor_seleccionado = $var->opt['id_usuario'];?>
@@ -154,7 +154,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 </div>
 <br/>
 <!-- RESULTADOS -->
-<?php if($permisos->escritura /*$gestor_actual->esAdministrador()*/ && $var->resumen){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+<?php if($permisos->escritura && $var->resumen){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <?php }?>
 		<div class="listado" style="width:94%;margin-left:2em;">
 			<?php 
