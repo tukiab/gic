@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `clientes_sedes_rel_contactos` (
 -- Hay que introducir las sedes principales de los clientes que ya existen:
 INSERT INTO `clientes_sedes` (`localidad`, `CP`, `provincia`, `direccion`, `fk_cliente`)
 	SELECT clientes.localidad, clientes.CP, clientes.provincia, clientes.domicilio, clientes.id
-		FROM clientes
+		FROM clientes;
 -- y todas son principales:
 UPDATE `clientes_sedes` SET `es_sede_principal`= '1';
 
@@ -272,3 +272,102 @@ INSERT INTO procesos (nombre, descripcion) VALUES
 ('Gestión comercial', 'Gestión comercial'),
 ('Gestión técnica', 'Gestión técnica');
 
+
+
+-- permisos
+DELETE FROM `permisos_usuarios_perfiles`;
+INSERT INTO `permisos_usuarios_perfiles` (`fk_perfil`, `fk_proceso`, `lectura`, `escritura`, `administracion`) VALUES
+(1, 1, 1, 0, 0),
+(1, 2, 0, 0, 0),
+(1, 3, 1, 1, 0),
+(1, 4, 0, 0, 0),
+(2, 1, 1, 0, 0),
+(2, 2, 0, 0, 0),
+(2, 3, 1, 1, 0),
+(2, 4, 0, 0, 0),
+(3, 1, 1, 0, 0),
+(3, 2, 0, 0, 0),
+(3, 3, 1, 0, 0),
+(3, 4, 1, 1, 0),
+(4, 1, 1, 0, 0),
+(4, 2, 1, 1, 0),
+(4, 3, 1, 1, 1),
+(4, 4, 1, 1, 1),
+(5, 1, 1, 1, 1),
+(5, 2, 1, 1, 1),
+(5, 3, 1, 1, 1),
+(5, 4, 1, 1, 1),
+(6, 1, 1, 0, 0),
+(6, 2, 0, 0, 0),
+(6, 3, 1, 0, 0),
+(6, 4, 1, 1, 1),
+(7, 1, 1, 0, 0),
+(7, 2, 0, 0, 0),
+(7, 3, 1, 1, 1),
+(7, 4, 1, 0, 0);
+
+--scripts para los permisos
+DELETE FROM `scripts`;
+
+INSERT INTO `scripts` (`id`, `ruta`, `menu`, `descripcion`, `fk_proceso`) VALUES
+(1, '/index.php', 'inicio', '', 1),
+(3, '/Autentificacion/Logout.php', 'inicio', '', 1),
+(4, '/Usuarios/infoUsuario.php', 'inicio', '', 1),
+(5, '/Usuarios/AtajosUsuario.php', 'inicio', '', 1),
+(6, '/Clientes/searchClientes.php', 'clientes', '', 1),
+(8, '/Usuario/controlTareas.php', 'inicio', '', 1),
+(9, '/Clientes/addCliente.php', 'inicio', '', 3),
+(10, '/Clientes/showCliente.php', 'inicio', '', 1),
+(11, '/Clientes/editCliente.php', 'inicio', '', 3),
+(12, '/Clientes/busquedaHistorial.php', 'inicio', '', 1),
+(13, '/Clientes/editContactos.php', 'inicio', '', 3),
+(14, '/Clientes/addClientes.php', 'inicio', '', 3),
+(15, '/Clientes/addGestores.php', 'inicio', '', 3),
+(16, '/Llamadas/incidenciasCliente.php', 'inicio', '', 1),
+(17, '/Clientes/addAccion.php', 'inicio', '', 3),
+(18, '/Clientes/addOferta.php', 'inicio', '', 3),
+(19, '/Clientes/showOferta.php', 'inicio', '', 1),
+(20, '/Clientes/showAccion.php', 'inicio', '', 1),
+(21, '/Ofertas/searchOfertas.php', 'inicio', '', 1),
+(22, '/Ventas/searchVentas.php', 'inicio', '', 1),
+(23, '/Acciones/searchAcciones.php', 'inicio', '', 1),
+(24, '/Acciones/reportsAcciones.php', 'inicio', '', 3),
+(25, '/Ofertas/reportsOfertas.php', 'inicio', '', 3),
+(26, '/Colaboradores/searchColaboradores.php', 'inicio', '', 3),
+(27, '/Colaboradores/addColaborador.php', 'inicio', '', 3),
+(28, '/Proveedores/searchProveedores.php', 'inicio', '', 3),
+(29, '/Proveedores/addProveedor.php', 'inicio', '', 3),
+(30, '/Administracion/gestionUsuarios.php', 'inicio', '', 2),
+(31, '/Administracion/gestionGrupos.php', 'inicio', '', 2),
+(32, '/Administracion/gestionTiposProducto.php', 'inicio', '', 2),
+(33, '/Administracion/gestionTiposAccion.php', 'inicio', '', 2),
+(34, '/Administracion/gestionTiposFormasDePago.php', 'inicio', '', 2),
+(35, '/Administracion/gestionTiposComision.php', 'inicio', '', 2),
+(36, '/Facturas/searchFacturas.php', 'inicio', '', 3),
+(37, '/Colaboradores/editColaborador.php', 'inicio', '', 3),
+(38, '/Ofertas/addOferta.php', 'inicio', '', 3),
+(39, '/Ofertas/showOferta.php', 'inicio', '', 1),
+(40, '/Ventas/addVenta.php', 'inicio', '', 3),
+(41, '/Ventas/showVenta.php', 'inicio', '', 1),
+(42, '/Ofertas/editOferta.php', 'inicio', '', 3),
+(43, '/Clientes/exportAll.php', 'inicio', '', 1),
+(44, '/Facturas/addFactura.php', 'inicio', '', 3),
+(45, '/Facturas/showFactura.php', 'inicio', '', 3),
+(46, '/Facturas/editFactura.php', 'inicio', '', 3),
+(47, '/Facturas/imprimirFacturaPDF.php', 'inicio', '', 3),
+(48, '/Proyectos/searchProyectos.php', 'inicio', '', 4),
+(49, '/Administracion/miEmpresa.php', 'inicio', '', 2),
+(50, '/Proyectos/showProyecto.php', 'inicio', '', 4),
+(51, '/Proyectos/editProyecto.php', 'inicio', '', 4),
+(52, '/Tareas/addTarea.php', 'inicio', '', 4),
+(53, '/Proyectos/definirProyecto.php', 'inicio', '', 4),
+(54, '/Proyectos/addProyecto.php', 'inicio', '', 4),
+(55, '/Acciones/addAccion.php', 'inicio', '', 3),
+(56, '/Ventas/reportsVentas.php', 'inicio', '', 3),
+(57, '/Administracion/editUsuario.php', 'inicio', '', 2),
+(58, '/Planificacion/', 'inicio', '', 4),
+(59, '/Planificacion/index.php', 'inicio', '', 4),
+(60, '/Clientes/rel_Sedes_Contactos.php', 'inicio', '', 3),
+(61, '/Proveedores/editProveedor.php', 'inicio', '', 3),
+(62, '/Proveedores/editContactos.php', 'inicio', '', 3),
+(63, '/Proveedores/showProveedor.php', 'inicio', '', 3);

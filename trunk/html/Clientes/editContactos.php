@@ -51,7 +51,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 						<input <?php echo $disabled['email']; ?> type="text" name="<?php echo  $count."_"?>email" value="<?php echo  $Contacto->get_Email();?>" size="9" />
 							<input type="hidden" name="<?php echo  $count."_"?>id" value="<?php echo  $Contacto->get_Id();?>" size="9" />
 					</td>
-					<?php if($permisos->administracion){//if($gestor->esAdministrador()){?>
+					<?php if($permisos->administracion){?>
 					<td align="center">
 						<input class="borrar" type="button" name="eliminacontacto" value="Eliminar" onclick="javascript: if(confirm('Confirme que desea eliminar este contacto')){window.location = 'editContactos.php?id=<?php  echo  $var->Cliente->get_Id();?>&eliminar=<?php echo  $Contacto->get_Id();?>&edit=contactos';}"  />
 					</td>

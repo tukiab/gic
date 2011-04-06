@@ -191,10 +191,10 @@ $(document).ready(function(){
             </td>
     </tr>
     <tr>
-            <td class="busquedaIzda" <?php if(!$var->gestor->esAdministrador()) echo 'style="display:none"';?>>
+            <td class="busquedaIzda" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
                     <?php echo  _translate('Gestor asignado')?> &nbsp;
             </td>
-            <td class="busquedaDcha" <?php if(!$var->gestor->esAdministrador())echo 'style="display:none"';?>>
+            <td class="busquedaDcha" <?php if(!$permisos->administracion)echo 'style="display:none"';?>>
                     <select name="gestor">
                             <?php
                             $gestor_seleccionado = $var->opt['gestor'];?>
@@ -231,15 +231,15 @@ $(document).ready(function(){
 </table>
 </div>
 <br/>
-<?php //if($permisos->escritura){ ?>
+<?php if($permisos->administracion){ ?>
 <label class="nota"><a href=<?php echo  $appDir.'/Proyectos/addProyecto.php';?>>>> <?php echo  _translate("Crear proyecto directamente")?> <<</a></label><br/>
 <br/>
-<?php //}?>
+<?php }?>
 <!-- RESULTADOS -->
 <div class="listado" style="width:94%;margin-left:2em;">
 <label class="nota"><?php  echo $var->datos['lista_proyectos']->num_Resultados()." ".Resultados?></label>
 
-<?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+<?php if($permisos->administracion){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <?php }?>
 
 <table>
@@ -470,7 +470,7 @@ $(document).ready(function(){
                     </div>
             </td>
         </tr>
-            <?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
+            <?php if($permisos->administracion){?>
             <tr>
                     <td colspan="23" style="text-align: right;">
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>

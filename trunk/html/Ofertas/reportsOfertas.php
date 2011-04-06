@@ -139,10 +139,10 @@ if(!$var->opt['exportar']){
 			</td>
 		</tr>
 		<tr>
-			<td class="busquedaIzda" <?php if(!$gestor_actual->esAdministrador()) echo 'style="display:none"';?>>
+			<td class="busquedaIzda" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php if(!$gestor_actual->esAdministrador()) echo 'style="display:none"';?>>
+			<td class="busquedaDcha" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<select name="id_usuario">
 					<?php
 					$gestor_seleccionado = $var->opt['id_usuario'];?>
@@ -161,7 +161,7 @@ if(!$var->opt['exportar']){
 <br/>
 <!-- RESULTADOS -->
 <?php }
-if($gestor_actual->esAdministrador() && $var->resumen && !$var->opt['exportar']){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <?php }?>
 <?php if(!$var->opt['exportar']){?>
 		<div class="listado" style="width:94%;margin-left:2em;">

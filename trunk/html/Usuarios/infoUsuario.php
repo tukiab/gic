@@ -232,6 +232,7 @@ $cfilaImpar = "#EEEEEE";
     </div>
     <div id="inicio_dcha">
 		<!-- acciones del día -->
+		<?php if(esPerfilComercial($perfil['id'])){ ?>
         <div>
 			<table >
 				<tr>
@@ -294,7 +295,7 @@ $cfilaImpar = "#EEEEEE";
 				<?php  }?>
 			</table>
 		</div>
-
+		<?php }?>
     </div>
 </div>
 	<!-- ATAJOS 
@@ -308,6 +309,7 @@ $cfilaImpar = "#EEEEEE";
 		</tr>
 	</table></div>
 	 -->
+	 <?php if(esPerfilComercial($perfil['id'])){ ?>
 	<div class="bottomMenu">
 		<table>
 			<tr>
@@ -319,6 +321,7 @@ $cfilaImpar = "#EEEEEE";
 			</tr>
 		</table>
 	</div>
+	 <?php }?>
 </div>
 </form>
 <?php 

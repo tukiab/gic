@@ -187,10 +187,10 @@ include ($appRoot.'/include/html/mainMenu.php');
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"/>
 			</td>
-				<td class="busquedaIzda" <?php /*if(!$var->gestor->esAdministrador())*/ if(!$permisos->administracion) echo 'style="display:none"';?>>
+				<td class="busquedaIzda" <?php  if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php /*if(!$var->gestor->esAdministrador())*/ if(!$permisos->administracion) echo 'style="display:none"';?>>
+			<td class="busquedaDcha" <?php  if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<select name="gestor">
 					<?php 
 					$gestor_seleccionado = $var->opt['gestor'];?>
@@ -218,7 +218,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <!-- RESULTADOS -->
 		<div class="listado" style="width:94%;margin-left:2em;">
 		<label class="nota"><?php  echo $var->datos['lista_acciones']->num_Resultados()." ".Resultados?></label>
-		<?php if($gestor_actual->esAdministrador()){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
+		<?php if($permisos->administracion){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
 			<table>
 				<thead>
 					<tr>
@@ -338,7 +338,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($permisos->escritura){//if($gestor_actual->esAdministrador()){?>
+					<?php if($permisos->escritura){//if($permisos->administracion){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>

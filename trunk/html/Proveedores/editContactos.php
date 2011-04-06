@@ -48,7 +48,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 						<input type="text" <?php echo $disabled['email']; ?> name="<?php echo  $count."_"?>email" value="<?php echo  $Contacto->get_Email();?>" size="9" />
 							<input type="hidden" name="<?php echo  $count."_"?>id" value="<?php echo  $Contacto->get_Id();?>" size="9" />
 					</td>
-					<?php if($var->gestor->esAdministradorTotal()){?>
+					<?php if($$permisos->administracion){?>
 					<td align="center">
 						<input class="borrar" type="button" name="eliminacontacto" value="Eliminar" onclick="javascript: if(confirm('Confirmar borrado')){window.location = 'editContactos.php?NIF=<?php  echo  $var->Proveedor->get_NIF();?>&eliminar=<?php echo  $Contacto->get_Id();?>&edit=contactos';}"  />
 					</td>

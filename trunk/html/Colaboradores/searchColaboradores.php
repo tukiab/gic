@@ -108,7 +108,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <!-- RESULTADOS -->
 		<div class="listado" style="width:94%;margin-left:2em;">
 		<label class="nota"><?php  echo $var->datos['lista_colaboradores']->num_Resultados()." ".Resultados?></label>
-		<?php if($permisos->administracion /*$gestor_actual->esAdministrador()*/ && false){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /><?php }?>
+		<?php if($permisos->administracion && false){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /><?php }?>
 			<table>
 				<thead>
 					<tr>
@@ -227,7 +227,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($permisos->administracion /*$gestor_actual->esAdministrador()*/){?>
+					<?php if($permisos->administracion ){?>
 					<tr>
 						<td colspan="14" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>

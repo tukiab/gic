@@ -52,7 +52,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 						<input <?php echo $disabled['direccion']; ?> type="text" name="<?php echo  $count."_"?>direccion" value="<?php echo  $Sede->get_Direccion();?>" size="9" />
 							<input type="hidden" name="<?php echo  $count."_"?>id" value="<?php echo  $Sede->get_Id();?>" size="9" />
 					</td>
-					<?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
+					<?php if($permisos->administracion){?>
 					<td align="center">
 						<input class="borrar" type="button" name="eliminasede" value="Eliminar" onclick="javascript: if(confirm('Confirme que desea eliminar esta sede')){window.location = 'editSedes.php?id=<?php  echo  $var->Cliente->get_Id();?>&eliminar=<?php echo  $Sede->get_Id();?>&edit=sedes';}"  />
 					</td>
