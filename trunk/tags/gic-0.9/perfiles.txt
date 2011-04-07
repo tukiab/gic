@@ -1,0 +1,31 @@
+1.RRHH y organización: definir los siguientes perfiles
+-.Administrador (gestión total)
+
+-.Gerente: acceso a toda la parte técnica y parte comercial. Puede actuar igualmente como técnico y como comercial.
+
+-.Comercial: tiene acceso a toda la parte comercial de sus empresas
+i.Empresas
+ii.Acciones
+iii.Ofertas/Oportunidades
+iv.Ventas
+
+-.Director comercial: Puede actuar como un comercial mas, pero, además, tiene acceso a toda la parte comercial de todos los gestores
+i.Empresas
+ii.Acciones
+iii.Ofertas/Oportunidades
+iv.Ventas
+v.Posibilidad de sustituir/añadir gestor a una empresa
+vi.Informes asociados a lo anterior
+
+-.Televendedor: ídem que dtor. Comercial sólo de sus empresas
+
+-.Técnico: tiene acceso sólo a sus proyectos
+i.Empresas
+ii.Proyectos
+
+-.Director Técnico: Puede actuar como un técnico mas, 
+pero, además, tiene acceso a todos los proyectos de todos los gestores técnicos
+i.Empresas
+ii.Proyectos
+iii.Posibilidad de sustituir técnicos a un proyecto ya asignado a otro 
+iv.Informes asociados a lo anterior
