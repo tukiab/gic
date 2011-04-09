@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `proyectos_rel_sedes` (
   PRIMARY KEY (`fk_proyecto`,`fk_sede`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---- tareas técnicas
+-- tareas técnicas
 CREATE TABLE IF NOT EXISTS `tareas_tecnicas_tipos` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
@@ -306,7 +306,7 @@ INSERT INTO `permisos_usuarios_perfiles` (`fk_perfil`, `fk_proceso`, `lectura`, 
 (7, 3, 1, 1, 1),
 (7, 4, 1, 0, 0);
 
---scripts para los permisos
+-- scripts para los permisos
 DELETE FROM `scripts`;
 
 

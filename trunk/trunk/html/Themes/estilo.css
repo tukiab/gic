@@ -23,8 +23,18 @@ select{
 	height: 500px;
 }
 #contenedor{
-    margin: 20px auto;
-    width: 90%;
+    margin: 0 auto;
+    width: 900px;
+	border-left: 1px solid #CCCCCC;
+	padding-left: 20px;
+}
+#contenedor table{
+	min-width: 500px;
+	margin-bottom: 30px;
+}
+th{
+	color: #607AAB;
+	text-align: left;
 }
 img{
 	border: none;
@@ -68,14 +78,13 @@ table.super_cabecera{
 }
 
 div#titulo, td.ListaTitulo{
-	background-color: #F2F2F2;
+	background-color: #e2e2e2;
 	color: #000;
 	font-size:12px;
 	font-weight: bold;
 	margin:5px;
 	padding: 5px;
-	border-top: #e2e2e2 1px solid;
-	border-bottom: #e2e2e2 1px solid;
+	border-top: #b2b2b2 1px solid;
 }
 div#titulo{
 	text-align: center;
@@ -108,7 +117,7 @@ a:visited {
 	text-decoration: none;
 }
 a:hover {
-	text-decoration:overline underline;
+	text-decoration: underline;
 }
 label.nota{
 	font-size:12px;
@@ -116,11 +125,8 @@ label.nota{
 }
 
 input[type=button],input[type=submit]{
-	background-color:#F2F2F2;
-	border-bottom:1px solid #E2E2E2;
-	border-top:1px solid #E2E2E2;
-	border-left: none;
-	border-right: none;
+	background-color:#e2e2e2;
+	border:1px solid #b2b2b2;
 	color:#000000;
 	font-size:12px;
 	padding:3px;
@@ -223,7 +229,7 @@ div.listado table thead tr{
 	border-bottom: 1px solid #999;
 }
 div.listado table th{
-	padding: 5px;
+	text-align: center;font-size: x-small;font-weight: normal;padding:5px;
 }
 div.listado table th{
 	font-size:11px;
@@ -232,6 +238,9 @@ div.listado table th{
 }
 div.listado{
 	max-width:99%;
+}
+div.listado tbody td{
+	text-align:center;width:5%;
 }
 table tr[par], div.listado table tr[impar]{
 	font-size:13px;
@@ -261,7 +270,6 @@ div.MenuInferiorFijo{
 	font-size:x-small;
 }
 div.MenuInferiorFijo table{
-	background-color:#607AAB;
 	padding: 5px;
 }
 div.MenuInferiorFijo table td{
@@ -350,16 +358,7 @@ div.bottomMenu{
 	display:block;
 	text-align:right;
 }
-div.bottomMenu{
-	position:fixed;
-	right:0;
-	bottom:0;
-	display:block;
-	text-align:right;
-}
 div.bottomMenu table{
-	
-	background-color:#607AAB;
 	padding: 5px;
 }
 div.bottomMenu td{
@@ -383,6 +382,37 @@ div.bottomMenuLeft table{
 	-moz-border-radius-topleft: 4px;
 }
 
+ul#menu-sec{
+	display:block;
+	margin:15px;
+	padding:0;
+	list-style: none;
+	text-align: right;
+	float:left;
+	width: 150px;
+}
+ul#menu-sec li{
+	display:block;
+	margin-top: 3px;
+	
+}
+ul#menu-sec a{
+	color: #333;
+	display: block;
+	text-decoration: none;
+	padding:2px;
+}
+ul#menu-sec a.borrar, a.borrar{
+	background: #cc0033;
+	color: #fff;
+}
+ul#menu-sec a.borrar:hover, a.borrar:hover{
+	background: red;
+}
+ul#menu-sec a:hover{
+	font-weight: bold;
+	background:#D8DFEA;
+}
 /* Menú Inferior Izquierdo (Vertical Desplegable) */
 div.footerMenu{
 	z-index:5000;
@@ -916,7 +946,7 @@ a:hover {
 }
 
 table{
-	border-bottom: 1px solid #ccc;
+	/*border-bottom: 1px solid #ccc;*/
 }
 
 a.show{

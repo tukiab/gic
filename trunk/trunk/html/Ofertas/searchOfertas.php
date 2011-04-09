@@ -283,7 +283,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 <br/>
 
 <!-- RESULTADOS -->
-		<div class="listado" style="width:94%;margin-left:2em;">
+		<div class="listado">
 		<label class="nota"><?php  echo $var->datos['lista_ofertas']->num_Resultados()." ".Resultados?></label>
 		<?php if($permisos->administracion){//if($permisos->administracion){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
 			<table>
@@ -402,7 +402,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal()){?>
+					<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal() && $var->opt['mostrar']){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>

@@ -274,7 +274,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 				<tr>
 					<td width="40%"></td>
 					<td class="ColDer" >
-						<input type="button" onClick="cerrar()" value="<?php echo  _translate("Cerrar")?>"/>
+						<input type="button" onClick="history.back()" value="<?php echo  _translate("Cancelar")?>"/>
 					</td>
 					<td class="ColDer">
 						<input type="submit" name="guardar" value="<?php echo  _translate("Guardar")?>" />

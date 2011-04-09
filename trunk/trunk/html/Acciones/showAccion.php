@@ -32,7 +32,7 @@ else{?>
 <?php $titulo = $tipo_accion['nombre'];?>
 		
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
-<div align="center" style="margin-top:40px">
+<div id="contenedor">
 	<table class="ConDatos">
 		<tr>
 		  	<td class="ListaTitulo" style="text-align:center;" colspan="2"><?php echo  _translate("Datos de la Acci&oacute;n")?></td>

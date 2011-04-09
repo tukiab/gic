@@ -20,7 +20,7 @@ else
 	$oferta = new Oferta ($var->opt['Venta']->get_Oferta());
 ?>
 <style type="text/css">
-	table.ConDatos{display:block;float:left;margin:20px;width:40%;border:none;}
+	table.ConDatos td{width:50%}
 	.ColDer{max-width:300px;}
 </style>
 <script language="JavaScript" type="text/javascript">
@@ -31,7 +31,6 @@ else
 		}		
 	}
 </script>
-<br/>
 <div id="titulo"><?php echo  "Venta: ".$var->opt['Venta']->get_Nombre();?></div>
 <?php 
 if($var->opt['msg']){
@@ -43,10 +42,28 @@ else{?>
 <?php if($permisos->lectura){ ?>
 
 <form id="frm" action="<?php echo  $_SERVER['PHP_SELF'];?>" method="GET">
-<div align="center" style="margin-top:40px">
+<!--	<ul id="menu-sec">
+		<?php if($permisos->administracion){?>
+		<li>
+			<label title="<?php echo  _translate("BORRAR")?>">
+				<a href="#" onclick="eliminar();" class="borrar"><?php echo  _translate("Borrar venta")?></a>
+				<input type="hidden" id="eliminar" name="eliminar" value="0"/>
+				<input type=hidden name="id" value="<?php echo $var->opt['id']?>"/>
+			</label>
+		<li>
+			<?php $factura = $var->opt['Venta']->get_Factura();if($factura){?>
+				<a href="<?php echo $appDir."/Facturas/showFactura.php?id=".$factura->get_Id();?>"><input type="button" value="<?php echo  _translate("Factura")?>" /></a>
+			<?php }else{?>
+				<a href="<?php echo $appDir."/Facturas/addFactura.php?id_venta=".$var->opt['Venta']->get_Id();?>"><input type="button" value="<?php echo  _translate("Crear factura")?>" /></a>
+			<?php }?>
+		</li>
+		<?php }?>
+	</ul>
+-->
+<div id="contenedor">
 	<table class="ConDatos">
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:center;" colspan="2"><?php echo  _translate("Datos de la Venta")?></td>
+		  	<td class="ListaTitulo"  colspan="2"><?php echo  _translate("Datos de la Venta")?></td>
 		</tr>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("Nombre")?>:</td>
@@ -142,7 +159,7 @@ else{?>
 	</table>
 	<table class="ConDatos">
 		<tr>
-		  	<td class="ListaTitulo" style="text-align:center;" colspan="2"><?php echo  _translate("Datos adicionales")?></td>
+		  	<td class="ListaTitulo"  colspan="2"><?php echo  _translate("Datos adicionales")?></td>
 		</tr>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("FORCEM")?>:</td>
@@ -239,29 +256,6 @@ else{?>
 		
 
 	</table>
-	<!--
-	<div class="bottomMenu">
-		<table>
-			<tr>
-				<td colspan="2" style="text-align:right;" nowrap>
-				<?php if($permisos->administracion){?>
-							<label title="<?php echo  _translate("BORRAR")?>">
-								<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar venta")?>" /></a>
-								<input type="hidden" id="eliminar" name="eliminar" value="0"/>
-								<input type=hidden name="id" value="<?php echo $var->opt['id']?>"/>						
-							</label>
-							<?php $factura = $var->opt['Venta']->get_Factura();if($factura){?>
-								<a href="<?php echo $appDir."/Facturas/showFactura.php?id=".$factura->get_Id();?>"><input type="button" value="<?php echo  _translate("Factura")?>" /></a>
-							<?php }else{?>
-								<a href="<?php echo $appDir."/Facturas/addFactura.php?id_venta=".$var->opt['Venta']->get_Id();?>"><input type="button" value="<?php echo  _translate("Crear factura")?>" /></a>
-							<?php }?>
-						<?php }?>
-						&nbsp;&nbsp;&nbsp;&nbsp;
-				</td>
-			</tr>
-		</table>
-	</div>
-	-->
 </div>
 </form>
 <?php }else{

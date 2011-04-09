@@ -398,7 +398,7 @@ $(document).ready(function(){
 <label class="nota"><a href=<?php echo  $appDir.'/Clientes/addCliente.php';?>>>> <?php echo  _translate("A&ntilde;adir empresa nueva")?> <<</a></label><br/>
 <br/>
 <!-- RESULTADOS -->
-<div class="listado" style="width:94%;margin-left:2em;">
+<div class="listado">
 <label class="nota"><?php  echo $var->datos['lista_clientes']->num_Resultados()." ".Resultados?></label>
 <?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
 <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
@@ -407,10 +407,10 @@ $(document).ready(function(){
 <table>
     <thead>
         <tr>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th nowrap>
                     <input type=checkbox id="chk_todos"/>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th  nowrap>
                     <a href="#" onClick="javascript:orderBy('id')" ><?php echo  _translate("Id")?></a>
                     <?php
                             if($var->opt['order_by']=='id' && $var->opt['order_by_asc_desc']=='ASC')
@@ -419,7 +419,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th  nowrap>
                     <a href="#" onClick="javascript:orderBy('razon_social')" ><?php echo  _translate("Raz&oacute;n social")?></a>
                     <?php
                             if($var->opt['order_by']=='razon_social' && $var->opt['order_by_asc_desc']=='ASC')
@@ -428,7 +428,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th  nowrap>
                     <a href="#" onClick="javascript:orderBy('tipo')" ><?php echo  _translate("Tipo")?></a>
                     <?php
                             if($var->opt['order_by']=='tipo' && $var->opt['order_by_asc_desc']=='ASC')
@@ -437,7 +437,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('grupo_empresas')" ><?php echo  _translate("Grupo de empresas")?></a>
                     <?php
                             if($var->opt['order_by']=='grupo_empresas' && $var->opt['order_by_asc_desc']=='ASC')
@@ -446,7 +446,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th  nowrap>
                     <a href="#" onClick="javascript:orderBy('localidad')" ><?php echo  _translate("Localidad")?></a>
                     <?php
                             if($var->opt['order_by']=='localidad' && $var->opt['order_by_asc_desc']=='ASC')
@@ -455,7 +455,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('CP')" ><?php echo  _translate("CP")?></a>
                     <?php
                             if($var->opt['order_by']=='CP' && $var->opt['order_by_asc_desc']=='ASC')
@@ -464,7 +464,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('web')" ><?php echo  _translate("Web")?></a>
                     <?php
                             if($var->opt['order_by']=='web' && $var->opt['order_by_asc_desc']=='ASC')
@@ -473,7 +473,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('sector')" ><?php echo  _translate("Sector")?></a>
                     <?php
                             if($var->opt['order_by']=='sector' && $var->opt['order_by_asc_desc']=='ASC')
@@ -482,7 +482,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('numero_de_empleados')" ><?php echo  _translate("N&uacute;mero de empleados")?></a>
                     <?php
                             if($var->opt['order_by']=='numero_de_empleados' && $var->opt['order_by_asc_desc']=='ASC')
@@ -491,7 +491,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('SPA_actual')" ><?php echo  _translate("SPA actual")?></a>
                     <?php
                             if($var->opt['order_by']=='SPA_actual' && $var->opt['order_by_asc_desc']=='ASC')
@@ -500,7 +500,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th  nowrap>
                     <a href="#" onClick="javascript:orderBy('fecha_renovacion')" ><?php echo  _translate("Fecha de renovaci&oacute;n")?></a>
                     <?php
                             if($var->opt['order_by']=='fecha_renovacion' && $var->opt['order_by_asc_desc']=='ASC')
@@ -509,7 +509,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('domicilio')" ><?php echo  _translate("Domicilio")?></a>
                     <?php
                             if($var->opt['order_by']=='domicilio' && $var->opt['order_by_asc_desc']=='ASC')
@@ -518,7 +518,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('telefono')" ><?php echo  _translate("Tel&eacute;fono")?></a>
                     <?php
                             if($var->opt['order_by']=='telefono' && $var->opt['order_by_asc_desc']=='ASC')
@@ -527,7 +527,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('ultima_accion')" ><?php echo  _translate("Fecha &uacute;ltima acci&oacute;n")?></a>
                     <?php
                             if($var->opt['order_by']=='ultima_accion' && $var->opt['order_by_asc_desc']=='ASC')
@@ -536,7 +536,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th >
                     <a href="#" onClick="javascript:orderBy('contactos')" ><?php echo  _translate("Contactos")?></a>
                     <?php
                             if($var->opt['order_by']=='contactos' && $var->opt['order_by_asc_desc']=='ASC')
@@ -558,52 +558,52 @@ $(document).ready(function(){
         ?>
         <tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
 
-            <td style="text-align:center;width:5%;">
+            <td>
                     <input class="chk" type=checkbox name="seleccionados[]" <?php if(is_array($var->opt['seleccionados']) && in_array($cliente->get_Id(),$var->opt['seleccionados'])) echo "checked";?> value="<?php echo $cliente->get_Id(); ?>" />
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $cliente->get_Id()?>&nbsp;&nbsp;</a>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $cliente->get_Razon_Social()?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo  $tipo['nombre'];?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  $grupo = $cliente->get_Grupo_Empresas(); echo  $grupo['nombre'];?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $cliente->get_Localidad()?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $cliente->get_CP()?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php echo web($cliente->get_Web());?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $cliente->get_Sector()?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $cliente->get_Numero_Empleados()?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $cliente->get_SPA_Actual()?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo timestamp2date($cliente->get_Fecha_Renovacion())?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $cliente->get_domicilio()?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $cliente->get_Telefono()?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo timestamp2date($cliente->get_Fecha_Ultima_Accion($var->gestor->get_Id()))?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  foreach($cliente->get_Lista_Contactos() as $contacto) echo $contacto->get_Nombre()."<br/>"?>
             </td>
         </tr>
@@ -632,7 +632,7 @@ $(document).ready(function(){
                     </div>
             </td>
         </tr>
-            <?php if($permisos->administracion){//if($gestor_actual->esAdministrador()){?>
+            <?php if($permisos->administracion && $var->opt['mostrar']){//if($gestor_actual->esAdministrador()){?>
             <tr>
                     <td colspan="16" style="text-align: right;">
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>
@@ -725,36 +725,36 @@ header("Expires: 0");
     <thead>
             <tr>
 
-                    <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+                    <th  nowrap>
                             <?php echo  _translate("Id")?>
 
                     </th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+                    <th  nowrap>
                             <?php echo  utf8_decode("Razon social")?>
 
                     </th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+                    <th  nowrap>
                             <?php echo  _translate("Tipo")?>
 
                     </th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Grupo de empresas")?></th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+                    <th ><?php echo  _translate("Grupo de empresas")?></th>
+                    <th  nowrap>
                             <?php echo  _translate("Localidad")?>
 
                     </th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("CP")?></th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Web")?></th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Sector")?></th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  utf8_decode("Numero de empleados")?></th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("SPA Actual")?></th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+                    <th ><?php echo  _translate("CP")?></th>
+                    <th ><?php echo  _translate("Web")?></th>
+                    <th ><?php echo  _translate("Sector")?></th>
+                    <th ><?php echo  utf8_decode("Numero de empleados")?></th>
+                    <th ><?php echo  _translate("SPA Actual")?></th>
+                    <th  nowrap>
                             <?php echo  _translate("Fecha de renovacion")?>
 
                     </th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Domicilio")?></th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  utf8_decode("Telefono")?></th>
-                    <th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Contactos")?></th>
-                    <!--<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Operaciones")?></th>-->
+                    <th ><?php echo  _translate("Domicilio")?></th>
+                    <th ><?php echo  utf8_decode("Telefono")?></th>
+                    <th ><?php echo  _translate("Contactos")?></th>
+                    <!--<th ><?php echo  _translate("Operaciones")?></th>-->
             </tr>
     </thead>
     <tbody>
@@ -769,46 +769,46 @@ header("Expires: 0");
             <tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
 
 
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo $cliente->get_Id()?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo utf8_decode($cliente->get_Razon_Social())?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo  utf8_decode($tipo['nombre']);?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  $grupo = $cliente->get_Grupo_Empresas(); echo  utf8_decode($grupo['nombre']);?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo utf8_decode($cliente->get_Localidad())?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo $cliente->get_CP()?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php echo $cliente->get_Web();?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo utf8_decode($cliente->get_Sector());?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo $cliente->get_Numero_Empleados()?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo utf8_decode($cliente->get_SPA_Actual())?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo timestamp2date($cliente->get_Fecha_Renovacion())?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo utf8_decode($cliente->get_domicilio())?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  echo $cliente->get_Telefono()?>
                     </td>
-                    <td style="text-align:center;width:5%;">
+                    <td>
                             <?php  foreach($cliente->get_Lista_Contactos() as $contacto) echo utf8_decode($contacto->get_Nombre())."<br/>"?>
                     </td>
             </tr>

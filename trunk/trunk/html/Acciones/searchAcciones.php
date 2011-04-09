@@ -216,7 +216,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 </div>
 <br/>
 <!-- RESULTADOS -->
-		<div class="listado" style="width:94%;margin-left:2em;">
+		<div class="listado">
 		<label class="nota"><?php  echo $var->datos['lista_acciones']->num_Resultados()." ".Resultados?></label>
 		<?php if($permisos->administracion){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
 			<table>
@@ -289,27 +289,27 @@ include ($appRoot.'/include/html/mainMenu.php');
 					?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
 					
-						<td style="text-align:center;width:5%;">
+						<td >
 							<input class="chk" type=checkbox name="seleccionados[]" value="<?php echo $accion->get_Id(); ?>" />							
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $accion->get_Id()?>&nbsp;&nbsp;</a>							
 						</td>	
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php echo $accion->get_Usuario();?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  $tipo = $accion->get_Tipo_Accion(); echo $tipo['nombre'];?>
 						</td>
 
-						<td style="text-align:center;width:5%;">
+						<td >
 						<?php $cliente = $accion->get_Cliente(); ?>
 							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente['id'];?>"><?php  echo $cliente['razon_social'];?></a>
 						</td>						
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  echo timestamp2date($accion->get_Fecha());?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  echo timestamp2date($accion->get_Fecha_Siguiente_Accion());?>
 						</td>
 					</tr>
@@ -338,7 +338,7 @@ include ($appRoot.'/include/html/mainMenu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal()){?>
+					<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal() && $var->opt['mostrar']){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>

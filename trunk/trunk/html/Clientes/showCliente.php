@@ -47,20 +47,6 @@ function eliminarAccion(id){
 		$('#frm').submit();
 	}		
 }
-$(document).ready(function()
-{
-	// ********** ACORDEÓN ********** //
-/*	$('#myAccordion').Accordion({
-		headerSelector: 'dt',
-		panelSelector: 'dd',
-		activeClass: 'myAccordionActive',
-		hoverClass: 'myAccordionHover',
-		panelHeight: 300,
-		speed: 300
-		}
-	);*/		
-	//********** ACORDEÓN ********** //
-});
 </script>
 
 <?php 
@@ -75,10 +61,43 @@ if($var->opt['msg']){?>
 <?php $razon_social = $var->opt['Cliente']->get_Razon_Social();?>
 <div id="titulo"><?php echo  $razon_social?></div>		
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
-<div id="contenedor" >
+<ul id="menu-sec">
+		<li>
+			<?php $url_dest = $appDir.'/Acciones/addAccion.php?id_cliente='.$var->opt['Cliente']->get_Id();
+			if($permisos->permisoEscritura($url_dest)){?>
+				<label title="<?php echo  _translate("Nueva acci&oacute;n")?>">
+					<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=440,scrollbars=yes');"><?php echo  _translate("Nueva Acci&oacute;n")?></a>
+				</label>
+			<?php }?>
+		</li>
+		<li>
+			<?php $url_dest = $appDir.'/Ofertas/addOferta.php?id_cliente='.$var->opt['Cliente']->get_Id();
+			if($permisos->permisoEscritura($url_dest)){?>
+				<label title="<?php echo  _translate("Nueva oferta")?>">
+					<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><?php echo  _translate("Nueva Oferta")?></a>
+				</label>
+			<?php }?>
+		</li>
+		<li>
+			<?php $url_dest = $appDir.'/Ofertas/addOferta.php?es_oportunidad=1&id_cliente='.$var->opt['Cliente']->get_Id();
+			if($permisos->permisoEscritura($url_dest)){?>
+				<label title="<?php echo  _translate("Nueva oportunidad")?>">
+					<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><?php echo  _translate("Nueva Oportunidad")?></a>
+				</label>
+			<?php }?>
+		</li>
+		<li>
+			<?php if($permisos->administracion && $usuario->esAdministradorTotal()){?>
+				<label title="<?php echo  _translate("BORRAR")?>">
+					<a href="#" onclick="eliminar(false);" class="borrar"><?php echo  _translate("Borrar empresa")?></a>
+
+				</label>
+			<?php }?>
+		</li>
+	</ul>
+<div id="contenedor">
 	<!-- **************** DATOS DEL CLIENTE **************** -->
-	<div id="izquierda" style="float:left;width:40%;">
-		<table style="width:100%">
+		<table >
 			<tr>
 			  	<td class="ListaTitulo" colspan="2"><?php echo  _translate("Datos de la empresa")?><a class="show" href="#" clase="datos"></a></td>
 			</tr>
@@ -208,7 +227,7 @@ if($var->opt['msg']){?>
 			<?php }?>
 		</table>
 		<!-- contactos -->
-		<table style="width:100%;margin-top:20px">
+		<table >
 			<tr>
 			  	<td class="ListaTitulo" colspan="4"><?php echo  _translate("Contactos")?><a class="show" href="#" clase="contactos"></a></td>
 			</tr>
@@ -241,14 +260,14 @@ if($var->opt['msg']){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/editContactos.php?id=".$var->opt['Cliente']->get_Id();?>
-					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=500,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
+					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=300,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
 				</td>
 			</tr>
 			<?php }?>
 		</table>
 
 		<!-- sedes -->
-		<table style="width:100%;margin-top:20px">
+		<table >
 			<tr>
 			  	<td class="ListaTitulo" colspan="4"><?php echo  _translate("Sedes")?><a class="show" href="#" clase="sedes"></a></td>
 			</tr>
@@ -274,14 +293,14 @@ if($var->opt['msg']){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/editSedes.php?id=".$var->opt['Cliente']->get_Id();?>
-					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=500,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
+					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=300,scrollbars=yes');"><?php echo  _translate("Editar")?></a></label>
 				</td>
 			</tr>
 			<?php }?>
 		</table>
 
 		<!-- gestores -->
-		<table style="width:100%;margin-top:20px">
+		<table >
 			<tr>
 			  	<td class="ListaTitulo" colspan="3"><?php echo  _translate("Gestores")?><a class="show" href="#" clase="gestores"></a></td>
 			</tr>	
@@ -308,7 +327,7 @@ if($var->opt['msg']){?>
 						<td ><?php echo  $usuario->get_Id();?></td>
 						<td ><?php echo  $usuario->get_Nombre_Y_Apellidos();?></td>
 						<?php  if($permisos->administracion){?>
-						<td ><a href="#" onclick="eliminarGestor('<?php echo $usuario->get_Id();?>');"><input class="borrar" type="button" value="<?php echo  _translate("Borrar")?>" /></a>
+						<td ><a class="borrar" href="#" onclick="eliminarGestor('<?php echo $usuario->get_Id();?>');"><?php echo  _translate("Borrar")?></a>
 						<?php }?>
 					</td>
 					</tr>
@@ -318,14 +337,13 @@ if($var->opt['msg']){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/addGestores.php?id=".$var->opt['Cliente']->get_Id(); $perfil = $var->usuario->get_Perfil()?>
-					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=1000,height=260,scrollbars=yes');"><?php if(esAdministrador($perfil['id'])) echo  _translate("A&ntilde;adir")?></a></label>
+					<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=260,scrollbars=yes');"><?php if(esAdministrador($perfil['id'])) echo  _translate("A&ntilde;adir")?></a></label>
 				</td>
 			</tr>
 			<?php }?>
 		</table>
-	</div>	
+	
 	<!-- **************** ACCIONES Y OFERTAS, CONTACTOS Y GESTORES **************** -->
-	<div id="derecha">
 				<table>
 					<tr>
 						<td class="ListaTitulo" colspan="7"><?php echo _translate("Acciones de la empresa")?><a class="show" href="#" clase="acciones"></a></td>
@@ -468,50 +486,14 @@ if($var->opt['msg']){?>
 					<?php
 					}?>
 			</table>
-	</div>
 </div>
 <input type="hidden" id="eliminar" name="eliminar" value="0"/>
 <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
 <input type="hidden" id="eliminarGestor" name="eliminarGestor" value="0" />
 <input type="hidden" id="eliminarAccion" name="eliminarAccion" value="0" />
 <input type=hidden name="id" value="<?php echo $var->opt['id']?>"/>
-<div class="bottomMenu">
-	<table>
-		<tr>
-			<td colspan="2" style="text-align:right;" nowrap>
-				<?php //Enlaces a otros scripts: Comprobando permisos del destino: ?>
-					
-					<?php $url_dest = $appDir.'/Acciones/addAccion.php?id_cliente='.$var->opt['Cliente']->get_Id();
-					if($permisos->permisoEscritura($url_dest)){?>
-						<label title="<?php echo  _translate("Nueva acci&oacute;n")?>">
-							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=1000,height=600,scrollbars=yes');"><input type="button" name="addAccion" value="<?php echo  _translate("Nueva Acci&oacute;n")?>" /></a>
-						</label>
-					<?php }?>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<?php $url_dest = $appDir.'/Ofertas/addOferta.php?id_cliente='.$var->opt['Cliente']->get_Id();
-					if($permisos->permisoEscritura($url_dest)){?>
-						<label title="<?php echo  _translate("Nueva oferta")?>">
-							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><input type="button" name="addOferta" value="<?php echo  _translate("Nueva Oferta")?>" /></a>						
-						</label>
-					<?php }?>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<?php $url_dest = $appDir.'/Ofertas/addOferta.php?es_oportunidad=1&id_cliente='.$var->opt['Cliente']->get_Id();
-					if($permisos->permisoEscritura($url_dest)){?>
-						<label title="<?php echo  _translate("Nueva oportunidad")?>">
-							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');"><input type="button" name="addOferta" value="<?php echo  _translate("Nueva Oportunidad")?>" /></a>						
-						</label>
-					<?php }?>
-					<?php if($permisos->administracion && $usuario->esAdministradorTotal()){?>
-						<label title="<?php echo  _translate("BORRAR")?>">
-							<a href="#" onclick="eliminar(false);"><input class="borrar" type="button" value="<?php echo  _translate("Borrar empresa")?>" /></a>
-													
-						</label>
-					<?php }?>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-			</td>
-		</tr>
-	</table>
-</div>
+
+
 </form>
 <?php }else{
 	echo _translate("No tiene suficientes permisos");

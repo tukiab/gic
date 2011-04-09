@@ -22,22 +22,14 @@ function cargar_plantilla(id_proyecto){
 }
 </script>
 <style type="text/css">
-	div#plantillas{
-		width:300px;
-		float:left;
-		margin-left: 50px;
-	}
-	div#plantillas table{
-		width:99%;
-	}
+	
 </style>
 <form method="GET" target="" action="" id="frm_definicion">
 	<div id="titulo"><?php echo $var->Proyecto->get_Nombre();?></div>
 	<?php if($permisos->administracion){?>
 
 	<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
-	<div class="wrap" style="width:60%">
-		<div style="float:left;">
+	<div id="contenedor">
 			<table>
 				<tr>
 					<td class="ListaTitulo"  colspan="2"><?php echo  _translate("Datos de la definici&oacute;n")?></td>
@@ -72,8 +64,9 @@ function cargar_plantilla(id_proyecto){
 						<input type="text" class="fecha" value="<?php echo timestamp2date($var->opt['fecha_fin']);?>" name="fecha_fin" id="fecha_fin" />
 					</td>
 				</tr>
+			</table>
 				<!-- datos de las sedes -->
-				<?php
+			<table>	<?php
 				$Cliente = $var->Proyecto->get_Cliente();
 				foreach($Cliente->get_Lista_Sedes() as $sede){ ?>
 				<tr>
@@ -120,15 +113,12 @@ function cargar_plantilla(id_proyecto){
 			</table>
 			<input  type="hidden" name="id" value="<?php echo  $var->opt['id'];?>" />
 			<input  type="hidden" id="id_plantilla" name="id_plantilla" />
-		</div>
-		<div id="plantillas">
+		
 			<!-- Plantillas -->
 			<table>
 				<tr>
 					<td class="ListaTitulo"  colspan="2"><?php echo  _translate("Plantillas")?><a class="show" href="#" clase="plantillas"></a></td>
 				</tr>
-			</table>
-			<table class="plantillas">
 				<tr>
 					<td>Nombre</td>
 					<td>Cargar</td>
@@ -140,17 +130,10 @@ function cargar_plantilla(id_proyecto){
 				</tr>
 			<?php }?>
 			</table>
-		</div>
 	</div>
 	<div  class="bottomMenu">
-		<table>
-			<tr>
-				<td width="40%"></td>
-				<td class="ColDer" >
-					<input type="button" onClick="history.back()" value="<?php echo  _translate("Volver")?>"/>
-				</td>
-			</tr>
-		</table>
+				<input type="button" onClick="history.back()" value="<?php echo  _translate("Volver")?>"/>
+		
 	</div>
 	<?php }else{
 	echo  _translate("No tiene permisos suficientes");
