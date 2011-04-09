@@ -10,7 +10,7 @@ require ($appRoot.'/Autentificacion/Usuarios.php');
 include ($appRoot.'/Utils/lang.php');
 include_once($appRoot.'/Utils/utils.php');
 	include ('_definirProyecto.php');
-	$var = new DefinirProyecto($_GET); FB::warn($var);
+	$var = new DefinirProyecto($_GET);
 		
 include ($appRoot.'/include/html/header.php');
 include ($appRoot.'/include/html/mainMenu.php');
