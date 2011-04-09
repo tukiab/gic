@@ -18,13 +18,7 @@ else
 	include ($appRoot.'/include/html/popupHeader.php');
 ?>
 <style type="text/css">
-	#derecha{
-		float:left;width:40%;height:370px;margin-left:4%;
-	}
-	#derecha table{
-		width:100%;
-		margin-bottom:20px;
-	}
+	
 	td.center{
 		text-align: center;
 	}
@@ -33,7 +27,8 @@ else
 	}
 	table{
 		border:none;
-}
+		width: 600px;
+	}
 </style>
 <script language="JavaScript" type="text/javascript">
 function eliminar(borrado_total){
@@ -50,20 +45,6 @@ function cerrar(){
 		$('#frm').submit();
 	}
 }
-$(document).ready(function()
-{
-	// ********** ACORDEÓN ********** //
-/*	$('#myAccordion').Accordion({
-		headerSelector: 'dt',
-		panelSelector: 'dd',
-		activeClass: 'myAccordionActive',
-		hoverClass: 'myAccordionHover',
-		panelHeight: 300,
-		speed: 300
-		}
-	);*/		
-	//********** ACORDEÓN ********** //
-});
 </script>
 
 <?php
@@ -82,10 +63,20 @@ $venta = $var->Proyecto->get_Venta();
 $estado = $var->Proyecto->get_Estado();?>
 <div id="titulo"><?php echo  $nombre;?></div>
 <form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
+	<ul id="menu-sec">
+		<li>
+			<?php
+				if($permisos->administracion)
+				if($estado['id'] != 6 ){//cerrado?>
+					<label title="<?php echo  _translate("Cerrar")?>">
+						<a href="#" onclick="cerrar();"><?php echo  _translate("Cerrar proyecto")?></a>
+					</label>
+				<?php }?>
+		</li>
+	</ul>
 <div id="contenedor" >
 	<!-- **************** DATOS DEL CLIENTE **************** -->
-	<div id="izquierda" style="float:left;width:40%;">
-		<table style="width:100%">
+		<table >
 			<tr>
 			  	<td class="ListaTitulo" colspan="2"><?php echo  _translate("Datos del proyecto")?><a class="show" href="#" clase="datos"></a></td>
 			</tr>
@@ -174,14 +165,14 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Proyectos/editProyecto.php?id=".$var->Proyecto->get_Id();?>
 					<label class="nota">
-						<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=800,height=600,scrollbars=yes');">
+						<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=300,scrollbars=yes');">
 						<?php echo  _translate("Editar")?></a></label>
 				</td>
 			</tr>
 			<?php }?>
 		</table>
 		<!-- TAREAS DEL PROYECTO -->
-		<table style="width:100%;">
+		<table >
 			<tr>
 				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
 			</tr>
@@ -196,16 +187,16 @@ $estado = $var->Proyecto->get_Estado();?>
 			</tr>
 			<?php foreach($var->Proyecto->get_Tareas() as $tarea){?>
 			<tr class="tareas">
-				<td class="center"><?php echo  $tarea['localidad'];?></td>
-				<td class="center"><?php echo timestamp2date($tarea['fecha']);?></td>
-				<td class="center"><?php echo  $tarea['horas_desplazamiento'];?></td>
-				<td class="center"><?php echo  $tarea['horas_visita'];?></td>
-				<td class="center"><?php echo  $tarea['horas_despacho'];?></td>
-				<td class="center"><?php echo  $tarea['horas_auditoria'];?></td>
+				<td ><?php echo  $tarea['localidad'];?></td>
+				<td ><?php echo timestamp2date($tarea['fecha']);?></td>
+				<td ><?php echo  $tarea['horas_desplazamiento'];?></td>
+				<td ><?php echo  $tarea['horas_visita'];?></td>
+				<td ><?php echo  $tarea['horas_despacho'];?></td>
+				<td ><?php echo  $tarea['horas_auditoria'];?></td>
 			</tr>
 			<?php }?>
 		</table>
-		<table style="width:100%;">
+		<table >
 			<tr>
 				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Sedes de la empresa")?><a class="show" href="#" clase="sedes"></a></td>
 			</tr>
@@ -218,8 +209,8 @@ $estado = $var->Proyecto->get_Estado();?>
 			foreach($Cliente->get_Lista_Sedes() as $sede){
 				?>
 			<tr class="sedes">
-				<td class="center"><?php echo  $sede->get_Localidad();?></td>
-				<td class="center">
+				<td ><?php echo  $sede->get_Localidad();?></td>
+				<td >
 					<?php $url_dest = $appDir.'/Tareas/addTarea.php?id_sede='.$sede->get_Id().'&id_proyecto='.$var->Proyecto->get_Id();
 					//Éste bot&oacute;n tiene que aparecer si el proyecto no está cerrado o fuera de plazo y si el usuario es el gestor asignado al proyecto					
 					$estados_prohibidos = array(5,6);
@@ -235,11 +226,9 @@ $estado = $var->Proyecto->get_Estado();?>
 			</tr>
 			<?php }?>
 		</table>
-	</div>
 	
 	<!-- **************** DEFINICIÓN **************** -->
-	<div id="derecha">
-		<table style="width:100%;">
+		<table >
 			<tr>
 				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Definici&oacute;n")?><a class="show" href="#" clase="definition"></a></td>
 			</tr>
@@ -293,7 +282,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			<?php }?>
 		</table>
 		<!-- DEFINICIÓN DESGLOSADA POR SEDES -->
-		<table  style="width:100%;">
+		<table  >
 			<tr>
 				<td class="ListaTitulo" colspan="5"><?php echo  _translate("Desglose por sedes")?><a class="show" href="#" clase="desglose"></a></td>
 			</tr>
@@ -307,16 +296,16 @@ $estado = $var->Proyecto->get_Estado();?>
 			<?php foreach($var->Proyecto->get_Definicion_Sedes() as $definicion){?>
 			<tr class="desglose">
 				<td class="ListaTitulo"><?php echo $definicion['localidad'];?></td>
-				<td class="center"><?php echo $definicion['horas_desplazamiento'];?></td>
-				<td class="center"><?php echo $definicion['horas_cada_visita'];?></td>
-				<td class="center"><?php echo $definicion['numero_visitas'];?></td>
-				<td class="center"><?php echo $definicion['gastos_incurridos'];?></td>
+				<td ><?php echo $definicion['horas_desplazamiento'];?></td>
+				<td ><?php echo $definicion['horas_cada_visita'];?></td>
+				<td ><?php echo $definicion['numero_visitas'];?></td>
+				<td ><?php echo $definicion['gastos_incurridos'];?></td>
 			</tr>
 			<?php }?>			
 		</table>
 
 		<!-- PLANIFICACIÓN -->
-		<table  style="width:100%;">			
+		<table  >			
 			<tr>
 				<td class="ListaTitulo" colspan="3"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
 			</tr>
@@ -350,27 +339,11 @@ $estado = $var->Proyecto->get_Estado();?>
 			}
 		} ?>
 		</table>
-	</div>
 </div>
 <input type="hidden" id="eliminar" name="eliminar" value="0"/>
 <input type="hidden" id="cerrar" name="cerrar" value="0"/>
 <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
 <input type=hidden name="id" value="<?php echo $var->opt['id']?>"/>
-<div class="bottomMenu">
-	<table>
-		<tr>
-			<td colspan="2" style="text-align:right;" nowrap>
-				<?php 
-				if($permisos->administracion)
-				if($estado['id'] != 6 ){//cerrado?>
-					<label title="<?php echo  _translate("Cerrar")?>">
-						<a href="#" onclick="cerrar();"><input type="button" value="<?php echo  _translate("Cerrar proyecto")?>" /></a>
-					</label>
-				<?php }?>					
-			</td>
-		</tr>
-	</table>
-</div>
 
 </form>
 <?php }else{

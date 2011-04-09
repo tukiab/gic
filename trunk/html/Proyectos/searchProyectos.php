@@ -236,19 +236,19 @@ $(document).ready(function(){
 <br/>
 <?php }?>
 <!-- RESULTADOS -->
-<div class="listado" style="width:94%;margin-left:2em;">
+<div class="listado">
 <label class="nota"><?php  echo $var->datos['lista_proyectos']->num_Resultados()." ".Resultados?></label>
 
-<?php if($permisos->administracion){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+<?php if($permisos->administracion && $var->opt['mostrar']){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <?php }?>
 
 <table>
     <thead>
         <tr>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th>
                     <input type=checkbox id="chk_todos"/>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th>
                     <a href="#" onClick="javascript:orderBy('id')" ><?php echo  _translate("Id")?></a>
                     <?php
                             if($var->opt['order_by']=='id' && $var->opt['order_by_asc_desc']=='ASC')
@@ -260,7 +260,7 @@ $(document).ready(function(){
 			<th style="text-align: center;font-size: x-small;font-weight: normal">
                     <?php echo  _translate("Empresa");?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th>
                     <a href="#" onClick="javascript:orderBy('nombre')" ><?php echo  _translate("Nombre")?></a>
                     <?php
                             if($var->opt['order_by']=='nombre' && $var->opt['order_by_asc_desc']=='ASC')
@@ -279,7 +279,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th><?php if(!$var->opt['informe']){?>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th>
                     <a href="#" onClick="javascript:orderBy('estado')" ><?php echo  _translate("estado")?></a>
                     <?php
                             if($var->opt['order_by']=='estado' && $var->opt['order_by_asc_desc']=='ASC')
@@ -288,7 +288,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-            <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+            <th>
                     <a href="#" onClick="javascript:orderBy('fecha_inicio')" ><?php echo  _translate("Fecha de inicio")?></a>
                     <?php
                             if($var->opt['order_by']=='fecha_inicio' && $var->opt['order_by_asc_desc']=='ASC')
@@ -297,7 +297,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+			<th>
                     <a href="#" onClick="javascript:orderBy('fecha_fin')" ><?php echo  _translate("Fecha de finalizaci&oacute;n")?></a>
                     <?php
                             if($var->opt['order_by']=='fecha_fin' && $var->opt['order_by_asc_desc']=='ASC')
@@ -470,7 +470,7 @@ $(document).ready(function(){
                     </div>
             </td>
         </tr>
-            <?php if($permisos->administracion){?>
+            <?php if($permisos->administracion && $var->opt['mostrar']){?>
             <tr>
                     <td colspan="23" style="text-align: right;">
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>

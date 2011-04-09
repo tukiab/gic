@@ -21,7 +21,7 @@ include ($appRoot.'/include/html/popupHeader.php');
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 <br />
 <?php if($permisos->escritura){?>
-<div id="contenedor" style="margin-top: 100px;" align="center">
+<div >
 
 <form action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 	<table>
@@ -38,39 +38,39 @@ include ($appRoot.'/include/html/popupHeader.php');
 			foreach($var->datos['lista_sedes'] as $Sede){
 			?>
 			<?php $disabled = $Sede->get_DisableEdit();?>
-				<tr class="ListaTitulo" align="center">
-					<td align="center">
+				<tr class="ListaTitulo" >
+					<td >
 						<input <?php echo $disabled['localidad']; ?> type="text" name="<?php echo  $count."_"?>localidad" value="<?php echo  $Sede->get_Localidad();?>" size="9" />
 					</td>
-					<td align="center" nowrap>
+					<td  nowrap>
 						<input <?php echo $disabled['provincia']; ?> type="text" name="<?php echo  $count."_"?>provincia" value="<?php echo  $Sede->get_Provincia();?>" size="9" />
 					</td>
-					<td align="center">
+					<td >
 						<input <?php echo $disabled['CP']; ?> type="text" name="<?php echo  $count."_"?>CP" value="<?php echo  $Sede->get_CP();?>" size="9" />
 					</td>
-					<td align="center">
+					<td >
 						<input <?php echo $disabled['direccion']; ?> type="text" name="<?php echo  $count."_"?>direccion" value="<?php echo  $Sede->get_Direccion();?>" size="9" />
 							<input type="hidden" name="<?php echo  $count."_"?>id" value="<?php echo  $Sede->get_Id();?>" size="9" />
 					</td>
 					<?php if($permisos->administracion){?>
-					<td align="center">
+					<td >
 						<input class="borrar" type="button" name="eliminasede" value="Eliminar" onclick="javascript: if(confirm('Confirme que desea eliminar esta sede')){window.location = 'editSedes.php?id=<?php  echo  $var->Cliente->get_Id();?>&eliminar=<?php echo  $Sede->get_Id();?>&edit=sedes';}"  />
 					</td>
 					<?php }?>
 				</tr>
 			<?php $count++;}?>
-			<tr class="ListaTitulo" align="center">
+			<tr class="ListaTitulo" >
 			<?php  $array_sede = $var->opt['sede_error']?>
-				<td align="center">
+				<td >
 					<input type="text" name="n_localidad" size="9" value="<?php  echo $array_sede['localidad']?>"/>
 				</td>
-				<td align="center" nowrap>
+				<td  nowrap>
 					<input type="text" name="n_provincia" size="9" value="<?php  echo $array_sede['provincia']?>"/>
 				</td>
-				<td align="center">
+				<td >
 					<input type="text" name="n_CP" size="9" value="<?php  echo $array_sede['CP']?>"/>
 				</td>
-				<td align="center">
+				<td >
 					<input type="text" name="n_direccion" size="9" value="<?php  echo $array_sede['direccion']?>"/>
 				</td>
 			</tr>
@@ -81,17 +81,10 @@ include ($appRoot.'/include/html/popupHeader.php');
 	<input type="hidden" name="id" value="<?php echo  $var->Cliente->get_Id();?>" />
 	<input type="hidden" name="edit" value="sedes" />
 <div  class="bottomMenu">
-	<table>
-		<tr>
-			<td width="40%"></td>
-			<td style="text-align:right;" >
-				<input type="button" onClick="cerrar()" value="<?php echo  _translate("Cerrar")?>"/>
-			</td>
-			<td style="text-align:right;">
-				<input type="submit" name="guardar" value="<?php echo  _translate("Guardar")?>" />
-			</td>
-		</tr>
-	</table>
+
+	<input type="button" onClick="cerrar()" value="<?php echo  _translate("Cerrar")?>"/>
+	<input type="submit" name="guardar" value="<?php echo  _translate("Guardar")?>" />
+
 </div>
 </form>
 </div>
