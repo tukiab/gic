@@ -73,9 +73,11 @@ class infoUsuario{
 
 	private function obtener_Proyectos(){
 		global $gestor_actual;
-		if(!$permisos->administracion)
+		global $permisos;
+		$perfil_usr = $gestor_actual->get_Perfil();
+		if(!in_array($perfil_usr['id'], array(4,5,6)))
 			$filtros['id_usuario'] = $this->usuario->get_Id();
-		$filtros['estados'] = '(1.2.4.5)';
+		$filtros['estados'] = '(1,2,4,5)';
 		$filtros['order_by'] = 'estado';
 
 		$this->DB_proyectos->buscar($filtros);
@@ -83,7 +85,8 @@ class infoUsuario{
 	}
 	private function obtener_Acciones(){
 		global $gestor_actual;
-		if(!$permisos->administracion)
+		$perfil_usr = $gestor_actual->get_Perfil();
+		if(!in_array($perfil_usr['id'], array(4,5,7)))
 			$filtros['id_usuario'] = $this->usuario->get_Id();
 		$filtros['fecha_siguiente_desde'] = fechaActualTimeStamp();
 		$filtros['fecha_siguiente_hasta'] = fechaActualTimeStamp();
@@ -104,7 +107,8 @@ class infoUsuario{
 	
 	private function obtener_Ofertas(){
 		global $gestor_actual;
-		if(!$permisos->administracion)
+		$perfil_usr = $gestor_actual->get_Perfil();
+		if(!in_array($perfil_usr['id'], array(4,5,7)))
 			$filtros['id_usuario'] = $this->usuario->get_Id();
 		$filtros['fecha_definicion_desde'] = fechaActualTimeStamp();
 		$filtros['fecha_definicion_hasta'] = fechaActualTimeStamp();
@@ -122,7 +126,8 @@ class infoUsuario{
 
     private function obtener_Ventas(){
 		global $gestor_actual;
-		if(!$permisos->administracion)
+		$perfil_usr = $gestor_actual->get_Perfil();
+		if(!in_array($perfil_usr['id'], array(4,5,7)))
 			$filtros['id_usuario'] = $this->usuario->get_Id();
 
                 $fecha2semanas = fechaActualTimeStamp()-(2*7*24*60*60);

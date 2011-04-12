@@ -240,13 +240,13 @@ class Proyecto{
 	 */
 	public function get_Horas_Documentacion(){return $this->horas_documentacion ;}
 	public function get_Horas_Documentacion_Reales(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->tareas as $tarea){
-			if($tarea['tipo'] == 1)
+			if($tarea['tipo'] == 2)
 				$count += $tarea['horas_despacho'];
 		}
 
-		return $cont;
+		return $count;
 	}
 	/**
 	 * Horas de auditoría interna
@@ -254,13 +254,13 @@ class Proyecto{
 	 */
 	public function get_Horas_Auditoria_Interna(){return $this->horas_auditoria_interna ;}
 	public function get_Horas_Auditoria_Interna_Reales(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->tareas as $tarea){
-			if($tarea['tipo'] == 1)
+			if($tarea['tipo'] == 2)
 				$count += $tarea['horas_auditoria_interna'];
 		}
 
-		return $cont;
+		return $count;
 	}
 	/**
 	 * Nombre del proyecto
@@ -273,7 +273,11 @@ class Proyecto{
 	 */
 	public function get_Fecha_Inicio(){return $this->fecha_inicio ;}
 	public function get_Fecha_Fin(){return $this->fecha_fin ;}
-	public function get_Observaciones(){return $this-> observaciones;}
+	public function get_Observaciones(){
+		//return $this-> observaciones;
+		$venta = new Venta($this->id_venta);
+		return $venta->get_Observaciones();
+	}
 	/**
 	 * Gestor (técnico) que está asignado al proyecto
 	 * @var integer
@@ -311,21 +315,24 @@ class Proyecto{
 	}
 
 	public function get_Horas_Remuneradas(){
-		$cont = 0;
+		return $this->get_Unidades()*8;
+	}
+	public function get_Horas_Incentivables(){
+		$count = 0;
 		foreach($this->tareas as $tarea){
-			$cont += ($tarea['incentivable'])?$tarea['horas_auditoria_interna']+$tarea['horas_despacho']+$tarea['horas_visita']:0;
+			$count += ($tarea['incentivable'])?$tarea['horas_auditoria_interna']+$tarea['horas_despacho']+$tarea['horas_visita']:0;
 		}
 
-		return $cont;
+		return $count;
 	}
 
 	public function get_Horas_No_Remuneradas(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->tareas as $tarea){
-			$cont += ($tarea['incentivable'])?0:$tarea['horas_auditoria_interna']+$tarea['horas_despacho']+$tarea['horas_visita'];
+			$count += ($tarea['incentivable'])?0:$tarea['horas_auditoria_interna']+$tarea['horas_despacho']+$tarea['horas_visita'];
 		}
 
-		return $cont;
+		return $count;
 	}
 
 	public function get_Planificacion(){
@@ -352,19 +359,19 @@ class Proyecto{
 	 * @var integer
 	 */
 	public function get_Horas_Desplazamiento(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->definicion_sedes as $definicion)
-			$cont += $definicion['horas_desplazamiento'];
+			$count += $definicion['horas_desplazamiento'];
 		
-		return $cont;
+		return $count;
 	}
 
 	public function get_Horas_Desplazamiento_Reales(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->tareas as $tarea)
-			$cont += $tarea['horas_desplazamiento'];
+			$count += $tarea['horas_desplazamiento'];
 
-		return $cont;
+		return $count;
 	}
 
 	/**
@@ -379,48 +386,48 @@ class Proyecto{
 	 * @var integer
 	 */
 	public function get_Horas_Cada_Visita(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->definicion_sedes as $definicion)
-			$cont += $definicion['horas_cada_visita'];
+			$count += $definicion['horas_cada_visita']*$definicion['numero_visitas'];
 		
-		return $cont;
+		return $count;
 	}
 	/**
 	 * Numero de visitas totales de todas las sedes
 	 * @var integer
 	 */
 	public function get_Numero_Visitas(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->definicion_sedes as $definicion)
-			$cont += $definicion['numero_visitas'];
+			$count += $definicion['numero_visitas'];
 		
-		return $cont;
+		return $count;
 	}
 	public function get_Numero_Visitas_Reales(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->tareas as $tarea){
-			$cont += ($tarea['tipo'] == 1)?1:0;
+			$count += ($tarea['tipo'] == 1)?1:0;
 		}
 
-		return $cont;
+		return $count;
 	}
 	/**
 	 * Gastos incurridos totales de todas las sedes
 	 * @var integer
 	 */
 	public function get_Gastos_Incurridos(){
-		$cont = 0;
+		$count = 0;
 		foreach($this->definicion_sedes as $definicion)
-			$cont += $definicion['gastos_incurridos'];
+			$count += $definicion['gastos_incurridos'];
 		
-		return $cont;
+		return $count;
 	}
 	/**
 	 * Suma de todas las incurridas en todas las sedes
 	 * @var <type>
 	 */
 	public function get_Horas_Totales(){
-		return ($this->get_Horas_Documentacion()+$this->get_Horas_Desplazamiento()+$this->get_Horas_Cada_Visita()*$this->get_Numero_Visitas()+$this->get_Horas_Auditoria_Interna());
+		return ($this->get_Horas_Documentacion()+$this->get_Horas_Desplazamiento()+$this->get_Horas_Cada_Visita()+$this->get_Horas_Auditoria_Interna());
 	}
 
 	public function get_Horas_Totales_Reales(){
@@ -439,7 +446,7 @@ class Proyecto{
 	 */
 	public function get_Carga_Trabajo_Mensual(){
 		if($this->get_Duracion())
-			return $this->get_Horas_Totales()/$this->get_Duracion();
+			return $this->get_Horas_Totales()*30/$this->get_Duracion();
 
 		return 0;
 	}
@@ -456,7 +463,7 @@ class Proyecto{
 	public function get_Unidades(){
 		$numero_meses = getNumeroMeses($this->fecha_inicio, $this->fecha_fin);
 		if($this->get_Horas_Totales() && getNumeroMeses($this->fecha_inicio, $this->fecha_fin))
-			return $this->get_Horas_Totales()/(8*$numero_meses);
+			return $this->get_Horas_Totales()*30/(8*$this->get_Duracion());
 		return 0;
 	}
 

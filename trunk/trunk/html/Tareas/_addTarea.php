@@ -85,12 +85,14 @@ class AddTarea{
 		
 		@(isset($opciones['id_usuario']))?$this->opt['usuario']=$opciones['id_usuario']:$this->opt['usuario']=$_SESSION['usuario_login'];
 		$this->Usuario = new Usuario($this->opt['usuario']);
+		$this->opt['id_usuario'] = $this->Usuario->get_Id();
 		
 		@(isset($opciones['id_proyecto']))?$this->opt['proyecto']=$opciones['id_proyecto']:null;
 		$this->Proyecto = new Proyecto($this->opt['proyecto']);
 		
 		@(isset($opciones['id_sede']))?$this->opt['sede']=$opciones['id_sede']:null;
 		$this->Sede = new Sede($this->opt['sede']);
+		$this->opt['id_sede'] = $this->Sede->get_Id();
 		
 		isset($opciones['guardar'])?$this->opt['guardar']=$opciones['guardar']:null;
 	}

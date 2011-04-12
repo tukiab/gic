@@ -192,7 +192,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td ><?php echo  $tarea['horas_desplazamiento'];?></td>
 				<td ><?php echo  $tarea['horas_visita'];?></td>
 				<td ><?php echo  $tarea['horas_despacho'];?></td>
-				<td ><?php echo  $tarea['horas_auditoria'];?></td>
+				<td ><?php echo  $tarea['horas_auditoria_interna'];?></td>
 			</tr>
 			<?php }?>
 		</table>
@@ -249,7 +249,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Desplazamiento();?></td>
 			</tr>
 			<tr class="definition">
-				<td class="ColIzq" nowrap><?php echo  _translate("Horas de cada visita")?>:</td>
+				<td class="ColIzq" nowrap><?php echo  _translate("Horas total de visita")?>:</td>
 				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Cada_Visita();?></td>
 			</tr>
 			<tr class="definition">

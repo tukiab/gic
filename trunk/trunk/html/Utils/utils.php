@@ -213,7 +213,7 @@ function es_Festivo($fecha_ts){
 	$query = "SELECT * FROM dias_festivos WHERE fecha='$fecha_ts' limit 1;";
 	$rs = mysql_query($query);
 	
-	if(mysql_num_rows($rs) < 1)
+	if(@mysql_num_rows($rs) < 1)
 		return false;
 	
 	return true;
@@ -327,7 +327,7 @@ function impArrayTelefono($t){
 	return $tel[0]."&#8212;".$tel[1]."&#8212;".$tel[2];
 }
 function getNumeroMeses($f1, $f2){
-	return ($f1-$f2)/(1000*60*60*24*30);
+	return ($f2-$f1)/(1000*60*60*24*30);
 }
 
 function getIdClientePrincipal(){

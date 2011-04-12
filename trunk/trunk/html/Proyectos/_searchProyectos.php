@@ -119,13 +119,14 @@ class BusquedaProyectos{
 	private function obtener_Opciones($opciones){
 		
 		//Asignar opciones según se nos pase desde la interfaz para construir una busqueda.	
-		
+
+		global $permisos;
 		
 		$id_usuario = $_SESSION['usuario_login'];
 		$usuario = new Usuario($id_usuario);
 		
 		$perfil_usuario = $usuario->get_Perfil();
-		if($perfil_usuario['id'] != 5 && $perfil_usuario['id'] != 4)
+		if(!$permisos->administracion)//$perfil_usuario['id'] != 5 && $perfil_usuario['id'] != 4)
 			$this->opt['id_usuario'] = $id_usuario;
 		else
 			@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;			

@@ -74,7 +74,7 @@ class ListaProyectos implements IIterador{
 		if(isset($filtros['id_estado']))
 			$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado = '".trim($filtros['id_estado'])."'";
 		else if(isset($filtros['estados']))
-			$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado IN '".trim($filtros['estados'])."'";
+			$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado IN ".trim($filtros['estados'])."";
 		(isset($filtros['fecha_inicio_desde']))?$filtro.=" AND proyectos.fecha_inicio >= '".trim($filtros['fecha_inicio_desde'])."' ":null;
 		(isset($filtros['fecha_inicio_hasta']))?$filtro.=" AND proyectos.fecha_inicio <= '".trim($filtros['fecha_inicio_hasta'])."' ":null;
 		(isset($filtros['fecha_fin_desde']))?$filtro.=" AND proyectos.fecha_fin >= '".trim($filtros['fecha_fin_desde'])."' ":null;
@@ -130,7 +130,7 @@ class ListaProyectos implements IIterador{
 				    GROUP BY proyectos.id $order
 					$limit;";
 		
-		//FB::info($query,'query ListaProyectos:buscar');
+		FB::info($query,'query ListaProyectos:buscar');
 		$this->result = @mysql_query($query);
 
 		//Obtenemos el número total de resultados sin paginar:
