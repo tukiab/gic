@@ -348,13 +348,13 @@ $(document).ready(function(){
                     <?php echo  _translate("Gastos incurridos");?>
             </th>
 			<?php }?>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+<!--			<th style="text-align: center;font-size: x-small;font-weight: normal">
                     <?php echo  _translate("Horas totales remuneradas");?>
             </th>
 			<?php if(!$var->opt['informe']){?>
 			<th style="text-align: center;font-size: x-small;font-weight: normal">
                     <?php echo  _translate("Horas totales no remuneradas");?>
-            </th>
+            </th> -->
 			<?php }?>
         </tr>
     </thead>
@@ -436,13 +436,13 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Gastos_Incurridos()?>
             </td>
 			<?php }?>
-			<td style="text-align:center;width:5%;">
+<!--			<td style="text-align:center;width:5%;">
                     <?php  echo $proyecto->get_Horas_Remuneradas()?>
             </td>
 			<?php if(!$var->opt['informe']){?>
 			<td style="text-align:center;width:5%;">
                     <?php  echo $proyecto->get_Horas_No_Remuneradas()?>
-            </td>
+            </td> -->
 			<?php }?>
         </tr>
     <?php
@@ -598,12 +598,12 @@ header("Expires: 0");
 			<td >
                     <?php echo  _translate("Gastos incurridos");?>
             </td>
-			<td >
+<!--			<td >
                     <?php echo  _translate("Horas totales remuneradas");?>
             </td>
 			<td >
                     <?php echo  _translate("Horas totales no remuneradas");?>
-            </td>
+            </td> -->
         </tr>
    
     
@@ -676,13 +676,13 @@ header("Expires: 0");
                     <?php  echo $proyecto->get_Gastos_Incurridos()?>
             </td>
 			<?php }?>
-			<td >
+<!--			<td >
                     <?php  echo $proyecto->get_Horas_Remuneradas()?>
             </td>
 			<?php if(!$var->opt['informe']){?>
 			<td >
                     <?php  echo $proyecto->get_Horas_No_Remuneradas()?>
-            </td>
+            </td>-->
 			<?php }?>
         </tr>
     <?php
