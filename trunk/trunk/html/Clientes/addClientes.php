@@ -3,7 +3,7 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
+include ($appRoot.'/Common/php/utils/lang.php');
 
 //Opciones:
 include ('_addClientes.php');
@@ -11,8 +11,8 @@ include ('_addClientes.php');
 
 
 
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 ?>
 <?php if($permisos->administracion){?>
 
@@ -78,8 +78,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 	</table>
 </div>
 <?php 
-include($appRoot.'/include/html/bottomMenu.php');
-include ($appRoot.'/include/html/footer.php');
+include($appRoot.'/Common/php/bottomMenu.php');
+include ($appRoot.'/Common/php/footer.php');
 ?>
 
 <?php }else{

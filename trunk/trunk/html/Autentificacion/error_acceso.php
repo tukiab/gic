@@ -2,9 +2,9 @@
 include ('../appRoot.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 ?>
 <table width="100%">
 	<tr>
@@ -20,5 +20,5 @@ include ($appRoot.'/include/html/mainMenu.php');
 	</tr>
 </table>
 <?php
-include ($appRoot.'/include/html/footer.php');
+include ($appRoot.'/Common/php/footer.php');
 ?>

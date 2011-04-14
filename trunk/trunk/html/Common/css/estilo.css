@@ -8,7 +8,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	background: /*url('../Graficas/img/bg.texture.main.png') repeat scroll left top #F5EEE6*/ #fafafa;
+	background: /*url('../Common/imagenes/img/bg.texture.main.png') repeat scroll left top #F5EEE6*/ #fafafa;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #787878;
@@ -19,7 +19,7 @@ select{
     width:100%;
 }
 .login_div{
-	background: url('../Graficas/img/login.png') center no-repeat;
+	background: url('../Common/imagenes/img/login.png') center no-repeat;
 	height: 500px;
 }
 #contenedor{
@@ -950,7 +950,7 @@ table{
 }
 
 a.show{
-	background: url('../Graficas/img/show_icon.png') no-repeat center;
+	background: url('../Common/imagenes/img/show_icon.png') no-repeat center;
 	padding: 9px;
 	display:block;
 	float:right;

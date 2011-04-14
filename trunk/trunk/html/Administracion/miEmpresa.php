@@ -3,15 +3,15 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once ($appRoot.'/Common/php/utils/utils.php');
 //Opciones
 include ('_miEmpresa.php');
 	$var = new MiEmpresa($_GET);
 
-	include($appRoot.'/include/html/header.php');
-	include($appRoot.'/include/html/mainMenu.php');
-	include($appRoot.'/include/html/bottomMenu.php');
+	include($appRoot.'/Common/php/header.php');
+	include($appRoot.'/Common/php/menu.php');
+	include($appRoot.'/Common/php/bottomMenu.php');
 
 ?>
 <script language="JavaScript" type="text/javascript">
@@ -197,7 +197,7 @@ $razon_social = $var->Cliente->get_Razon_Social();?>
 </div>
 </form>
 
-<?php include($appRoot.'/include/html/footer.php')?>
+<?php include($appRoot.'/Common/php/footer.php')?>
 <?php }else{
 	echo _translate("No tiene permisos suficientes");
 }?>

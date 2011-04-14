@@ -1,7 +1,7 @@
 <?php
 include ('../appRoot.php');
 //Incluimos la clase TCPDF
-include_once($appRoot."/Utils/tcpdf/tcpdf.php");
+include_once($appRoot."/Common/php/utils/tcpdf/tcpdf.php");
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 if($permisos->lectura){

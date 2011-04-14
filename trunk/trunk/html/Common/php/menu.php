@@ -8,7 +8,7 @@ include("_menu.php");
 ?>
 
 <div id="menuh">
-	<a id="logo" href="<?php echo $appDir;?>/pepe"><img src="<?php echo $appDir;?>/Graficas/img/logo.png" /></a>
+	<a id="logo" href="<?php echo $appDir;?>/pepe"><img src="<?php echo $appDir;?>/Common/imagenes/img/logo.png" /></a>
 	<ul>
 	<?foreach($var_menu->menus as $menu) printMenu($menu);?>
         <li > <a href=<?php echo  "$appDir/Autentificacion/Logout.php"?> ><?php echo  _translate("Salir ")?>(<?php echo $_SESSION['usuario_login']?>)</a></li>

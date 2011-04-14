@@ -2,8 +2,8 @@
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include ($appRoot.'/Common/php/utils/utils.php');
 
 //Opciones
 include ('_searchProveedores.php');
@@ -11,8 +11,8 @@ include ('_searchProveedores.php');
 //Instanciamso la clase busqueda de proveedores.
 $var = new BusquedaProveedores($_GET);
 
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 
 ?>
 <!-- Funciones varias para mejorar la interfaz -->
@@ -287,6 +287,6 @@ include ($appRoot.'/include/html/mainMenu.php');
 echo  _translate("No tiene permisos suficientes");
 }?>
 <?php 
-include($appRoot.'/include/html/bottomMenu.php');
-include ($appRoot.'/include/html/footer.php');
+include($appRoot.'/Common/php/bottomMenu.php');
+include ($appRoot.'/Common/php/footer.php');
 ?>

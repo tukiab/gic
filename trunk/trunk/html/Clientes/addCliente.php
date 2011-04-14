@@ -7,13 +7,13 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 	
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once($appRoot.'/Common/php/utils/utils.php');
 	include ('_addCliente.php');
 	$var = new AddCliente ($_GET);
 		
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 	
 	?>
 <div id="titulo"><?php echo  _translate("Registrar Empresa")?></div>
@@ -240,8 +240,8 @@ include ($appRoot.'/include/html/mainMenu.php');
 	
 	</script>
 	<?php 
-		include($appRoot.'/include/html/bottomMenu.php');
-		include($appRoot.'/include/html/footer.php');
+		include($appRoot.'/Common/php/bottomMenu.php');
+		include($appRoot.'/Common/php/footer.php');
 	?>
 <?php }else{
 	echo _translate("No tiene suficientes permisos");

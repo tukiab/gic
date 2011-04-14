@@ -1,9 +1,9 @@
 <?php  include_once('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 include_once('_atajosUsuario.php');
-include_once($appRoot.'/Utils/lang.php');
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include_once($appRoot.'/Common/php/utils/lang.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 
 $OBJAtajosUsuarios=new AtajosUsuarios($_GET,$_SESSION['usuario_login']);
 
@@ -51,6 +51,6 @@ $OBJAtajosUsuarios=new AtajosUsuarios($_GET,$_SESSION['usuario_login']);
 	</form>
 </div>
 <?php 
-include($appRoot.'/include/html/bottomMenu.php');
-include($appRoot.'/include/html/footer.php');
+include($appRoot.'/Common/php/bottomMenu.php');
+include($appRoot.'/Common/php/footer.php');
 ?>

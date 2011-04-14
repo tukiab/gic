@@ -2,7 +2,7 @@
 include ('../appRoot.php');
 
 //Validación de datos
-include_once($appRoot."/include/validar.php");
+include_once($appRoot."/Common/php/validar.php");
 
 class EditColaborador{
 	

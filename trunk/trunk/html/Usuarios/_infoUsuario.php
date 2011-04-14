@@ -6,7 +6,7 @@ include_once ($appRoot.'/Administracion/datos/datosGrupos.php');
 include_once ($appRoot.'/Administracion/datos/datosUsuarios.php');
 
 //Validación de datos
-include ($appRoot."/include/validar.php");
+include ($appRoot."/Common/php/validar.php");
 
 class infoUsuario{
 	

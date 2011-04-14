@@ -7,12 +7,12 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 	
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once($appRoot.'/Common/php/utils/utils.php');
 	include ('_addTarea.php');
 	$var = new AddTarea ($_GET);
 		FB::info($var->opt);
-include ($appRoot.'/include/html/popupHeader.php');
+include ($appRoot.'/Common/php/popupHeader.php');
 	
 	?>
 
