@@ -1,7 +1,7 @@
 <?php
 include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
-include_once($appRoot.'/Utils/utils.php');
+include_once($appRoot.'/Common/php/utils/utils.php');
 require ($appRoot.'/Usuarios/datos/Atajos.php');
 	$atajosUsuario = new Atajos();
 	$listadoAtajosUsuario=$atajosUsuario->getListaAtajosUsuario($_SESSION['usuario_login']);
@@ -11,10 +11,10 @@ include ('_infoUsuario.php');
 	$var = new infoUsuario($_SESSION['usuario_login'], $_SESSION['usuario_nombre'], $_POST);
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
+include ($appRoot.'/Common/php/utils/lang.php');
 
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 
 $cfilaPar = "#DDDDDD";
 $cfilaImpar = "#EEEEEE";
@@ -284,6 +284,6 @@ $cfilaImpar = "#EEEEEE";
 	 <?php }?>
 </form>
 <?php
-include($appRoot.'/include/html/bottomMenu.php');
-include ($appRoot.'/include/html/footer.php');
+include($appRoot.'/Common/php/bottomMenu.php');
+include ($appRoot.'/Common/php/footer.php');
 ?>

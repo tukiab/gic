@@ -1,7 +1,7 @@
 <?php 
 include ('../appRoot.php');
 
-include ($appRoot.'/Utils/params.php');
+include ($appRoot.'/Common/php/utils/params.php');
 
 class InsertarClientes{
 	

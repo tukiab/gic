@@ -2,8 +2,8 @@
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include ($appRoot.'/Common/php/utils/utils.php');
 
 //Opciones
 include ('_reportsOfertas.php');
@@ -12,8 +12,8 @@ include ('_reportsOfertas.php');
 $var = new InformesOfertas($_GET);
 if($permisos->administracion){
 if(!$var->opt['exportar']){
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 }
 else{
 header("Content-type: application/vnd.ms-excel;charset=latin");

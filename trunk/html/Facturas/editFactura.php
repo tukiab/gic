@@ -8,13 +8,13 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once ($appRoot.'/Common/php/utils/utils.php');
 //Opciones
 include ('_editFactura.php');
 	$var = new EditFactura($_GET);
 
-include ($appRoot.'/include/html/popupHeader.php');
+include ($appRoot.'/Common/php/popupHeader.php');
 ?>
 <div id="titulo"><?php echo  _translate("Editar Factura")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
@@ -110,4 +110,4 @@ include ($appRoot.'/include/html/popupHeader.php');
 <?php }else{
 echo  _translate("No tiene permisos suficientes");
 }?>
-<?php include($appRoot.'/include/html/footer.php')?>
+<?php include($appRoot.'/Common/php/footer.php')?>

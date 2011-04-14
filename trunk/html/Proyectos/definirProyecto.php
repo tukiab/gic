@@ -7,13 +7,13 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once($appRoot.'/Common/php/utils/utils.php');
 	include ('_definirProyecto.php');
 	$var = new DefinirProyecto($_GET);
 		
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 	?>
 <script type="text/javascript">
 function cargar_plantilla(id_proyecto){

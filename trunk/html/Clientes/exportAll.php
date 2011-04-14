@@ -2,8 +2,8 @@
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include ($appRoot.'/Common/php/utils/utils.php');
 
 //Opciones
 include ('_searchClientes.php');

@@ -8,13 +8,13 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once ($appRoot.'/Common/php/utils/utils.php');
 //Opciones
 include ('_editUsuario.php');
 	$var = new EditUsuario($_GET);
 
-include ($appRoot.'/include/html/popupHeader.php');
+include ($appRoot.'/Common/php/popupHeader.php');
 
 ?>
 <style type="text/css">
@@ -145,4 +145,4 @@ echo  _translate("No tiene permisos suficientes");
 		window.close();
 	};
 </script>
-<?php include($appRoot.'/include/html/footer.php')?>
+<?php include($appRoot.'/Common/php/footer.php')?>

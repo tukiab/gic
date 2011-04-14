@@ -10,7 +10,7 @@
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<script language="JavaScript" type="text/javascript">
-		var img_cal='<?php echo  $appDir."/Graficas/img/calendar.gif";?>';
+		var img_cal='<?php echo  $appDir."/Common/imagenes/img/calendar.gif";?>';
 	</script>	
 	<script language="JavaScript" type="text/javascript" src="<?php echo  $appDir.'/Common/js/jQuery/jQuery.js';?>" > </script>
 	<script language="JavaScript" type="text/javascript" src="<?php echo  $appDir.'/Common/js/interface_1.2/interface.js';?>" > </script>

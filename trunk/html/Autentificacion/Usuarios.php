@@ -4,11 +4,11 @@ include ($codeRoot.'/config/server.php');
 require_once ($codeRoot.'/config/dbConect.php');
 
 require_once ($appRoot.'/Autentificacion/_permisos.php');
-include ($appRoot.'/include/mensajes.php');
+include ($appRoot.'/Common/php/mensajes.php');
 include ($appRoot.'/Autentificacion/datos/datosLogin.php');
-include ($appRoot.'/Utils/syslogRegister.php');
+include ($appRoot.'/Common/php/utils/syslogRegister.php');
 
-include ($appRoot.'/include/autoload.php');
+include ($appRoot.'/Common/php/autoload.php');
 
 //FB::setEnabled(DEBUG);
 if(DEBUG)

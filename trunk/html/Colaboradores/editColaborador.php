@@ -8,13 +8,13 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once ($appRoot.'/Common/php/utils/utils.php');
 //Opciones
 include ('_editColaborador.php');
 	$var = new EditColaborador($_GET);
 
-include ($appRoot.'/include/html/popupHeader.php');
+include ($appRoot.'/Common/php/popupHeader.php');
 
 ?>
 <div id="titulo"><?php echo  _translate("Editar Colaborador")?></div>
@@ -117,4 +117,4 @@ $disabled = $var->Colaborador->get_DisableEdit();
 	};
 
 </script>
-<?php include($appRoot.'/include/html/footer.php')?>
+<?php include($appRoot.'/Common/php/footer.php')?>

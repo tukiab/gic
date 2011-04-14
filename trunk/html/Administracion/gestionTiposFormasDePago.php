@@ -8,15 +8,15 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once ($appRoot.'/Common/php/utils/utils.php');
 //Opciones
 include ('_gestionTiposFormasDePago.php');
 	$var = new GestionTiposFormasDePago($_POST);
 
-include ($appRoot.'/include/html/header.php');
+include ($appRoot.'/Common/php/header.php');
 if(!$_GET['id_cliente'])
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/menu.php');
 
 ?>
 <div id="titulo"><?php echo  _translate("Tipos de forma de pago")?></div>
@@ -101,4 +101,4 @@ echo  _translate("No tiene permisos suficientes");
 
 	-->
 </script>
-<?php include($appRoot.'/include/html/footer.php');?>
+<?php include($appRoot.'/Common/php/footer.php');?>

@@ -2,7 +2,7 @@
 include ('../appRoot.php');
 
 //ValidaciÃ³n de datos
-include_once($appRoot."/include/validar.php");
+include_once($appRoot."/Common/php/validar.php");
 
 class EditOferta{
 	
@@ -51,7 +51,7 @@ class EditOferta{
 		$this->gestor = new Usuario($_SESSION['usuario_login']);
 		//Obtenemos las opciones pasadas al script
 		if(!$opciones['id'] || !is_numeric($opciones['id']))
-			exit("No se ha definido un ID de Oferta válido.php");
+			exit("No se ha definido un ID de Oferta vï¿½lido.php");
 
 		$this->Oferta = new Oferta($opciones['id']);
 		$this->ListaOfertas = new ListaOfertas();

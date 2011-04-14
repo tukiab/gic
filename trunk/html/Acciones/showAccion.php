@@ -3,19 +3,19 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once ($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once ($appRoot.'/Common/php/utils/utils.php');
 //Opciones
 include ('_showAccion.php');
 	$var = new ShowAccion($_GET);
 
 if($var->opt['mostrar_cabecera']){
-	include($appRoot.'/include/html/header.php');
-	include($appRoot.'/include/html/mainMenu.php');
-	include($appRoot.'/include/html/bottomMenu.php');
+	include($appRoot.'/Common/php/header.php');
+	include($appRoot.'/Common/php/menu.php');
+	include($appRoot.'/Common/php/bottomMenu.php');
 }
 else
-	include ($appRoot.'/include/html/popupHeader.php');
+	include ($appRoot.'/Common/php/popupHeader.php');
 
 	$cliente = $var->opt['Accion']->get_Cliente();
 	$tipo_accion = $var->opt['Accion']->get_Tipo_Accion();
@@ -72,4 +72,4 @@ else{?>
 <?php }else{
 	echo _translate("No tiene suficientes permisos");
 }?>
-<?php include($appRoot.'/include/html/footer.php');?>
+<?php include($appRoot.'/Common/php/footer.php');?>

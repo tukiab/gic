@@ -1,15 +1,15 @@
 <?php	include ('../appRoot.php');
 
 //Funciones auxiliares:
-	include_once ($appRoot.'/Utils/lang.php');
+	include_once ($appRoot.'/Common/php/utils/lang.php');
 
-include ($appRoot.'/include/mensajes.php');
-include ($appRoot.'/include/html/header.php');
-include ($appRoot.'/include/html/mainMenu.php');
+include ($appRoot.'/Common/php/mensajes.php');
+include ($appRoot.'/Common/php/header.php');
+include ($appRoot.'/Common/php/menu.php');
 ?>
 <style type="text/css">
 	body{
-		background: url('<?php echo $appDir?>/Graficas/img/fondo_fb.png') repeat-x;
+		background: url('<?php echo $appDir?>/Common/imagenes/img/fondo_fb.png') repeat-x;
 	}
 </style>
 <div id="titulo"><?php echo  _translate("Login")?></div>
@@ -52,5 +52,5 @@ include ($appRoot.'/include/html/mainMenu.php');
 	document.forms[0].user.focus();
 </script>
 <?php
-include ($appRoot.'/include/html/footer.php');
+include ($appRoot.'/Common/php/footer.php');
 ?>

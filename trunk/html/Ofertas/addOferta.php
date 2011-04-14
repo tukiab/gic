@@ -7,12 +7,12 @@ include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 	
 //Funciones auxiliares:
-include ($appRoot.'/Utils/lang.php');
-include_once($appRoot.'/Utils/utils.php');
+include ($appRoot.'/Common/php/utils/lang.php');
+include_once($appRoot.'/Common/php/utils/utils.php');
 	include ('_addOferta.php');
 	$var = new AddOferta ($_GET);
 		FB::info($var->opt);
-include ($appRoot.'/include/html/popupHeader.php');
+include ($appRoot.'/Common/php/popupHeader.php');
 	
 	?>
 
@@ -156,8 +156,8 @@ include ($appRoot.'/include/html/popupHeader.php');
 	-->
 	</script>
 	<?php 
-//		include($appRoot.'/include/html/bottomMenu.php');
-//		include($appRoot.'/include/html/footer.php');
+//		include($appRoot.'/Common/php/bottomMenu.php');
+//		include($appRoot.'/Common/php/footer.php');
 	?>
 <?php }else{
 echo  _translate("No tiene permisos suficientes");
