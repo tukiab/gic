@@ -230,23 +230,23 @@ $(document).ready(function(){
     </tr>
 </table>
 </div>
-<br/>
+
 <?php if($permisos->administracion){ ?>
 <label class="nota"><a href=<?php echo  $appDir.'/Proyectos/addProyecto.php';?>>>> <?php echo  _translate("Crear proyecto directamente")?> <<</a></label><br/>
-<br/>
 <?php }?>
 <!-- RESULTADOS -->
 <div class="listado">
 <label class="nota"><?php  echo $var->datos['lista_proyectos']->num_Resultados()." ".Resultados?></label>
 
-<?php if($permisos->administracion && $var->opt['mostrar']){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
+<?php if($permisos->administracion && $var->opt['mostrar']){?>
+	<input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <?php }?>
 
 <table>
     <thead>
         <tr>
             <th>
-                    <input type=checkbox id="chk_todos"/>
+                    <input type="checkbox" id="chk_todos"/>
             </th>
             <th>
                     <a href="#" onClick="javascript:orderBy('id')" ><?php echo  _translate("Id")?></a>
@@ -257,7 +257,7 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Empresa");?>
             </th>
             <th>
@@ -270,7 +270,7 @@ $(document).ready(function(){
                     ?>
             </th>
 
-            <th style="text-align: center;font-size: x-small;font-weight: normal">
+            <th>
                     <a href="#" onClick="javascript:orderBy('gestor')" ><?php echo  _translate("T&eacute;nico asignado")?></a>
                     <?php
                             if($var->opt['order_by']=='gestor' && $var->opt['order_by_asc_desc']=='ASC')
@@ -306,56 +306,57 @@ $(document).ready(function(){
                                     echo  "&darr;";
                     ?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Visitas te&oacute;ricas");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Visitas reales");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("%");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Horas Doc te&oacute;ricas");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Horas Doc reales");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("%");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Horas audit te&oacute;ricas ");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Horas audit reales");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("%");?>
             </th>
 			<?php }?>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Horas TOTALES te&oacute;ricas");?>
             </th>
 			<?php if(!$var->opt['informe']){?>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Horas TOTALES reales");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("%");?>
             </th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Gastos incurridos");?>
             </th>
 			<?php }?>
-<!--			<th style="text-align: center;font-size: x-small;font-weight: normal">
+<!--			<th>
                     <?php echo  _translate("Horas totales remuneradas");?>
             </th>
 			<?php if(!$var->opt['informe']){?>
-			<th style="text-align: center;font-size: x-small;font-weight: normal">
+			<th>
                     <?php echo  _translate("Horas totales no remuneradas");?>
-            </th> -->
+            </th>
 			<?php }?>
+ -->
         </tr>
     </thead>
     <tbody>
@@ -366,84 +367,85 @@ $(document).ready(function(){
         $resaltado = "";
         if($estado['id'] == 2)
                 $resaltado = 'style="font-weight:bold;"';
-        ?>
+        ?>nf
         <tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
-            <td style="text-align:center;width:5%;">
-                    <input class="chk" type=checkbox name="seleccionados[]" <?php if(is_array($var->opt['seleccionados']) && in_array($proyecto->get_Id(),$var->opt['seleccionados'])) echo "checked";?> value="<?php echo $proyecto->get_Id(); ?>" />
+            <td>
+                    <input class="chk" type="checkbox" name="seleccionados[]" <?php if(is_array($var->opt['seleccionados']) && in_array($proyecto->get_Id(),$var->opt['seleccionados'])) echo "checked";?> value="<?php echo $proyecto->get_Id(); ?>" />
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $proyecto->get_Id()?>&nbsp;&nbsp;</a>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php $cliente = $proyecto->get_Cliente();?>
                     <a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $cliente->get_Razon_Social()?>&nbsp;&nbsp;</a>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $proyecto->get_Nombre()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Id_Usuario();?>
             </td>
 			<?php if(!$var->opt['informe']){?>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo  $estado['nombre'];?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo timestamp2date($proyecto->get_Fecha_Inicio())?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo timestamp2date($proyecto->get_Fecha_Fin())?>
             </td>
-            <td style="text-align:center;width:5%;">
+            <td>
                     <?php  echo $proyecto->get_Numero_Visitas();?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Numero_Visitas_Reales()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php if($proyecto->get_Numero_Visitas_Reales()) echo $proyecto->get_Numero_Visitas()/$proyecto->get_Numero_Visitas_Reales()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Horas_Documentacion()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Horas_Documentacion_Reales()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php if($proyecto->get_Horas_Documentacion_Reales()) echo $proyecto->get_Horas_Documentacion()/$proyecto->get_Horas_Documentacion_Reales()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Horas_Auditoria_Interna()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Horas_Auditoria_Interna_Reales()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php if($proyecto->get_Horas_Auditoria_Interna_Reales()) echo $proyecto->get_Horas_Auditoria_Interna()/$proyecto->get_Horas_Auditoria_Interna_Reales()?>
             </td>
 			<?php }?>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Horas_Totales()?>
             </td>
 			<?php if(!$var->opt['informe']){?>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Horas_Totales_Reales()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php if($proyecto->get_Horas_Totales_Reales()) echo $proyecto->get_Horas_Totales()/$proyecto->get_Horas_Totales_Reales()?>
             </td>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Gastos_Incurridos()?>
             </td>
 			<?php }?>
-<!--			<td style="text-align:center;width:5%;">
+<!--			<td>
                     <?php  echo $proyecto->get_Horas_Remuneradas()?>
             </td>
 			<?php if(!$var->opt['informe']){?>
-			<td style="text-align:center;width:5%;">
+			<td>
                     <?php  echo $proyecto->get_Horas_No_Remuneradas()?>
-            </td> -->
+            </td> 
 			<?php }?>
+-->
         </tr>
     <?php
     }?>
@@ -470,13 +472,12 @@ $(document).ready(function(){
                     </div>
             </td>
         </tr>
-            <?php if($permisos->administracion && $var->opt['mostrar']){?>
+            <?php if($permisos->administracion && !$var->opt['informe']){?>
             <tr>
                     <td colspan="23" style="text-align: right;">
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>
                             <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
                             <input type="hidden" id="asignar_gestor" name="asignar_gestor" value="0"/>
-							<input type="hidden" id="informe" name="informe" value="<?php echo $var->opt['informe']?>" />
                             <input id="mostrarGestores" type="button" value="<?php echo  _translate("Asignar t&eacute;cnico")?>" />
 
 							<?php if($var->gestor->esAdministradorTotal()){?>
@@ -487,6 +488,7 @@ $(document).ready(function(){
             <?php }?>
     </tbody>
 </table>
+<input type="hidden" id="informe" name="informe" value="<?php echo $var->opt['informe']?>" />
 <!-- <input type="hidden" name="id_usuario" id="id_usuario" value="<?php  echo $var->opt['id_usuario']?>" /> -->
 </div>
 <div id="gestores" style="display:none">
@@ -520,8 +522,6 @@ $(document).ready(function(){
 </div>		
 </form>
 </div>
-<br />
-<br />
 <?php 
 include($appRoot.'/Common/php/bottomMenu.php');
 include ($appRoot.'/Common/php/footer.php');
