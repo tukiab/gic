@@ -632,7 +632,7 @@ $(document).ready(function(){
                     </div>
             </td>
         </tr>
-            <?php if($permisos->administracion && $var->opt['mostrar']){//if($gestor_actual->esAdministrador()){?>
+            <?php if($permisos->administracion ){//if($gestor_actual->esAdministrador()){?>
             <tr>
                     <td colspan="16" style="text-align: right;">
                             <input type="hidden" id="eliminar" name="eliminar" value="0"/>

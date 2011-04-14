@@ -402,7 +402,7 @@ include ($appRoot.'/Common/php/menu.php');
 							</div>
 						</td>
 					</tr>
-					<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal() && $var->opt['mostrar']){?>
+					<?php if($permisos->administracion  && $var->gestor->esAdministradorTotal() ){?>
 					<tr>
 						<td colspan="11" style="text-align: right;">
 							<a href="#" onclick="eliminar();"><input class="borrar" type="button" value="<?php echo  _translate("Borrar seleccionados")?>" /></a>
