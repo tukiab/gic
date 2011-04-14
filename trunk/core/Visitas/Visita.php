@@ -2,7 +2,7 @@
 /**
  * Clase que gestiona las Visitas.
  */
-include_once('../../html/Utils/utils.php');
+include_once('../../html/Common/php/utils/utils.php');
 class Visita{
 
 	/**

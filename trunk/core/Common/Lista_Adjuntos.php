@@ -42,7 +42,7 @@ class Lista_Adjuntos{
 					 <tr>
 						<th style='width:70%;' colspan='3'>
 							"._translate("Archivos adjuntos", true)." &nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp;
-							<a href='javascript:void(0);' onclick=\"window.open('$appDir/Utils/adjuntar_archivo.php?id=".$Entidad->get_Id()."&clase=".$clase."','".rand()."','width=700,height=350,scrollbars=yes');\">
+							<a href='javascript:void(0);' onclick=\"window.open('$appDir/Common/php/utils/adjuntar_archivo.php?id=".$Entidad->get_Id()."&clase=".$clase."','".rand()."','width=700,height=350,scrollbars=yes');\">
 								&#91;&nbsp;"._translate("Añadir", true)." / "._translate("Eliminar", true)."&nbsp;&#93;
 							</a>
 						</th>
@@ -51,7 +51,7 @@ class Lista_Adjuntos{
 			$html.="
 			<tr par>
 				<td>
-					<a href='javascript:void(0);' onclick=\"window.open('$appDir/Utils/enviar_archivo.php?id=".$Entidad->get_Id()."&clase=".$clase."&id_archivo=".$Adjunto->get_Id()."','".rand()."','width=700,height=350,scrollbars=yes');\">".$Adjunto->get_Name()."</a>
+					<a href='javascript:void(0);' onclick=\"window.open('$appDir/Common/php/utils/enviar_archivo.php?id=".$Entidad->get_Id()."&clase=".$clase."&id_archivo=".$Adjunto->get_Id()."','".rand()."','width=700,height=350,scrollbars=yes');\">".$Adjunto->get_Name()."</a>
 				</td>
 				<td>".$Adjunto->get_Descripcion()."</td>
 				<td style='width:2%;'>".$Adjunto->get_Hum_Size()."</td>

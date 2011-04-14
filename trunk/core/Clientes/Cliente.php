@@ -2,7 +2,7 @@
 /**
  * Clase que gestiona los Clientes.
  */
-include_once('../../html/Utils/utils.php');
+include_once('../../html/Common/php/utils/utils.php');
 class Cliente{
 
 	/**
