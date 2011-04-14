@@ -2,7 +2,7 @@
 /**
  * Clase que gestiona los GruposEmpresas.
  */
-include_once('../../html/Utils/utils.php');
+include_once('../../html/Common/php/utils/utils.php');
 class TipoDeAccion{
 
 	/**
@@ -53,9 +53,9 @@ class TipoDeAccion{
 					WHERE id = '$this->id'";
 			//FB::info($query,'TipoDeAccion->cargar: QUERY');
 			if(!($result = mysql_query($query)))
-				throw new Exception("Error al cargar el Tipo de acción de la BBDD");
+				throw new Exception("Error al cargar el Tipo de acciï¿½n de la BBDD");
 			else if(mysql_num_rows($result) == 0)
-				throw new Exception("No se ha encontrado el Tipo de acción en la BBDD");
+				throw new Exception("No se ha encontrado el Tipo de acciï¿½n en la BBDD");
 
 			$row = mysql_fetch_array($result);
 

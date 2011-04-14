@@ -2,7 +2,7 @@
 /**
  * Clase que gestiona los GruposEmpresas.
  */
-include_once('../../html/Utils/utils.php');
+include_once('../../html/Common/php/utils/utils.php');
 class TipoDeFormaDePago{
 
 	/**
