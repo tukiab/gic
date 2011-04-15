@@ -156,11 +156,11 @@ function getLoginURL(){
 	
 	$params="?";
 	foreach($_GET as $key => $value){
-		if($key=='Nq55R7R-qfw')
-			break;
+	/*	if($key=='Nq55R7R-qfw')
+			break;*/
 		$params.="&$key=$value";
 	}
-	$params.="&Nq55R7R-qfw";
+	//$params.="&Nq55R7R-qfw";
 	
 	$url = $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF'].$params;
 	return $url;
