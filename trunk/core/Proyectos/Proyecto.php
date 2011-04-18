@@ -508,7 +508,6 @@ class Proyecto{
 			$this->id_venta = null;
 			$this->importe = 0;
 			$this->fecha_inicio = $datos['fecha_inicio'];
-			$this->fecha_fin = $datos['fecha_fin'];
 			$this->estado = 2;
 			$this->observaciones = mysql_real_escape_string($datos['observaciones']);
 
@@ -518,6 +517,8 @@ class Proyecto{
 			if(!$this->id_cliente)
 				throw new Exception('No se ha definido la empresa usuaria de GIC, contacte con su administrador');
 
+			$value = "";
+			$campo="";
 			//Si se asigna el gestor directamente
 			if($datos['id_usuario']){
 				$this->id_usuario = trim($datos['id_usuario']);
@@ -525,18 +526,23 @@ class Proyecto{
 				$value = ", '$this->id_usuario'";
 				$this->estado = 3;
 			}
+			if($datos['fecha_fin']){
+				$this->fecha_fin = $datos['fecha_fin'];
+				$campo = ', fecha_fin';
+				$value = ", '$this->fecha_fin'";
+			}
 		}
 
-		$this->cerrar = 1;
+		$this->cerrar = '1';
 		if(isset($datos['cerrar']))
 			$this->cerrar = $datos['cerrar'];		
 
-		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio, fecha_fin, cerrar, observaciones $campo)
+		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->fecha_fin', '$this->cerrar', '$this->observaciones $value); ";
+								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";
 		
 		if(!mysql_query($query))
-			throw new Exception('Error al crear el nuevo proyecto');
+			throw new Exception('Error al crear el nuevo proyecto '.$query);
 
 		$this->id = mysql_insert_id();
 		$this->estado = $this->cargar_Estado();
