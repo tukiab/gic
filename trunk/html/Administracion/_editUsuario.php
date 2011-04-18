@@ -76,16 +76,16 @@ class EditUsuario{
 			if(isset($opciones['penalizacion_'.$penalizacion['id']]))
 				$this->opt['penalizacion_'.$penalizacion['id']]=$opciones['penalizacion_'.$penalizacion['id']];
 			else{
-				$penalizacion = $this->Usuario->get_Penalizacion($penalizacion['id']);
-				$this->opt['penalizacion_'.$penalizacion['id']]= $penalizacion['penalizacion'];
+				$penalizacion_ = $this->Usuario->get_Penalizacion($penalizacion['id']);
+				$this->opt['penalizacion_'.$penalizacion['id']]= $penalizacion_['penalizacion'];
 			}
 
 		foreach($this->datos['lista_tipos_comision'] as $comision)
 			if(isset($opciones['comision_'.$comision['id']]))
 				$this->opt['comision_'.$comision['id']]=$opciones['comision_'.$comision['id']];
-			else{
-				$comision = $this->Usuario->get_Comision ($comision['id']);
-				$this->opt['comision_'.$comision['id']]=$comision['comision'];
+			else{ 
+				$comision_ = $this->Usuario->get_Comision ($comision['id']);
+				$this->opt['comision_'.$comision['id']]=$comision_['comision'];
 			}
 
 		(isset($opciones['guardar']))?$this->opt['guardar']=$opciones['guardar']:null;
