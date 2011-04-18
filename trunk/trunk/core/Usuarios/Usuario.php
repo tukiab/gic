@@ -281,7 +281,7 @@
  		return $this->comisiones;
  	}
 	public function get_Comision($id){
-		return $this->comision[$id];
+		return $this->comisiones[$id];
 	}
 	public function get_Comisiones_Departamento(){
  		return $this->comisiones_departamento;
@@ -317,7 +317,7 @@
 	 * @return integer $id_cliente Id del nuevo Cliente.
 	 */
 	public function crear($datos){
-		//FB::info($datos,'datos para crear usuario');
+		////FB::info($datos,'datos para crear usuario');
 		/*
 		 * Datos imprescindibles para crear un cliente nuevo:
 		 * 		id
@@ -353,7 +353,7 @@
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
 	private function guardar($datos){
-		//FB::info($datos,'datos para guardar usuario');
+		////FB::info($datos,'datos para guardar usuario');
 		$s_into.="";
 		$s_values.="";
 		if(isset($datos['apellidos'])){
@@ -381,7 +381,7 @@
 									$s_values
 								);
 		";
-		//FB::info($query,'query guardar Usuario');
+		////FB::info($query,'query guardar Usuario');
 		if(!mysql_query($query))
 			throw new Exception("Error al crear el Usuario.");
 		$this->id = mysql_insert_id();
@@ -534,7 +534,7 @@
 
 		$query = "INSERT INTO usuarios_rel_objetivos_mensuales
 							(fk_usuario, fk_objetivo, comision)
-							VALUES ('$this->id', '$id', '$comision');";FB::error($query);
+							VALUES ('$this->id', '$id', '$comision');";//FB::error($query);
 		if(!mysql_query($query))
 			throw new Exception("Error cr&iacute;tico al establecer los objetivos");
 	}
@@ -556,7 +556,7 @@
 
 		$query = "INSERT INTO usuarios_rel_penalizaciones
 							(fk_usuario, fk_penalizacion, penalizacion)
-							VALUES ('$this->id', '$id', '$penalizacion');";FB::warn($query);
+							VALUES ('$this->id', '$id', '$penalizacion');";//FB::warn($query);
 		if(!mysql_query($query))
 			throw new Exception("Error cr&iacute;tico al establecer las penalizaciones");
 	}
@@ -578,7 +578,7 @@
 
 		$query = "INSERT INTO usuarios_rel_tipos_comision
 							(fk_usuario, fk_tipo_comision, comision)
-							VALUES ('$this->id', '$id', '$comision');";FB::info($query);
+							VALUES ('$this->id', '$id', '$comision');";//FB::info($query);
 		if(!mysql_query($query))
 			throw new Exception("Error cr&iacute;tico al establecer las comisiones");
 	}
