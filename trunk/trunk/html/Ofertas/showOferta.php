@@ -43,7 +43,9 @@ else{?>
 <ul id="menu-sec">
 
 
-	<?php if($permisos->administracion  && !$var->opt['Oferta']->get_Aceptado() || $usuario->esAdministradorTotal()){?>
+	<?php
+	$usuario = new Usuario($_SESSION['usuario_login']);
+	if($permisos->administracion  && !$var->opt['Oferta']->get_Aceptado() || $usuario->esAdministradorTotal() && !$var->opt['Oferta']->get_Aceptado()){?>
 		<li>
 			<label title="<?php echo  _translate("BORRAR")?>">
 				<a class="borrar" href="#" onclick="eliminar();"><?php echo  _translate("Borrar oferta")?></a>
