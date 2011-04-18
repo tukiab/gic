@@ -22,12 +22,13 @@ function cargar_plantilla(id_proyecto){
 }
 </script>
 <style type="text/css">
-	
+
 </style>
 <form method="GET" target="" action="" id="frm_definicion">
 	<div id="titulo"><?php echo $var->Proyecto->get_Nombre();?></div>
-	<?php if($permisos->administracion){?>
-
+	<?php
+	$venta = $var->Proyecto->get_Venta();FB::info($venta);
+	if($permisos->administracion){?>
 	<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 	<div id="contenedor">
 			<table>
@@ -52,6 +53,14 @@ function cargar_plantilla(id_proyecto){
 						<input type="text" value="<?php echo $var->opt['horas_auditoria_interna'];?>" name="horas_auditoria_interna" id="horas_auditoria_interna" />
 					</td>
 				</tr>
+				<?php if($venta){?>
+				<tr>
+					<td class="ColIzq"><?php echo  _translate("Plazo de ejecuci&oacute;n (venta)")?>&#42;</td>
+					<td>
+						<?php echo $venta->get_Plazo_Ejecucion();?>
+					</td>
+				</tr>
+				<?php }?>
 				<tr>
 					<td class="ColIzq"><?php echo  _translate("Fecha de inicio")?>&#42;</td>
 					<td>
@@ -59,7 +68,7 @@ function cargar_plantilla(id_proyecto){
 					</td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Fecha de finalizaci&oacute;n")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Fecha de finalizaci&oacute;n")?></td>
 					<td>
 						<input type="text" class="fecha" value="<?php echo timestamp2date($var->opt['fecha_fin']);?>" name="fecha_fin" id="fecha_fin" />
 					</td>
@@ -94,7 +103,7 @@ function cargar_plantilla(id_proyecto){
 					</td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Gastos incurridos")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Gastos incurridos")?></td>
 					<td>
 						<input type="text" value="<?php echo $var->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos'];?>"
 							name="<?php echo 'definicion_sedes_'.$sede->get_Id().'_gastos_incurridos';?>"/>

@@ -23,13 +23,13 @@ class MiEmpresa{
 	 */
 	public function __construct($opciones){
 		try{
-			$this->get_Opciones($opciones);			
-			$this->usuario = new Usuario($_SESSION['usuario_login']);
-			
 			//Buscamos el cliente en la BBDD, si existe:
 			$ListaClientes = new ListaClientes();
-			$ListaClientes->get_Cliente_Principal();
+			$this->Cliente = $ListaClientes->get_Cliente_Principal();
 
+			$this->get_Opciones($opciones);			
+			$this->usuario = new Usuario($_SESSION['usuario_login']);
+		
 			if($this->opt['guardar'])
 				$this->guardar();
 			
@@ -44,20 +44,36 @@ class MiEmpresa{
 	 * @param Array $opciones Array de opciones pasados al constructor.
 	 */
 	private function get_Opciones($opciones){
-		@($opciones['razon_social'])?$this->opt['razon_social']=$opciones['razon_social']:null;
-		@($opciones['sector'])?$this->opt['sector']=$opciones['sector']:null;
-		@($opciones['web'])?$this->opt['web']=$opciones['web']:null;
-		$this->opt['tipo_cliente']=2; //Cliente definitivo
-		@($opciones['domicilio'])?$this->opt['domicilio']=$opciones['domicilio']:null;
-		@($opciones['NIF'])?$this->opt['NIF']=$opciones['NIF']:null;
-		@($opciones['localidad'])?$this->opt['localidad']=$opciones['localidad']:null;
-		@($opciones['FAX'])?$this->opt['FAX']=$opciones['FAX']:null;
-		@($opciones['provincia'])?$this->opt['provincia']=$opciones['provincia']:null;
-		@($opciones['telefono'])?$this->opt['telefono']=$opciones['telefono']:null;
+		if(!$this->Cliente){
+			@($opciones['razon_social'])?$this->opt['razon_social']=$opciones['razon_social']:null;
+			@($opciones['sector'])?$this->opt['sector']=$opciones['sector']:null;
+			@($opciones['web'])?$this->opt['web']=$opciones['web']:null;
+			$this->opt['tipo_cliente']=2; //Cliente definitivo
+			@($opciones['domicilio'])?$this->opt['domicilio']=$opciones['domicilio']:null;
+			@($opciones['NIF'])?$this->opt['NIF']=$opciones['NIF']:null;
+			@($opciones['localidad'])?$this->opt['localidad']=$opciones['localidad']:null;
+			@($opciones['FAX'])?$this->opt['FAX']=$opciones['FAX']:null;
+			@($opciones['provincia'])?$this->opt['provincia']=$opciones['provincia']:null;
+			@($opciones['telefono'])?$this->opt['telefono']=$opciones['telefono']:null;
 
-		@($opciones['CP'])?$this->opt['CP']=$opciones['CP']:null;
-		@($opciones['numero_empleados'])?$this->opt['numero_empleados']=$opciones['numero_empleados']:null;
-		
+			@($opciones['CP'])?$this->opt['CP']=$opciones['CP']:null;
+			@($opciones['numero_empleados'])?$this->opt['numero_empleados']=$opciones['numero_empleados']:null;
+		}else{ 
+			$this->opt['razon_social']=@($opciones['razon_social'])?$opciones['razon_social']:$this->Cliente->get_Razon_Social();
+			$this->opt['sector']=@($opciones['sector'])?$opciones['sector']:$this->Cliente->get_Sector();
+			$this->opt['web']=@($opciones['web'])?$opciones['web']:$this->Cliente->get_Web();
+			$this->opt['tipo_cliente']=2; //Cliente definitivo
+			$this->opt['domicilio']=@($opciones['domicilio'])?$opciones['domicilio']:$this->Cliente->get_Domicilio();
+			$this->opt['NIF']=@($opciones['NIF'])?$opciones['NIF']:$this->Cliente->get_NIF();
+			$this->opt['localidad']=@($opciones['localidad'])?$opciones['localidad']:$this->Cliente->get_Localidad();
+			$this->opt['FAX']=@($opciones['FAX'])?$opciones['FAX']:$this->Cliente->get_FAX();
+			$this->opt['provincia']=@($opciones['provincia'])?$opciones['provincia']:$this->Cliente->get_Provincia();
+			$this->opt['telefono']=@($opciones['telefono'])?$opciones['telefono']:$this->Cliente->get_Telefono();
+
+			$this->opt['CP']=@($opciones['CP'])?$opciones['CP']:$this->Cliente->get_CP();
+			$this->opt['numero_empleados']=@($opciones['numero_empleados'])?$opciones['numero_empleados']:$this->Cliente->get_Numero_Empleados();
+			$this->opt['grupo_empresas'] = 1;
+		}
 		@($opciones['gestor'])?$this->opt['gestor']=$opciones['gestor']:$this->opt['gestor']=$_SESSION['usuario_login'];
 		$this->opt['gestor_obj'] = new Usuario($this->opt['gestor']);
 		
@@ -76,12 +92,11 @@ class MiEmpresa{
 			$this->Cliente = new Cliente();
 			$this->opt['grupo_empresas'] = 1;
 			$this->opt['tipo_cliente'] = 2;
-			$this->Cliente->crear($this->opt);
+			$this->Cliente->crear($this->opt);			
 		}else{
 			$this->Cliente->editar($this->opt);
 		}
 		header("Location: ../Clientes/showCliente.php?id=".$this->Cliente->get_Id());
-		//$this->opt['msg'] = 'Guardado';
 	}
 	
 }

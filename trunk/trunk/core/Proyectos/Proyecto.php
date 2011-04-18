@@ -352,7 +352,15 @@ class Proyecto{
 	 * Devuelve el importe
 	 * @return integer
 	 */
-	public function get_Precio_Venta(){return $this->importe;}
+	public function get_Precio_Venta(){
+		//return $this->importe;
+		$venta = $this->get_Venta();
+		if($venta)
+			return $venta->get_Precio_Total();
+		
+		return 0;
+	}
+
 	// Los siguientes atributos no son sacados de la bbdd, se calculan a partir de los anteriores
 	/**
 	 * Horas de desplazamiento totales de todas las sedes
@@ -484,24 +492,25 @@ class Proyecto{
 			$venta = new Venta($this->id_venta);
 			$cliente = $venta->get_Cliente();
 			$this->id_cliente = $cliente->get_Id();
-			$this->importe = $venta->get_Importe();
+			$this->importe = $venta->get_Precio_Total();
 			$this->nombre = $venta->get_Nombre_Venta();
 			$this->fecha_inicio = $venta->get_Fecha_Inicio();
-			$this->fecha_fin = $venta->get_Fecha_Estimada_Formacion();
 			$this->id_estado = 1;
+			$this->observaciones = $venta->get_Observaciones();
 		}else{
 			if(!isset($datos['nombre']))
 				throw new Exception('Debe indicar el nombre del proyecto');
 			if(!isset($datos['fecha_inicio']))
 				throw new Exception('Debe indicar la fecha de inicio del proyecto');
 			if(isset($datos['fecha_fin']))
-			if($datos['fecha_inicio'] > $datos['fecha_fin'])
+			if($datos['fecha_fin'] && ($datos['fecha_inicio'] > $datos['fecha_fin']))
 				throw new Exception('La fecha de inicio ha de ser anterior a la de finalizaci&oacute;n');
 			$this->id_venta = null;
 			$this->importe = 0;
 			$this->fecha_inicio = $datos['fecha_inicio'];
 			$this->fecha_fin = $datos['fecha_fin'];
 			$this->estado = 2;
+			$this->observaciones = mysql_real_escape_string($datos['observaciones']);
 
 			//el cliente de este tipo de proyectos es la empresa principal:
 			$listaUsuarios = new ListaUsuarios();
@@ -522,9 +531,9 @@ class Proyecto{
 		if(isset($datos['cerrar']))
 			$this->cerrar = $datos['cerrar'];		
 
-		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio, fecha_fin, cerrar $campos)
+		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio, fecha_fin, cerrar, observaciones $campo)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->fecha_fin', '$this->cerrar' $value); ";
+								'$this->fecha_inicio', '$this->fecha_fin', '$this->cerrar', '$this->observaciones $value); ";
 		
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto');
@@ -587,32 +596,34 @@ class Proyecto{
 			else
 				$errores .= '<br/>Proyecto: Campo fecha de inicio inv&aacute;lido';
 		}
-		if($datos['fecha_fin'] == '' || ! isset($datos['fecha_fin']))
-			$errores .= "<br/>Proyecto: Campo fecha de fin obligatorio.";
-		else{
-			if(is_numeric(trim($datos['fecha_fin'])))
+		if($datos['fecha_fin'])
+			if(is_numeric(trim($datos['fecha_fin']))){
 				$this->fecha_fin = trim($datos['fecha_fin']);
-			else
+			}else{
 				$errores .= '<br/>Proyecto: Campo fecha de fin inv&aacute;lido';
-		}
+			}
+		
 		//Por último comprobamos si vienen dados los datos de definición para todas las sedes
 		$cliente = $this->get_Cliente();
 		$sedes = $cliente->get_Sedes();
 		foreach($sedes as $id_sede){
 			if(!is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_horas_desplazamiento']) )
 				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_horas_cada_visita']))
-				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']))
-				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']))){
+				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']))){
 					 
 					$errores .= '<br/>Proyecto: debe definir los datos de definici&oacute;n de todas las sedes de la empresa';
 					continue;
 			}else{
+				$gastos = 0;
+				if(isset($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']) && is_numeric($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']))
+					$gastos = $datos['definicion_sedes_'.$id_sede.'_gastos_incurridos'];
+				
 				//id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos
 				$definicion_sedes[$id_sede] = array('id_sede' => $id_sede,
 															'horas_desplazamiento' => trim($datos['definicion_sedes_'.$id_sede.'_horas_desplazamiento']),
 															'horas_cada_visita' => trim($datos['definicion_sedes_'.$id_sede.'_horas_cada_visita']),
 															'numero_visitas' => trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']),
-															'gastos_incurridos' => trim($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']),);
+															'gastos_incurridos' => $gastos);
 			}
 		}
 		

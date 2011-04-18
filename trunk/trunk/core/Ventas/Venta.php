@@ -398,9 +398,7 @@ class Venta{
 			$errores .= "<br/>El nombre es obligatorio.";
 		if($datos['fecha_entrada_vigor'] == '' || ! isset($datos['fecha_entrada_vigor']))
 			$errores .= "<br/>La fecha de entrada en vigor es obligatoria.";
-		if($datos['fecha_asignacion_tecnico'] == '' || ! isset($datos['fecha_asignacion_tecnico']))
-			$errores .= "<br/>La fecha de asignaci&oacute;n a t&eacute;cnico es obligatoria.";
-
+		
 		if($datos['fecha_toma_contacto'] == '' || ! isset($datos['fecha_toma_contacto']))
 			$errores .= "<br/>La fecha de toma de contacto es obligatoria.";
 		if($datos['fecha_inicio'] == '' || ! isset($datos['fecha_inicio']))
@@ -433,6 +431,10 @@ class Venta{
 		if(isset($datos['forcem'])){
 			$campos .= ", forcem";
 			$valores .= ",'".mysql_real_escape_string(trim($datos['forcem']))."'";
+		}
+		if(isset($datos['fecha_asignacion_tecnico'])){
+			$campos .= ", fecha_asignacion_tecnico";
+			$valores .= ",'".mysql_real_escape_string(trim($datos['fecha_asignacion_tecnico']))."'";
 		}
 		if(isset($datos['plazo_ejecucion'])){
 			$campos .= ", plazo_ejecucion";
@@ -499,7 +501,6 @@ class Venta{
 						fk_oferta,
 						fecha_aceptado,
 						fecha_entrada_vigor,
-						fecha_asignacion_tecnico,
 						fecha_toma_contacto,
 						fecha_inicio,
 						fecha_estimada_formacion,
@@ -514,7 +515,6 @@ class Venta{
 						'".trim($datos['id_oferta'])."',
 						'".time()."',
 						'".trim($datos['fecha_entrada_vigor'])."',
-						'".trim($datos['fecha_asignacion_tecnico'])."',
 						'".trim($datos['fecha_toma_contacto'])."',
 						'".trim($datos['fecha_inicio'])."',
 						'".trim($datos['fecha_estimada_formacion'])."',

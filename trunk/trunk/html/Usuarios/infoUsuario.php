@@ -196,7 +196,7 @@ $cfilaImpar = "#EEEEEE";
 					?>
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="proyectos">
 
-					<td><?php echo $proyecto->get_Nombre();?></td>
+					<td><a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a></td>
 					<td><?php $estado = $proyecto->get_Estado(); echo $estado['nombre'];?></td>
 					<td><?php echo $proyecto->get_Id_Usuario(); ?></td>
 					<td><?php echo timestamp2date($proyecto->get_Fecha_Inicio()); ?></td>

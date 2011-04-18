@@ -36,8 +36,11 @@ class MainMenu{
 		
 		$this->menus[4]= new Menu("$appDir/Acciones/searchAcciones.php", "Acciones de trabajo", "acciones");
 
-		$this->menus[5]= new Menu("$appDir/Proyectos/searchProyectos.php", "Proyectos", "proyectos");
-		
+		$this->menus[5][0]= new Menu("#", "Proyectos", "proyectos");
+			$this->menus[5][1]= new Menu("$appDir/Proyectos/searchProyectos.php", "B&uacute;squeda");
+			if($perfil_usuario['id'] == 5 || $perfil_usuario['id'] == 6){ //administrador y director técnico
+				$this->menus[5][2]= new Menu("$appDir/Proyectos/addProyecto.php", "Crear directamente");
+			}
 			
 		if($perfil_usuario['id'] == 5 || $perfil_usuario['id'] == 4){
 		
@@ -62,9 +65,8 @@ class MainMenu{
 				$this->menus[9][3]= new Menu("$appDir/Administracion/gestionGrupos.php", "Grupos de empresas");
 				$this->menus[9][4]= new Menu("$appDir/Administracion/gestionTiposProducto.php", "Tipos de producto");
 				$this->menus[9][5]= new Menu("$appDir/Administracion/gestionTiposAccion.php", "Tipos de accion");
-                                $this->menus[9][6]= new Menu("$appDir/Administracion/gestionTiposFormasDePago.php", "Tipos de formas de pago");
-                                $this->menus[9][7]= new Menu("$appDir/Administracion/gestionTiposComision.php", "Tipos de comisi&oacute;n");
-				
+					$this->menus[9][6]= new Menu("$appDir/Administracion/gestionTiposFormasDePago.php", "Tipos de formas de pago");
+                    $this->menus[9][7]= new Menu("$appDir/Administracion/gestionTiposComision.php", "Tipos de comisi&oacute;n");			
 			
 		}
 		

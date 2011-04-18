@@ -95,12 +95,12 @@ include ($appRoot.'/Common/php/menu.php');
 				<input style="width:98px"   type="text" class="fecha" name="fecha_entrada_vigor" value="<?php echo  timestamp2date($var->opt['fecha_entrada_vigor']);?>" />
 			</td>
 		</tr>
-		<tr>
+	<!--	<tr>
 			<td class="ColIzq"><?php echo  _translate("Fecha de asignaci&oacute;n a t&eacute;cnico")?>&#42;</td>
 			<td class="ColDer">
 				<input style="width:98px"   type="text" class="fecha" name="fecha_asignacion_tecnico" value="<?php echo  timestamp2date($var->opt['fecha_asignacion_tecnico']);?>" />
 			</td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td class="ColIzq"><?php echo  _translate("Fecha de toma de contacto")?>&#42;</td>
 			<td class="ColDer">
@@ -135,6 +135,12 @@ include ($appRoot.'/Common/php/menu.php');
 			<td class="ColIzq"><?php echo  _translate("Plazo de ejecuci&oacute;n")?></td>
 			<td>
 				<textarea rows="5" cols="30" name="plazo_ejecucion"><?php echo  $var->opt['plazo_ejecucion'];?></textarea>
+			</td>
+	    </tr>
+		<tr>
+			<td class="ColIzq"><?php echo  _translate("Importe de la oferta")?></td>
+			<td>
+				<?php echo $var->opt['Oferta']->get_Importe();?> &euro;
 			</td>
 	    </tr>
 		<tr>
@@ -176,7 +182,7 @@ include ($appRoot.'/Common/php/menu.php');
 		<tr>
 			<td class="ColIzq"><?php echo  _translate("Cuenta de cargo")?></td>
 			<td>
-				<input type="text" name="cuenta_cargo" value="<?php echo  $var->opt['cuenta_cargo'];?>" />
+				<input type="text" name="cuenta_cargo" maxlength="23" value="<?php echo  $var->opt['cuenta_cargo'];?>" /><br/> (formato 1234-1234-12-1234567890)
 			</td>
 	    </tr>
 		<tr>

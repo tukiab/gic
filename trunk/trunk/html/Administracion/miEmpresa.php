@@ -23,7 +23,8 @@ $(document).ready(function()
 
 <?php 
 if($var->opt['msg']){?>
-	<div id="error_msg" ><?php echo$var->opt['msg']?>	
+	<div id="error_msg" >
+		<?php echo$var->opt['msg']?>
 	</div>
 <?php }?>
 <div id="titulo">Mi empresa</div>

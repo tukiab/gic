@@ -8,7 +8,7 @@ include("_menu.php");
 ?>
 
 <div id="menuh">
-	<a id="logo" href="<?php echo $appDir;?>/pepe"><img src="<?php echo $appDir;?>/Common/imagenes/img/logo.png" /></a>
+	<a id="logo" href="<?php echo $appDir;?>/Usuarios/infoUsuario.php"><img alt="" src="<?php echo $appDir;?>/Common/imagenes/img/logo.png" /></a>
 	<ul>
 	<?foreach($var_menu->menus as $menu) printMenu($menu);?>
 		<?php if($_SESSION['usuario_login']){?>
@@ -41,9 +41,10 @@ include("_menu.php");
 ?>
 
 <?php
-if($_SESSION['usuario_login'])
-	if(!getIdClientePrincipal()){?>
+if($_SESSION['usuario_login']){?>
 	<div class="aviso_sistema">
+		<?php
+	if(!getIdClientePrincipal()){?>
 		<?php
 		$usuario = new Usuario($_SESSION['usuario_login']);
 		if($usuario->esAdministradorTotal()){
@@ -53,5 +54,8 @@ if($_SESSION['usuario_login'])
 <?php }else{?>
 		No se han definido los datos de su empresa, consulte con el administrador.
 <?php }
-	}?>
+	}else{?>
+		<img alt="" src="<?php echo $appDir;?>/Common/imagenes/img/logo.jpg" style="width:200px;"/>
+		<?php } ?>
 	</div>
+			<?php }?>

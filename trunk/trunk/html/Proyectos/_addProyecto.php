@@ -86,7 +86,8 @@ class AddProyecto{
 	private function obtenerDatos(){
 		$listaUsuarios = new ListaUsuarios();
 		$filtros['perfiles'] = '(3,6)'; //técnicos y directores técnicos
-		$this->datos['lista_tecnicos'] = $listaUsuarios->buscar();		
+		$listaUsuarios->buscar($filtros);
+		$this->datos['lista_tecnicos'] = $listaUsuarios;
 	}
 	
 	/**

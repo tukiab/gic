@@ -138,6 +138,7 @@ class BusquedaProyectos{
 		@($opciones['asignar_gestor'])?$this->opt['asignar_gestor']=true:$this->opt['asignar_gestor']=false;
 		@($opciones['gestor_asignar'])?$this->opt['gestor_asignar']=$opciones['gestor_asignar']:null;
 		@($opciones['seleccionados'])?$this->opt['seleccionados']=$opciones['seleccionados']:null;
+		@($opciones['razon_social'])?$this->opt['razon_social']=$opciones['razon_social']:null;
 		@($opciones['nombre'])?$this->opt['nombre']=$opciones['nombre']:null;
 		@($opciones['id_estado'] != 0)?$this->opt['id_estado']=$opciones['id_estado']:null;
 		@($opciones['fecha_inicio_desde'])?$this->opt['fecha_inicio_desde']=date2timestamp($opciones['fecha_inicio_desde']):null;

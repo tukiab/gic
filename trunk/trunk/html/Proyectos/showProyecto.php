@@ -128,12 +128,24 @@ $estado = $var->Proyecto->get_Estado();?>
 			</tr>
 			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Unidades")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Unidades();?></td>
+				<td class="ColDer"><?php echo substr($var->Proyecto->get_Unidades(), 0, 5) ;?></td>
 			</tr>
 			<tr>
 				<td class="ColIzq" nowrap><?php echo  _translate("Observaciones")?>:</td>
 				<td class="ColDer">
 					<?php echo  $var->Proyecto->get_Observaciones();?>
+				</td>
+			</tr>
+			<tr>
+				<td class="ColIzq" nowrap><?php echo  _translate("Precio consultor&iacute;a (venta)")?>:</td>
+				<td class="ColDer">
+					<?php echo  ($venta)?$venta->get_Precio_Consultoria():0;?> &euro;
+				</td>
+			</tr>
+			<tr>
+				<td class="ColIzq" nowrap><?php echo  _translate("Precio formaci&oacute;n (venta)")?>:</td>
+				<td class="ColDer">
+					<?php echo  ($venta)?$venta->get_Precio_Formacion():0;?> &euro;
 				</td>
 			</tr>
 			<tr class="datos">
@@ -284,7 +296,7 @@ $estado = $var->Proyecto->get_Estado();?>
 		<!-- DEFINICIÓN DESGLOSADA POR SEDES -->
 		<table  >
 			<tr>
-				<td class="ListaTitulo" colspan="5"><?php echo  _translate("Desglose por sedes")?><a class="show" href="#" clase="desglose"></a></td>
+				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Desglose por sedes")?><a class="show" href="#" clase="desglose"></a></td>
 			</tr>
 			<tr  class="desglose">
 				<th>Sede</th>
@@ -292,6 +304,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<th>Horas de cada visita</th>
 				<th>N&uacute;mero de visitas</th>
 				<th>Gastos incurridos</th>
+				<th>Total horas</th>
 			</tr>
 			<?php foreach($var->Proyecto->get_Definicion_Sedes() as $definicion){?>
 			<tr class="desglose">
@@ -300,6 +313,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td ><?php echo $definicion['horas_cada_visita'];?></td>
 				<td ><?php echo $definicion['numero_visitas'];?></td>
 				<td ><?php echo $definicion['gastos_incurridos'];?></td>
+				<td><?php echo $definicion['horas_desplazamiento']+$definicion['horas_cada_visita']*$definicion['numero_visitas'];?></td>
 			</tr>
 			<?php }?>			
 		</table>

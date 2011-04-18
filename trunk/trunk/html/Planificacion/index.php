@@ -193,14 +193,14 @@ include ($appRoot.'/Common/php/menu.php');
 							<?php echo  _translate("Mes")?>
 						</th>
 						<th >
+							<?php echo  _translate("N&uacute;mero")?>
+						</th>
+						<th >
 							<?php echo  _translate("D&iacute;a")?>
 						</th>
 						<th >
 							<?php echo  _translate("Hora")?>
-						</th>
-						<th >
-							<?php echo  _translate("N&uacute;mero")?>
-						</th>
+						</th>						
 						<th >
 							<?php echo  _translate("T&eacute;cnico")?>
 						</th>
@@ -229,6 +229,10 @@ include ($appRoot.'/Common/php/menu.php');
 						<td style="text-align:center;width:5%;">
 							<?php echo get_Nombre_Mes($visita->get_Fecha());?>
 						</td>
+
+						<td style="text-align:center;width:5%;">
+							<?php echo date("d",$visita->get_Fecha());?>
+						</td>
 						<td style="text-align:center;width:5%;">
 							<?php echo get_Nombre_Dia_Semana($visita->get_Fecha());?>
 						</td>
@@ -236,16 +240,14 @@ include ($appRoot.'/Common/php/menu.php');
 							<?php echo $visita->get_Hora();?>
 						</td>
 						<td style="text-align:center;width:5%;">
-							<?php echo date("d",$visita->get_Fecha());?>
-						</td>
-						<td style="text-align:center;width:5%;">
 							<?php echo $visita->get_Usuario();?>
 						</td>
 						<td style="text-align:center;width:5%;">
-							<?php echo $proyecto->get_Nombre();?>
+							<a href="<?php echo $appDir."/Proyectos/showProyecto.php?id=".$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a>
 						</td>
 						<td style="text-align:center;width:5%;">
-							<?php $cliente = $proyecto->get_Cliente(); echo $cliente->get_Razon_Social();?>
+							<?php $cliente = $proyecto->get_Cliente(); ?>
+							<a href="<?php echo $appDir."/Clientes/showCliente.php?id=".$cliente->get_Id();?>"><?php echo $cliente->get_Razon_Social();?></a>
 						</td>
 					</tr>
 				<?php 

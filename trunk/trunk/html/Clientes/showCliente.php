@@ -87,7 +87,8 @@ if($var->opt['msg']){?>
 			<?php }?>
 		</li>
 		<li>
-			<?php if($permisos->administracion && $usuario->esAdministradorTotal()){?>
+			<?php $usuario = new Usuario($_SESSION['usuario_login']);
+			if($permisos->administracion && $usuario->esAdministradorTotal()){?>
 				<label title="<?php echo  _translate("BORRAR")?>">
 					<a href="#" onclick="eliminar(false);" class="borrar"><?php echo  _translate("Borrar empresa")?></a>
 
@@ -217,7 +218,7 @@ if($var->opt['msg']){?>
 				<td class="ColDer"><?php  echo $var->opt['Cliente']->get_Observaciones()?></td>
 			</tr>
 			<?php 
-			if($permisos->escritura){?>
+			if($permisos->lectura){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/editCliente.php?id=".$var->opt['Cliente']->get_Id();?>
@@ -256,7 +257,7 @@ if($var->opt['msg']){?>
 					</tr>
 				<?php }?>
 			<?php 
-			if($permisos->escritura){?>
+			if($permisos->lectura){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/editContactos.php?id=".$var->opt['Cliente']->get_Id();?>
@@ -282,14 +283,14 @@ if($var->opt['msg']){?>
 						$impar=true;
 						$class = 'impar';
 					}?>
-					<tr class="<?php  echo $class?> sedes" ><
+					<tr class="<?php  echo $class?> sedes" >
 						<td><a href="<?php echo $appDir.'/Clientes/showSede.php?id='.$sede->get_Id()?>"><?php echo  $sede->get_Localidad();?></a></td>
 						<!--<td><?php echo  $sede->get_Provincia();?></td>
 						<td><?php echo  email($sede->get_Direccion());?></td>-->
 					</tr>
 				<?php }?>
 			<?php
-			if($permisos->escritura){?>
+			if($permisos->lectura){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Clientes/editSedes.php?id=".$var->opt['Cliente']->get_Id();?>

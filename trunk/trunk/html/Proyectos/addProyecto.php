@@ -28,7 +28,7 @@ include ($appRoot.'/Common/php/menu.php');
 			</tr>
 			<tr>
 				<td  class="busquedaIzda"><?php echo  _translate("Nombre")?>&#42;</td>
-				<td class="busquedaIzda">
+				<td class="busquedaDcha">
 					<input type="text" name="nombre" value="<?php echo  $var->opt['nombre'];?>" />
 				</td>
 			</tr>
@@ -50,7 +50,7 @@ include ($appRoot.'/Common/php/menu.php');
 					<select  name="id_usuario">
 						<?php $usuario_sel = $var->opt['id_usuario'];?>
 						<option value="" ><?php echo _translate("No asignar");?></option>
-						<?php foreach($var->datos['lista_tecnicos'] as $user){?>
+						<?php while($user=$var->datos['lista_tecnicos']->siguiente()){?>
 						<option value="<?php  echo $user->get_Id()?>" <?php if($user->get_Id() == $usuario_sel) echo 'selected="selected"';?>><?php  echo $user->get_Id()?></option>
 						<?php }?>
 					</select>
