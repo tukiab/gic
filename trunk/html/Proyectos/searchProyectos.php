@@ -141,13 +141,21 @@ $(document).ready(function(){
             </td>
     </tr>
     <tr>
+			<td class="busquedaIzda">
+                    <?php echo  _translate('Raz&oacute;n social contiene')?> &nbsp;
+            </td>
+            <td class="busquedaDcha">
+                    <input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"/>
+            </td>
+
             <td class="busquedaIzda">
-                    <?php echo  _translate('Nombre')?> &nbsp;
+                    <?php echo  _translate('Nombre contiene')?> &nbsp;
             </td>
             <td class="busquedaDcha">
                     <input type="text" size="15"name="nombre" value="<?php  echo $var->opt['nombre']?>"/>
             </td>
-
+	</tr>
+	<tr>
             <td class="busquedaIzda">
                     <?php echo  _translate('Estado')?>
             </td>
@@ -161,36 +169,35 @@ $(document).ready(function(){
 						<?php }?>
                     </select>
             </td>
-    </tr>
-    <tr>
+
             <td class="busquedaIzda">
             <?php echo  _translate('Fecha inicio desde')?> &nbsp;
             </td>
             <td class="busquedaDcha">
                     <input type="text" class="fecha" size="12" name="fecha_inicio_desde" value="<?php  echo timestamp2date($var->opt['fecha_inicio_desde'])?>"/>
             </td>
+	</tr>
+    <tr>
             <td class="busquedaIzda">
                     <?php echo  _translate('Fecha inicio hasta')?> &nbsp;
             </td>
             <td class="busquedaDcha">
                     <input type="text" class="fecha" size="12" name="fecha_inicio_hasta" value="<?php  echo timestamp2date($var->opt['fecha_inicio_hasta'])?>"/>
             </td>
-    </tr>
-	<tr>
             <td class="busquedaIzda">
             <?php echo  _translate('Fecha finalizaci&oacuten desde')?> &nbsp;
             </td>
             <td class="busquedaDcha">
                     <input type="text" class="fecha" size="12" name="fecha_fin_desde" value="<?php  echo timestamp2date($var->opt['fecha_fin_desde'])?>"/>
             </td>
+    </tr>
+	<tr>
             <td class="busquedaIzda">
                     <?php echo  _translate('Fecha finalizaci&oacute;n hasta')?> &nbsp;
             </td>
             <td class="busquedaDcha">
                     <input type="text" class="fecha" size="12" name="fecha_fin_hasta" value="<?php  echo timestamp2date($var->opt['fecha_fin_hasta'])?>"/>
             </td>
-    </tr>
-    <tr>
             <td class="busquedaIzda" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
                     <?php echo  _translate('Gestor asignado')?> &nbsp;
             </td>
@@ -204,8 +211,7 @@ $(document).ready(function(){
                             <?php }?>
                     </select>
             </td>
-			<td colspan="2">
-    </tr>
+			    </tr>
     <tr >
             <td colspan="4" class="ListaTitulo">
                     <div style="float:left"><?php echo  _translate("Paginaci&oacute;n y b&uacute;squeda")?></div>

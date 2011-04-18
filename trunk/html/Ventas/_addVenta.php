@@ -138,17 +138,17 @@ class AddVenta{
 		try{
 			$venta = new Venta();
 			$id=$venta->crear($this->opt);
-                        $this->enviar_mail_gerentes($id);
+                        $this->enviar_mail($id);
 			header("Location: showVenta.php?id=$id");
 		}catch(Exception $e){
 			$this->opt['error_msg']= $e->getMessage();
 		}
 	}
 
-        private function enviar_mail_gerentes($id_venta){
+        private function enviar_mail($id_venta){
             $venta=new Venta($id_venta);
             $listaUsuarios = new ListaUsuarios();
-            $filtros['perfil'] = 4; //gerente
+            $filtros['perfiles'] = '(4,6)'; //gerente y dir técnico
             $listaUsuarios->buscar($filtros);
 
             $oferta = $venta->get_Oferta();

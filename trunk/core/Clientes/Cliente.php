@@ -734,20 +734,20 @@ class Cliente{
 	 * @param array $datos Array indexado por nombre con los datos de un cliente.
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar($datos){
+	private function guardar($datos){FB::info($datos);
 	
-		//$datos = delTildesArray($datos);
-		$coincidencias = $this->buscar_coincidencias($datos['telefono'], $datos['razon_social']);
-		if($coincidencias != '' && ! $datos['continuar'])
-                    return($coincidencias);
-		
-		if($datos['cliente_principal']){
+		if(!$datos['cliente_principal']){
+			$coincidencias = $this->buscar_coincidencias($datos['telefono'], $datos['razon_social']);
+			if($coincidencias != '' && ! $datos['continuar'])
+				return($coincidencias);
+			$cliente_principal = 0;
+		}
+		else{
 			$cliente_principal = 1;
 			$query = "UPDATE clientes SET cliente_principal = '0' WHERE cliente_principal='1';";
 			if(!mysql_query($query))
 				throw new Excepcion("Error cr&iacute;tico al deshacer la empresa propietaria anterior");
-		}else
-			$cliente_principal = 0;
+		}			
 
 		$s_into.="";
 		$s_values.="";
@@ -833,7 +833,7 @@ class Cliente{
 									'$this->id',
 									'".trim($datos['gestor'])."',
 									'1'
-								);";	//FB::info($query);
+								);";	FB::info($query);
 		if(!mysql_query($query)){
 			$this->del_Cliente();
 			throw new Exception("Error al crear el Empresa: No se pudo establecer el gestor.");

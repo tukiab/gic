@@ -58,7 +58,7 @@ else{?>
 		</li>
 		<?php }else if($var->opt['Oferta']->get_Usuario() == $gestor_actual->get_Id()){?>
 		<li>
-			<a href="<?php echo $appDir."/Ventas/addVenta.php?id_oferta=".$var->opt['Oferta']->get_Id() ;?>"><input type="button" value="<?php echo  _translate("Aceptar oferta")?>" /></a>
+			<a href="<?php echo $appDir."/Ventas/addVenta.php?id_oferta=".$var->opt['Oferta']->get_Id() ;?>"><?php echo  _translate("Aceptar oferta")?></a>
 		</li>
 		<?php }?>
 	</ul>

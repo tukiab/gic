@@ -70,6 +70,9 @@ class ListaProyectos implements IIterador{
 		(!isset($filtros['con_cerrar']))?$filtro.=" AND cerrar = 1 ":null;
 
 		(isset($filtros['id']))?$filtro.=" AND proyectos.id = '".trim($filtros['id'])."' ":null;
+		if(isset($filtros['razon_social']))
+			$join .= "INNER JOIN clientes ON proyectos.fk_cliente = clientes.id AND clientes.razon_social LIKE '%".$filtros['razon_social']."%'";
+		
 		(isset($filtros['nombre']))?$filtro.=" AND proyectos.nombre LIKE '%".trim($filtros['nombre'])."%' ":null;
 		if(isset($filtros['id_estado']))
 			$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado = '".trim($filtros['id_estado'])."'";

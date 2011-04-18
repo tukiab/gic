@@ -173,7 +173,7 @@ include ($appRoot.'/Common/php/menu.php');
 			</td>
 		</tr>
 		
-		<tr>			
+		<!--<tr>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha asignaci&oacute;n a t&eacute;cnico desde')?> &nbsp;
 			</td>
@@ -186,7 +186,7 @@ include ($appRoot.'/Common/php/menu.php');
 			<td class="busquedaDcha"> 
 				<input type="text" class="fecha" size="12" name="fecha_asignacion_tecnico_hasta" value="<?php  echo timestamp2date($var->opt['fecha_asignacion_tecnico_hasta'])?>"></input>
 			</td>
-		</tr>
+		</tr>-->
 		<tr>			
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha de entrada en vigor desde')?> &nbsp;
@@ -322,6 +322,7 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
+						<!--
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
 							<a href="#" onClick="javascript:orderBy('fecha_asignacion_tecnico')" ><?php echo  _translate("Fecha asignaci&oacute;n t&eacute;cnico")?></a>
 							<?php 
@@ -331,7 +332,7 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						
+						-->
 						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
 							<a href="#" onClick="javascript:orderBy('fecha_entrada_vigor')" ><?php echo  _translate("Fecha entrada vigor")?></a>
 							<?php 
@@ -350,31 +351,31 @@ include ($appRoot.'/Common/php/menu.php');
 					?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
 					
-						<td style="text-align:center;width:5%;">
+						<td >
 							<input class="chk" type=checkbox name="seleccionados[]" value="<?php echo $venta->get_Id(); ?>" />							
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<a href="<?php echo  $appDir.'/Ventas/showVenta.php?id='.$venta->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $venta->get_Id()?>&nbsp;&nbsp;</a>							
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php echo $venta->get_Nombre();?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php $tipo = $venta->get_Tipo_Comision();echo $tipo['nombre'];?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php if($venta->get_Formacion_Bonificada()) echo "S&Iacute;"; else echo "NO";?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  $forma = $venta->get_Forma_Pago(); echo $forma['nombre'];?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td >
 							<?php  echo timestamp2date($venta->get_Fecha_Aceptado()); ?>
-						</td>	
-						<td style="text-align:center;width:5%;">
+						</td>	<!--
+						<td >
 							<?php  echo timestamp2date($venta->get_Fecha_Asignacion_Tecnico());?>
-						</td>					
-						<td style="text-align:center;width:5%;">
+						</td>		-->
+						<td >
 							<?php  echo timestamp2date($venta->get_Fecha_Entrada_Vigor());?>
 						</td>
 					</tr>

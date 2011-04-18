@@ -204,8 +204,8 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
   `fk_venta` int(11) DEFAULT NULL,
   `fk_cliente` int(11) NOT NULL,
   `fk_estado` int(3) NOT NULL,
-  `horas_documentacion` int(11) DEFAULT NULL,
-  `horas_auditoria_interna` int(11) DEFAULT NULL,
+  `horas_documentacion` float DEFAULT NULL,
+  `horas_auditoria_interna` float DEFAULT NULL,
   `fecha_inicio` int(11) DEFAULT NULL,
   `fecha_fin` int(11) DEFAULT NULL,
   `observaciones` text DEFAULT NULL,
@@ -218,9 +218,9 @@ CREATE TABLE IF NOT EXISTS `proyectos` (
 CREATE TABLE IF NOT EXISTS `proyectos_rel_sedes` (
   `fk_proyecto` int(11) NOT NULL,
   `fk_sede` int(11) NOT NULL,
-  `horas_desplazamiento` int(11) NOT NULL,
+  `horas_desplazamiento` float NOT NULL,
   `numero_visitas` int(11) NOT NULL,
-  `horas_cada_visita` int(11) NOT NULL,
+  `horas_cada_visita` float NOT NULL,
   `gastos_incurridos` float NOT NULL,
   PRIMARY KEY (`fk_proyecto`,`fk_sede`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -242,10 +242,10 @@ CREATE TABLE IF NOT EXISTS `tareas_tecnicas` (
   `fk_sede` int(11) NOT NULL,
   `fk_tipo` int(3) NOT NULL,
   `fecha` int(11) NOT NULL,
-  `horas_desplazamiento` int(11) DEFAULT NULL,
-  `horas_visita` int(11) DEFAULT NULL,
-  `horas_despacho` int(11) DEFAULT NULL,
-  `horas_auditoria_interna` int(11) DEFAULT NULL,
+  `horas_desplazamiento` float DEFAULT NULL,
+  `horas_visita` float DEFAULT NULL,
+  `horas_despacho` float DEFAULT NULL,
+  `horas_auditoria_interna` float DEFAULT NULL,
   `observaciones` text DEFAULT NULL,
   `fk_usuario` int(11) DEFAULT NULL,
   `incentivable` tinyint(1) NOT NULL DEFAULT '0',
@@ -372,3 +372,5 @@ INSERT INTO `scripts` (`id`, `ruta`, `menu`, `descripcion`, `fk_proceso`) VALUES
 (61, '/Proveedores/editProveedor.php', 'inicio', '', 3),
 (62, '/Proveedores/editContactos.php', 'inicio', '', 3),
 (63, '/Proveedores/showProveedor.php', 'inicio', '', 3);
+
+ALTER TABLE `ventas` CHANGE `fecha_asignacion_tecnico` `fecha_asignacion_tecnico` INT( 11 ) NULL DEFAULT NULL ;
