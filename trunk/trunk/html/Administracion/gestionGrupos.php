@@ -18,7 +18,7 @@ include ($appRoot.'/Common/php/header.php');
 include ($appRoot.'/Common/php/menu.php');
 
 ?>
-<div id="titulo"><?php echo  _translate("Gestores")?></div>
+<div id="titulo"><?php echo  _translate("Grupos de empresa")?></div>
 		<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\" >".$var->opt['msg']."</div>":null;?>
 <br />
 <?php if($permisos->escritura){?>
