@@ -130,7 +130,7 @@ class Proyecto{
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el Proyecto de la BBDD");
 			else if(mysql_num_rows($result) == 0)
-				throw new Exception("No se ha encontrado el Proyecto en la BBDD ".$this->id);
+				throw new Exception("No se ha encontrado el Proyecto en la BBDD ".$this->id." ".$query);
 
 			$row = mysql_fetch_array($result);
 
@@ -505,15 +505,16 @@ class Proyecto{
 			if(isset($datos['fecha_fin']))
 			if($datos['fecha_fin'] && ($datos['fecha_inicio'] > $datos['fecha_fin']))
 				throw new Exception('La fecha de inicio ha de ser anterior a la de finalizaci&oacute;n');
+			$this->nombre = mysql_real_escape_string($datos['nombre']);
 			$this->id_venta = null;
 			$this->importe = 0;
 			$this->fecha_inicio = $datos['fecha_inicio'];
-			$this->estado = 2;
+			$this->id_estado = 1;
 			$this->observaciones = mysql_real_escape_string($datos['observaciones']);
 
 			//el cliente de este tipo de proyectos es la empresa principal:
-			$listaUsuarios = new ListaUsuarios();
-			$this->id_cliente = $listaUsuarios->get_Id_Cliente_Principal();
+			$lista = new ListaClientes();
+			$this->id_cliente = $lista->get_Id_Cliente_Principal();
 			if(!$this->id_cliente)
 				throw new Exception('No se ha definido la empresa usuaria de GIC, contacte con su administrador');
 
@@ -521,10 +522,8 @@ class Proyecto{
 			$campo="";
 			//Si se asigna el gestor directamente
 			if($datos['id_usuario']){
-				$this->id_usuario = trim($datos['id_usuario']);
-				$campo = ', fk_usuario';
-				$value = ", '$this->id_usuario'";
-				$this->estado = 3;
+				$this->id_estado=2;
+				$this->id_usuario = trim($datos['id_usuario']);				
 			}
 			if($datos['fecha_fin']){
 				$this->fecha_fin = $datos['fecha_fin'];
@@ -533,24 +532,27 @@ class Proyecto{
 			}
 		}
 
-		$this->cerrar = '1';
+		$this->cerrar = '1'; 
 		if(isset($datos['cerrar']))
 			$this->cerrar = $datos['cerrar'];		
 
 		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";
+								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";FB::info($query);
 		
 		if(!mysql_query($query))
-			throw new Exception('Error al crear el nuevo proyecto '.$query);
+			throw new Exception('Error al crear el nuevo proyecto ');
 
 		$this->id = mysql_insert_id();
-		$this->estado = $this->cargar_Estado();
+		$this->cargar_Estado();
+
+		if($this->id_usuario)
+			$this->asignar ($this->id_usuario);
 		return $this->id;
 	}
 
 	private function cargar_Estado(){
-		$query = "SELECT * FROM proyectos_estados WHERE id = '$this->estado';";
+		$query = "SELECT * FROM proyectos_estados WHERE id = '$this->id_estado';";
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result);
 
@@ -753,18 +755,6 @@ class Proyecto{
 		mysql_query($query);
 	}
 	
-	private function asignar_Gestor($id){
-		if($id){
-			if(!$this->id_usuario){
-				$query = "UPDATE proyectos set fk_usuario = '$id' WHERE id = '$this->id'";
-				if(!mysql_query($query))
-					throw new Excepcion("Error al asignar el gestor al proyecto");
-				$this->id_usuario = $id;
-				$this->set_Estado(3);
-			}
-		}
-	}
-
 	/**
 	 * Cambia el estado del proyecto
 	 * @param <integer> $id
@@ -815,16 +805,27 @@ class Proyecto{
 	}
 
 	public function asignar($id_usuario){
-		if(!$this->id_usuario && $this->id_estado == 2){
+		if($this->id_estado == 2){
 			$query = "UPDATE proyectos SET fk_usuario = '".trim($id_usuario)."' WHERE id = '$this->id';";
 			if(!mysql_query($query))
 				throw new Exception('Error al asignar el t&eacute;cnico');
 
 			$this->id_usuario = trim($id_usuario);
 			$this->set_Estado(3);
+
+			$usr = new Usuario($this->id_usuario);
+
+			if($usr->get_Email()!='' && $usr->get_Email()!=null){
+
+				$to = $usr->get_Email();
+				$subject = 'Nuevo proyecto asignado en GIC';
+				$message = 'Le ha sido asignado el proyecto '.$this->get_Nombre().' con identificador '.$this->get_Id().' en GIC. Puede consultarlo con su director.';
+
+				mail($to, $subject, $message);
+			}
 		}
 	}
-
+	
 	public function cerrar(){
 		if(!$this->cerrar)
 			throw new Exception('Este proyecto no se puede cerrar');

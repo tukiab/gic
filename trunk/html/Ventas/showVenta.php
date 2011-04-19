@@ -253,7 +253,13 @@ else{?>
 				<?php echo  $var->opt['Venta']->get_Observaciones()?>
 			</td>
 		</tr>
-		
+		<tr>
+			<td class="ColIzq" nowrap><?php echo  _translate("Proyecto asociado")?>:</td>
+			<td class="ColDer">
+				<?php $proyecto = $var->opt['Venta']->get_Proyecto();?>
+				<a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a>
+			</td>
+		</tr>
 
 	</table>
 </div>

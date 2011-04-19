@@ -86,6 +86,7 @@ class ListaProyectos implements IIterador{
 		(isset($filtros['gestor']) && $filtros['gestor'] != '0')?$filtros['id_usuario']=$filtros['gestor']:null;
 		(isset($filtros['id_usuario']) && $filtros['id_usuario']!='0')?$filtro .= " AND proyectos.fk_usuario = '".trim($filtros['id_usuario'])."'":null;
 		(isset($filtros['id_cliente']))?$filtro .= " AND proyectos.fk_cliente = '".trim($filtros['fk_cliente'])."'":null;
+		(isset($filtros['id_venta']))?$filtro .= " AND proyectos.fk_venta = '".trim($filtros['id_venta'])."'":null;
 		
 		(isset($filtros['es_plantilla']))?$filtro .= " AND proyectos.es_plantilla = '".trim($filtros['es_plantilla'])."'":null;
 		

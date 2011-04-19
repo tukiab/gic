@@ -47,6 +47,8 @@ class Sede{
 	 */
 	private $contactos;
 
+	private $es_sede_principal;
+
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -91,7 +93,9 @@ class Sede{
 			$this->id_cliente = $row['fk_cliente'];
 			$this->direccion = $row['direccion'];				
 			$this->localidad = $row['localidad'];
-			$this->provincia = $row['provincia'];			
+			$this->provincia = $row['provincia'];
+
+			$this->es_sede_principal = $row['es_sede_principal'];
 
 			$this->cargar_Contactos();
 		}
@@ -116,6 +120,9 @@ class Sede{
 	 * Métodos observadores.
 	 ***********************/
 
+	public function es_Sede_Principal(){
+		return $this->es_sede_principal;
+	}
 	/**
 	 * Devuelve la lista de contactos
 	 * @return array $contactos de ids de contactos
@@ -346,13 +353,16 @@ class Sede{
 	}
 	
 	public function del_Sede(){
-				
-		$query = "DELETE FROM clientes_sedes WHERE id = '$this->id'; ";
-		mysql_query($query);
 
-		//Contactos
-        $query = "DELETE FROM clientes_sedes_rel_contactos WHERE fk_clientes_sede = '$this->id'; ";
-		mysql_query($query);
+		if(!$this->es_sede_principal){
+			$query = "DELETE FROM clientes_sedes WHERE id = '$this->id'; ";
+			mysql_query($query);
+
+			//Contactos
+			$query = "DELETE FROM clientes_sedes_rel_contactos WHERE fk_clientes_sede = '$this->id'; ";
+			mysql_query($query);
+		}else
+			throw new Exception("No se puede eliminar la sede principal de la empresa");
 		
 	}
 

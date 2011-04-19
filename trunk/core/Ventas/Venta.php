@@ -910,6 +910,14 @@ class Venta{
 		$query = "DELETE FROM ventas WHERE id='$this->id';";
 		mysql_query($query);		
 	}
-	
+
+	public function get_Proyecto(){
+		//devuelve el proyecto asociado
+		$listaProyectos = new ListaProyectos();
+		$filtros['id_venta'] = $this->id;
+		$listaProyectos->buscar($filtros);
+
+		return $listaProyectos->siguiente();
+	}
 }
 ?>
