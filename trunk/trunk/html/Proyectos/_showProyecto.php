@@ -59,12 +59,15 @@ class ShowProyecto{
 	private function asignar(){
 		$this->Proyecto->asignar($this->opt['id_usuario']);
 		//hay que enviar correo electrónico al técnico en cuestión
-		$usr = new Usuario($this->opt['id_isuario']);
 
-		if($usr->get_Email()){
+		$usr = new Usuario($this->opt['id_usuario']);
+	
+		if($usr->get_Email()!='' && $usr->get_Email()!=null){
+			
 			$to = $usr->get_Email();
 			$subject = 'Nuevo proyecto asignado en GIC';
 			$message = 'Le ha sido asignado el proyecto '.$this->Proyecto->get_Nombre().' con identificador '.$this->Proyecto->get_Id().' en GIC. Puede consultarlo con su director.';
+			
 			mail($to, $subject, $message);
 		}
 
