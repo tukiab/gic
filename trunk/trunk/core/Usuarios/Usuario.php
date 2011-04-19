@@ -381,13 +381,13 @@
 									$s_values
 								);
 		";
-		////FB::info($query,'query guardar Usuario');
+		//FB::info($query,'query guardar Usuario');
 		if(!mysql_query($query))
 			throw new Exception("Error al crear el Usuario.");
-		$this->id = mysql_insert_id();
+		$this->id = trim($datos['id']);
 
 		//creamos los proyectos asociado al Usuario si es técnico o director técnico
-		if($this->perfil == 3 || $this->perfil == 6){
+		if($datos['perfil'] == 3 || $datos['perfil'] == 6){
 			$proyecto = new Proyecto();
 			$datos['nombre'] = 'Horas no remuneradas '.$this->id;
 			$datos['fecha_inicio'] = time();

@@ -60,7 +60,7 @@ class ShowProyecto{
 		$this->Proyecto->asignar($this->opt['id_usuario']);
 		//hay que enviar correo electrónico al técnico en cuestión
 
-		$usr = new Usuario($this->opt['id_usuario']);
+		/*$usr = new Usuario($this->opt['id_usuario']);
 	
 		if($usr->get_Email()!='' && $usr->get_Email()!=null){
 			
@@ -69,7 +69,7 @@ class ShowProyecto{
 			$message = 'Le ha sido asignado el proyecto '.$this->Proyecto->get_Nombre().' con identificador '.$this->Proyecto->get_Id().' en GIC. Puede consultarlo con su director.';
 			
 			mail($to, $subject, $message);
-		}
+		}*/
 
 	}
 

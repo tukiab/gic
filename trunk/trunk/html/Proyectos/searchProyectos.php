@@ -373,7 +373,7 @@ $(document).ready(function(){
         $resaltado = "";
         if($estado['id'] == 2)
                 $resaltado = 'style="font-weight:bold;"';
-        ?>nf
+        ?>
         <tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
             <td>
                     <input class="chk" type="checkbox" name="seleccionados[]" <?php if(is_array($var->opt['seleccionados']) && in_array($proyecto->get_Id(),$var->opt['seleccionados'])) echo "checked";?> value="<?php echo $proyecto->get_Id(); ?>" />

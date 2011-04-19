@@ -142,16 +142,6 @@ class ListaUsuarios implements IIterador{
 			$usuarios[$row['id']] = $row;
 		
 		return $usuarios;
-	}
-
-	public function get_Id_Cliente_Principal(){
-		$filtros['cliente_principal'] = true;
-		$this->buscar($filtros);
-		while($cliente = $this->siguiente())
-			return $cliente->get_Id();
-
-		return 0;
-	}
-	
+	}	
 }
 ?>

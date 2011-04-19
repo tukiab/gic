@@ -140,8 +140,6 @@ class BusquedaClientes{
 		else
 			@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;			
 
-					FB::info($this->opt['id_usuario']);
-
 		@($opciones['exportar'])?$this->opt['exportar']=$opciones['exportar']:null;		
 		@($opciones['exportar_todo'])?$this->opt['exportar_todo']=$opciones['exportar_todo']:null;
 

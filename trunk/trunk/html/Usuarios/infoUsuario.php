@@ -176,26 +176,26 @@ $cfilaImpar = "#EEEEEE";
 				<?php }?>
 			</table>
 
-		<?php }
+		<?php } $cliente = null;
 		if(esPerfilTecnico ($perfil['id'])){?>
 		<!-- proyectos -->
 			<table>
 				<tr>
-					<td class="ListaTitulo"  colspan="5"><?php echo  _translate("Proyectos")?><a class="show" href="#" clase="proyectos"></a></td>
+					<td class="ListaTitulo"  colspan="6"><?php echo  _translate("Proyectos")?><a class="show" href="#" clase="proyectos"></a></td>
 				</tr>
 				<tr class="proyectos">
-
-					<th ><?php echo  _translate("Nombre")?></th>
+					<th ><?php echo  _translate("Empresa")?></th>
+					<th ><?php echo  _translate("Nombre proyecto")?></th>
 					<th ><?php echo  _translate("Estado")?></th>
 					<th ><?php echo  _translate("T&eacute;cnico asignado")?></th>
 					<th ><?php echo  _translate("Fecha de inicio")?></th>
 					<th ><?php echo  _translate("Fecha de finalizaci&oacute;n")?></th>
 				</tr>
 				<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
-					while($proyecto = $var->lista_proyectos->siguiente()) {
+					while($proyecto = $var->lista_proyectos->siguiente()) { $cliente = $proyecto->get_Cliente();
 					?>
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="proyectos">
-
+					<td><a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>"><?php echo $cliente->get_Razon_Social();?></a></td>
 					<td><a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a></td>
 					<td><?php $estado = $proyecto->get_Estado(); echo $estado['nombre'];?></td>
 					<td><?php echo $proyecto->get_Id_Usuario(); ?></td>
