@@ -77,7 +77,7 @@ class infoUsuario{
 		$perfil_usr = $gestor_actual->get_Perfil();
 		if(!in_array($perfil_usr['id'], array(4,5,6)))
 			$filtros['id_usuario'] = $this->usuario->get_Id();
-		$filtros['estados'] = '(1,2,4,5)';
+		$filtros['estados'] = '(1,2,3,4,5)';
 		$filtros['order_by'] = 'estado';
 
 		$this->DB_proyectos->buscar($filtros);

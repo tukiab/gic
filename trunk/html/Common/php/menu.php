@@ -55,7 +55,7 @@ if($_SESSION['usuario_login']){?>
 		No se han definido los datos de su empresa, consulte con el administrador.
 <?php }
 	}else{?>
-		<img alt="" src="<?php echo $appDir;?>/Common/imagenes/img/logo.jpg" style="width:200px;"/>
+		<img alt="" src="<?php echo $appDir;?>/Common/imagenes/img/logo.jpg" style="width:150px;"/>
 		<?php } ?>
 	</div>
 			<?php }?>
