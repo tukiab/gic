@@ -408,7 +408,7 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Numero_Visitas_Reales()?>
             </td>
 			<td>
-                    <?php if($proyecto->get_Numero_Visitas_Reales()) echo $proyecto->get_Numero_Visitas()/$proyecto->get_Numero_Visitas_Reales()?>
+                    <?php if($proyecto->get_Numero_Visitas_Reales()) echo $proyecto->get_Numero_Visitas()*100/$proyecto->get_Numero_Visitas_Reales(); else echo 0;?>
             </td>
 			<td>
                     <?php  echo $proyecto->get_Horas_Documentacion()?>
@@ -417,7 +417,7 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Horas_Documentacion_Reales()?>
             </td>
 			<td>
-                    <?php if($proyecto->get_Horas_Documentacion_Reales()) echo $proyecto->get_Horas_Documentacion()/$proyecto->get_Horas_Documentacion_Reales()?>
+                    <?php if($proyecto->get_Horas_Documentacion_Reales()) echo $proyecto->get_Horas_Documentacion()*100/$proyecto->get_Horas_Documentacion_Reales(); else echo 0;?>
             </td>
 			<td>
                     <?php  echo $proyecto->get_Horas_Auditoria_Interna()?>
@@ -426,7 +426,7 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Horas_Auditoria_Interna_Reales()?>
             </td>
 			<td>
-                    <?php if($proyecto->get_Horas_Auditoria_Interna_Reales()) echo $proyecto->get_Horas_Auditoria_Interna()/$proyecto->get_Horas_Auditoria_Interna_Reales()?>
+                    <?php if($proyecto->get_Horas_Auditoria_Interna_Reales()) echo $proyecto->get_Horas_Auditoria_Interna()*100/$proyecto->get_Horas_Auditoria_Interna_Reales(); else echo 0;?>
             </td>
 			<?php }?>
 			<td>
@@ -437,7 +437,7 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Horas_Totales_Reales()?>
             </td>
 			<td>
-                    <?php if($proyecto->get_Horas_Totales_Reales()) echo $proyecto->get_Horas_Totales()/$proyecto->get_Horas_Totales_Reales()?>
+                    <?php if($proyecto->get_Horas_Totales_Reales()) echo $proyecto->get_Horas_Totales()*100/$proyecto->get_Horas_Totales_Reales(); else echo 0;?>
             </td>
 			<td>
                     <?php  echo $proyecto->get_Gastos_Incurridos()?>

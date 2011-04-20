@@ -367,7 +367,7 @@ class Tarea{
 	 * Modifica la fecha  de la tarea
 	 * @param int $fecha nueva fecha 
 	 */
-	public function set_Fecha($fecha){
+	public function set_Fecha($fecha){FB::info($fecha);
 
 		if(is_numeric($fecha)){
 			$query = "UPDATE tareas_tecnicas SET fecha='$fecha' WHERE id='$this->id' ";
