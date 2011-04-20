@@ -234,7 +234,7 @@ class Tarea{
 	 * @param array $datos Array indexado con todos los atributos para una nueva Tarea.
 	 * @return integer $id_tarea Id del nuevo Tarea.
 	 */
-	public function crear($datos){FB::warn($datos);
+	public function crear($datos){
 		
 		$validar = new Validador();
 		$ListaTareas = new ListaTareas();
@@ -246,8 +246,6 @@ class Tarea{
 			throw new Exception("Tarea: La fecha es obligatoria.");
 		if(!is_numeric($datos['tipo']) || !in_array($datos['tipo'], array_keys($array_tipos)))
 			throw new Exception("Tarea: Tipo de tarea no válido.");
-		if(!isset($datos['id_usuario']))
-			throw new Exception("Tarea: Usuario no v&aacute;lido.");
 		if(!isset($datos['id_proyecto']))
 			throw new Exception("Tarea: Proyecto no v&aacute;lido.");
 		if(!isset($datos['id_sede']))
@@ -257,7 +255,15 @@ class Tarea{
 		$this->id_tipo		= trim($datos['tipo']);
 		$this->id_proyecto	= trim($datos['id_proyecto']);
 		$this->id_sede		= trim($datos['id_sede']);
-		$this->id_usuario	= trim($datos['id_usuario']);
+
+
+		//El usuario es el técnico asignado del proyecto
+		$proyecto = new Proyecto($this->id_proyecto);
+		if($proyecto->get_Id_Usuario())
+			$this->id_usuario	= $proyecto->get_Id_Usuario();
+		else
+			throw new Exception('No se puede crear una tarea a un proyecto sin t&eacute;cnico asignado');
+
 
 		if($this->id_tipo == 1){//Visita: los datos obligatorios son horas_desplazamiento y horas_visita
 			if(!isset($datos['horas_visita']) && !isset($datos['horas_desplazamiento'])
@@ -367,20 +373,27 @@ class Tarea{
 	 * Modifica la fecha  de la tarea
 	 * @param int $fecha nueva fecha 
 	 */
-	public function set_Fecha($fecha){FB::info($fecha);
-
+	public function set_Fecha($fecha){
+ 
 		if(is_numeric($fecha)){
 			$query = "UPDATE tareas_tecnicas SET fecha='$fecha' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 				throw new Exception("Error al actualizar la fecha en la BBDD.");
 			$this->fecha = $fecha;
 
+			$proyecto = new Proyecto($this->id_proyecto);
+
+			if($this->fecha < $proyecto->get_Fecha_Fin())
+				$this->set_Incentivable(1);
+			else
+				$this->set_Incentivable(0);
+
 		}else
 		throw new Exception("Debe introducir una fecha v&aacute;lida.");
 	}
 	public function set_Horas_Desplazamiento($horas){
 
-		if(is_numeric($horas)){
+		if(is_numeric($horas) || $horas==0 || $horas==0){
 			$query = "UPDATE tareas_tecnicas SET horas_desplazamiento='$horas' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 				throw new Exception("Error al actualizar las horas de desplazamiento en la BBDD.");
@@ -391,7 +404,7 @@ class Tarea{
 	}
 	public function set_Horas_Visita($horas){
 
-		if(is_numeric($horas)){
+		if(is_numeric($horas) || $horas==0){
 			$query = "UPDATE tareas_tecnicas SET horas_visita='$horas' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 				throw new Exception("Error al actualizar las horas de visita en la BBDD.");
@@ -402,7 +415,7 @@ class Tarea{
 	}
 	public function set_Horas_Despacho($horas){
 
-		if(is_numeric($horas)){
+		if(is_numeric($horas) || $horas==0){
 			$query = "UPDATE tareas_tecnicas SET horas_despacho='$horas' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 				throw new Exception("Error al actualizar las horas de despacho en la BBDD.");
@@ -413,7 +426,7 @@ class Tarea{
 	}
 	public function set_Horas_Auditoria_Interna($horas){
 
-		if(is_numeric($horas)){
+		if(is_numeric($horas) || $horas==0){
 			$query = "UPDATE tareas_tecnicas SET horas_auditoria_interna='$horas' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 				throw new Exception("Error al actualizar las horas de auditor&iacute;a interna en la BBDD.");
@@ -426,6 +439,12 @@ class Tarea{
 	public function del_Tarea(){
 		$query = "DELETE FROM tareas_tecnicas WHERE id='$this->id'";
 		mysql_query($query);
+	}
+
+	private function set_Incentivable($value){
+		$query = "UPDATE tareas_tecnicas set incentivable='$value' WHERE id='$this->id'";
+		if(!mysql_query($query))
+			throw new Exception ('Error al establecer el incetivable de la tarea');
 	}
 }
 ?>

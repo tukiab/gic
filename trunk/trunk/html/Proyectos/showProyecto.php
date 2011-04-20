@@ -49,9 +49,17 @@ function editar_tarea(id_tarea){
 	$('#tarea_editar').val(id_tarea);
 	$('#frm').submit();
 }
+function eliminar_tarea(id_tarea){
+if(confirm('confirmar borrado')){	$('#tarea_eliminar').val(id_tarea);
+	$('#frm').submit();}
+}
 function editar_visita(id_tarea){
 	$('#visita_editar').val(id_tarea);
 	$('#frm').submit();
+}
+function eliminar_visita(id_tarea){
+if(confirm('confirmar borrado')){	$('#visita_eliminar').val(id_tarea);
+	$('#frm').submit();}
 }
 </script>
 
@@ -194,7 +202,7 @@ $estado = $var->Proyecto->get_Estado();?>
 		<!-- TAREAS DEL PROYECTO -->
 		<table >
 			<tr>
-				<td class="ListaTitulo" colspan="7"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
+				<td class="ListaTitulo" colspan="8"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
 			</tr>
 
 			<tr class="tareas">
@@ -205,6 +213,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<th>Horas de despacho</th>
 				<th>Horas de auditor&iacute;a interna</th>
 				<th>Editar</th>
+				<th>Eliminar</th>
 			</tr>
 			<?php foreach($var->Proyecto->get_Tareas() as $tarea){?>
 			<tr class="tareas">
@@ -214,7 +223,10 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td ><input type="text" style="width:20px;" name="horas_visita_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_visita'];?>" /></td>
 				<td ><input type="text" style="width:20px;" name="horas_despacho_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_despacho'];?>" /></td>
 				<td ><input type="text" style="width:20px;" name="horas_auditoria_interna_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_auditoria_interna'];?>" /></td>
+				<?php if($tarea['id_usuario'] == $_SESSION['usuario_login']){ ?>
 				<td><a href="#" onclick="editar_tarea('<?php echo $tarea['id']?>')" >guardar</a></td>
+				<td style="text-align: center"><a href="#" class="borrar" onclick="eliminar_tarea('<?php echo $tarea['id']?>')" >eliminar</a></td>
+				<?php }?>
 			</tr>
 			<?php }?>
 		</table>
@@ -236,7 +248,7 @@ $estado = $var->Proyecto->get_Estado();?>
 					<?php $url_dest = $appDir.'/Tareas/addTarea.php?id_sede='.$sede->get_Id().'&id_proyecto='.$var->Proyecto->get_Id();
 					//Éste bot&oacute;n tiene que aparecer si el proyecto no está cerrado o fuera de plazo y si el usuario es el gestor asignado al proyecto					
 					$estados_prohibidos = array(5,6);
-					if($permisos->escritura)
+					if($permisos->escritura && $_SESSION['usuario_login'] == $var->Proyecto->get_Id_Usuario())
 					if(!in_array($estado['id'], $estados_prohibidos) &&
 							($var->usuario->get_Id() == $var->Proyecto->get_Id_Usuario()
 								|| $var->usuario->esAdministradorTotal())){?>
@@ -288,7 +300,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			</tr>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Carga de trabajo")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Carga_Trabajo_Mensual();?></td>
+				<td class="ColDer"><?php echo  substr($var->Proyecto->get_Carga_Trabajo_Mensual(),0,5);?></td>
 			</tr>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
@@ -331,9 +343,9 @@ $estado = $var->Proyecto->get_Estado();?>
 		<!-- PLANIFICACIÓN -->
 		<table  >			
 			<tr>
-				<td class="ListaTitulo" colspan="4"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
+				<td class="ListaTitulo" colspan="5"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
 			</tr>
-			<tr><th>Fecha</th><th>Fecha</th><th>Hora</th> <th>editar</th></tr>
+			<tr><th>Fecha</th><th>Fecha</th><th>Hora</th> <th>editar</th><th>eliminar</th></tr>
 		<?php
 		if($var->Proyecto->get_Planificacion()){?>
 		
@@ -344,7 +356,10 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td><?php echo imprimirFecha($planificacion['fecha']); ?></td>
 				<td><input type="text" class="fecha" value="<?php echo timestamp2date($planificacion['fecha']); ?>" name="fecha_visita_<?php echo $planificacion['id']?>" /></td>
 				<td><input type="text" value="<?php echo $planificacion['hora'];?>" name="hora_visita_<?php echo $planificacion['id']?>" /></td>
+				<?php if($_SESSION['usuario_login'] == $planificacion['fk_usuario']) {?>
 				<td><a href="#" onclick="editar_visita('<?php echo $planificacion['id']?>')" >guardar</a></td>
+				<td style="text-align: center"> <a class="borrar" href="#" onclick="eliminar_visita('<?php echo $planificacion['id']?>')" >eliminar</a></td>
+				<?php }?>
 			</tr>
 		<?php
 			}?>
@@ -357,9 +372,10 @@ $estado = $var->Proyecto->get_Estado();?>
 				?>
 			<tr class="planificacion"><td colspan="3"> <?php echo "Quedan ".$quedan." visitas por planificar"?> </td></tr>
 			<tr class="planificacion">
+				<td></td>
 				<td> <input type="text" class="fecha" name="fecha_visita" id="fecha_visita" /> </td>
 				<td> <input type="text" name="hora_visita" id="hora_visita" </td>
-				<td> <?php if($permisos->escritura){?><input type="submit" name="planificar" id="planificar" value="insertar visita" /> <?php }?></td>
+				<td> <?php if($permisos->escritura && $_SESSION['usuario_login'] == $var->Proyecto->get_Id_Usuario()){?><input type="submit" name="planificar" id="planificar" value="insertar visita" /> <?php }?></td>
 			</tr>
 		<?php 
 			}
@@ -371,6 +387,8 @@ $estado = $var->Proyecto->get_Estado();?>
 <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
 <input type="hidden" id="tarea_editar" name="tarea_editar" value=""/>
 <input type="hidden" id="visita_editar" name="visita_editar" value=""/>
+<input type="hidden" id="tarea_eliminar" name="tarea_eliminar" value=""/>
+<input type="hidden" id="visita_eliminar" name="visita_eliminar" value=""/>
 <input type=hidden name="id" value="<?php echo $var->opt['id']?>"/>
 
 </form>
