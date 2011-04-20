@@ -819,9 +819,12 @@ class Proyecto{
 
 				$to = $usr->get_Email();
 				$subject = 'Nuevo proyecto asignado en GIC';
-				$message = 'Le ha sido asignado el proyecto '.$this->get_Nombre().' con identificador '.$this->get_Id().' en GIC. Puede consultarlo con su director.';
+				$message = 'Le ha sido asignado el proyecto <b>'.$this->get_Nombre().'</b> con identificador <b>'.$this->get_Id().'</b> en GIC. Puede consultarlo con su director.';
 
-				mail($to, $subject, $message);
+				$headers  = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+				mail($to, $subject, $message, $headers);
 			}
 		}
 	}
