@@ -274,7 +274,9 @@ class Proyecto{
 	public function get_Fecha_Inicio(){return $this->fecha_inicio ;}
 	public function get_Fecha_Fin(){return $this->fecha_fin ;}
 	public function get_Observaciones(){
-		//return $this-> observaciones;
+		if( $this-> observaciones)
+			return $this->observaciones;
+		
 		$venta = new Venta($this->id_venta);
 		return $venta->get_Observaciones();
 	}
@@ -797,7 +799,7 @@ class Proyecto{
 	}
 
 	public function set_Observaciones($nombre){
-		$query = "UPDATE proyectos SET observaciones='".mysql_real_escape_string($nombre)."' WHERE id = '$this->id';";
+		$query = "UPDATE proyectos SET observaciones='".mysql_real_escape_string($nombre)."' WHERE id = '$this->id';"; 
 		if(!mysql_query($query))
 			throw new Exception('Error al actualizar las observaciones del proyecto');
 

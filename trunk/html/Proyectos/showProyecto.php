@@ -7,7 +7,7 @@ include ($appRoot.'/Common/php/utils/lang.php');
 include_once ($appRoot.'/Common/php/utils/utils.php');
 //Opciones
 include ('_showProyecto.php');
-	$var = new ShowProyecto($_GET);
+	$var = new ShowProyecto($_GET, $_POST);
 
 if($var->opt['mostrar_cabecera']){
 	include($appRoot.'/Common/php/header.php');
@@ -45,6 +45,14 @@ function cerrar(){
 		$('#frm').submit();
 	}
 }
+function editar_tarea(id_tarea){
+	$('#tarea_editar').val(id_tarea);
+	$('#frm').submit();
+}
+function editar_visita(id_tarea){
+	$('#visita_editar').val(id_tarea);
+	$('#frm').submit();
+}
 </script>
 
 <?php
@@ -62,7 +70,7 @@ $cliente = $var->Proyecto->get_Cliente();
 $venta = $var->Proyecto->get_Venta();
 $estado = $var->Proyecto->get_Estado();?>
 <div id="titulo"><?php echo  $nombre;?></div>
-<form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="GET">
+<form id="frm" action="<?php echo  $_SERVER['_SELF'];?>" method="POST">
 	<ul id="menu-sec">
 		<li>
 			<?php
@@ -186,7 +194,7 @@ $estado = $var->Proyecto->get_Estado();?>
 		<!-- TAREAS DEL PROYECTO -->
 		<table >
 			<tr>
-				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
+				<td class="ListaTitulo" colspan="7"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
 			</tr>
 
 			<tr class="tareas">
@@ -196,15 +204,17 @@ $estado = $var->Proyecto->get_Estado();?>
 				<th>Horas de visita</th>
 				<th>Horas de despacho</th>
 				<th>Horas de auditor&iacute;a interna</th>
+				<th>Editar</th>
 			</tr>
 			<?php foreach($var->Proyecto->get_Tareas() as $tarea){?>
 			<tr class="tareas">
 				<td ><?php echo  $tarea['localidad'];?></td>
-				<td ><?php echo timestamp2date($tarea['fecha']);?></td>
-				<td ><?php echo  $tarea['horas_desplazamiento'];?></td>
-				<td ><?php echo  $tarea['horas_visita'];?></td>
-				<td ><?php echo  $tarea['horas_despacho'];?></td>
-				<td ><?php echo  $tarea['horas_auditoria_interna'];?></td>
+				<td style="width:120px;"><input type="text" style="width:80px;" class="fecha" name="fecha_tarea_<?php echo $tarea['id']?>" value="<?php echo timestamp2date($tarea['fecha']);?>" /></td>
+				<td ><input type="text" style="width:20px;" name="horas_desplazamiento_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_desplazamiento'];?>" /></td>
+				<td ><input type="text" style="width:20px;" name="horas_visita_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_visita'];?>" /></td>
+				<td ><input type="text" style="width:20px;" name="horas_despacho_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_despacho'];?>" /></td>
+				<td ><input type="text" style="width:20px;" name="horas_auditoria_interna_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_auditoria_interna'];?>" /></td>
+				<td><a href="#" onclick="editar_tarea('<?php echo $tarea['id']?>')" >guardar</a></td>
 			</tr>
 			<?php }?>
 		</table>
@@ -282,7 +292,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			</tr>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
-				<td class="ColDer"><?php echo  $var->Proyecto->get_Coste_Horario_Venta();?></td>
+				<td class="ColDer"><?php echo substr($var->Proyecto->get_Coste_Horario_Venta(),0,6);?></td>
 			</tr>
 			<?php if($permisos->escritura) if(!$var->Proyecto->esta_Definido()){?>
 			<tr>
@@ -321,9 +331,9 @@ $estado = $var->Proyecto->get_Estado();?>
 		<!-- PLANIFICACIÓN -->
 		<table  >			
 			<tr>
-				<td class="ListaTitulo" colspan="3"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
+				<td class="ListaTitulo" colspan="4"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
 			</tr>
-			<tr><th>Fecha</th><th colspan="2">Hora</th></tr>
+			<tr><th>Fecha</th><th>Fecha</th><th>Hora</th> <th>editar</th></tr>
 		<?php
 		if($var->Proyecto->get_Planificacion()){?>
 		
@@ -332,7 +342,9 @@ $estado = $var->Proyecto->get_Estado();?>
 		?>
 			<tr class="planificacion">
 				<td><?php echo imprimirFecha($planificacion['fecha']); ?></td>
-				<td colspan="2"><?php echo $planificacion['hora'];?></td>
+				<td><input type="text" class="fecha" value="<?php echo timestamp2date($planificacion['fecha']); ?>" name="fecha_visita_<?php echo $planificacion['id']?>" /></td>
+				<td><input type="text" value="<?php echo $planificacion['hora'];?>" name="hora_visita_<?php echo $planificacion['id']?>" /></td>
+				<td><a href="#" onclick="editar_visita('<?php echo $planificacion['id']?>')" >guardar</a></td>
 			</tr>
 		<?php
 			}?>
@@ -357,6 +369,8 @@ $estado = $var->Proyecto->get_Estado();?>
 <input type="hidden" id="eliminar" name="eliminar" value="0"/>
 <input type="hidden" id="cerrar" name="cerrar" value="0"/>
 <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
+<input type="hidden" id="tarea_editar" name="tarea_editar" value=""/>
+<input type="hidden" id="visita_editar" name="visita_editar" value=""/>
 <input type=hidden name="id" value="<?php echo $var->opt['id']?>"/>
 
 </form>

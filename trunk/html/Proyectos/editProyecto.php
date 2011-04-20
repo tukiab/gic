@@ -21,32 +21,35 @@ include ($appRoot.'/Common/php/popupHeader.php');
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 
 <br />
-<?php if($permisos->escritura){?>
+<?php if($permisos->escritura){
+	$disabled = 'readonly="readonly"';
+	?>
+
 
 	<form id="frm" action="<?php echo  $_SERVER['_SELF']?>" method="GET">
 		<table >
 			<tr class="ListaTitulo">
 			  <td class="ColIzq"><?php echo  _translate("Nombre")?>:</td>
 			  <td class="ColDer">
-				<input <?php echo $disabled['nombre']; ?> type="text" name="nombre" value="<?php echo  $var->Proyecto->get_Nombre();?>" size="25" />
+				<input <?php if(!$permisos->administracion)echo $disabled; ?> type="text" name="nombre" value="<?php echo  $var->Proyecto->get_Nombre();?>" size="25" />
 			  </td>
 			</tr>			
 			<tr class="ListaTitulo">
 				<td class="ColIzq"><?php echo  _translate("Fecha inicio")?>:</td>
 				<td class="ColDer">
-					<input <?php echo $disabled['fecha_inicio']; ?> type="text" class="fecha" name="fecha_inicio" value="<?php  echo timestamp2date($var->Proyecto->get_Fecha_Inicio())?>" size="25" />
+					<input <?php if(!$permisos->administracion)echo $disabled; ?> type="text" <?php if($permisos->administracion){?>class="fecha"<?php }?> name="fecha_inicio" value="<?php  echo timestamp2date($var->Proyecto->get_Fecha_Inicio())?>" size="25" />
 				</td>
 			</tr>
 			<tr class="ListaTitulo">
 				<td class="ColIzq"><?php echo  _translate("Fecha finalizaci&oacute;n")?>:</td>
 				<td class="ColDer">
-					<input <?php echo $disabled['fecha_fin']; ?> type="text" class="fecha" name="fecha_fin" value="<?php  echo timestamp2date($var->Proyecto->get_Fecha_Fin())?>" size="25" />
+					<input <?php if(!$permisos->administracion)echo $disabled; ?> type="text" <?php if($permisos->administracion){?>class="fecha"<?php }?> name="fecha_fin" value="<?php  echo timestamp2date($var->Proyecto->get_Fecha_Fin())?>" size="25" />
 				</td>
 			</tr>
 			<tr class="ListaTitulo">
 			  <td class="ColIzq"><?php echo  _translate("Observaciones")?>:</td>
 			  <td class="ColDer">
-				  <textarea <?php echo $disabled['observaciones']; ?> type="text" name="observaciones" size="25"><?php echo  $var->Proyecto->get_Observaciones();?></textarea>
+				  <textarea  name="observaciones"><?php echo  $var->Proyecto->get_Observaciones();?></textarea>
 			  </td>
 			</tr>
 		</table>

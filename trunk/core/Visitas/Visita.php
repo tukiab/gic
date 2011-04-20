@@ -212,7 +212,7 @@ class Visita{
 		throw new Exception("Debe introducir una fecha v&aacute;lida.");
 	}
 
-	public function set_Hora($hora){
+	public function set_Hora($hora){FB::info($hora);
 		$validar = new Validador();
 		if($validar->hora($hora)){
 			$query = "UPDATE visitas SET hora='$hora' WHERE id='$this->id' ";

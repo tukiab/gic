@@ -162,22 +162,23 @@ class AddVenta{
 
                 if($gerente->get_Email() != '' && $gerente->get_Email() != null){
                     $to      = $gerente->get_Email();
-                    $subject = 'Nueva Venta';
-                    $message = '
-
+                    $subject = 'Nueva Venta en GIC';
+                    $message = utf8_decode('
+<br/>
 Se ha producido una nueva venta en GIC.
-
-Los datos de la venta son los siguientes:
-Nombre: <b>'.$venta->get_Nombre().'</b>.
-Importe: <b>'.$venta->get_Precio_Total().' euros</b>.
-Empresa: <b>'.$cliente->get_Razon_Social().'</b>.
-Producto: <b>'.$producto['nombre'].'</b>.
-Fecha aceptado: <b>'.  timestamp2date($venta->get_Fecha_Aceptado()).'</b>.
-Fecha de inicio: <b>'.  timestamp2date($venta->get_Fecha_Inicio()).'</b>.
-Formacion bonificada: <b>'.$formacion.'</b>.
-Subvenciones: <b>'.$subvencion.'</b>.
-Gestor: <b>'.$oferta->get_Usuario().'</b>.
-Puede acceder a la venta en GIC con el id de venta <b>'.$venta->get_Id().'</b>';
+<br/><br/>
+Los datos de la venta son los siguientes:<br/>
+Nombre: <b>'.$venta->get_Nombre().'</b>.<br/>
+Importe: <b>'.$venta->get_Precio_Total().' euros</b>.<br/>
+Empresa: <b>'.$cliente->get_Razon_Social().'</b>.<br/>
+Producto: <b>'.$producto['nombre'].'</b>.<br/>
+Fecha aceptado: <b>'.  timestamp2date($venta->get_Fecha_Aceptado()).'</b>.<br/>
+Fecha de inicio: <b>'.  timestamp2date($venta->get_Fecha_Inicio()).'</b>.<br/>
+Formacion bonificada: <b>'.$formacion.'</b>.<br/>
+Subvenciones: <b>'.$subvencion.'</b>.<br/>
+Otros proyectos incluido: <b>'.$venta->get_Otros_Proyectos().'</b>.<br/>
+Gestor: <b>'.$oferta->get_Usuario().'</b>.<br/>
+Puede acceder a la venta en GIC con el id de venta <b>'.$venta->get_Id().'</b>');
 
 					$headers  = 'MIME-Version: 1.0' . "\r\n";
 					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";

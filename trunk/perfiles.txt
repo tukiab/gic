@@ -1,3 +1,23 @@
+_addventa
+showcliente
+editcontactos
+editsedes
+editproyecto
+proyecto
+tarea
+showproyecto
+_showproyecto
+searchproyectos
+searchventas
+_searchventas
+listaventas
+
+
+
+
+
+
+
 1.RRHH y organización: definir los siguientes perfiles
 -.Administrador (gestión total)
 

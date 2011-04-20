@@ -63,7 +63,7 @@ class ListaVentas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Ventas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		//FB::error($filtros,'filtros ListaVentas');
+		FB::error($filtros,'filtros ListaVentas');
 		$filtro ="";
 		$join_ofertas="";
 		
@@ -76,9 +76,9 @@ class ListaVentas implements IIterador{
 		
 		if(isset($filtros['id_usuario'])){
 			if(!$join_ofertas)
-				$join_ofertas = " INNER JOIN ofertas ON ventas.fk_oferta = ofertas.id AND ofertas.codigo LIKE '%".trim($filtros['codigo'])."%'";		
+				$join_ofertas = " INNER JOIN ofertas ON ventas.fk_oferta = ofertas.id AND ofertas.fk_usuario = '".trim($filtros['id_usuario'])."'";
 			else
-				$join_ofertas .= " AND ventas.fk_oferta = ofertas.id AND ofertas.fk_usuario = '".trim($filtros['codigo'])."'";
+				$join_ofertas .= " AND ventas.fk_oferta = ofertas.id AND ofertas.fk_usuario = '".trim($filtros['id_usuario'])."'";
 		}
 		
 		(isset($filtros['forma_pago']))?$filtro.=" AND ventas.fk_forma_pago = '".$filtros['forma_pago']."' ":null;
@@ -151,14 +151,14 @@ class ListaVentas implements IIterador{
 		$query = "SELECT ventas.id
 				FROM ventas
 						$join_ofertas
-                                                $join_plazos
+                       $join_plazos
 				WHERE 1
 						$filtro
 				GROUP BY ventas.id $order				    
 					
 					$limit;";
 		
-		//FB::error($query,'query ListaVentas:buscar');
+		FB::error($query,'query ListaVentas:buscar');
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

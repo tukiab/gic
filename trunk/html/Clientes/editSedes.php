@@ -15,7 +15,7 @@ include ('_editCliente.php');
 	$var = new EditCliente($_GET);
 
 include ($appRoot.'/Common/php/popupHeader.php');
-
+global $gestor_actual; $perfil = $gestor_actual->get_Perfil();
 ?>
 <div id="titulo"><?php echo  _translate("Editar Sedes")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
@@ -40,16 +40,16 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<?php $disabled = 'disabled="disabled"';?>
 				<tr class="ListaTitulo" >
 					<td >
-						<input <?php if(!$permisos->escritura)echo $disabled; ?> type="text" name="<?php echo  $count."_"?>localidad" value="<?php echo  $Sede->get_Localidad();?>" size="9" />
+						<input <?php if(!$permisos->escritura && !esPerfilTecnico($perfil['id']))echo $disabled; ?> type="text" name="<?php echo  $count."_"?>localidad" value="<?php echo  $Sede->get_Localidad();?>" size="9" />
 					</td>
 					<td  nowrap>
-						<input <?php if(!$permisos->escritura)echo $disabled; ?> type="text" name="<?php echo  $count."_"?>provincia" value="<?php echo  $Sede->get_Provincia();?>" size="9" />
+						<input <?php if(!$permisos->escritura && !esPerfilTecnico($perfil['id']))echo $disabled; ?> type="text" name="<?php echo  $count."_"?>provincia" value="<?php echo  $Sede->get_Provincia();?>" size="9" />
 					</td>
 					<td >
-						<input <?php if(!$permisos->escritura)echo $disabled; ?> type="text" name="<?php echo  $count."_"?>CP" value="<?php echo  $Sede->get_CP();?>" size="9" />
+						<input <?php if(!$permisos->escritura && !esPerfilTecnico($perfil['id']))echo $disabled; ?> type="text" name="<?php echo  $count."_"?>CP" value="<?php echo  $Sede->get_CP();?>" size="9" />
 					</td>
 					<td >
-						<input <?php if(!$permisos->escritura)echo $disabled; ?> type="text" name="<?php echo  $count."_"?>direccion" value="<?php echo  $Sede->get_Direccion();?>" size="9" />
+						<input <?php if(!$permisos->escritura && !esPerfilTecnico($perfil['id']))echo $disabled; ?> type="text" name="<?php echo  $count."_"?>direccion" value="<?php echo  $Sede->get_Direccion();?>" size="9" />
 							<input type="hidden" name="<?php echo  $count."_"?>id" value="<?php echo  $Sede->get_Id();?>" size="9" />
 					</td>
 					<?php if($permisos->administracion && !$Sede->es_Sede_Principal()){?>

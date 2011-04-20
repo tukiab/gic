@@ -20,7 +20,10 @@ include ($appRoot.'/Common/php/popupHeader.php');
 <div id="titulo"><?php echo  _translate("Editar Contactos")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 <br />
-<?php if($permisos->escritura){?>
+<?php
+global $gestor_actual; $perfil = $gestor_actual->get_Perfil();
+if($permisos->escritura || esPerfilTecnico($perfil['id'])){?>
+
 <div>
 
 <form action="<?php echo  $_SERVER['_SELF']?>" method="GET">
@@ -39,16 +42,16 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<?php $disabled = $Contacto->get_DisableEdit();?>
 				<tr class="ListaTitulo" >
 					<td >
-						<input <?php echo $disabled['nombre']; ?> type="text" name="<?php echo  $count."_"?>nombre" value="<?php echo  $Contacto->get_Nombre();?>" size="9" />
+						<input <?php if(!esPerfilTecnico($perfil['id'])) echo $disabled['nombre']; ?> type="text" name="<?php echo  $count."_"?>nombre" value="<?php echo  $Contacto->get_Nombre();?>" size="9" />
 					</td>
 					<td  nowrap>
-						<input <?php echo $disabled['telefono']; ?> type="text" name="<?php echo  $count."_"?>telefono" value="<?php echo  $Contacto->get_Telefono();?>" size="9" />
+						<input <?php if(!esPerfilTecnico($perfil['id'])) echo $disabled['telefono']; ?> type="text" name="<?php echo  $count."_"?>telefono" value="<?php echo  $Contacto->get_Telefono();?>" size="9" />
 					</td>
 					<td >
-						<input <?php echo $disabled['cargo']; ?> type="text" name="<?php echo  $count."_"?>cargo" value="<?php echo  $Contacto->get_Cargo();?>" size="9" />
+						<input <?php if(!esPerfilTecnico($perfil['id'])) echo $disabled['cargo']; ?> type="text" name="<?php echo  $count."_"?>cargo" value="<?php echo  $Contacto->get_Cargo();?>" size="9" />
 					</td>
 					<td >
-						<input <?php echo $disabled['email']; ?> type="text" name="<?php echo  $count."_"?>email" value="<?php echo  $Contacto->get_Email();?>" size="9" />
+						<input <?php if(!esPerfilTecnico($perfil['id'])) echo $disabled['email']; ?> type="text" name="<?php echo  $count."_"?>email" value="<?php echo  $Contacto->get_Email();?>" size="9" />
 							<input type="hidden" name="<?php echo  $count."_"?>id" value="<?php echo  $Contacto->get_Id();?>" size="9" />
 					</td>
 					<?php if($permisos->administracion){?>
