@@ -157,28 +157,30 @@ class AddVenta{
             $tipo_comision = $venta->get_Tipo_Comision();
             $forma_pago=$venta->get_Forma_Pago();
             if($venta->get_Formacion_Bonificada()) $formacion='SI';else $formacion='NO';
+			if($venta->get_Subvenciones()) $subvencion="SI";else $subvencion="NO";
             while($gerente = $listaUsuarios->siguiente()){
 
                 if($gerente->get_Email() != '' && $gerente->get_Email() != null){
                     $to      = $gerente->get_Email();
                     $subject = 'Nueva Venta';
-                    $message = 'Se ha producido una nueva venta en GIC.
-                        \n Los datos de la venta son los siguientes:
-                        \n Nombre: '.$venta->get_Nombre().'-
-                        \n Importe: '.$oferta->get_Importe().' euros.
-                        \n Empresa: '.$cliente->get_Razon_Social().'.
-                        \n Producto: '.$producto['nombre'].'.
-                        \n Tipo comision: '.$tipo_comision['nombre'].'.
-                        \n Forma de pago: '.$forma_pago['nombre'].'.
-                        \n Fecha aceptado: '.  timestamp2date($venta->get_Fecha_Aceptado()).'.
-                        \n Fecha asignacion a tecnico: '.  timestamp2date($venta->get_Fecha_Asignacion_Tecnico()).'.
-                        \n Fecha de entrada en vigor: '.  timestamp2date($venta->get_Fecha_Entrada_Vigor()).'.
-                        \n Formacion bonificada: '.$formacion.'.
-                        \n Gestor: '.$oferta->get_Usuario().'.
-                        \n Puede acceder a la venta en GIC con el id de venta '.$venta->get_Id();
-                    $headers = 'From: '.$gerente->get_Email(). "\r\n" .
-                        'Reply-To:  '.$gerente->get_Email(). "\r\n" .
-                        'X-Mailer: PHP/' . phpversion();
+                    $message = '
+
+Se ha producido una nueva venta en GIC.
+
+Los datos de la venta son los siguientes:
+Nombre: <b>'.$venta->get_Nombre().'</b>.
+Importe: <b>'.$venta->get_Precio_Total().' euros</b>.
+Empresa: <b>'.$cliente->get_Razon_Social().'</b>.
+Producto: <b>'.$producto['nombre'].'</b>.
+Fecha aceptado: <b>'.  timestamp2date($venta->get_Fecha_Aceptado()).'</b>.
+Fecha de inicio: <b>'.  timestamp2date($venta->get_Fecha_Inicio()).'</b>.
+Formacion bonificada: <b>'.$formacion.'</b>.
+Subvenciones: <b>'.$subvencion.'</b>.
+Gestor: <b>'.$oferta->get_Usuario().'</b>.
+Puede acceder a la venta en GIC con el id de venta <b>'.$venta->get_Id().'</b>';
+
+					$headers  = 'MIME-Version: 1.0' . "\r\n";
+					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
                     mail($to, $subject, $message, $headers);
                 }
