@@ -96,9 +96,9 @@ include ($appRoot.'/Common/php/popupHeader.php');
 
 		<table>
 			<tr>
-				<td class="ColIzq"><?php echo  _translate("Gestor que realiza la tarea")?></td>
+				<td class="ColIzq"><?php echo  _translate("T&eacute;cnico")?></td>
 				<td>
-					<label  ><?php echo  $var->Usuario->get_Nombre_Y_Apellidos();?></label>
+					<label  ><?php  echo $var->Proyecto->get_Id_Usuario();?></label>
 				</td>
 			</tr>
 		</table>

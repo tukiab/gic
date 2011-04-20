@@ -154,13 +154,17 @@ class Visita{
 			throw new Exception("La fecha ha de ser posterior a la actual");
 		if($datos['id_proyecto'] == '' || ! isset($datos['id_proyecto']))
 			throw new Exception("Visita: El proyecto de la visita es obligatorio .");
-		if(!isset($datos['id_usuario']))
-			throw new Exception("Visita: Usuario no v&aacute;lido.");
 
 		$this->hora = trim($datos['hora']);
 		$this->fecha = trim($datos['fecha']);
 		$this->proyecto = trim($datos['id_proyecto']); //ojo, este atributo luego es un array
-		$this->id_usuario = trim($datos['id_usuario']);
+
+		$proyecto = new Proyecto($this->proyecto);
+		if($proyecto->get_Id_Usuario())
+			$this->id_usuario	= $proyecto->get_Id_Usuario();
+		else
+			throw new Exception('No se puede planificar una visita a un proyecto sin t&eacute;cnico asignado');
+		
 
 		//Si todo ha ido bien:
 		return $this->guardar();

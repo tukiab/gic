@@ -1,16 +1,27 @@
-_addventa
-showcliente
-editcontactos
-editsedes
-editproyecto
-proyecto
-tarea
 showproyecto
 _showproyecto
-searchproyectos
-searchventas
-_searchventas
-listaventas
+
+Tareas
+
+
+
+
+
+
+
+
+
+-- tareas técnicas EN DOROS
+ALTER TABLE `tareas_tecnicas` CHANGE `fk_usuario` `fk_usuario` VARCHAR( 15 ) NULL DEFAULT NULL ;
+
+
+
+
+
+
+
+
+
 
 
 

@@ -35,6 +35,8 @@ class ShowProyecto{
 			if($this->opt['planificar']) $this->insertar_visita();
 			if($this->opt['tarea_editar']) $this->editar_tarea();
 			if($this->opt['visita_editar']) $this->editar_visita();
+			if($this->opt['tarea_eliminar']) $this->eliminar_tarea();
+			if($this->opt['visita_eliminar']) $this->eliminar_visita();
 			
 		}catch(Exception $e){
 			$this->opt['msg'] = $e->getMessage();
@@ -91,6 +93,8 @@ class ShowProyecto{
 		@($opciones['borrado_total'])?$this->opt['borrado_total']=true:$this->opt['borrado_total']=false;
 		@($opciones['tarea_editar'])?$this->opt['tarea_editar']=$opciones['tarea_editar']:null;
 		@($opciones['visita_editar'])?$this->opt['visita_editar']=$opciones['visita_editar']:null;
+		@($opciones['tarea_eliminar'])?$this->opt['tarea_eliminar']=$opciones['tarea_eliminar']:null;
+		@($opciones['visita_eliminar'])?$this->opt['visita_eliminar']=$opciones['visita_eliminar']:null;
 
 		foreach($this->Proyecto->get_Tareas() as $tarea){
 			@($opciones['fecha_tarea_'.$tarea['id']])?$this->opt['fecha_tarea_'.$tarea['id']]=date2timestamp($opciones['fecha_tarea_'.$tarea['id']]):null;
@@ -137,6 +141,22 @@ class ShowProyecto{
 		$visita = new Visita($this->opt['visita_editar']);
 		$visita->set_Fecha($this->opt['fecha_visita_'.$visita->get_Id()]);
 		$visita->set_Hora($this->opt['hora_visita_'.$visita->get_Id()]);
+
+		//recargamos el proyecto:
+		$this->Proyecto = new Proyecto($this->opt['id']);
+	}
+
+	private function eliminar_tarea(){
+		$tarea = new Tarea($this->opt['tarea_eliminar']);
+		$tarea->del_Tarea();
+
+		//recargamos el proyecto:
+		$this->Proyecto = new Proyecto($this->opt['id']);
+	}
+
+	private function eliminar_visita(){
+		$visita = new Visita($this->opt['visita_eliminar']);
+		$visita->del_Visita();
 
 		//recargamos el proyecto:
 		$this->Proyecto = new Proyecto($this->opt['id']);

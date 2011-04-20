@@ -733,7 +733,6 @@ class Proyecto{
 		$datos_visita['fecha'] = $datos['fecha_visita'];
 		$datos_visita['hora'] = $datos['hora_visita'];
 		$datos_visita['id_proyecto'] = $this->id;
-		$datos_visita['id_usuario'] = $this->id_usuario;
 
 		$visita->crear($datos_visita);
 		$this->cargar_Planificacion();
