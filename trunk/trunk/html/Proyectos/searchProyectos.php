@@ -284,7 +284,7 @@ $(document).ready(function(){
                             else if($var->opt['order_by']=='gestor' && $var->opt['order_by_asc_desc']=='DESC')
                                     echo  "&darr;";
                     ?>
-            </th><?php if(!$var->opt['informe']){?>
+            </th>
             <th>
                     <a href="#" onClick="javascript:orderBy('estado')" ><?php echo  _translate("estado")?></a>
                     <?php
@@ -293,7 +293,7 @@ $(document).ready(function(){
                             else if($var->opt['order_by']=='estado' && $var->opt['order_by_asc_desc']=='DESC')
                                     echo  "&darr;";
                     ?>
-            </th>
+            </th><?php if(!$var->opt['informe']){?>
             <th>
                     <a href="#" onClick="javascript:orderBy('fecha_inicio')" ><?php echo  _translate("Fecha de inicio")?></a>
                     <?php
@@ -391,10 +391,10 @@ $(document).ready(function(){
 			<td>
                     <?php  echo $proyecto->get_Id_Usuario();?>
             </td>
-			<?php if(!$var->opt['informe']){?>
-            <td>
+			<td>
                     <?php  echo  $estado['nombre'];?>
             </td>
+            <?php if(!$var->opt['informe']){?>
             <td>
                     <?php  echo timestamp2date($proyecto->get_Fecha_Inicio())?>
             </td>
@@ -408,7 +408,7 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Numero_Visitas_Reales()?>
             </td>
 			<td>
-                    <?php if($proyecto->get_Numero_Visitas_Reales()) echo $proyecto->get_Numero_Visitas()*100/$proyecto->get_Numero_Visitas_Reales(); else echo 0;?>
+                    <?php if($proyecto->get_Numero_Visitas_Reales()) echo substr($proyecto->get_Numero_Visitas()*100/$proyecto->get_Numero_Visitas_Reales(),0,5); else echo 0;?>
             </td>
 			<td>
                     <?php  echo $proyecto->get_Horas_Documentacion()?>
@@ -417,7 +417,7 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Horas_Documentacion_Reales()?>
             </td>
 			<td>
-                    <?php if($proyecto->get_Horas_Documentacion_Reales()) echo $proyecto->get_Horas_Documentacion()*100/$proyecto->get_Horas_Documentacion_Reales(); else echo 0;?>
+                    <?php if($proyecto->get_Horas_Documentacion_Reales()) echo substr($proyecto->get_Horas_Documentacion()*100/$proyecto->get_Horas_Documentacion_Reales(),0,5); else echo 0;?>
             </td>
 			<td>
                     <?php  echo $proyecto->get_Horas_Auditoria_Interna()?>
@@ -426,7 +426,7 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Horas_Auditoria_Interna_Reales()?>
             </td>
 			<td>
-                    <?php if($proyecto->get_Horas_Auditoria_Interna_Reales()) echo $proyecto->get_Horas_Auditoria_Interna()*100/$proyecto->get_Horas_Auditoria_Interna_Reales(); else echo 0;?>
+                    <?php if($proyecto->get_Horas_Auditoria_Interna_Reales()) echo substr($proyecto->get_Horas_Auditoria_Interna()*100/$proyecto->get_Horas_Auditoria_Interna_Reales(),0,5); else echo 0;?>
             </td>
 			<?php }?>
 			<td>
@@ -437,7 +437,7 @@ $(document).ready(function(){
                     <?php  echo $proyecto->get_Horas_Totales_Reales()?>
             </td>
 			<td>
-                    <?php if($proyecto->get_Horas_Totales_Reales()) echo $proyecto->get_Horas_Totales()*100/$proyecto->get_Horas_Totales_Reales(); else echo 0;?>
+                    <?php if($proyecto->get_Horas_Totales_Reales()) echo substr($proyecto->get_Horas_Totales()*100/$proyecto->get_Horas_Totales_Reales(),0,5); else echo 0;?>
             </td>
 			<td>
                     <?php  echo $proyecto->get_Gastos_Incurridos()?>
