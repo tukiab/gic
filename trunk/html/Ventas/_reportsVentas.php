@@ -93,7 +93,7 @@ class InformesVentas{
 
 		$query = "SELECT ventas.fecha_aceptado as fecha, ofertas.fk_usuario as usuario,
 						ofertas.fk_tipo_producto as tipo, productos_tipos.nombre,
-						SUM(ofertas.importe) as importe,
+						SUM(ventas.precio_consultoria+ventas.precio_formacion) as importe,
 						COUNT(DISTINCT ventas.id) as num_ventas,
 						COUNT(DISTINCT ofertas.fk_cliente) as num_clientes
 					FROM ventas

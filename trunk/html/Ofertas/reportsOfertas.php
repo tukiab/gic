@@ -174,31 +174,31 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<?php echo _translate("Usuario"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<?php echo _translate("Fecha"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<?php echo _translate("Tipo producto"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<?php echo _translate("N&uacute;mero ofertas"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							%
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<?php echo _translate("N&uacute;mero de empresas"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							%
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							Importe
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							%
 						</th>
 					</tr>
@@ -223,32 +223,34 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 										$num_ofertas = $informe_tipo_producto['num_ofertas'];
 										$num_clientes = $informe_tipo_producto['num_clientes'];
 										$importe = $informe_tipo_producto['importe'];
+										$total_empresas[$user] += $num_clientes;
+										$total_empresas[$tipo_producto] += $num_clientes;
 									?>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo timestamp2date($informe_tipo_producto['fecha']);?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $informe_tipo_producto['nombre']; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $num_ofertas; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $num_clientes; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php if($total_clientes) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $importe; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php if($total_importe) echo  substr($importe*100/$total_importe,0,4)."%"; ?>
 										</td>
 								</tr>
@@ -262,21 +264,21 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 									$totales['tipos'][$tipo_producto]['nombre'] = $informe_tipo_producto['nombre'];
 							}else{?>
 								<tr>
-									<td style="text-align:center;width:5%;">Total</td>
+									<td>Total</td>
 									<td></td>
 									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
+									<td><?php echo  $total_ofertas;?></td>
 									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+									<td><?php echo  $total_empresas[$user];?></td>
 									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_importe;?></td>
+									<td><?php echo  $total_importe;?></td>
 									<td></td>
 								</tr>
 					<?php	}
 						}?>
 			<?php
 				$totales['ofertas']	+= $total_ofertas;
-				$totales['clientes']	+= $total_clientes;
+				$totales['clientes']	+=$total_empresas[$user];
 				$totales['importe']	+= $total_importe;
 			}
 		}
@@ -295,40 +297,40 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 					$importe = $informe_tipo_producto['importe'];
 				?>
 						<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
 							<td></td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $nombre; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $num_ofertas; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php if($total_ofertas)echo substr($num_ofertas*100/$total_ofertas,0,4)."%"; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $num_clientes; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php if($total_clientes)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $importe; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php if($total_importe)echo substr($importe*100/$total_importe,0,4)."%"; ?>
 							</td>
 						<?php } ?>
 						</tr>
 						<tr>
-							<td style="text-align:center;width:5%;">Total</td><td></td><td></td>
-							<td style="text-align:center;width:5%;"><?php echo  $total_ofertas;?></td>
+							<td>Total</td><td></td><td></td>
+							<td><?php echo  $total_ofertas;?></td>
 							<td></td>
-							<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+							<td><?php echo  $total_clientes;?></td>
 							<td></td>
-							<td style="text-align:center;width:5%;"><?php echo  $total_importe;?></td>
+							<td><?php echo  $total_importe;?></td>
 						</tr>
 
 					</tbody>

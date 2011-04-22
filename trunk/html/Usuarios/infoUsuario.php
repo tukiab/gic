@@ -181,7 +181,7 @@ $cfilaImpar = "#EEEEEE";
 		<!-- proyectos -->
 			<table>
 				<tr>
-					<td class="ListaTitulo"  colspan="6"><?php echo  _translate("Proyectos")?><a class="show" href="#" clase="proyectos"></a></td>
+					<td class="ListaTitulo"  colspan="6"><?php echo  _translate("Proyectos")?><!--<a class="show" href="#" clase="proyectos"></a>--></td>
 				</tr>
 				<tr class="proyectos">
 					<th ><?php echo  _translate("Empresa")?></th>
@@ -191,10 +191,24 @@ $cfilaImpar = "#EEEEEE";
 					<th ><?php echo  _translate("Fecha de inicio")?></th>
 					<th ><?php echo  _translate("Fecha de finalizaci&oacute;n")?></th>
 				</tr>
-				<?php  if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
-					while($proyecto = $var->lista_proyectos->siguiente()) { $cliente = $proyecto->get_Cliente();
+				<?php $nombre_estado_anterior = null;
+
+				if($par){$color=$cfilaPar;$par=false;}else{$color=$cfilaImpar;$par=true;}
+					while($proyecto = $var->lista_proyectos->siguiente()) { 
+						$cliente = $proyecto->get_Cliente();
+						$estado = $proyecto->get_Estado();
+						$nombre_estado = $estado['nombre'];
 					?>
-				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="proyectos">
+				<?php
+					//Miramos si ha cambiado de estado, si lo ha hecho imprimimos la cabecera
+					if($nombre_estado_anterior != $nombre_estado){
+						$nombre_estado_anterior = $nombre_estado;
+				?>
+					<tr class="proyectos">
+						<td class="ListaTitulo" style="text-align: left;" colspan="6"><?php echo  _translate("Proyectos ".$nombre_estado)?><a class="show" href="#" clase="proyectos_<?php echo $estado['id'];?>"></a></td>
+					</tr>
+				<?php }?>
+				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="proyectos proyectos_<?php echo $estado['id'];?>">
 					<td><a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>"><?php echo $cliente->get_Razon_Social();?></a></td>
 					<td><a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a></td>
 					<td><?php $estado = $proyecto->get_Estado(); echo $estado['nombre'];?></td>

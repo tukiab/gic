@@ -441,7 +441,16 @@ class Proyecto{
 	}
 
 	public function get_Horas_Totales_Reales(){
-		return ($this->get_Horas_Documentacion_Reales() +$this->get_Horas_Auditoria_Interna_Reales());
+		//return ($this->get_Horas_Documentacion_Reales() +$this->get_Horas_Auditoria_Interna_Reales()+$this->get_Horas_Desplazamiento_Reales());
+
+		//cada tarea es un array Indexado por id, fecha, tipo, horas_desplazamiento, horas_visita, horas_despacho,
+		//horas_auditoria_interna, incentivable, id_sede, observaciones, id_usuario, localidad
+		$count = 0;
+		foreach($this->tareas as $tarea){
+			$count += $tarea['horas_desplazamiento']+$tarea['horas_visita']+$tarea['horas_despacho']+$tarea['horas_auditoria_interna'];
+		}
+
+		return $count;
 	}
 	/**
 	 * Duración del proyecto en días
@@ -571,25 +580,28 @@ class Proyecto{
 	public function definir($datos){  
 		if($this->id_estado > 1)
 			throw new Exception ('El proyecto ya ha sido definido');
+
 		//Comprobando los datos "imprescindibles":
 		$errores = '';
 		$validar = new Validador();
-		if($datos['horas_documentacion'] == '' || ! isset($datos['horas_documentacion']))
+		/*if($datos['horas_documentacion'] == '' || ! isset($datos['horas_documentacion']))
 			$errores .= "<br/>Proyecto: Campo horas de documentacion obligatorio.";
-		else{
+		else{*/
 			if(is_numeric(trim($datos['horas_documentacion'])))
 				$this->horas_documentacion = trim($datos['horas_documentacion']);
 			else
-				$errores .= '<br/>Proyecto: Campo horas de documentaci&oacute;n inv&aacute;lido';
-		}
+				$this->horas_documentacion = 0;
+				//$errores .= '<br/>Proyecto: Campo horas de documentaci&oacute;n inv&aacute;lido';
+		/*}
 		if($datos['horas_auditoria_interna'] == '' || ! isset($datos['horas_auditoria_interna']))
 			$errores .= "<br/>Proyecto: Campo horas de auditor&iacute;a interna obligatorio.";
-		else{
+		else{*/
 			if(is_numeric(trim($datos['horas_auditoria_interna'])))
 				$this->horas_auditoria_interna = trim($datos['horas_auditoria_interna']);
 			else
-				$errores .= '<br/>Proyecto: Campo horas de auditor&iacute;a interna inv&aacute;lido';
-		}
+				$this->horas_auditoria_interna = 0;
+				//$errores .= '<br/>Proyecto: Campo horas de auditor&iacute;a interna inv&aacute;lido';
+		//}
 		if($datos['nombre'] == '' || ! isset($datos['nombre']))
 			$errores .= "<br/>Proyecto: Campo nombre obligatorio.";
 		else{
@@ -598,14 +610,14 @@ class Proyecto{
 			else
 				$errores .= '<br/>Proyecto: Campo nombre inv&aacute;lido';
 		}
-		if($datos['fecha_inicio'] == '' || ! isset($datos['fecha_inicio']))
+		/*if($datos['fecha_inicio'] == '' || ! isset($datos['fecha_inicio']))
 			$errores .= "<br/>Proyecto: Campo fecha de inicio obligatorio.";
-		else{
+		else{*/
 			if(is_numeric(trim($datos['fecha_inicio'])))
 				$this->fecha_inicio = trim($datos['fecha_inicio']);
 			else
 				$errores .= '<br/>Proyecto: Campo fecha de inicio inv&aacute;lido';
-		}
+		//}
 		if($datos['fecha_fin'])
 			if(is_numeric(trim($datos['fecha_fin']))){
 				$this->fecha_fin = trim($datos['fecha_fin']);
@@ -617,13 +629,13 @@ class Proyecto{
 		$cliente = $this->get_Cliente();
 		$sedes = $cliente->get_Sedes();
 		foreach($sedes as $id_sede){
-			if(!is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_horas_desplazamiento']) )
+			/*if(!is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_horas_desplazamiento']) )
 				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_horas_cada_visita']))
 				|| !is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']))){
 					 
 					$errores .= '<br/>Proyecto: debe definir los datos de definici&oacute;n de todas las sedes de la empresa';
 					continue;
-			}else{
+			}else{*/
 				$gastos = 0;
 				if(isset($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']) && is_numeric($datos['definicion_sedes_'.$id_sede.'_gastos_incurridos']))
 					$gastos = $datos['definicion_sedes_'.$id_sede.'_gastos_incurridos'];
@@ -634,7 +646,7 @@ class Proyecto{
 															'horas_cada_visita' => trim($datos['definicion_sedes_'.$id_sede.'_horas_cada_visita']),
 															'numero_visitas' => trim($datos['definicion_sedes_'.$id_sede.'_numero_visitas']),
 															'gastos_incurridos' => $gastos);
-			}
+			//}
 		}
 		
 		if($errores != '') throw new Exception($errores);

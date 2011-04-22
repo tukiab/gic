@@ -213,7 +213,7 @@ class ListaClientes implements IIterador{
 				    GROUP BY clientes.id $order
 					$limit;";
 		//throw new Exception($query);
-		FB::info($query,'query ListaClientes:buscar');
+		//FB::info($query,'query ListaClientes:buscar');
 		$this->result = @mysql_query($query);
 
 		//Obtenemos el número total de resultados sin paginar:
