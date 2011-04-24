@@ -286,7 +286,7 @@ $(document).ready(function(){
                     ?>
             </th>
             <th>
-                    <a href="#" onClick="javascript:orderBy('estado')" ><?php echo  _translate("estado")?></a>
+                    <a href="#" onClick="javascript:orderBy('estado')" ><?php echo  _translate("Estado")?></a>
                     <?php
                             if($var->opt['order_by']=='estado' && $var->opt['order_by_asc_desc']=='ASC')
                                     echo  "&uarr;";

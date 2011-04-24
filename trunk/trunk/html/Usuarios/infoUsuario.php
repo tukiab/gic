@@ -205,7 +205,7 @@ $cfilaImpar = "#EEEEEE";
 						$nombre_estado_anterior = $nombre_estado;
 				?>
 					<tr class="proyectos">
-						<td class="ListaTitulo" style="text-align: left;" colspan="6"><?php echo  _translate("Proyectos ".$nombre_estado)?><a class="show" href="#" clase="proyectos_<?php echo $estado['id'];?>"></a></td>
+						<td class="ListaTitulo" style="text-align: left;" colspan="6"><?php echo "Proyectos ".$nombre_estado?><a class="show" href="#" clase="proyectos_<?php echo $estado['id'];?>"></a></td>
 					</tr>
 				<?php }?>
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="proyectos proyectos_<?php echo $estado['id'];?>">

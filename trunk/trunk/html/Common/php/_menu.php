@@ -68,7 +68,7 @@ class MainMenu{
 					$this->menus[9][6]= new Menu("$appDir/Administracion/gestionTiposFormasDePago.php", "Tipos de formas de pago");
                     $this->menus[9][7]= new Menu("$appDir/Administracion/gestionTiposComision.php", "Tipos de comisi&oacute;n");			
 			
-		}else if($perfil_usuario['id'] == 3)//los técnicos tienen que ver el informe de planificación
+		}else if($perfil_usuario['id'] == 3 || $perfil_usuario['id'] == 6)//los técnicos tienen que ver el informe de planificación
 			$this->menus[6] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
 		
 		$this->menus[10] = new Menu("$appDir/Facturas/searchFacturas.php", "Facturas", "facturas");
