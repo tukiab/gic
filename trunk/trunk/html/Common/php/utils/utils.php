@@ -129,7 +129,11 @@ function obtenerMes($ts){
  * Cambiar esta función para que lea de la BBDD o algo y no sea estático
  */
 function listaYears(){
-	$lista = array(2009,2010,2011);
+	$lista = array();
+	$year=date("Y",time());
+	for($y=2009;$y<=$year;$y++){
+		$lista[] = $y;
+	}
 	return $lista;
 }
 
