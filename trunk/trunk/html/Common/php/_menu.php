@@ -72,6 +72,7 @@ class MainMenu{
 		}else if($perfil_usuario['id'] == 3 || $perfil_usuario['id'] == 6){//los técnicos tienen que ver el informe de planificación
 			$this->menus[6][0]= new Menu("#", "Informes +", "informes");
 			$this->menus[6][1] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
+			$this->menus[6][3] = new Menu("$appDir/Proyectos/informeTecnico.php", "Tecnico", "tecnico");
 		}
 		
 		$this->menus[10] = new Menu("$appDir/Facturas/searchFacturas.php", "Facturas", "facturas");
