@@ -83,6 +83,13 @@ class ListaProyectos implements IIterador{
 		(isset($filtros['fecha_fin_desde']))?$filtro.=" AND proyectos.fecha_fin >= '".trim($filtros['fecha_fin_desde'])."' ":null;
 		(isset($filtros['fecha_fin_hasta']))?$filtro.=" AND proyectos.fecha_fin <= '".trim($filtros['fecha_fin_hasta'])."' ":null;
 
+		if(isset($filtros['fecha_desde']) && isset($filtros['fecha_hasta'])){
+			$filtro .= " AND (
+								(proyectos.fecha_inicio >= '".trim($filtros['fecha_desde'])."' AND proyectos.fecha_inicio <= '".trim($filtros['fecha_hasta'])."' ) OR
+								(proyectos.fecha_fin >= '".trim($filtros['fecha_desde'])."' AND proyectos.fecha_fin <= '".trim($filtros['fecha_hasta'])."' )
+							)";
+		}
+
 		(isset($filtros['gestor']) && $filtros['gestor'] != '0')?$filtros['id_usuario']=$filtros['gestor']:null;
 		(isset($filtros['id_usuario']) && $filtros['id_usuario']!='0')?$filtro .= " AND proyectos.fk_usuario = '".trim($filtros['id_usuario'])."'":null;
 		(isset($filtros['id_cliente']))?$filtro .= " AND proyectos.fk_cliente = '".trim($filtros['fk_cliente'])."'":null;
