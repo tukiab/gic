@@ -42,27 +42,27 @@ function cargar_plantilla(id_proyecto){
 					</td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Horas de documentaci&oacute;n")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Horas de documentaci&oacute;n")?></td>
 					<td>
 						<input type="text" value="<?php echo $var->opt['horas_documentacion'];?>" name="horas_documentacion" id="horas_documentacion" />
 					</td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Horas de auditor&iacute;a interna")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Horas de auditor&iacute;a interna")?></td>
 					<td>
 						<input type="text" value="<?php echo $var->opt['horas_auditoria_interna'];?>" name="horas_auditoria_interna" id="horas_auditoria_interna" />
 					</td>
 				</tr>
 				<?php if($venta){?>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Plazo de ejecuci&oacute;n (venta)")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Plazo de ejecuci&oacute;n (venta)")?></td>
 					<td>
 						<?php echo $venta->get_Plazo_Ejecucion();?>
 					</td>
 				</tr>
 				<?php }?>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Fecha de inicio")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Fecha de inicio")?></td>
 					<td>
 						<input type="text" class="fecha" value="<?php echo timestamp2date($var->opt['fecha_inicio']);?>" name="fecha_inicio" id="fecha_inicio" />
 					</td>
@@ -82,21 +82,21 @@ function cargar_plantilla(id_proyecto){
 					<td class="ListaTitulo"  colspan="2"><?php echo $sede->get_Localidad();?></td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Horas de desplazamiento")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Horas de desplazamiento")?></td>
 					<td>
 						<input type="text" value="<?php echo $var->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento'];?>"
 							name="<?php echo 'definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento';?>"/>
 					</td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Horas de cada visita")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Horas de cada visita")?></td>
 					<td>
 						<input type="text" value="<?php echo $var->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita'];?>"
 							name="<?php echo 'definicion_sedes_'.$sede->get_Id().'_horas_cada_visita';?>"/>
 					</td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("N&uacute;mero de visitas")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("N&uacute;mero de visitas")?></td>
 					<td>
 						<input type="text" value="<?php echo $var->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas'];?>"
 							name="<?php echo 'definicion_sedes_'.$sede->get_Id().'_numero_visitas';?>"/>
@@ -111,7 +111,7 @@ function cargar_plantilla(id_proyecto){
 				</tr>
 				<?php } ?>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Guardar como plantilla")?>&#42;</td>
+					<td class="ColIzq"><?php echo  _translate("Guardar como plantilla")?></td>
 					<td>
 						<input type="checkbox" <?php echo ($var->opt['es_plantilla'])?'checked="checked"':null;?> />
 					</td>
