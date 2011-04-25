@@ -6,10 +6,10 @@ include ($appRoot.'/Common/php/utils/lang.php');
 include ($appRoot.'/Common/php/utils/utils.php');
 
 //Opciones
-include ('_informeComercial.php');
+include ('_informeComisiones.php');
 
 //Instanciamso la clase busqueda de ventas.
-$var = new InformeComercial($_GET);
+$var = new InformeComisiones($_GET);
 if($permisos->administracion){
 
 if(!$var->opt['exportar']){
@@ -144,25 +144,22 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 							Objetivo
 						</th>
 						<th>
-							<?php echo _translate("Tipo producto"); ?>
-						</th>
-						<th>
-							<?php echo _translate("N&uacute;mero ventas"); ?>
+							Objetivo acumulado de venta
 						</th>
 						<th>
 							%
 						</th>
 						<th>
-							<?php echo _translate("N&uacute;mero de empresas"); ?>
+							<?php echo _translate("Tipo venta"); ?>
 						</th>
 						<th>
-							%
+							<?php echo _translate("Venta acumulada por tipo de venta"); ?>
 						</th>
 						<th>
-							Importe
+							% acumulado
 						</th>
 						<th>
-							%
+							Comisi&oacute;n
 						</th>
 					</tr>
 				</thead>
@@ -179,12 +176,12 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 						$fila_par=true;
 						$mes_year_anterior = null;
 
-						foreach($informe_usr as $informe_tipo_producto){
-							$ULTIMO = ($total_usuario == $informe_tipo_producto);
+						foreach($informe_usr as $informe_tipo_venta){
+							$ULTIMO = ($total_usuario == $informe_tipo_venta);
 
 							if(!$ULTIMO){
-								$mes = date("m",$informe_tipo_producto['fecha']);
-								$mes_year = Fechas::obtenerNombreMes($mes).'/'.date("Y",$informe_tipo_producto['fecha']);
+								$mes = date("m",$informe_tipo_venta['fecha']);
+								$mes_year = Fechas::obtenerNombreMes($mes).'/'.date("Y",$informe_tipo_venta['fecha']);
 								$primero_mes = false;
 								if($mes_year_anterior != $mes_year){
 									$primero_mes = true;
@@ -194,10 +191,10 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 								?>
 								<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
 									<?php
-										$tipo_producto = $informe_tipo_producto['tipo'];
-										$num_ventas = $informe_tipo_producto['num_ventas'];
-										$num_clientes = $informe_tipo_producto['num_clientes'];
-										$importe = $informe_tipo_producto['importe'];
+										$tipo_venta = $informe_tipo_venta['tipo'];
+										$num_ventas = $informe_tipo_venta['num_ventas'];
+										$num_clientes = $informe_tipo_venta['num_clientes'];
+										$importe = $informe_tipo_venta['importe'];
 									?>
 										<td>
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
@@ -209,18 +206,23 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 											<?php 
 											if($primero_mes){
 												$usuario = new Usuario($user);
-												$objetivo = $usuario->get_Objetivo(obtenerMes($informe_tipo_producto['fecha']));
+												$objetivo = $usuario->get_Objetivo(obtenerMes($informe_tipo_venta['fecha']));
 												echo $objetivo['comision'];
 											}?>
 										</td>
 										<td>
-											<?php echo $informe_tipo_producto['nombre']; ?>
+											<?php
+											if($primero_mes){
+												$usuario = new Usuario($user);
+												$objetivo = $usuario->get_Objetivo_Acumulado(obtenerMes($informe_tipo_venta['fecha']));
+												echo $objetivo;
+											}?>
 										</td>
 										<td>
 											<?php echo $num_ventas; ?>
 										</td>
 										<td>
-											<?php if($total_ventas)echo substr($num_ventas*100/$total_ventas,0,4)."%"; ?>
+											<?php echo $informe_tipo_venta['nombre']; ?> <?php if($total_ventas)echo substr($num_ventas*100/$total_ventas,0,4)."%"; ?>
 										</td>
 										<td>
 											<?php echo $num_clientes; ?>
@@ -236,13 +238,13 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 										</td>
 								</tr>
 								<?php
-									$totales[$tipo_producto]['num_ventas'] += $num_ventas;
-									$totales[$tipo_producto]['num_clientes'] += $num_clientes;
-									$totales[$tipo_producto]['importe'] += $importe;
-									$totales['tipos'][$tipo_producto]['ventas']	+= $num_ventas;
-									$totales['tipos'][$tipo_producto]['clientes']	+= $num_clientes;
-									$totales['tipos'][$tipo_producto]['importe']	+= $importe;
-									$totales['tipos'][$tipo_producto]['nombre'] = $informe_tipo_producto['nombre'];
+									$totales[$tipo_venta]['num_ventas'] += $num_ventas;
+									$totales[$tipo_venta]['num_clientes'] += $num_clientes;
+									$totales[$tipo_venta]['importe'] += $importe;
+									$totales['tipos'][$tipo_venta]['ventas']	+= $num_ventas;
+									$totales['tipos'][$tipo_venta]['clientes']	+= $num_clientes;
+									$totales['tipos'][$tipo_venta]['importe']	+= $importe;
+									$totales['tipos'][$tipo_venta]['nombre'] = $informe_tipo_venta['nombre'];
 							}else{?>
 								<tr>
 									<td>Total</td>
@@ -271,10 +273,10 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 				?>
 				<?php $primero = true;$fila_par=true;
 				if(($var->opt['buscar'] || $var->opt['exportar']) && $totales['tipos'])
-				 foreach($totales['tipos'] as $informe_tipo_producto){
-					$nombre = $informe_tipo_producto['nombre'];
-					$num_ventas = $informe_tipo_producto['ventas'];
-					$num_clientes = $informe_tipo_producto['clientes'];
+				 foreach($totales['tipos'] as $informe_tipo_venta){
+					$nombre = $informe_tipo_venta['nombre'];
+					$num_ventas = $informe_tipo_venta['ventas'];
+					$num_clientes = $informe_tipo_venta['clientes'];
 					$importe = $informe_tipo_producto['importe'];
 				?>
 						<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>

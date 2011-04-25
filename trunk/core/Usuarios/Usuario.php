@@ -263,6 +263,15 @@
 	public function get_Objetivo($id_mes){
 		return $this->objetivos[$id_mes];
 	}
+	public function get_Objetivo_Acumulado($id_mes){
+		$objetivo_acumulado = 0;
+		for($m=1;$m<=$id_mes;$m++){
+			$obj = $this->get_Objetivo($m);
+			$objetivo_acumulado = $objetivo_acumulado + $obj['comision'];
+		}
+
+		return $objetivo_acumulado;
+	}
 	public function get_Objetivos_Departamento(){
  		return $this->objetivos_departamento;
  	}
