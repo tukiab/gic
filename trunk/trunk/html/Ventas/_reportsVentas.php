@@ -85,9 +85,9 @@ class InformesVentas{
 	private function buscar(){
 		$filtro = "";
 		if($this->opt['fecha_desde'])
-			$filtro .= " AND ventas.fecha >= '".$this->opt['fecha_desde']."' ";
+			$filtro .= " AND ventas.fecha_aceptado >= '".$this->opt['fecha_desde']."' ";
 		if($this->opt['fecha_hasta'])
-			$filtro .= " AND ventas.fecha <= '".$this->opt['fecha_hasta']."' ";
+			$filtro .= " AND ventas.fecha_aceptado <= '".$this->opt['fecha_hasta']."' ";
 		if($this->opt['id_usuario'])
 			$filtro .= " AND ventas.fk_usuario = '".$this->opt['id_usuario']."'";
 

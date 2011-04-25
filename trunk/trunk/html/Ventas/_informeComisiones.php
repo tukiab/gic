@@ -7,7 +7,7 @@
  * valores para los desplegables de la interfaz a partir de la BBDD.
  *
  */
-class InformeComercial{
+class InformeComisiones{
 
 
 	/*
@@ -104,15 +104,15 @@ class InformeComercial{
 			$filtro .= " AND ventas.fk_usuario = '".$this->opt['id_usuario']."'";
 
 		$query = "SELECT ventas.fecha_aceptado as fecha, ofertas.fk_usuario as usuario,
-						ofertas.fk_tipo_producto as tipo, productos_tipos.nombre,
+						ventas.fk_tipo_comision as tipo, tipos_comision.nombre,
 						SUM(ventas.precio_consultoria+ventas.precio_formacion) as importe,
 						COUNT(DISTINCT ventas.id) as num_ventas,
 						COUNT(DISTINCT ofertas.fk_cliente) as num_clientes
 					FROM ventas
 					INNER JOIN ofertas
 						ON ofertas.id = ventas.fk_oferta
-					INNER JOIN productos_tipos
-						ON productos_tipos.id = ofertas.fk_tipo_producto
+					INNER JOIN tipos_comision
+						ON tipos_comision.id = ventas.fk_tipo_comision
 					INNER JOIN clientes
 						ON clientes.id = ofertas.fk_cliente
 					WHERE 1 $filtro
