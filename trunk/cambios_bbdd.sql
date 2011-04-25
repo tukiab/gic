@@ -374,3 +374,12 @@ INSERT INTO `scripts` (`id`, `ruta`, `menu`, `descripcion`, `fk_proceso`) VALUES
 (63, '/Proveedores/showProveedor.php', 'inicio', '', 3);
 
 ALTER TABLE `ventas` CHANGE `fecha_asignacion_tecnico` `fecha_asignacion_tecnico` INT( 11 ) NULL DEFAULT NULL ;
+
+
+
+-- más sobre definición
+ALTER TABLE `tareas_tecnicas` CHANGE `fk_usuario` `fk_usuario` VARCHAR( 15 ) NULL DEFAULT NULL ;
+ALTER TABLE `proyectos_rel_sedes` CHANGE `horas_desplazamiento` `horas_desplazamiento` FLOAT NULL ,
+CHANGE `numero_visitas` `numero_visitas` INT( 11 ) NULL ,
+CHANGE `horas_cada_visita` `horas_cada_visita` FLOAT NULL ,
+CHANGE `gastos_incurridos` `gastos_incurridos` FLOAT NULL ;
