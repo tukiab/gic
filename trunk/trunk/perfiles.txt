@@ -1,21 +1,25 @@
+Lo primero que debes recordar, es que para el calculo de UNIDADES u HORAS INCENTIVABLES, hablábamos SIEMPRE DE MESES,
+ no de fechas o días; es decir, calculábamos las uds u horas incentivables del mes de abril de 2011, o de mayo de 2011, o...,
+no entre el día 17 y el 23 de junio, o entre el 21 de mayo y el 16 de julio, NUNCA ENTRE FECHAS, sino SIEMPRE RELATIVOS A UN MES
+Y UN AÑO EN CONCRETO. Luego, por supuesto, podemos jugar con uno o varios técnicos y uno o varios proyectos.
 
+    Por otro lado, para las horas incentivables o unidades (que son las horas / 8) se definen a partir del tipo y estado del proyecto:
 
+    Proyectos "normales" derivados de una venta:
+        Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS TEÓRICAS (HT*)=HORAS INCENTIVABLES
+			y las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
+        Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo, LAS HORAS INCENTIVABLES es siempre CERO
+			y las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
 
+Nota: HT*= Horas teóricas TOTALES del proyecto/ número de meses TEÓRICOS de duración del proyecto.
 
+    Ej: 100horas teóricas en 10 meses de duración, =10h TEÓRICAS MENSUALES-> HT*=10.
 
-
-
--- tareas técnicas EN DOROS
-ALTER TABLE `tareas_tecnicas` CHANGE `fk_usuario` `fk_usuario` VARCHAR( 15 ) NULL DEFAULT NULL ;
-ALTER TABLE `proyectos_rel_sedes` CHANGE `horas_desplazamiento` `horas_desplazamiento` FLOAT NULL ,
-CHANGE `numero_visitas` `numero_visitas` INT( 11 ) NULL ,
-CHANGE `horas_cada_visita` `horas_cada_visita` FLOAT NULL ,
-CHANGE `gastos_incurridos` `gastos_incurridos` FLOAT NULL ;
-
-
-
-
-
+    Proyectos creados DIRECTAMENTE por el director técnico.
+        Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS REALES dedicada por el técnico en ese
+			mes a ese proyecto=HORAS INCENTIVABLES y las HORAS NO INCENTIVABLES son siempre CERO.
+        Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo, LAS HORAS INCENTIVABLES es siempre CERO y las
+			HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
 
 
 
