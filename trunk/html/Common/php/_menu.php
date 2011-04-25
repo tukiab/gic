@@ -48,9 +48,10 @@ class MainMenu{
 				$this->menus[6][1] = new Menu("$appDir/Acciones/reportsAcciones.php", "Acciones", "acciones");
 				$this->menus[6][2] = new Menu("$appDir/Ofertas/reportsOfertas.php", "Ofertas", "ofertas");
 				$this->menus[6][3] = new Menu("$appDir/Ventas/reportsVentas.php", "Ventas", "ventas");
-				$this->menus[6][4] = new Menu("$appDir/Proyectos/searchProyectos.php?informe=resumen", "Proyectos", "proyectos");
-				$this->menus[6][5] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
-				$this->menus[6][6] = new Menu("$appDir/Proyectos/informeTecnico.php", "Tecnico", "tecnico");
+				$this->menus[6][5] = new Menu("$appDir/Ventas/informeComercial.php", "Comercial", "comercial");
+				$this->menus[6][6] = new Menu("$appDir/Proyectos/searchProyectos.php?informe=resumen", "Proyectos", "proyectos");
+				$this->menus[6][7] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
+				$this->menus[6][8] = new Menu("$appDir/Proyectos/informeTecnico.php", "Tecnico", "tecnico");
 				
 			$this->menus[7][0]= new Menu("#", "Colaboradores +", "colaboradores");
 				$this->menus[7][1]= new Menu("$appDir/Colaboradores/searchColaboradores.php", "Listado");
@@ -60,9 +61,9 @@ class MainMenu{
 				$this->menus[8][1]= new Menu("$appDir/Proveedores/searchProveedores.php", "B&uacute;squeda");
 				$this->menus[8][2]= new Menu("$appDir/Proveedores/addProveedor.php", "Nuevo");
 				
-			$this->menus[9][0]= new Menu("#", "Administraci&oacute;n +", "gestores");
+			$this->menus[9][0]= new Menu("#", "Administraci&oacute;n +", "usuarios");
 				$this->menus[9][1]= new Menu("$appDir/Administracion/miEmpresa.php", "Administracion");
-				$this->menus[9][2]= new Menu("$appDir/Administracion/gestionUsuarios.php", "Gestores");
+				$this->menus[9][2]= new Menu("$appDir/Administracion/gestionUsuarios.php", "Usuarios");
 				$this->menus[9][3]= new Menu("$appDir/Administracion/gestionGrupos.php", "Grupos de empresas");
 				$this->menus[9][4]= new Menu("$appDir/Administracion/gestionTiposProducto.php", "Tipos de producto");
 				$this->menus[9][5]= new Menu("$appDir/Administracion/gestionTiposAccion.php", "Tipos de accion");

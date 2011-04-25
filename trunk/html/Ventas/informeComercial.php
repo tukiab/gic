@@ -179,7 +179,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 							<?php echo _translate("Usuario"); ?>
 						</th>
 						<th>
-							<?php echo _translate("Fecha"); ?>
+							Mes/A&ntilde;o
 						</th>
 						<th>
 							Objetivo
@@ -215,12 +215,24 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 				$total_importe = $total_usuario['importe'];
 				if($user){
 				?>
-					<?php $primero = true;$fila_par=true;
+					<?php
+						$primero = true;
+						$fila_par=true;
+						$mes_year_anterior = null;
 
 						foreach($informe_usr as $informe_tipo_producto){
 							$ULTIMO = ($total_usuario == $informe_tipo_producto);
 
-							if(!$ULTIMO){?>
+							if(!$ULTIMO){
+								$mes = date("m",$informe_tipo_producto['fecha']);
+								$mes_year = Fechas::obtenerNombreMes($mes).'/'.date("Y",$informe_tipo_producto['fecha']);
+								$primero_mes = false;
+								if($mes_year_anterior != $mes_year){
+									$primero_mes = true;
+									$mes_year_anterior = $mes_year;
+								}
+
+								?>
 								<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
 									<?php
 										$tipo_producto = $informe_tipo_producto['tipo'];
@@ -232,12 +244,15 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
 										<td>
-											<?php echo timestamp2date($informe_tipo_producto['fecha']);?>
+											<?php if($primero_mes) echo $mes_year;?>
 										</td>
 										<td>
-											<?php $usuario = new Usuario($user);
-											$objetivo = $usuario->get_Objetivo(obtenerMes($informe_tipo_producto['fecha']));
-											echo $objetivo['comision'];?>
+											<?php 
+											if($primero_mes){
+												$usuario = new Usuario($user);
+												$objetivo = $usuario->get_Objetivo(obtenerMes($informe_tipo_producto['fecha']));
+												echo $objetivo['comision'];
+											}?>
 										</td>
 										<td>
 											<?php echo $informe_tipo_producto['nombre']; ?>
@@ -255,7 +270,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 											<?php if($total_clientes) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
 										</td>
 										<td>
-											<?php echo $importe; ?>
+											<?php echo $importe; ?>&euro;
 										</td>
 										<td>
 											<?php if($total_importe) echo  substr($importe*100/$total_importe,0,4)."%"; ?>
