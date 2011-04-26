@@ -385,7 +385,7 @@ class Venta{
 	 * @return integer $id_venta Id del nuevo Venta.
 	 */
 	public function crear($datos){
-		//FB::info($datos,'Venta crear: datos recibidos');
+		FB::info($datos,'Venta crear: datos recibidos');
 		
 		$validar = new Validador();
 		$ListaVentas = new ListaVentas();
@@ -398,7 +398,12 @@ class Venta{
 			$errores .= "<br/>El nombre es obligatorio.";
 		if($datos['fecha_entrada_vigor'] == '' || ! isset($datos['fecha_entrada_vigor']))
 			$errores .= "<br/>La fecha de entrada en vigor es obligatoria.";
-		
+
+		if(! $datos['tipo_comision'])
+			$errores .= "<br/>El tipo de venta es obligatorio.";
+		if(! $datos['forma_pago'])
+			$errores .= "<br/>La forma de pago es obligatoria.";
+
 		if($datos['fecha_toma_contacto'] == '' || ! isset($datos['fecha_toma_contacto']))
 			$errores .= "<br/>La fecha de toma de contacto es obligatoria.";
 		if($datos['fecha_inicio'] == '' || ! isset($datos['fecha_inicio']))
@@ -522,7 +527,7 @@ class Venta{
 						$valores
 					);
 		";
-			//FB::info($query,'Venta crear: QUERY');
+			FB::error($query,'Venta crear: QUERY');
 			if(!mysql_query($query))
 				throw new Exception("Error al crear la Venta. ".$query);
 			$this->id = mysql_insert_id();

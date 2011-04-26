@@ -230,14 +230,9 @@ include ($appRoot.'/Common/php/menu.php');
 
 								if($proyecto->get_Id_Venta()){
 									/*Proyectos "normales" derivados de una venta:
-									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo
-										las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
-									 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo las HORAS REALES dedicada por el
-										técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
+									 * Las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
 									 */
-									$unidades_no_incentivables = 0;
-									if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-										$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales()/8;
+									$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
 									echo round($unidades_no_incentivables,2);
 								}else{
 									/*Proyectos creados DIRECTAMENTE por el director técnico.

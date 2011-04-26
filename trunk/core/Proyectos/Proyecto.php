@@ -464,9 +464,11 @@ class Proyecto{
 	 * @var integer
 	 */
 	public function get_Carga_Trabajo_Mensual(){
-		if($this->get_Duracion())
-			return $this->get_Horas_Totales()*30/$this->get_Duracion();
-
+		$numero_meses = getNumeroMeses($this->fecha_inicio, $this->fecha_fin);
+		if($this->get_Horas_Totales() && getNumeroMeses($this->fecha_inicio, $this->fecha_fin)){
+			$num_meses = getNumeroMeses($this->fecha_inicio, $this->fecha_fin);
+			return $this->get_Horas_Totales()/$num_meses;
+		}
 		return 0;
 	}
 	/**
@@ -480,9 +482,10 @@ class Proyecto{
 	}
 
 	public function get_Unidades(){
-		$numero_meses = getNumeroMeses($this->fecha_inicio, $this->fecha_fin);
-		if($this->get_Horas_Totales() && getNumeroMeses($this->fecha_inicio, $this->fecha_fin))
-			return $this->get_Horas_Totales()*30/(8*$this->get_Duracion());
+		if($this->get_Horas_Totales() && getNumeroMeses($this->fecha_inicio, $this->fecha_fin)){
+			$num_meses = getNumeroMeses($this->fecha_inicio, $this->fecha_fin);
+			return $this->get_Horas_Totales()/(8*$num_meses);
+		}
 		return 0;
 	}
 
@@ -549,7 +552,7 @@ class Proyecto{
 
 		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";FB::info($query);
+								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";
 		
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto ');

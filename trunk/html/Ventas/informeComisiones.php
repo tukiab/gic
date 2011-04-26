@@ -170,15 +170,16 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 			$usuario_anterior = null;
 			$mes_year_anterior = null;
 			$tipo_anterior = null;
-			$par=false;			FB::info($var->datos['totales']);
-			while($venta=$var->lista_Ventas->siguiente()){ FB::warn($venta);
+			$par=false;			
+			while($venta=$var->lista_Ventas->siguiente()){
+				$usuario = $venta->get_Usuario();
 				$mes = date("m",$venta->get_Fecha_Aceptado());$mes = (int)$mes;
 				$year = date("Y",$venta->get_Fecha_Aceptado());
 				$nombre_mes = Fechas::obtenerNombreMes($mes);
 				$mes_year = $nombre_mes.'/'.$year;
-				$nuevo_mes = ($mes_year != $mes_year_anterior);
+				$nuevo_mes = ($mes_year != $mes_year_anterior || $usuario != $usuario_anterior);
 				$tipo_comision = $venta->get_Tipo_Comision();
-				$tipo_venta = $tipo_comision['nombre'];
+				$tipo_venta = $tipo_comision['nombre']; if(!$tipo_venta)FB::warn($venta);
 				$id_tipo_venta = $tipo_comision['id'];
 				$nuevo_tipo = ($tipo_venta != $tipo_anterior) || $nuevo_mes;
 				if($nuevo_mes)$par=!$par;
@@ -206,18 +207,20 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 					<?php
 						// mostrar el objetivo del mes (la primera vez de cada gestor/mes)
 						if($nuevo_mes){
-							$obj = $Usuario_venta->get_Objetivo($mes); 
-							echo $obj['comision'];
+							$obj = $Usuario_venta->get_Objetivo($mes);
+							if($obj['comision'])
+								echo $obj['comision']." &euro;";
+							else echo "0"." &euro;";
 						}
-						?>
+						?> 
 				</td>
 				<td>
 					<?php
 						// mostrar el objetivo acumulado del mes (la primera vez de cada gestor/mes)
 						if($nuevo_mes){
 							$obj = $Usuario_venta->get_Objetivo_Acumulado($mes);
-							echo $obj;
-						} ?>
+							echo $obj." &euro;";
+						} ?> 
 				</td>
 				<td>
 					<?php
@@ -228,8 +231,8 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 					<?php
 						// Venta del mes (venta de ese gestor en ese mes)
 						if($nuevo_mes){
-							echo $var->datos['totales'][$venta->get_Usuario().$mes_year];
-						} ?>
+							echo $var->datos['totales'][$venta->get_Usuario().$mes_year]." &euro;";
+						} ?> 
 				</td>
 				<td>
 					<?php
@@ -241,33 +244,35 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 				<td>
 					<?php
 						// Venta del mes (venta de ese gestor, para ese tipo y en ese mes)
-						echo $var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]; ?>
+						echo $var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]." &euro;"; ?>
 				</td>
 				<td>
 					<?php 
 						// % Acumulado (Acumulado de ventas/objetivo Acumulado, por tipo, gestor y mes)
-						echo round($var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2); ?>%
+						if($Usuario_venta->get_Objetivo_Acumulado($mes))
+							echo round($var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2);
+						else echo 0;?>%
 				</td>
 				<td>
 					<?php
 						// VCO*(CVi+VP)+VFO*(CVi+VP)+VCNO*CVi+VFNO*CVi+VL*CVi+OV*CVi
-						if($nuevo_mes){
-							$comision = 0;
-							foreach($var->lista_Ventas->lista_Tipos_Comision() as $tipoventa){
-								$id_tipo = $tipoventa['id'];
-								$VP = 0;
-								$comision_tipo = $Usuario_venta->get_Comision($id_tipo);
-								$CV = $comision_tipo['comision'];
-								$total_venta = ($var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo])?$var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo]:0;
-								$comision +=  $total_venta * ($CV + $VP);
-							}
-							echo $comision;
-						}?>
+						//if($nuevo_mes){
+							//foreach($var->lista_Ventas->lista_Tipos_Comision() as $tipoventa){
+							$id_tipo = $tipoventa['id'];
+							$VP = 0;
+							$comision_tipo = $Usuario_venta->get_Comision($id_tipo_venta);
+							$CV = $comision_tipo['comision'];
+							$total_venta = $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta];
+							$comision =  $total_venta * ($CV + $VP) /100;
+							//}
+							echo $comision." &euro;";
+						//}?>
 				</td>
 			</tr>
 			<?php }
 				$mes_year_anterior = $mes_year;
 				$tipo_anterior = $tipo_venta;
+				$usuario_anterior = $usuario;
 			}?>
 		</tbody>
 	</table>
