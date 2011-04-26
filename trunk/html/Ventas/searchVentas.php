@@ -120,13 +120,13 @@ include ($appRoot.'/Common/php/menu.php');
 				<?php echo  _translate('Nombre')?> &nbsp; 
 			</td>
 			<td class="busquedaDcha">
-				<input type="text" size="15"name="nombre" value="<?php  echo $var->opt['nombre']?>"></input>
+				<input type="text" size="15"name="nombre" value="<?php  echo $var->opt['nombre']?>" />
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('C&oacute;digo oferta/oportunidad')?> &nbsp;
 			</td>
 			<td class="busquedaDcha">
-				<input type="text" size="15"name="codigo" value="<?php  echo $var->opt['codigo']?>"></input>
+				<input type="text" size="15"name="codigo" value="<?php  echo $var->opt['codigo']?>" />
 			</td>
 		</tr>
 		<tr>
@@ -163,13 +163,13 @@ include ($appRoot.'/Common/php/menu.php');
 				<?php echo  _translate('Fecha aceptado desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_aceptado_desde" value="<?php  echo timestamp2date($var->opt['fecha_aceptado_desde'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_aceptado_desde" value="<?php  echo timestamp2date($var->opt['fecha_aceptado_desde'])?>" />
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha aceptado hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_aceptado_hasta" value="<?php  echo timestamp2date($var->opt['fecha_aceptado_hasta'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_aceptado_hasta" value="<?php  echo timestamp2date($var->opt['fecha_aceptado_hasta'])?>" />
 			</td>
 		</tr>
 		
@@ -178,13 +178,13 @@ include ($appRoot.'/Common/php/menu.php');
 				<?php echo  _translate('Fecha asignaci&oacute;n a t&eacute;cnico desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_asignacion_tecnico_desde" value="<?php  echo timestamp2date($var->opt['fecha_asignacion_tecnico_desde'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_asignacion_tecnico_desde" value="<?php  echo timestamp2date($var->opt['fecha_asignacion_tecnico_desde'])?>" />
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha asignaci&oacute;n a t&eacute;cnico hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_asignacion_tecnico_hasta" value="<?php  echo timestamp2date($var->opt['fecha_asignacion_tecnico_hasta'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_asignacion_tecnico_hasta" value="<?php  echo timestamp2date($var->opt['fecha_asignacion_tecnico_hasta'])?>" />
 			</td>
 		</tr>-->
 		<tr>			
@@ -192,13 +192,13 @@ include ($appRoot.'/Common/php/menu.php');
 				<?php echo  _translate('Fecha de entrada en vigor desde')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_entrada_vigor_desde" value="<?php  echo timestamp2date($var->opt['fecha_entrada_vigor_desde'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_entrada_vigor_desde" value="<?php  echo timestamp2date($var->opt['fecha_entrada_vigor_desde'])?>" />
 			</td>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Fecha de entrada en vigor hasta')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" class="fecha" size="12" name="fecha_entrada_vigor_hasta" value="<?php  echo timestamp2date($var->opt['fecha_entrada_vigor_hasta'])?>"></input>
+				<input type="text" class="fecha" size="12" name="fecha_entrada_vigor_hasta" value="<?php  echo timestamp2date($var->opt['fecha_entrada_vigor_hasta'])?>" />
 			</td>
 		</tr>
 		
@@ -237,7 +237,7 @@ include ($appRoot.'/Common/php/menu.php');
 				<?php echo  _translate('N&uacute;mero de ventas por p&aacute;gina')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
-				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"></input>
+				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>" />
 			</td>
 				
 			<td colspan="2" style="text-align:right;background: none;" >
@@ -261,10 +261,10 @@ include ($appRoot.'/Common/php/menu.php');
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<input type=checkbox id="chk_todos"/>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<a href="#" onClick="javascript:orderBy('id')" ><?php echo  _translate("Id")?></a>
 							<?php 
 								if($var->opt['order_by']=='id' && $var->opt['order_by_asc_desc']=='ASC')
@@ -273,7 +273,7 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<a href="#" onClick="javascript:orderBy('nombre')" ><?php echo  _translate("Nombre")?></a>
 							<?php 
 								if($var->opt['order_by']=='nombre' && $var->opt['order_by_asc_desc']=='ASC')
@@ -282,8 +282,10 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
+							Usuario
+						</th>
+						<th>
 							<a href="#" onClick="javascript:orderBy('tipo_comision')" ><?php echo  _translate("Tipo comisi&oacute;n")?></a>
 							<?php 
 								if($var->opt['order_by']=='tipo_comision' && $var->opt['order_by_asc_desc']=='ASC')
@@ -293,7 +295,7 @@ include ($appRoot.'/Common/php/menu.php');
 							?>
 						</th>
 						
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<a href="#" onClick="javascript:orderBy('formacion_bonificada')" ><?php echo  _translate("Formaci&oacute;n bonificada")?></a>
 							<?php 
 								if($var->opt['order_by']=='formacion_bonificada' && $var->opt['order_by_asc_desc']=='ASC')
@@ -303,7 +305,7 @@ include ($appRoot.'/Common/php/menu.php');
 							?>
 						</th>
 						
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<a href="#" onClick="javascript:orderBy('forma_pago')" ><?php echo  _translate("Forma de pago")?></a>
 							<?php 
 								if($var->opt['order_by']=='forma_pago' && $var->opt['order_by_asc_desc']=='ASC')
@@ -313,7 +315,7 @@ include ($appRoot.'/Common/php/menu.php');
 							?>
 						</th>
 						
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<a href="#" onClick="javascript:orderBy('fecha_aceptado')" ><?php echo  _translate("Fecha aceptado")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_aceptado' && $var->opt['order_by_asc_desc']=='ASC')
@@ -323,7 +325,7 @@ include ($appRoot.'/Common/php/menu.php');
 							?>
 						</th>
 						<!--
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<a href="#" onClick="javascript:orderBy('fecha_asignacion_tecnico')" ><?php echo  _translate("Fecha asignaci&oacute;n t&eacute;cnico")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_asignacion_tecnico' && $var->opt['order_by_asc_desc']=='ASC')
@@ -333,7 +335,7 @@ include ($appRoot.'/Common/php/menu.php');
 							?>
 						</th>
 						-->
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th>
 							<a href="#" onClick="javascript:orderBy('fecha_entrada_vigor')" ><?php echo  _translate("Fecha entrada vigor")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_entrada_vigor' && $var->opt['order_by_asc_desc']=='ASC')
@@ -359,6 +361,9 @@ include ($appRoot.'/Common/php/menu.php');
 						</td>
 						<td >
 							<?php echo $venta->get_Nombre();?>
+						</td>
+						<td >
+							<?php echo $venta->get_Usuario();?>
 						</td>
 						<td >
 							<?php $tipo = $venta->get_Tipo_Comision();echo $tipo['nombre'];?>

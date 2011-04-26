@@ -180,7 +180,7 @@ include ($appRoot.'/Common/php/menu.php');
 </div>
 <br/>
 <!-- RESULTADOS -->
-		<div class="listado" style="width:94%;margin-left:2em;">
+		<div class="listado" >
 		<label class="nota"><?php  echo $var->datos['lista_visitas']->num_Resultados()." ".Resultados?></label>
 		<?php if($permisos->administracion){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
 			<table>
@@ -223,29 +223,29 @@ include ($appRoot.'/Common/php/menu.php');
 						$style_laborable = 'background: red';
 					?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> style="<?php echo $style_laborable?>">
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php echo date("Y",$visita->get_Fecha());?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php echo get_Nombre_Mes($visita->get_Fecha());?>
 						</td>
 
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php echo date("d",$visita->get_Fecha());?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php echo get_Nombre_Dia_Semana($visita->get_Fecha());?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php echo $visita->get_Hora();?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php echo $visita->get_Usuario();?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<a href="<?php echo $appDir."/Proyectos/showProyecto.php?id=".$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php $cliente = $proyecto->get_Cliente(); ?>
 							<a href="<?php echo $appDir."/Clientes/showCliente.php?id=".$cliente->get_Id();?>"><?php echo $cliente->get_Razon_Social();?></a>
 						</td>

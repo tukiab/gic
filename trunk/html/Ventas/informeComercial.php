@@ -124,7 +124,7 @@ if(!$var->opt['exportar']){
 if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />-->
 <?php }?>
 <?php if(!$var->opt['exportar']){?>
-		<div class="listado" style="width:94%;margin-left:2em;">
+		<div class="listado" >
 			<?php
 }
 				$totales = array();
@@ -220,19 +220,19 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 											<?php echo $num_ventas; ?>
 										</td>
 										<td>
-											<?php if($total_ventas)echo substr($num_ventas*100/$total_ventas,0,4)."%"; ?>
+											<?php if($total_ventas)echo round($num_ventas*100/$total_ventas,2)."%"; ?>
 										</td>
 										<td>
 											<?php echo $num_clientes; ?>
 										</td>
 										<td>
-											<?php if($total_clientes) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+											<?php if($total_clientes) echo  round($num_clientes*100/$total_clientes,2)."%"; ?>
 										</td>
 										<td>
 											<?php echo $importe; ?>&euro;
 										</td>
 										<td>
-											<?php if($total_importe) echo  substr($importe*100/$total_importe,0,4)."%"; ?>
+											<?php if($total_importe) echo  round($importe*100/$total_importe,2)."%"; ?>
 										</td>
 								</tr>
 								<?php
@@ -290,19 +290,19 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 								<?php echo $num_ventas; ?>
 							</td>
 							<td>
-								<?php if($total_ventas)echo substr($num_ventas*100/$total_ventas,0,4)."%"; ?>
+								<?php if($total_ventas)echo round($num_ventas*100/$total_ventas,2)."%"; ?>
 							</td>
 							<td>
 								<?php echo $num_clientes; ?>
 							</td>
 							<td>
-								<?php if($total_clientes)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+								<?php if($total_clientes)echo round($num_clientes*100/$total_clientes,2)."%"; ?>
 							</td>
 							<td>
 								<?php echo $importe; ?>&euro;
 							</td>
 							<td>
-								<?php if($total_importe)echo substr($importe*100/$total_importe,0,4)."%"; ?>
+								<?php if($total_importe)echo round($importe*100/$total_importe,2)."%"; ?>
 							</td>
 						<?php } ?>
 						</tr>

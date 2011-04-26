@@ -31,7 +31,7 @@ class InformeComisiones{
 	 *@var object
 	 *
 	 */
-	private $lista_Ventas;
+	public $lista_Ventas;
 
 	public $gestor;
 
@@ -49,12 +49,10 @@ class InformeComisiones{
 		//Usamos el método para asignar las opciones pasadas desde la interfaz
 		$this->obtener_Opciones($opciones);
 
+		$this->lista_Ventas = new ListaVentas();
 		//Buscamos los ventas con los parámetros establecidos en la interfaz
 		if($this->opt['buscar'] || $this->opt['exportar'])
 			$this->buscar();
-
-		//Hacemos accesible esta informacion desde fuera de la clase
-		$this->datos['lista_ventas']=$this->lista_Ventas;
 	}
 
 	private function obtener_Listas(){
@@ -95,36 +93,48 @@ class InformeComisiones{
 	}
 
 	private function buscar(){
-		$filtro = "";
-		if($this->opt['fecha_desde'])
-			$filtro .= " AND ventas.fecha_aceptado >= '".$this->opt['fecha_desde']."' ";
-		if($this->opt['fecha_hasta'])
-			$filtro .= " AND ventas.fecha_aceptado <= '".$this->opt['fecha_hasta']."' ";
-		if($this->opt['id_usuario'])
-			$filtro .= " AND ventas.fk_usuario = '".$this->opt['id_usuario']."'";
+		$this->opt['fecha_aceptado_desde'] = $this->opt['fecha_desde'];
+		$this->opt['fecha_aceptado_hasta'] = $this->opt['fecha_hasta'];
 
-		$query = "SELECT ventas.fecha_aceptado as fecha, ofertas.fk_usuario as usuario,
-						ventas.fk_tipo_comision as tipo, tipos_comision.nombre,
-						SUM(ventas.precio_consultoria+ventas.precio_formacion) as importe,
-						COUNT(DISTINCT ventas.id) as num_ventas,
-						COUNT(DISTINCT ofertas.fk_cliente) as num_clientes
-					FROM ventas
-					INNER JOIN ofertas
-						ON ofertas.id = ventas.fk_oferta
-					INNER JOIN tipos_comision
-						ON tipos_comision.id = ventas.fk_tipo_comision
-					INNER JOIN clientes
-						ON clientes.id = ofertas.fk_cliente
-					WHERE 1 $filtro
-					GROUP BY usuario, tipo WITH ROLLUP;";
+		$this->opt['order'] = ' ofertas.fk_usuario, ventas.fecha_aceptado, ventas.fk_tipo_comision ';
 
-		$result = mysql_query($query);
-		$datos = array();
-		while($row = mysql_fetch_array($result)){
-			$datos[$row['usuario']][] = $row;
+		$this->lista_Ventas->buscar($this->opt);
+		$this->obtener_totales();
+
+	}
+
+	/**
+	 * Hay que obtener las siguientes sumas:
+	 *  - Total importe de ventas por gestor mes y tipo de venta
+	 *  - Total importe de ventas por gestor y mes
+	 *  - Ventas acumuladas: suma de las ventas desde enero por gestor mes y tipo de venta
+	 */
+	private function obtener_totales(){
+
+		$totales = array();
+		$tipo_anterior = null;
+		while($venta=$this->lista_Ventas->siguiente()){
+			$mes = date("m",$venta->get_Fecha_Aceptado());
+			$mes = (int) $mes;
+			$year = date("Y",$venta->get_Fecha_Aceptado());
+			$nombre_mes = Fechas::obtenerNombreMes($mes);
+			$mes_year = $nombre_mes.'/'.$year;
+			$nuevo_mes = ($mes_year != $mes_year_anterior);
+			$tipo_comision = $venta->get_Tipo_Comision();
+			$tipo_venta = $tipo_comision['nombre'];
+			$nuevo_tipo = ($tipo_venta != $tipo_anterior) || $nuevo_mes;
+
+			if($nuevo_tipo){
+				$totales[$venta->get_Usuario().$mes_year] += $venta->get_Precio_Total();
+				$totales[$venta->get_Usuario().$mes_year.$tipo_venta] += $venta->get_Precio_Total();
+				$totales[$venta->get_Usuario().$year.$tipo_venta] += $venta->get_Precio_Total();
+			}
+
+			$tipo_anterior = $tipo_venta;
 		}
-
-		$this->resumen = $datos;
+		
+		$this->datos['totales'] = $totales;
+		$this->lista_Ventas->inicio();
 	}
 
 }

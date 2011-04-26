@@ -37,7 +37,7 @@ class ListaProveedores implements IIterador{
 	 * Devuelve el puntero al inicio de la lista de Proveedores.
 	 */
 	public function inicio(){
-		@mysql_data_seek($this->result, 1);
+		@mysql_data_seek($this->result, 0);
 	}
 
 	/**

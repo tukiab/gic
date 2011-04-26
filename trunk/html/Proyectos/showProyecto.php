@@ -144,7 +144,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			</tr>
 			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Unidades")?>:</td>
-				<td class="ColDer"><?php echo substr($var->Proyecto->get_Unidades(), 0, 5) ;?></td>
+				<td class="ColDer"><?php echo round($var->Proyecto->get_Unidades(), 2) ;?></td>
 			</tr>
 			<tr>
 				<td class="ColIzq" nowrap><?php echo  _translate("Observaciones")?>:</td>
@@ -300,11 +300,11 @@ $estado = $var->Proyecto->get_Estado();?>
 			</tr>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Carga de trabajo")?>:</td>
-				<td class="ColDer"><?php echo  substr($var->Proyecto->get_Carga_Trabajo_Mensual(),0,5);?></td>
+				<td class="ColDer"><?php echo  round($var->Proyecto->get_Carga_Trabajo_Mensual(),2);?></td>
 			</tr>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
-				<td class="ColDer"><?php echo substr($var->Proyecto->get_Coste_Horario_Venta(),0,6);?></td>
+				<td class="ColDer"><?php echo round($var->Proyecto->get_Coste_Horario_Venta(),2);?></td>
 			</tr>
 			<?php if($permisos->escritura) if(!$var->Proyecto->esta_Definido()){?>
 			<tr>

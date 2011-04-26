@@ -83,7 +83,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<table>
 				<tr>
 					<td class="ListaTitulo" colspan="2">
-						<?php echo  _translate("Penalizaciones")?>
+						<?php echo  _translate("Penalizaciones (todos los datos han de ser positivos)")?>
 					</td>
 				</tr>
 				

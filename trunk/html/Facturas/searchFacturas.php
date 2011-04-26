@@ -237,7 +237,7 @@ include ($appRoot.'/Common/php/menu.php');
 <br/>
 
 <!-- RESULTADOS -->
-		<div class="listado" style="width:94%;margin-left:2em;">
+		<div class="listado" >
 		<label class="nota"><?php  echo $var->datos['lista']->num_Resultados()." ".Resultados?></label>
 		<?php if($permisos->administracion){?><!-- <input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /> --><?php }?>
 			<table>

@@ -30,7 +30,7 @@ class ListaGruposEmpresas implements IIterador{
 	 * Devuelve el puntero al inicio de la lista de GruposEmpresas.
 	 */
 	public function inicio(){
-		@mysql_data_seek($this->result, 1);
+		@mysql_data_seek($this->result, 0);
 	}
 
 	/**

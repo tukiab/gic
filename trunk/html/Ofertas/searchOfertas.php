@@ -345,35 +345,35 @@ include ($appRoot.'/Common/php/menu.php');
 					?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
 					
-						<td style="text-align:center;width:5%;">
+						<td>
 							<input class="chk" type=checkbox name="seleccionados[]" value="<?php echo $oferta->get_Id(); ?>" />							
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<a href="<?php echo  $appDir.'/Ofertas/showOferta.php?id='.$oferta->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $oferta->get_Codigo()?>&nbsp;&nbsp;</a>							
 						</td>
 						<?php $clienteoferta = $oferta->get_Cliente();?>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$clienteoferta->get_Id();?>"><?php echo $clienteoferta->get_Razon_Social();?></a>
 						</td>	
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php echo $oferta->get_Usuario();?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  $es_oportunidad = $oferta->get_Es_Oportunidad_De_Negocio(); if($es_oportunidad) echo _translate("Oportunidad de negocio"); else echo _translate("Oferta");?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $oferta->get_Nombre_Oferta()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  $estado = $oferta->get_Estado_Oferta(); echo $estado['nombre'];?>
 						</td>	
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $oferta->get_Importe()?>
 						</td>					
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo timestamp2date($oferta->get_Fecha());?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo timestamp2date($oferta->get_Fecha_Definicion());?>
 						</td>
 					</tr>
