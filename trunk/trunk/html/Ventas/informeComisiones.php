@@ -258,7 +258,8 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 								$VP = 0;
 								$comision_tipo = $Usuario_venta->get_Comision($id_tipo);
 								$CV = $comision_tipo['comision'];
-								$comision += $var->datos['totales'][$venta->get_Usuario().$year.$id_tipo] * ($CV + $VP);
+								$total_venta = ($var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo])?$var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo]:0;
+								$comision +=  $total_venta * ($CV + $VP);
 							}
 							echo $comision;
 						}?>
