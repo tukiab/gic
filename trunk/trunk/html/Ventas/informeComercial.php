@@ -248,11 +248,12 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 									<td>Total</td>
 									<td></td>
 									<td></td>
+									<td></td>
 									<td><?php echo  $total_ventas;?></td>
 									<td></td>
 									<td><?php echo  $total_clientes;?></td>
 									<td></td>
-									<td><?php echo  $total_importe;?></td>
+									<td><?php echo  $total_importe;?>&euro;</td>
 									<td></td>
 								</tr>
 					<?php	}
@@ -307,12 +308,12 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 						<?php } ?>
 						</tr>
 						<tr>
-							<td>Total</td><td></td><td></td>
+							<td>Total</td><td></td><td></td><td></td>
 							<td><?php echo  $total_ventas;?></td>
 							<td></td>
 							<td><?php echo  $total_clientes;?></td>
 							<td></td>
-							<td><?php echo  $total_importe;?></td>
+							<td><?php echo  $total_importe;?>&euro;</td>
 						</tr>
 
 					</tbody>

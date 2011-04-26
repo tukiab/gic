@@ -331,7 +331,10 @@ function impArrayTelefono($t){
 	return $tel[0]."&#8212;".$tel[1]."&#8212;".$tel[2];
 }
 function getNumeroMeses($f1, $f2){
-	return ($f2-$f1)/(1000*60*60*24*30);
+	if($f2>$f1)
+		return ceil(($f2-$f1)/(60*60*24*30.42));
+
+	return 0;
 }
 
 function getIdClientePrincipal(){

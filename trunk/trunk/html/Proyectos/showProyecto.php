@@ -143,7 +143,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="ColDer"><?php echo  $var->Proyecto->get_Duracion();?> d&iacute;as</td>
 			</tr>
 			<tr class="datos">
-				<td class="ColIzq" nowrap><?php echo  _translate("Unidades")?>:</td>
+				<td class="ColIzq" nowrap><?php echo  _translate("Unidades/mes")?>:</td>
 				<td class="ColDer"><?php echo round($var->Proyecto->get_Unidades(), 2) ;?></td>
 			</tr>
 			<tr>
@@ -299,7 +299,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Totales();?></td>
 			</tr>
 			<tr class="definition">
-				<td class="ColIzq" nowrap><?php echo  _translate("Carga de trabajo")?>:</td>
+				<td class="ColIzq" nowrap><?php echo  _translate("Carga de trabajo mensual")?>:</td>
 				<td class="ColDer"><?php echo  round($var->Proyecto->get_Carga_Trabajo_Mensual(),2);?></td>
 			</tr>
 			<tr class="definition">
