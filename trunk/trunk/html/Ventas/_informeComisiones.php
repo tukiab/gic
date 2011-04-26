@@ -100,7 +100,6 @@ class InformeComisiones{
 
 		$this->lista_Ventas->buscar($this->opt);
 		$this->obtener_totales();
-
 	}
 
 	/**
