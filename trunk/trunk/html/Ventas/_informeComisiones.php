@@ -121,12 +121,13 @@ class InformeComisiones{
 			$nuevo_mes = ($mes_year != $mes_year_anterior);
 			$tipo_comision = $venta->get_Tipo_Comision();
 			$tipo_venta = $tipo_comision['nombre'];
+			$id_tipo_venta = $tipo_comision['id'];
 			$nuevo_tipo = ($tipo_venta != $tipo_anterior) || $nuevo_mes;
 
 			if($nuevo_tipo){
 				$totales[$venta->get_Usuario().$mes_year] += $venta->get_Precio_Total();
-				$totales[$venta->get_Usuario().$mes_year.$tipo_venta] += $venta->get_Precio_Total();
-				$totales[$venta->get_Usuario().$year.$tipo_venta] += $venta->get_Precio_Total();
+				$totales[$venta->get_Usuario().$mes_year.$id_tipo_venta] += $venta->get_Precio_Total();
+				$totales[$venta->get_Usuario().$year.$id_tipo_venta] += $venta->get_Precio_Total();
 			}
 
 			$tipo_anterior = $tipo_venta;

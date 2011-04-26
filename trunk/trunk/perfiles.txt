@@ -28,6 +28,39 @@ Nota: HT*= Horas teóricas TOTALES del proyecto/ número de meses TEÓRICOS de d
 
 
 
+1.Comisiones
+a.Para cada usuario, definir los siguientes campos:
+	i.Objetivos mensuales  individuales (12 campos)
+	ii.Objetivos mensuales del departamento (12 campos)
+	iii.Comisión por tipo de venta (%) y con dos decimales (CVi, una por cada tipo de Venta )
+	iv.Comisión por tipo de venta (%) y con dos decimales (CVdi, una por cada tipo de Venta del departamento)
+	v.Penalizaciones por cumplimiento de objetivos individuales (horquilla de 6 tramos)
+	vi.Penalizaciones por cumplimiento de objetivos del departamento (horquilla de 6 tramos)
+
+b.Tipos de Venta:
+	i.Venta Consultoría objetivable (Suma del valor de las ventas mensuales de este tipo = VCO)
+	ii.Venta Formación objetivable (Suma del valor de las ventas mensuales de este tipo = VFO)
+	iii.Venta Consultoría NO objetivable (Suma del valor de las ventas mensuales de este tipo = VCNO)
+	iv.Venta Formación NO objetivable (Suma del valor de las ventas mensuales de este tipo = VFNO)
+	v.Venta LOPD (Suma del valor de las ventas mensuales de este tipo = VL)
+	vi.Otras ventas (Suma del valor de las ventas mensuales de este tipo = OV)
+
+c.Fórmula del cálculo de comisión por usuario
+	i.Para cada usuario según sus ventas
+	Comisión (€)= VCO*(CVi+VP)+VFO*(CVi+VP)+VCNO*CVi+VFNO*CVi+VL*CVi+OV*CVi
+	ii.Sólo para director comercial, a la comisión por sus ventas individuales, debemos añadirle la siguiente comisión (salvo las ventas del gerente):
+	Comisión (€)= VCO*(CVdi+VP)+VFO*(CVdi+VP)+VCNO*CVdi+VFNO*CVdi+VL*CVdi+OV*CVdi
+				Siendo, en este caso, los valores de las ventas mensuales, los valores de las ventas mensuales de TODO EL DEPARTAMENTO (incluido las suyas).
+
+
+
+
+
+
+
+
+
+
 
 
 1.RRHH y organización: definir los siguientes perfiles
