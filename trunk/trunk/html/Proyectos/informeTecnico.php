@@ -211,7 +211,7 @@ include ($appRoot.'/Common/php/menu.php');
 									$unidades_incentivables = 0;
 									if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
 										$unidades_incentivables = $proyecto->get_Unidades();
-									echo substr($unidades_incentivables,0,5);
+									echo round($unidades_incentivables,2);
 								}else{
 									/*Proyectos creados DIRECTAMENTE por el director técnico.
 									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS REALES dedicada por el técnico en ese
@@ -221,7 +221,7 @@ include ($appRoot.'/Common/php/menu.php');
 									$unidades_incentivables = 0;
 									if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
 										$unidades_incentivables = $proyecto->get_Horas_Totales_Reales();
-									echo substr($unidades_incentivables,0,5);
+									echo round($unidades_incentivables,2);
 								}
 							?>
 						</td>
@@ -238,7 +238,7 @@ include ($appRoot.'/Common/php/menu.php');
 									$unidades_no_incentivables = 0;
 									if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
 										$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales()/8;
-									echo substr($unidades_no_incentivables,0,5);
+									echo round($unidades_no_incentivables,2);
 								}else{
 									/*Proyectos creados DIRECTAMENTE por el director técnico.
 									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo
@@ -249,7 +249,7 @@ include ($appRoot.'/Common/php/menu.php');
 									$unidades_no_incentivables = 0;
 									if($proyecto->get_Fecha_Fin() <= date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
 										$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
-									echo substr($unidades_no_incentivables,0,5);
+									echo round($unidades_no_incentivables,2);
 								}
 							?>
 						</td>
@@ -295,7 +295,7 @@ include ($appRoot.'/Common/php/menu.php');
 						$unidades_incentivables = 0;
 						if($proyecto->get_Fecha_Fin()<=$var->opt['fecha_hasta'])
 							$unidades_incentivables = $proyecto->get_Unidades();
-						echo substr($unidades_incentivables,0,5);
+						echo round($unidades_incentivables,2);
 					?>
             </td>
 			<td>
@@ -303,7 +303,7 @@ include ($appRoot.'/Common/php/menu.php');
 						$unidades_no_incentivables = 0;
 						if($proyecto->get_Fecha_Fin()>=$var->opt['fecha_hasta'])
 							$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales()/8;
-						echo substr($unidades_no_incentivables,0,5);
+						echo round($unidades_no_incentivables,2);
 					?>
             </td>
         </tr>

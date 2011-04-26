@@ -30,7 +30,7 @@ class ListaTiposDeProducto implements IIterador{
 	 * Devuelve el puntero al inicio de la lista de TipoDeProducto.
 	 */
 	public function inicio(){
-		@mysql_data_seek($this->result, 1);
+		@mysql_data_seek($this->result, 0);
 	}
 
 	/**

@@ -156,7 +156,7 @@ include ($appRoot.'/Common/php/menu.php');
 <!-- RESULTADOS -->
 <?php if($permisos->escritura && $var->resumen){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />
 <?php }?>
-		<div class="listado" style="width:94%;margin-left:2em;">
+		<div class="listado" >
 			<?php 
 				$totales = array();
 			?>
@@ -207,26 +207,26 @@ include ($appRoot.'/Common/php/menu.php');
 										$num_acciones = $informe_tipo_accion['num_acciones'];
 										$num_clientes = $informe_tipo_accion['num_clientes'];
 									?>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo timestamp2date($informe_tipo_accion['fecha']);?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $informe_tipo_accion['nombre']; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $num_acciones; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
-											<?php if($total_acciones)echo substr($num_acciones*100/$total_acciones,0,4)."%"; ?>
+										<td>
+											<?php if($total_acciones)echo round($num_acciones*100/$total_acciones,2)."%"; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $num_clientes; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
-											<?php if($total_acciones) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+										<td>
+											<?php if($total_acciones) echo  round($num_clientes*100/$total_clientes,2)."%"; ?>
 										</td>
 								</tr>
 								<?php
@@ -237,12 +237,12 @@ include ($appRoot.'/Common/php/menu.php');
 									$totales['tipos'][$tipo_accion]['nombre'] = $informe_tipo_accion['nombre'];
 							}else{?>
 								<tr>
-									<td style="text-align:center;width:5%;">Total</td>
+									<td>Total</td>
 									<td></td>
 									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_acciones;?></td>
+									<td><?php echo  $total_acciones;?></td>
 									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+									<td><?php echo  $total_clientes;?></td>
 									<td></td>
 								</tr>
 					<?php	}
@@ -268,32 +268,32 @@ include ($appRoot.'/Common/php/menu.php');
 					$num_clientes = $informe_tipo_accion['clientes'];
 				?>
 						<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
 							<td></td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $nombre; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $num_acciones; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
-								<?php if($total_acciones)echo substr($num_acciones*100/$total_acciones,0,4)."%"; ?>
+							<td>
+								<?php if($total_acciones)echo round($num_acciones*100/$total_acciones,2)."%"; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $num_clientes; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
-								<?php if($total_acciones)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+							<td>
+								<?php if($total_acciones)echo round($num_clientes*100/$total_clientes,2)."%"; ?>
 							</td>
 						<?php } ?>
 						</tr>
 						<tr>
-							<td style="text-align:center;width:5%;">Total</td><td></td><td></td>
-							<td style="text-align:center;width:5%;"><?php echo  $total_acciones;?></td>
+							<td>Total</td><td></td><td></td>
+							<td><?php echo  $total_acciones;?></td>
 							<td></td>
-							<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+							<td><?php echo  $total_clientes;?></td>
 							<td></td>
 						</tr>
 
@@ -368,26 +368,26 @@ header("Expires: 0");
 										$num_acciones = $informe_tipo_accion['num_acciones'];
 										$num_clientes = $informe_tipo_accion['num_clientes'];
 									?>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo timestamp2date($informe_tipo_accion['fecha']);?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $informe_tipo_accion['nombre']; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $num_acciones; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
-											<?php if($total_acciones)echo substr($num_acciones*100/$total_acciones,0,4)."%"; ?>
+										<td>
+											<?php if($total_acciones)echo round($num_acciones*100/$total_acciones,2)."%"; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
+										<td>
 											<?php echo $num_clientes; ?>
 										</td>
-										<td style="text-align:center;width:5%;">
-											<?php if($total_acciones) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+										<td>
+											<?php if($total_acciones) echo  round($num_clientes*100/$total_clientes,2)."%"; ?>
 										</td>
 								</tr>
 								<?php
@@ -398,12 +398,12 @@ header("Expires: 0");
 									$totales['tipos'][$tipo_accion]['nombre'] = $informe_tipo_accion['nombre'];
 							}else{?>
 								<tr>
-									<td style="text-align:center;width:5%;">Total</td>
+									<td>Total</td>
 									<td></td>
 									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_acciones;?></td>
+									<td><?php echo  $total_acciones;?></td>
 									<td></td>
-									<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+									<td><?php echo  $total_clientes;?></td>
 									<td></td>
 								</tr>
 					<?php	}
@@ -427,32 +427,32 @@ header("Expires: 0");
 					$num_clientes = $informe_tipo_accion['clientes'];
 				?>
 						<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
 							<td></td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $nombre; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $num_acciones; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
-								<?php if($total_acciones)echo substr($num_acciones*100/$total_acciones,0,4)."%"; ?>
+							<td>
+								<?php if($total_acciones)echo round($num_acciones*100/$total_acciones,2)."%"; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
+							<td>
 								<?php echo $num_clientes; ?>
 							</td>
-							<td style="text-align:center;width:5%;">
-								<?php if($total_acciones)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
+							<td>
+								<?php if($total_acciones)echo round($num_clientes*100/$total_clientes,2)."%"; ?>
 							</td>
 						<?php } ?>
 						</tr>
 						<tr>
-							<td style="text-align:center;width:5%;">Total</td><td></td><td></td>
-							<td style="text-align:center;width:5%;"><?php echo  $total_acciones;?></td>
+							<td>Total</td><td></td><td></td>
+							<td><?php echo  $total_acciones;?></td>
 							<td></td>
-							<td style="text-align:center;width:5%;"><?php echo  $total_clientes;?></td>
+							<td><?php echo  $total_clientes;?></td>
 							<td></td>
 						</tr>
 

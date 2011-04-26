@@ -33,61 +33,61 @@ header("Expires: 0");
 	<tbody>
 	<?php while($cliente = $var->datos['lista_clientes']->siguiente() ){?>
 		<tr>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $cliente->get_Id()?>							
 			</td>	
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo utf8_decode($cliente->get_Razon_Social())?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php $tipo = $cliente->get_Tipo_Cliente();  echo  utf8_decode($tipo['nombre']);?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  $grupo = $cliente->get_Grupo_Empresas(); echo  utf8_decode($grupo['nombre']);?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo utf8_decode($cliente->get_Localidad())?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $cliente->get_CP()?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php echo $cliente->get_Web();?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				sector: <?php  echo utf8_decode($cliente->get_Sector());?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $cliente->get_Numero_Empleados()?> empleados
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo utf8_decode($cliente->get_SPA_Actual())?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				renovacion: <?php  echo timestamp2date($cliente->get_Fecha_Renovacion())?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo utf8_decode($cliente->get_domicilio())?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $cliente->get_Telefono()?>
 			</td>
 			<td> --- </td>
 			<?php  foreach($cliente->get_Lista_Contactos() as $contacto){?>
 			<td>Contacto:</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php echo utf8_decode($contacto->get_Nombre());?>
 			</td>	
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php echo utf8_decode($contacto->get_Cargo());?>
 			</td>	
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php echo utf8_decode($contacto->get_Email());?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php echo utf8_decode($contacto->get_Movil());?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php echo utf8_decode($contacto->get_Telefono());?>
 			</td>
 			<td> </td>

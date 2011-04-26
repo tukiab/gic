@@ -124,204 +124,141 @@ if(!$var->opt['exportar']){
 if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />-->
 <?php }?>
 <?php if(!$var->opt['exportar']){?>
-		<div class="listado" style="width:94%;margin-left:2em;">
-			<?php
-}
-				$totales = array();
+<div class="listado" >
+<?php }?>
+	<table>
+		<thead>
+			<tr>
+				<th>
+					<?php echo _translate("Usuario"); ?>
+				</th>
+				<th>
+					<?php echo _translate("Mes/A&ntilde;o"); ?>
+				</th>
+				<th>
+					<?php echo _translate("Objetivo"); ?>
+				</th>
+				<th>
+					<?php echo _translate("Objetivo acumulado de venta"); ?>
+				</th>
+				<th>
+					<?php echo _translate("Tipo venta"); ?>
+				</th>				
+				<th>
+					<?php echo _translate("Venta del mes"); ?>
+				</th>
+				<th>
+					<?php echo _translate("% del mes");?>
+				</th>
+				<th>
+					<?php echo _translate("Venta acumulada por tipo de venta"); ?>
+				</th>
+				<th>
+					<?php echo _translate("% acumulado"); ?>
+				</th>
+				<th>
+					<?php echo _translate("Comisi&oacute;n"); ?>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php 
+			/**
+			 * Vamos a recorrer todas las ventas entre las fechas dadas y mostramos comercial, mes/año y objetivos en los casos necesarios
+			 * Los totales están calculados en el controlador y aquí se utilizan
+			 */
+			$usuario_anterior = null;
+			$mes_year_anterior = null;
+			$tipo_anterior = null;
+			$par=false;			FB::info($var->datos['totales']);
+			while($venta=$var->lista_Ventas->siguiente()){ FB::warn($venta);
+				$mes = date("m",$venta->get_Fecha_Aceptado());$mes = (int)$mes;
+				$year = date("Y",$venta->get_Fecha_Aceptado());
+				$nombre_mes = Fechas::obtenerNombreMes($mes);
+				$mes_year = $nombre_mes.'/'.$year;
+				$nuevo_mes = ($mes_year != $mes_year_anterior);
+				$tipo_comision = $venta->get_Tipo_Comision();
+				$tipo_venta = $tipo_comision['nombre'];
+				$nuevo_tipo = ($tipo_venta != $tipo_anterior) || $nuevo_mes;
+				if($nuevo_mes)$par=!$par;
+				if($nuevo_tipo){
 			?>
-			<?php
-			if($var->resumen){?>
-			<table>
-				<thead>
-					<tr>
-						<th>
-							<?php echo _translate("Usuario"); ?>
-						</th>
-						<th>
-							Mes/A&ntilde;o
-						</th>
-						<th>
-							Objetivo
-						</th>
-						<th>
-							Objetivo acumulado de venta
-						</th>
-						<th>
-							%
-						</th>
-						<th>
-							<?php echo _translate("Tipo venta"); ?>
-						</th>
-						<th>
-							<?php echo _translate("Venta acumulada por tipo de venta"); ?>
-						</th>
-						<th>
-							% acumulado
-						</th>
-						<th>
-							Comisi&oacute;n
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-			<?php foreach($var->resumen as $user => $informe_usr){
-				$total_usuario = end($informe_usr);
-				$total_ventas = $total_usuario['num_ventas'];
-				$total_clientes = $total_usuario['num_clientes'];
-				$total_importe = $total_usuario['importe'];
-				if($user){
-				?>
+			<tr <?php if($par) echo 'par'; else echo 'impar'; ?>>
+				<td>
+					<strong>
 					<?php
-						$primero = true;
-						$fila_par=true;
-						$mes_year_anterior = null;
-
-						foreach($informe_usr as $informe_tipo_venta){
-							$ULTIMO = ($total_usuario == $informe_tipo_venta);
-
-							if(!$ULTIMO){
-								$mes = date("m",$informe_tipo_venta['fecha']);
-								$mes_year = Fechas::obtenerNombreMes($mes).'/'.date("Y",$informe_tipo_venta['fecha']);
-								$primero_mes = false;
-								if($mes_year_anterior != $mes_year){
-									$primero_mes = true;
-									$mes_year_anterior = $mes_year;
-								}
-
-								?>
-								<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
-									<?php
-										$tipo_venta = $informe_tipo_venta['tipo'];
-										$num_ventas = $informe_tipo_venta['num_ventas'];
-										$num_clientes = $informe_tipo_venta['num_clientes'];
-										$importe = $informe_tipo_venta['importe'];
-									?>
-										<td>
-											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
-										</td>
-										<td>
-											<?php if($primero_mes) echo $mes_year;?>
-										</td>
-										<td>
-											<?php 
-											if($primero_mes){
-												$usuario = new Usuario($user);
-												$objetivo = $usuario->get_Objetivo(obtenerMes($informe_tipo_venta['fecha']));
-												echo $objetivo['comision'];
-											}?>
-										</td>
-										<td>
-											<?php
-											if($primero_mes){
-												$usuario = new Usuario($user);
-												$objetivo = $usuario->get_Objetivo_Acumulado(obtenerMes($informe_tipo_venta['fecha']));
-												echo $objetivo;
-											}?>
-										</td>
-										<td>
-											<?php echo $num_ventas; ?>
-										</td>
-										<td>
-											<?php echo $informe_tipo_venta['nombre']; ?> <?php if($total_ventas)echo substr($num_ventas*100/$total_ventas,0,4)."%"; ?>
-										</td>
-										<td>
-											<?php echo $num_clientes; ?>
-										</td>
-										<td>
-											<?php if($total_clientes) echo  substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
-										</td>
-										<td>
-											<?php echo $importe; ?>&euro;
-										</td>
-										<td>
-											<?php if($total_importe) echo  substr($importe*100/$total_importe,0,4)."%"; ?>
-										</td>
-								</tr>
-								<?php
-									$totales[$tipo_venta]['num_ventas'] += $num_ventas;
-									$totales[$tipo_venta]['num_clientes'] += $num_clientes;
-									$totales[$tipo_venta]['importe'] += $importe;
-									$totales['tipos'][$tipo_venta]['ventas']	+= $num_ventas;
-									$totales['tipos'][$tipo_venta]['clientes']	+= $num_clientes;
-									$totales['tipos'][$tipo_venta]['importe']	+= $importe;
-									$totales['tipos'][$tipo_venta]['nombre'] = $informe_tipo_venta['nombre'];
-							}else{?>
-								<tr>
-									<td>Total</td>
-									<td></td>
-									<td></td>
-									<td><?php echo  $total_ventas;?></td>
-									<td></td>
-									<td><?php echo  $total_clientes;?></td>
-									<td></td>
-									<td><?php echo  $total_importe;?></td>
-									<td></td>
-								</tr>
-					<?php	}
-						}?>
-			<?php
-				$totales['ventas']	+= $total_ventas;
-				$totales['clientes']	+= $total_clientes;
-				$totales['importe']	+= $total_importe;
-			}
-		}
-		}?>
-				<?php
-					$total_ventas = $totales['ventas'];
-					$total_clientes = $totales['clientes'];
-					$total_importe = $totales['importe'];
-				?>
-				<?php $primero = true;$fila_par=true;
-				if(($var->opt['buscar'] || $var->opt['exportar']) && $totales['tipos'])
-				 foreach($totales['tipos'] as $informe_tipo_venta){
-					$nombre = $informe_tipo_venta['nombre'];
-					$num_ventas = $informe_tipo_venta['ventas'];
-					$num_clientes = $informe_tipo_venta['clientes'];
-					$importe = $informe_tipo_producto['importe'];
-				?>
-						<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
-							<td>
-								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
-							</td>
-							<td></td>
-							<td></td>
-							<td>
-								<?php echo $nombre; ?>
-							</td>
-							<td>
-								<?php echo $num_ventas; ?>
-							</td>
-							<td>
-								<?php if($total_ventas)echo substr($num_ventas*100/$total_ventas,0,4)."%"; ?>
-							</td>
-							<td>
-								<?php echo $num_clientes; ?>
-							</td>
-							<td>
-								<?php if($total_clientes)echo substr($num_clientes*100/$total_clientes,0,4)."%"; ?>
-							</td>
-							<td>
-								<?php echo $importe; ?>&euro;
-							</td>
-							<td>
-								<?php if($total_importe)echo substr($importe*100/$total_importe,0,4)."%"; ?>
-							</td>
-						<?php } ?>
-						</tr>
-						<tr>
-							<td>Total</td><td></td><td></td>
-							<td><?php echo  $total_ventas;?></td>
-							<td></td>
-							<td><?php echo  $total_clientes;?></td>
-							<td></td>
-							<td><?php echo  $total_importe;?></td>
-						</tr>
-
-					</tbody>
-				</table>
-			<?php if(!$var->opt['exportar']){?>
-
-		</div>
+					// Mostrar usuario una vez
+					if($usuario_anterior != $venta->get_Usuario()) {
+						echo $venta->get_Usuario();
+						$usuario_anterior=$venta->get_Usuario();
+						$Usuario_venta = new Usuario($venta->get_Usuario());
+					} ?>
+					</strong>
+				</td>
+				<td>
+					<strong><?php
+						// mostrar el mes (la primera vez de cada gestor/mes)
+						if($nuevo_mes)echo $mes_year; ?>
+					</strong>
+				</td>
+				<td>
+					<?php
+						// mostrar el objetivo del mes (la primera vez de cada gestor/mes)
+						if($nuevo_mes){
+							$obj = $Usuario_venta->get_Objetivo($mes); 
+							echo $obj['comision'];
+						}
+						?>
+				</td>
+				<td>
+					<?php
+						// mostrar el objetivo acumulado del mes (la primera vez de cada gestor/mes)
+						if($nuevo_mes){
+							$obj = $Usuario_venta->get_Objetivo_Acumulado($mes);
+							echo $obj;
+						} ?>
+				</td>
+				<td>
+					<?php
+						// tipo de venta (si ha cambiado)
+						if($nuevo_tipo) echo $tipo_venta; ?>
+				</td>
+				<td>
+					<?php
+						// Venta del mes (venta de ese gestor en ese mes)
+						if($nuevo_mes){
+							echo $var->datos['totales'][$venta->get_Usuario().$mes_year];
+						} ?>
+				</td>
+				<td>
+					<?php
+						// % del mes = importe/total del mes:
+						// importe de ese gestor en ese mes para ese tipo de venta dividido por el total de todas las ventas de ese gestor y en ese mes
+						if($var->datos['totales'][$venta->get_Usuario().$mes_year])
+							echo round($var->datos['totales'][$venta->get_Usuario().$mes_year.$tipo_venta]*100/$var->datos['totales'][$venta->get_Usuario().$mes_year],2); ?>%
+				</td>
+				<td>
+					<?php
+						// Venta del mes (venta de ese gestor, para ese tipo y en ese mes)
+						echo $var->datos['totales'][$venta->get_Usuario().$year.$tipo_venta]; ?>
+				</td>
+				<td>
+					<?php 
+						// % Acumulado (Acumulado de ventas/objetivo Acumulado, por tipo, gestor y mes)
+						echo round($var->datos['totales'][$venta->get_Usuario().$year.$tipo_venta]*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2); ?>%
+				</td>
+				<td>
+					<?php echo _translate("Comisi&oacute;n"); ?>
+				</td>
+			</tr>
+			<?php }
+				$mes_year_anterior = $mes_year;
+				$tipo_anterior = $tipo_venta;
+			}?>
+		</tbody>
+	</table>
+<?php if(!$var->opt['exportar']){?>
+</div>
 </form>
 </div>
 <?php }?>

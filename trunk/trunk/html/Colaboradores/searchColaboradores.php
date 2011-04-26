@@ -106,7 +106,7 @@ include ($appRoot.'/Common/php/menu.php');
 <form method="GET" id="frm_colaboradores" action="<?php echo  $_SERVER['_SELF']?>">
 
 <!-- RESULTADOS -->
-		<div class="listado" style="width:94%;margin-left:2em;">
+		<div class="listado" >
 		<label class="nota"><?php  echo $var->datos['lista_colaboradores']->num_Resultados()." ".Resultados?></label>
 		<?php if($permisos->administracion && false){?><input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" /><?php }?>
 			<table>
@@ -158,40 +158,40 @@ include ($appRoot.'/Common/php/menu.php');
 					?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
 					
-						<td style="text-align:center;width:5%;">
+						<td>
 							<input class="chk" type=checkbox name="seleccionados[]" value="<?php echo $colaborador->get_Id(); ?>" />							
 						</td>
-						<td style="text-align:center;width:5%;"><?php $url_dest = $appDir.'/Colaboradores/editColaborador.php?id='.$colaborador->get_Id(); ?>
+						<td><?php $url_dest = $appDir.'/Colaboradores/editColaborador.php?id='.$colaborador->get_Id(); ?>
 							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest;?>','<?php echo  rand();?>','width=600,height=460,scrollbars=yes');">&nbsp;&nbsp;<?php  echo $colaborador->get_Id();?>&nbsp;&nbsp;</a>							
 						</td>	
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $colaborador->get_NIF()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $colaborador->get_Razon_Social()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $colaborador->get_Comision()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $colaborador->get_Comision_Por_Renovacion()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $colaborador->get_CC_Pago_Comisiones()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $colaborador->get_Localidad()?>
 						</td>
-                                                <td style="text-align:center;width:5%;">
+                                                <td>
 							<?php  echo $colaborador->get_Provincia()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $colaborador->get_domicilio()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $colaborador->get_CP()?>
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 						<?php if($permisos->administracion){?>
 							<?php $url_dest = $appDir."/Colaboradores/editContactos.php?id=".$colaborador->get_Id();?>
 							<label class="nota"><a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=500,height=500,scrollbars=yes');">
@@ -294,37 +294,37 @@ header("Expires: 0");
 			$resaltado = 'style="font-weight:bold;"';
 	?>
 		<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $colaborador->get_Id()?>&nbsp;&nbsp;							
 			</td>	
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $colaborador->get_Razon_Social()?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo  $tipo['nombre'];?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  $grupo = $colaborador->get_Grupo_Empresas(); echo  $grupo['nombre'];?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $colaborador->get_Localidad()?>
 			</td>
-                        <td style="text-align:center;width:5%;">
+                        <td>
 				<?php  echo $colaborador->get_Provincia()?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $colaborador->get_CP()?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $colaborador->get_Web()?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $colaborador->get_Sector()?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo $colaborador->get_SPA_Actual()?>
 			</td>
-			<td style="text-align:center;width:5%;">
+			<td>
 				<?php  echo timestamp2date($colaborador->get_Fecha_Renovacion())?>
 			</td>					
 		</tr>

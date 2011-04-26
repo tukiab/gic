@@ -175,7 +175,7 @@ include ($appRoot.'/Common/php/menu.php');
 <label class="nota"><a href=<?php echo  $appDir.'/Proveedores/addProveedor.php';?>><?php echo  _translate("A&tilde;nadir proveedor nuevo")?></a></label><br/>
 <br/>
 <!-- RESULTADOS -->
-		<div class="listado" style="width:94%;margin-left:2em;">
+		<div class="listado" >
 		<label class="nota"><?php  echo $var->datos['lista_proveedores']->num_Resultados()." ".Resultados?></label>
 			<table>
 				<thead>
@@ -222,25 +222,25 @@ include ($appRoot.'/Common/php/menu.php');
 				<?php while($proveedor = $var->datos['lista_proveedores']->siguiente() ){ ?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?> >
 					
-						<td style="text-align:center;width:5%;">
+						<td>
 							<input class="chk" type=checkbox name="seleccionados[]" value="<?php echo $proveedor->get_NIF(); ?>" />							
 						</td>
-						<td style="text-align:center;width:5%;">
+						<td>
 							<a href="<?php echo  $appDir.'/Proveedores/showProveedor.php?NIF='.$proveedor->get_NIF(); ?>">&nbsp;&nbsp;<?php  echo $proveedor->get_NIF()?>&nbsp;&nbsp;</a>							
 						</td>	
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $proveedor->get_Razon_Social()?>
 						</td>
 						
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $proveedor->get_CP()?>
 						</td>
 						
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo $proveedor->get_Localidad()?>
 						</td>
 						
-						<td style="text-align:center;width:5%;">
+						<td>
 							<?php  echo web($proveedor->get_Web());?>
 						</td>
 											

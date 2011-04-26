@@ -37,7 +37,7 @@ class ListaVentas implements IIterador{
 	 * Devuelve el puntero al inicio de la lista de Ventas.
 	 */
 	public function inicio(){
-		@mysql_data_seek($this->result, 1);
+		@mysql_data_seek($this->result, 0);
 	}
 
 	/**
@@ -63,7 +63,7 @@ class ListaVentas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Ventas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		FB::error($filtros,'filtros ListaVentas');
+		//FB::error($filtros,'filtros ListaVentas');
 		$filtro ="";
 		$join_ofertas="";
 		
@@ -139,8 +139,12 @@ class ListaVentas implements IIterador{
 				($filtros['order_by_asc_desc']=="DESC")?$asc_desc=" DESC ":$asc_desc=" ASC ";
 				$order=" ORDER BY ".$order_by." $asc_desc ";
 			}
-		}else
-			$order = null;
+		}else if (isset($filtros['order'])){
+			if(!$join_ofertas)
+				$join_ofertas = " INNER JOIN ofertas ON ventas.fk_oferta = ofertas.id ";
+			$order = " ORDER BY ".$filtros['order'];
+		}
+		else $order = null;
 			
 			
 		//Paginando...
@@ -158,7 +162,7 @@ class ListaVentas implements IIterador{
 					
 					$limit;";
 		
-		FB::error($query,'query ListaVentas:buscar');
+		//FB::error($query,'query ListaVentas:buscar');
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

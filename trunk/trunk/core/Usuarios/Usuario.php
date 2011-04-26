@@ -261,11 +261,13 @@
  		return $this->objetivos;
  	}
 	public function get_Objetivo($id_mes){
+		//parche por si viene el mes con dos cifras empezando por 0
+		$id_mes = (int)$id_mes;
 		return $this->objetivos[$id_mes];
 	}
 	public function get_Objetivo_Acumulado($id_mes){
 		$objetivo_acumulado = 0;
-		for($m=1;$m<=$id_mes;$m++){
+		for($m=1;$m<=$id_mes;$m++){ 
 			$obj = $this->get_Objetivo($m);
 			$objetivo_acumulado = $objetivo_acumulado + $obj['comision'];
 		}
