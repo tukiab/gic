@@ -63,6 +63,7 @@ include ($appRoot.'/Common/php/menu.php');
 			</tr>
 		</table>
 	</form>
+	<input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $var->opt['id_cliente'];?>" />
 </div>
 	<?php }else{
 echo  _translate("No tiene permisos suficientes");

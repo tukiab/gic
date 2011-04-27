@@ -54,9 +54,9 @@ if(!$_GET['id_cliente']){ //Si se cumple viene de un "nuevo" en addComision
 			<td align="center">
 				<input type="text" name="nombre_<?php echo $TipoComision->get_Id() ?>" value="<?php echo  $TipoComision->get_Nombre();?>" size="15" />
 			</td>
-			<?php if($permisos->administracion){ ?><td align="center">
+			<?php if($permisos->administracion){ ?><!--<td align="center">
 				<a href="#" onclick="eliminar('<?php echo $TipoComision->get_Id();?>')"><input class="borrar" type="button" value="<?php echo _translate("Eliminar")?>"/></a>
-			</td>
+			</td>-->
 			<td align="center">
 				<a href="#" name="guardatipocomision" onclick="guardar('<?php echo $TipoComision->get_Id();?>')"><input type="button" value="<?php echo _translate("Guardar")?>"/></a>
 

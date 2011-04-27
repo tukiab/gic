@@ -112,10 +112,10 @@ include ($appRoot.'/Common/php/menu.php');
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<input type=checkbox id="chk_todos"/>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<a href="#" onClick="javascript:orderBy('id')" ><?php echo  _translate("Id")?></a>
 							<?php 
 								if($var->opt['order_by']=='id' && $var->opt['order_by_asc_desc']=='ASC')
@@ -125,7 +125,7 @@ include ($appRoot.'/Common/php/menu.php');
 							?>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("NIF")?></th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<a href="#" onClick="javascript:orderBy('razon_social')" ><?php echo  _translate("Raz&oacute;n social")?></a>
 							<?php 
 								if($var->opt['order_by']=='razon_social' && $var->opt['order_by_asc_desc']=='ASC')
@@ -138,10 +138,10 @@ include ($appRoot.'/Common/php/menu.php');
 						<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Comisi&oacute;n")?></th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Comisi&oacute;n por renovaci&oacute;n")?></th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("CC pago comisiones")?></th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo  _translate("Localidad")?>
 						</th>
-                                                <th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+                                                <th >
 							<?php echo  _translate("Provincia")?>
 						</th>
 						<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Domicilio")?></th>
@@ -259,27 +259,27 @@ header("Expires: 0");
 <table>
 	<thead>
 		<tr>
-			<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+			<th >
 				<?php echo  _translate("Id")?>
 			</th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+			<th >
 				<?php echo  _translate("Razon social")?>
 			</th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+			<th >
 				<?php echo  _translate("Tipo")?>				
 			</th>
 			<th style="text-align: center;font-size: x-small;font-weight: normal">
 				<?php echo  _translate("Grupo de empresas")?></th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+			<th >
 				<?php echo  _translate("Localidad")?>
-			</th>	<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+			</th>	<th >
 				<?php echo  _translate("Provincia")?>
 			</th>
 			<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("CP")?></th>
 			<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Web")?></th>
 			<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Sector")?></th>
 			<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("SPA Actual")?></th>
-			<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+			<th >
 				<?php echo  _translate("Fecha de renovacion")?>
 			</th>
 		</tr>

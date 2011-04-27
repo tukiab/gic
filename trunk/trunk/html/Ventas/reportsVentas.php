@@ -175,34 +175,34 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("Usuario"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("Fecha"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<!--<th >
 							Objetivo
-						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						</th>-->
+						<th >
 							<?php echo _translate("Tipo producto"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("N&uacute;mero ventas"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							%
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("N&uacute;mero de empresas"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							%
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							Importe
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							%
 						</th>
 					</tr>
@@ -234,11 +234,11 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 										<td>
 											<?php echo timestamp2date($informe_tipo_producto['fecha']);?>
 										</td>
-										<td>
+										<!--<td>
 											<?php $usuario = new Usuario($user);
 											$objetivo = $usuario->get_Objetivo(obtenerMes($informe_tipo_producto['fecha']));
 											echo $objetivo['comision'];?>
-										</td>
+										</td>-->
 										<td>
 											<?php echo $informe_tipo_producto['nombre']; ?>
 										</td>

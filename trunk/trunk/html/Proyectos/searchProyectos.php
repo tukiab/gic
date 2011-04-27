@@ -140,20 +140,36 @@ $(document).ready(function(){
                     <div style="float:left"><?php echo  _translate("Filtrar proyectos")?></div>
             </td>
     </tr>
-    <tr>
+	<tr>
+            <td class="busquedaIzda">
+
+            </td>
+            <td class="busquedaDcha">
+
+            </td>
 			<td class="busquedaIzda">
-                    <?php echo  _translate('Raz&oacute;n social contiene')?> &nbsp;
+                    <?php echo  _translate('Id del proyecto')?> &nbsp;
+            </td>
+            <td class="busquedaDcha">
+                    <input type="text" size="15"name="id" value="<?php  echo $var->opt['id']?>"/>
+            </td>
+
+	</tr>
+    <tr>
+
+            <td class="busquedaIzda">
+                    <?php echo  _translate('Nombre proyecto contiene')?> &nbsp;
+            </td>
+            <td class="busquedaDcha">
+                    <input type="text" size="15"name="nombre" value="<?php  echo $var->opt['nombre']?>"/>
+            </td>
+			<td class="busquedaIzda">
+                    <?php echo  _translate('Raz&oacute;n social empresa contiene')?> &nbsp;
             </td>
             <td class="busquedaDcha">
                     <input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"/>
             </td>
 
-            <td class="busquedaIzda">
-                    <?php echo  _translate('Nombre contiene')?> &nbsp;
-            </td>
-            <td class="busquedaDcha">
-                    <input type="text" size="15"name="nombre" value="<?php  echo $var->opt['nombre']?>"/>
-            </td>
 	</tr>
 	<tr>
             <td class="busquedaIzda">

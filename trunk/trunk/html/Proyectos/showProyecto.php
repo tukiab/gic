@@ -45,6 +45,12 @@ function cerrar(){
 		$('#frm').submit();
 	}
 }
+function reabrir(){
+	if(confirm('Reabrir el proyecto')){
+		$('#reabrir').val(1);
+		$('#frm').submit();
+	}
+}
 function editar_tarea(id_tarea){
 	$('#tarea_editar').val(id_tarea);
 	$('#frm').submit();
@@ -83,9 +89,14 @@ $estado = $var->Proyecto->get_Estado();?>
 		<li>
 			<?php
 				if($permisos->administracion)
-				if($estado['id'] != 6 ){//cerrado?>
+				if($estado['id'] == 4 ){// si está en curso?>
 					<label title="<?php echo  _translate("Cerrar")?>">
 						<a href="#" onclick="cerrar();"><?php echo  _translate("Cerrar proyecto")?></a>
+					</label>
+				<?php }
+				else if($estado['id'] ==6){// está cerrado ?>
+					<label title="<?php echo  _translate("Reabrir")?>">
+						<a href="#" onclick="reabrir();"><?php echo  _translate("Reabrir proyecto")?></a>
 					</label>
 				<?php }?>
 		</li>
@@ -306,7 +317,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
 				<td class="ColDer"><?php echo round($var->Proyecto->get_Coste_Horario_Venta(),2);?></td>
 			</tr>
-			<?php if($permisos->escritura) if(!$var->Proyecto->esta_Definido()){?>
+			<?php if($permisos->escritura) if(!$var->Proyecto->esta_Definido() && $var->Proyecto->get_Id_Cliente() != getIdClientePrincipal()){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Proyectos/definirProyecto.php?id=".$var->Proyecto->get_Id();?>
@@ -384,6 +395,7 @@ $estado = $var->Proyecto->get_Estado();?>
 </div>
 <input type="hidden" id="eliminar" name="eliminar" value="0"/>
 <input type="hidden" id="cerrar" name="cerrar" value="0"/>
+<input type="hidden" id="reabrir" name="reabrir" value="0"/>
 <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
 <input type="hidden" id="tarea_editar" name="tarea_editar" value=""/>
 <input type="hidden" id="visita_editar" name="visita_editar" value=""/>

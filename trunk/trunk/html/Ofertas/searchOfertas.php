@@ -289,10 +289,10 @@ include ($appRoot.'/Common/php/menu.php');
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<input type=checkbox id="chk_todos"/>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<a href="#" onClick="javascript:orderBy('codigo')" ><?php echo  _translate("C&oacute;digo")?></a>
 							<?php 
 								if($var->opt['order_by']=='codigo' && $var->opt['order_by_asc_desc']=='ASC')
@@ -301,10 +301,10 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Raz&oacute;n social empresa");?></th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Gestor");?></th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Tipo");?></th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th ><?php echo _translate("Raz&oacute;n social empresa");?></th>
+						<th ><?php echo _translate("Gestor");?></th>
+						<th ><?php echo _translate("Tipo");?></th>
+						<th >
 							<a href="#" onClick="javascript:orderBy('nombre_oferta')" ><?php echo  _translate("Nombre")?></a>
 							<?php 
 								if($var->opt['order_by']=='nombre_oferta' && $var->opt['order_by_asc_desc']=='ASC')
@@ -313,11 +313,11 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo  _translate("Estado")?>
 						</th>	
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap><?php echo _translate("Importe");?></th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th ><?php echo _translate("Importe");?></th>
+						<th >
 							<a href="#" onClick="javascript:orderBy('fecha')" ><?php echo  _translate("Fecha")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha' && $var->opt['order_by_asc_desc']=='ASC')
@@ -326,7 +326,7 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>		
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<a href="#" onClick="javascript:orderBy('fecha_definicion')" ><?php echo  _translate("Fecha de definici&oacute;n")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_definicion' && $var->opt['order_by_asc_desc']=='ASC')

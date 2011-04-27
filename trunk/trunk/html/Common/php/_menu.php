@@ -53,6 +53,7 @@ class MainMenu{
 				$this->menus[6][7] = new Menu("$appDir/Proyectos/searchProyectos.php?informe=resumen", "Proyectos", "proyectos");
 				$this->menus[6][8] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
 				$this->menus[6][9] = new Menu("$appDir/Proyectos/informeTecnico.php", "Tecnico", "tecnico");
+				$this->menus[6][10] = new Menu("$appDir/Proyectos/informeTecnicoMensual.php", "Tecnico mensual", "tecnico");
 				
 			$this->menus[7][0]= new Menu("#", "Colaboradores +", "colaboradores");
 				$this->menus[7][1]= new Menu("$appDir/Colaboradores/searchColaboradores.php", "Listado");
@@ -75,6 +76,7 @@ class MainMenu{
 			$this->menus[6][0]= new Menu("#", "Informes +", "informes");
 			$this->menus[6][1] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
 			$this->menus[6][3] = new Menu("$appDir/Proyectos/informeTecnico.php", "Tecnico", "tecnico");
+			$this->menus[6][4] = new Menu("$appDir/Proyectos/informeTecnicoMensual.php", "Tecnico mensual", "tecnico");
 		}
 		
 		$this->menus[10] = new Menu("$appDir/Facturas/searchFacturas.php", "Facturas", "facturas");

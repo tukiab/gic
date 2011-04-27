@@ -74,6 +74,7 @@ class AddProyecto{
 		
 		//Obteniendo las opciones pasadas
 		@($opciones['nombre'])?$this->opt['nombre']=$opciones['nombre']:null;
+		@($opciones['id_cliente'])?$this->opt['id_cliente']=$opciones['id_cliente']:null;
 		@($opciones['fecha_inicio'])?$this->opt['fecha_inicio']=date2timestamp($opciones['fecha_inicio']):null;
 		@($opciones['fecha_fin'])?$this->opt['fecha_fin']=date2timestamp($opciones['fecha_fin']):null;
 		@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;

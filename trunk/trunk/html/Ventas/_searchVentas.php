@@ -103,7 +103,8 @@ class BusquedaVentas{
 		@($opciones['eliminar'])?$this->opt['eliminar']=true:$this->opt['eliminar']=false;		
 		@($opciones['seleccionados'])?$this->opt['seleccionados']=$opciones['seleccionados']:null;
 		
-		@($opciones['codigo'])?$this->opt['codigo']=$opciones['codigo']:null;	
+		@($opciones['id'])?$this->opt['id']=$opciones['id']:null;
+		@($opciones['codigo'])?$this->opt['codigo']=$opciones['codigo']:null;
 		@($opciones['nombre'])?$this->opt['nombre']=$opciones['nombre']:null;
 		@($opciones['forma_pago'])?$this->opt['forma_pago']=$opciones['forma_pago']:null;			
 		@($opciones['tipo_comision'])?$this->opt['tipo_comision']=$opciones['tipo_comision']:null;

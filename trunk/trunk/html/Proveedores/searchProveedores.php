@@ -180,10 +180,10 @@ include ($appRoot.'/Common/php/menu.php');
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<input type=checkbox id="chk_todos"/>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<a href="#" onClick="javascript:orderBy('NIF')" ><?php echo  _translate("NIF")?></a>
 							<?php 
 								if($var->opt['order_by']=='NIF' && $var->opt['order_by_asc_desc']=='ASC')
@@ -192,7 +192,7 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<a href="#" onClick="javascript:orderBy('razon_social')" ><?php echo  _translate("Raz&oacute;n social")?></a>
 							<?php 
 								if($var->opt['order_by']=='razon_social' && $var->opt['order_by_asc_desc']=='ASC')
@@ -201,10 +201,10 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo  _translate("CP")?>
 						</th>	
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<a href="#" onClick="javascript:orderBy('localidad')" ><?php echo  _translate("Localidad")?></a>
 							<?php 
 								if($var->opt['order_by']=='localidad' && $var->opt['order_by_asc_desc']=='ASC')

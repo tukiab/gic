@@ -165,25 +165,25 @@ include ($appRoot.'/Common/php/menu.php');
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("Usuario"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("Fecha"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("Tipo acci&oacute;n"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("N&uacute;mero acciones"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							%
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("N&uacute;mero de empresas"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							%
 						</th>
 					</tr>
@@ -326,25 +326,25 @@ header("Expires: 0");
 			<table>
 				<thead>
 					<tr>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("Usuario"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("Fecha"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("Tipo acci&oacute;n"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("N&uacute;mero acciones"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							%
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							<?php echo _translate("N&uacute;mero de empresas"); ?>
 						</th>
-						<th style="text-align: center;font-size: x-small;font-weight: normal" nowrap>
+						<th >
 							%
 						</th>
 					</tr>

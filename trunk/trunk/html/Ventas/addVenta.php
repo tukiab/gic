@@ -86,16 +86,16 @@ include ($appRoot.'/Common/php/menu.php');
 		<tr>
 			<td class="ColIzq"><?php echo  _translate("Fecha Aceptado")?>&#42;</td>
 			<td class="ColDer">
-				<?php echo  timestamp2date($var->opt['fecha_aceptado']);?>
+				<input style="width:98px" type="text" class="fecha" name="fecha_aceptado" value="<?php echo  timestamp2date($var->opt['fecha_aceptado']);?>" />
 			</td>
 		</tr>
-		<tr>
+	<!--	<tr>
 			<td class="ColIzq"><?php echo  _translate("Fecha Entrada en Vigor")?>&#42;</td>
 			<td class="ColDer">
 				<input style="width:98px"   type="text" class="fecha" name="fecha_entrada_vigor" value="<?php echo  timestamp2date($var->opt['fecha_entrada_vigor']);?>" />
 			</td>
 		</tr>
-	<!--	<tr>
+		<tr>
 			<td class="ColIzq"><?php echo  _translate("Fecha de asignaci&oacute;n a t&eacute;cnico")?>&#42;</td>
 			<td class="ColDer">
 				<input style="width:98px"   type="text" class="fecha" name="fecha_asignacion_tecnico" value="<?php echo  timestamp2date($var->opt['fecha_asignacion_tecnico']);?>" />
