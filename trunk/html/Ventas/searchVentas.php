@@ -114,7 +114,21 @@ include ($appRoot.'/Common/php/menu.php');
 			<td colspan="6" class="ListaTitulo">
 				<div style="float:left"><?php echo  _translate("Opciones de b&uacute;squeda")?></div>
 			</td>
-		</tr>		
+		</tr>
+		<tr>
+			<td class="busquedaIzda">
+
+			</td>
+			<td class="busquedaDcha">
+
+			</td>
+			<td class="busquedaIzda">
+				<?php echo  _translate('Id de la venta')?> &nbsp;
+			</td>
+			<td class="busquedaDcha">
+				<input type="text" size="15" name="id" value="<?php  echo $var->opt['id']?>" />
+			</td>
+		</tr>
 		<tr>
 			<td class="busquedaIzda">
 				<?php echo  _translate('Nombre')?> &nbsp; 

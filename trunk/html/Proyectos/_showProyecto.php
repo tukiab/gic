@@ -31,6 +31,7 @@ class ShowProyecto{
 			
 			if($this->opt['eliminar']) $this->eliminar();
 			if($this->opt['cerrar']) $this->cerrar();
+			if($this->opt['reabrir']) $this->reabrir();
 			if($this->opt['asignar']) $this->asignar();
 			if($this->opt['planificar']) $this->insertar_visita();
 			if($this->opt['tarea_editar']) $this->editar_tarea();
@@ -50,6 +51,10 @@ class ShowProyecto{
 
 	private function cerrar(){
 		$this->Proyecto->cerrar();
+	}
+
+	private function reabrir(){
+		$this->Proyecto->reabrir();
 	}
 
 	private function asignar(){
@@ -88,6 +93,7 @@ class ShowProyecto{
 			$this->Proyecto = $Proyecto;
 		@($opciones['eliminar'])?$this->opt['eliminar']=true:$this->opt['eliminar']=false;
 		@($opciones['cerrar'])?$this->opt['cerrar']=true:$this->opt['cerrar']=false;
+		@($opciones['reabrir'])?$this->opt['reabrir']=true:$this->opt['reabrir']=false;
 		@($opciones['asignar'])?$this->opt['asignar']=true:$this->opt['asignar']=false;
 		@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;
 		@($opciones['borrado_total'])?$this->opt['borrado_total']=true:$this->opt['borrado_total']=false;

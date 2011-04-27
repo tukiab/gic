@@ -95,6 +95,14 @@ if($var->opt['msg']){?>
 				</label>
 			<?php }?>
 		</li>
+		<li>
+			<?php $url_dest = $appDir.'/Proyectos/addProyecto.php?id_cliente='.$var->opt['Cliente']->get_Id();
+			if($permisos->permisoEscritura($url_dest)){?>
+				<label title="<?php echo  _translate("Crear proyecto directamente")?>">
+					<a href="<?php echo $url_dest;?>" ><?php echo  _translate("Crear proyecto")?></a>
+				</label>
+			<?php }?>
+		</li>
 	</ul>
 <div id="contenedor">
 	<!-- **************** DATOS DEL CLIENTE **************** -->

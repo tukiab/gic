@@ -398,7 +398,7 @@
 		$this->id = trim($datos['id']);
 
 		//creamos los proyectos asociado al Usuario si es técnico o director técnico
-		if($datos['perfil'] == 3 || $datos['perfil'] == 6){
+		/*if($datos['perfil'] == 3 || $datos['perfil'] == 6){
 			$proyecto = new Proyecto();
 			$datos['nombre'] = 'Horas no remuneradas '.$this->id;
 			$datos['fecha_inicio'] = time();
@@ -409,7 +409,7 @@
 			$proyecto_remuneradas = new Proyecto();
 			$datos['nombre'] = 'Horas remuneradas '.$this->id;
 			$proyecto_remuneradas->crear($datos);
-		}
+		}*/
 		
 		return $this->id;
 	}

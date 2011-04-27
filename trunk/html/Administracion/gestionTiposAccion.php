@@ -54,9 +54,9 @@ if(!$_GET['id_cliente']){ //Si se cumple viene de un "nuevo" en addAccion
 			<td align="center">
 				<input type="text" name="nombre_<?php echo $TipoAccion->get_Id() ?>" value="<?php echo  $TipoAccion->get_Nombre();?>" size="15" />
 			</td>
-			<?php if($permisos->administracion){ ?><td align="center">
+			<?php if($permisos->administracion){ ?><!--<td align="center">
 				<a href="#" onclick="eliminar('<?php echo $TipoAccion->get_Id();?>')"><input class="borrar" type="button" value="<?php echo _translate("Eliminar")?>"/></a>
-			</td>
+			</td>-->
 			<td align="center">
 				<a href="#" name="guardatipoaccion" onclick="guardar('<?php echo $TipoAccion->get_Id();?>')"><input type="button" value="<?php echo _translate("Guardar")?>"/></a>
 				

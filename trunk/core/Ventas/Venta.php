@@ -398,6 +398,8 @@ class Venta{
 			$errores .= "<br/>El nombre es obligatorio.";
 		if($datos['fecha_entrada_vigor'] == '' || ! isset($datos['fecha_entrada_vigor']))
 			$errores .= "<br/>La fecha de entrada en vigor es obligatoria.";
+		if($datos['fecha_aceptado'] == '' || ! isset($datos['fecha_aceptado']))
+			$errores .= "<br/>La fecha de aceptado es obligatoria.";
 
 		if(! $datos['tipo_comision'])
 			$errores .= "<br/>El tipo de venta es obligatorio.";
@@ -518,7 +520,7 @@ class Venta{
 						'".trim($datos['forma_pago'])."',
 						'".trim($datos['tipo_comision'])."',
 						'".trim($datos['id_oferta'])."',
-						'".time()."',
+						'".trim($datos['fecha_aceptado'])."',
 						'".trim($datos['fecha_entrada_vigor'])."',
 						'".trim($datos['fecha_toma_contacto'])."',
 						'".trim($datos['fecha_inicio'])."',

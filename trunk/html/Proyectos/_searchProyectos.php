@@ -140,6 +140,7 @@ class BusquedaProyectos{
 		@($opciones['seleccionados'])?$this->opt['seleccionados']=$opciones['seleccionados']:null;
 		@($opciones['razon_social'])?$this->opt['razon_social']=$opciones['razon_social']:null;
 		@($opciones['nombre'])?$this->opt['nombre']=$opciones['nombre']:null;
+		@($opciones['id'])?$this->opt['id']=$opciones['id']:null;
 		@($opciones['id_estado'] != 0)?$this->opt['id_estado']=$opciones['id_estado']:null;
 		@($opciones['fecha_inicio_desde'])?$this->opt['fecha_inicio_desde']=date2timestamp($opciones['fecha_inicio_desde']):null;
 		@($opciones['fecha_inicio_hasta'])?$this->opt['fecha_inicio_hasta']=date2timestamp($opciones['fecha_inicio_hasta']):null;

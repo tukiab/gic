@@ -53,9 +53,9 @@ include ($appRoot.'/Common/php/menu.php');
 			<td align="center">
 				<input type="text" name="nombre_<?php echo $TipoProducto->get_Id() ?>" value="<?php echo  $TipoProducto->get_Nombre();?>" size="15" />
 			</td>
-			<?php if($permisos->administracion){ ?><td align="center">
+			<?php if($permisos->administracion){ ?><!--<td align="center">
 				<a href="#" onclick="eliminar('<?php echo $TipoProducto->get_Id();?>')"><input class="borrar" type="button" value="<?php echo _translate("Eliminar")?>"/></a>
-			</td>
+			</td>-->
 			<td align="center">
 				<a href="#" name="guardatipoformadepago" onclick="guardar('<?php echo $TipoProducto->get_Id();?>')"><input type="button" value="<?php echo _translate("Guardar")?>"/></a>
 

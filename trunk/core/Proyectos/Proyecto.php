@@ -526,19 +526,25 @@ class Proyecto{
 			$this->id_estado = 1;
 			$this->observaciones = mysql_real_escape_string($datos['observaciones']);
 
-			//el cliente de este tipo de proyectos es la empresa principal:
-			$lista = new ListaClientes();
-			$this->id_cliente = $lista->get_Id_Cliente_Principal();
-			if(!$this->id_cliente)
-				throw new Exception('No se ha definido la empresa usuaria de GIC, contacte con su administrador');
+			if($datos['id_cliente']){
+				$this->id_cliente = trim($datos['id_cliente']);
+			}
+			else{
+				//el cliente de este tipo de proyectos es la empresa principal:
+				$lista = new ListaClientes();
+				$this->id_cliente = $lista->get_Id_Cliente_Principal();
+				if(!$this->id_cliente)
+					throw new Exception('No se ha definido la empresa usuaria de GIC, contacte con su administrador');
+			}
 
 			$value = "";
 			$campo="";
-			//Si se asigna el gestor directamente
+			//Se asigna el gestor directamente
 			if($datos['id_usuario']){
 				$this->id_estado=2;
 				$this->id_usuario = trim($datos['id_usuario']);				
-			}
+			}else throw new Exception('Ha de indicar el t&eacute;cnico asignado al proyecto');
+			
 			if($datos['fecha_fin']){
 				$this->fecha_fin = $datos['fecha_fin'];
 				$campo = ', fecha_fin';
@@ -773,11 +779,12 @@ class Proyecto{
 	
 	/**
 	 * Cambia el estado del proyecto
+	 * Se puede cambiar el estado del proyecto si está cerrado y se va a abrir o si el estado nuevo es posterior al existente
 	 * @param <integer> $id
 	 */
 	private function set_Estado($id){
 
-		if($this->id_estado < $id){
+		if(($this->estado['id'] == 6 && $id == 4) || $this->id_estado < $id){
 			$query = "UPDATE proyectos set fk_estado = '$id' WHERE id = '$this->id'";
 			if(!mysql_query($query))
 				throw new Exception('Error al guardar el estado en la bbdd');
@@ -848,8 +855,17 @@ class Proyecto{
 	public function cerrar(){
 		if(!$this->cerrar)
 			throw new Exception('Este proyecto no se puede cerrar');
+		if(!$this->estado['id'] == 4)//Sólo se cierran proyectos en curso
+			throw new Exception('No se puede cerrar un proyecto que no est&eacute; en curso');
 
 		$this->set_Estado(6);
+	}
+
+	public function reabrir(){
+		if(!$this->estado['id'] == 6)//Sólo se abren proyectos cerrados
+			throw new Exception('No se puede reabrir un proyecto que no est&eacute; cerrado');
+
+		$this->set_Estado(4);
 	}
 }
 ?>
