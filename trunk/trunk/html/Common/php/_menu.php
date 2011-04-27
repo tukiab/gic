@@ -69,8 +69,8 @@ class MainMenu{
 				$this->menus[9][3]= new Menu("$appDir/Administracion/gestionGrupos.php", "Grupos de empresas");
 				$this->menus[9][4]= new Menu("$appDir/Administracion/gestionTiposProducto.php", "Tipos de producto");
 				$this->menus[9][5]= new Menu("$appDir/Administracion/gestionTiposAccion.php", "Tipos de accion");
-					$this->menus[9][6]= new Menu("$appDir/Administracion/gestionTiposFormasDePago.php", "Tipos de formas de pago");
-                    $this->menus[9][7]= new Menu("$appDir/Administracion/gestionTiposComision.php", "Tipos de comisi&oacute;n");			
+				$this->menus[9][6]= new Menu("$appDir/Administracion/gestionTiposFormasDePago.php", "Tipos de formas de pago");
+				//$this->menus[9][7]= new Menu("$appDir/Administracion/gestionTiposComision.php", "Tipos de comisi&oacute;n");
 			
 		}else if($perfil_usuario['id'] == 3 || $perfil_usuario['id'] == 6){//los técnicos tienen que ver el informe de planificación
 			$this->menus[6][0]= new Menu("#", "Informes +", "informes");

@@ -139,7 +139,7 @@ class AddVenta{
 			$venta = new Venta();
 			$id=$venta->crear($this->opt);
             $this->enviar_mail($id);
-			//header("Location: showVenta.php?id=$id");
+			header("Location: showVenta.php?id=$id");
 		}catch(Exception $e){
 			$this->opt['error_msg']= $e->getMessage();
 		}
@@ -178,7 +178,7 @@ Formacion bonificada: <b>'.$formacion.'</b>.<br/>
 Subvenciones: <b>'.$subvencion.'</b>.<br/>
 Otros proyectos incluido: <b>'.$venta->get_Otros_Proyectos().'</b>.<br/>
 Gestor: <b>'.$oferta->get_Usuario().'</b>.<br/>
-Puede acceder a la venta en GIC con el id de venta <b>'.$venta->get_Id().'</b> o accediendo <b><a target="_blank" href="http://www.'.$_SERVER['HOST'].'/gic/html/Ventas/showVenta.php?id='.$venta->get_Id().'">aqu&iacute;</a></b>');
+Puede acceder a la venta en GIC con el id de venta <b>'.$venta->get_Id().'</b> o accediendo <b><a target="_blank" href="http://'.$_SERVER['HTTP_HOST'].'/gic/html/Ventas/showVenta.php?id='.$venta->get_Id().'">aqu&iacute;</a></b>');
 
 					$headers  = 'MIME-Version: 1.0' . "\r\n";
 					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";

@@ -317,7 +317,8 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Coste de horario de venta")?>:</td>
 				<td class="ColDer"><?php echo round($var->Proyecto->get_Coste_Horario_Venta(),2);?></td>
 			</tr>
-			<?php if($permisos->escritura) if(!$var->Proyecto->esta_Definido() && $var->Proyecto->get_Id_Cliente() != getIdClientePrincipal()){?>
+			<?php if($permisos->escritura) 
+					if(!$var->Proyecto->esta_Definido() && $var->Proyecto->get_Id_Cliente() != getIdClientePrincipal()){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Proyectos/definirProyecto.php?id=".$var->Proyecto->get_Id();?>

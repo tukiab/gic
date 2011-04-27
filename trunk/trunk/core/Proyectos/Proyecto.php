@@ -511,7 +511,7 @@ class Proyecto{
 			$this->fecha_inicio = $venta->get_Fecha_Inicio();
 			$this->id_estado = 1;
 			$this->observaciones = $venta->get_Observaciones();
-		}else{
+		}else{FB::warn($datos);
 			if(!isset($datos['nombre']))
 				throw new Exception('Debe indicar el nombre del proyecto');
 			if(!isset($datos['fecha_inicio']))
@@ -558,7 +558,7 @@ class Proyecto{
 
 		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";
+								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";FB::info($query);
 		
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto ');
@@ -670,9 +670,9 @@ class Proyecto{
 			$this->set_Estado(3); //pendiente de planificación, se acaba de definir y tiene técnico asignado
 		}else{
 			if($this->id_usuario)
-				$this->set_Estado(3); //Pendiente de asignación, está definido pero sin técnico asignado
+				$this->set_Estado(3); //pendiente de planificación, se acaba de definir y tiene técnico asignado
 			else
-				$this->set_Estado(2);
+				$this->set_Estado(2);//Pendiente de asignación, está definido pero sin técnico asignado
 		}
 		$this->cargar_Estado();
 
@@ -842,7 +842,7 @@ class Proyecto{
 
 				$to = $usr->get_Email();
 				$subject = 'Nuevo proyecto asignado en GIC';
-				$message = 'Le ha sido asignado el proyecto <b>'.$this->get_Nombre().'</b> con identificador <b>'.$this->get_Id().'</b> en GIC. Puede consultarlo con su director.';
+				$message = 'Le ha sido asignado el proyecto <b>'.$this->get_Nombre().'</b> con identificador <b>'.$this->get_Id().'</b> en GIC. <br/>Puede consultarlo con su director  o accediendo <b><a target="_blank" href="http://'.$_SERVER['HTTP_HOST'].'/gic/html/Proyectos/showProyecto.php?id='.$this->get_Id().'">aqu&iacute;</a></b>.';
 
 				$headers  = 'MIME-Version: 1.0' . "\r\n";
 				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";

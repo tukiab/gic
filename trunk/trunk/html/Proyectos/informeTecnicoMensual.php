@@ -136,22 +136,30 @@ include ($appRoot.'/Common/php/menu.php');
 		 */
 		$mes  = $var->opt['mes_desde'];
 		$year = $var->opt['year_desde'];
-
+		
 		while(Fechas::date2timestamp('1/'.$mes.'/'.$year) < $var->opt['fecha_hasta']){
 			$nombre_mes = Fechas::obtenerNombreMes($mes);
 			$primero_mes = true; //para imprimir el nombre del mes
 			$var->datos['lista_proyectos']->inicio();
 			$fila_par=true;
+			$usr_anterior = null;
 			while($proyecto = $var->datos['lista_proyectos']->siguiente() ){
-				if($proyecto->get_Fecha_Inicio() < Fechas::date2timestamp(date('1/'.$mes.'/'.$year))){
+				//if($proyecto->get_Fecha_Inicio() < Fechas::date2timestamp(date('1/'.$mes.'/'.$year))){
 					$estado = $proyecto->get_Estado();
-	?>
-					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
+					if($proyecto->get_Id_Usuario()) $usr_proyecto = $proyecto->get_Id_Usuario(); else $usr_proyecto = "Sin asignar";
+					$nuevo_usr = false;
+					if($usr_anterior != $usr_proyecto){
+						$usr_anterior = $usr_proyecto;
+						$nuevo_usr = true;
+						$fila_par=(!$fila_par);
+					}
+					?>
+					<tr <?php echo  ($fila_par)?"par":"impar";?> <?php  echo $resaltado?>>
 						<td>
 							<strong><?php if($primero_mes) {echo $nombre_mes.'/'.$year; $primero_mes = false;}?></strong>
 						</td>
 						<td>
-							<?php  echo $proyecto->get_Id_Usuario();?>
+							<strong><?php if($nuevo_usr)echo $usr_proyecto; ?></strong>
 						</td>
 						<td>
 							<a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $proyecto->get_Id()?>&nbsp;&nbsp;</a>
@@ -223,7 +231,7 @@ include ($appRoot.'/Common/php/menu.php');
 						</td>
 					</tr>
 	<?php
-				}
+				//}
 			}
 			$siguiente_mes = Fechas::siguienteMes($mes);
 			$mes = $siguiente_mes;

@@ -53,12 +53,12 @@ class AddProyecto{
 			//Obtenemos las opciones pasadas al script
 			$this->obtenerOpciones($opciones);
 
-			if($this->opt['guardar'])
-				$this->guardar();
-
 			//Adquiriendo datos...
 			$this->DB_Proyecto = new ListaProyectos();
 			$this->obtenerDatos();
+
+			if($this->opt['guardar'])
+				$this->guardar();
 
 		}catch(Exception $e){
 			$this->msg= $e->getMessage();
@@ -101,7 +101,7 @@ class AddProyecto{
 		$this->Proyecto = new Proyecto();
 		$id_proyecto = $this->Proyecto->crear($this->opt);
 		//Si todo ha ido bien, Redirigimos a "showProyecto.php":
-		header("Location: showProyecto.php?id=$id_proyecto");		
+		header("Location: showProyecto.php?id=$id_proyecto");
 	}
 	
 }
