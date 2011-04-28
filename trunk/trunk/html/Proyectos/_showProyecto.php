@@ -38,6 +38,8 @@ class ShowProyecto{
 			if($this->opt['visita_editar']) $this->editar_visita();
 			if($this->opt['tarea_eliminar']) $this->eliminar_tarea();
 			if($this->opt['visita_eliminar']) $this->eliminar_visita();
+
+			if($this->opt['nuevo_nombre']) $this->Proyecto->set_Nombre($this->opt['nuevo_nombre']);
 			
 		}catch(Exception $e){
 			$this->opt['msg'] = $e->getMessage();
@@ -95,6 +97,7 @@ class ShowProyecto{
 		@($opciones['cerrar'])?$this->opt['cerrar']=true:$this->opt['cerrar']=false;
 		@($opciones['reabrir'])?$this->opt['reabrir']=true:$this->opt['reabrir']=false;
 		@($opciones['asignar'])?$this->opt['asignar']=true:$this->opt['asignar']=false;
+		@($opciones['nuevo_nombre'])?$this->opt['nuevo_nombre']=true:$this->opt['nuevo_nombre']=false;
 		@($opciones['id_usuario'])?$this->opt['id_usuario']=$opciones['id_usuario']:null;
 		@($opciones['borrado_total'])?$this->opt['borrado_total']=true:$this->opt['borrado_total']=false;
 		@($opciones['tarea_editar'])?$this->opt['tarea_editar']=$opciones['tarea_editar']:null;
