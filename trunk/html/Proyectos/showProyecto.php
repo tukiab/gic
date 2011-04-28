@@ -115,6 +115,14 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="ColIzq" nowrap><?php echo  _translate("Nombre")?>:</td>
 				<td class="ColDer">
 					<?php echo  $var->Proyecto->get_Nombre()?>
+					<?php if($permisos->administracion){?>
+					<a href="#" onclick="$('#capa_editar_nombre').toggle();return false;">editar</a>
+					<div id="capa_editar_nombre">
+						<input type="text" id="nombre" value="<?php echo $var->Proyecto->get_Nombre();?>" />
+						<a href="#" onclick="$('#nuevo_nombre').val($('#nombre').val());$('#frm').submit();return false;">guardar</a>
+						<input type="hidden" id="nuevo_nombre" name="nuevo_nombre" value="" />
+					</div>
+					<?php }?>
 				</td>
 			</tr>
 			<tr class="datos">
@@ -318,7 +326,8 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td class="ColDer"><?php echo round($var->Proyecto->get_Coste_Horario_Venta(),2);?></td>
 			</tr>
 			<?php if($permisos->escritura) 
-					if(!$var->Proyecto->esta_Definido() && $var->Proyecto->get_Id_Cliente() != getIdClientePrincipal()){?>
+					if(in_array($estado['id'],array(1,2,3)) //No está planificado
+							&& $var->Proyecto->get_Id_Cliente() != getIdClientePrincipal()){?>
 			<tr>
 				<td class="Transparente" colspan="6" style="text-align:right;">
 					<?php $url_dest = $appDir."/Proyectos/definirProyecto.php?id=".$var->Proyecto->get_Id();?>

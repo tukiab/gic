@@ -587,8 +587,8 @@ class Proyecto{
 	 * @return integer $id_proyecto Id del Proyecto.
 	 */
 	public function definir($datos){  
-		if($this->id_estado > 1)
-			throw new Exception ('El proyecto ya ha sido definido');
+		if($this->id_estado > 3)
+			throw new Exception ('El proyecto no se puede redefinir');
 
 		//Comprobando los datos "imprescindibles":
 		$errores = '';
