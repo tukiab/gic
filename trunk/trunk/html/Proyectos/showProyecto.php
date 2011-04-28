@@ -117,7 +117,7 @@ $estado = $var->Proyecto->get_Estado();?>
 					<?php echo  $var->Proyecto->get_Nombre()?>
 					<?php if($permisos->administracion){?>
 					<a href="#" onclick="$('#capa_editar_nombre').toggle();return false;">editar</a>
-					<div id="capa_editar_nombre">
+					<div id="capa_editar_nombre" style="display:none;">
 						<input type="text" id="nombre" value="<?php echo $var->Proyecto->get_Nombre();?>" />
 						<a href="#" onclick="$('#nuevo_nombre').val($('#nombre').val());$('#frm').submit();return false;">guardar</a>
 						<input type="hidden" id="nuevo_nombre" name="nuevo_nombre" value="" />
