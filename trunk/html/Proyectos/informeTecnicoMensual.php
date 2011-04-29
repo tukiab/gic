@@ -18,6 +18,8 @@ include ($appRoot.'/Common/php/menu.php');
 ?>
 <style type="text/css">
 	#opcionesBusqueda td{width:33%;}
+	tr.total{background: #ccc;}
+	tr.total td{padding:15px;}
 </style>
 <!-- Funciones varias para mejorar la interfaz -->
 <script language="JavaScript" type="text/javascript">
@@ -137,24 +139,35 @@ include ($appRoot.'/Common/php/menu.php');
 		$mes  = $var->opt['mes_desde'];
 		$year = $var->opt['year_desde'];
 		
-		while(Fechas::date2timestamp('1/'.$mes.'/'.$year) < $var->opt['fecha_hasta']){
+		//while(Fechas::date2timestamp('1/'.$mes.'/'.$year) < $var->opt['fecha_hasta']){
 			$nombre_mes = Fechas::obtenerNombreMes($mes);
 			$primero_mes = true; //para imprimir el nombre del mes
 			$var->datos['lista_proyectos']->inicio();
 			$fila_par=true;
 			$usr_anterior = null;
+			$totales = array();
+			
 			while($proyecto = $var->datos['lista_proyectos']->siguiente() ){
 				//if($proyecto->get_Fecha_Inicio() < Fechas::date2timestamp(date('1/'.$mes.'/'.$year))){
 					$estado = $proyecto->get_Estado();
 					if($proyecto->get_Id_Usuario()) $usr_proyecto = $proyecto->get_Id_Usuario(); else $usr_proyecto = "Sin asignar";
 					$nuevo_usr = false;
-					if($usr_anterior != $usr_proyecto){
-						$usr_anterior = $usr_proyecto;
+					if($usr_anterior != $usr_proyecto){						
 						$nuevo_usr = true;
 						$fila_par=(!$fila_par);
 					}
+
+					// Imprimimos la fila de totales del usuario anterior (si lo había)
+					if($nuevo_usr && $usr_anterior!=null){?>
+					<tr class="total">
+						<td>Total</td>
+						<td colspan="7"></td>
+						<td><?php echo round($totales[$usr_anterior.'incentivables'],2); ?></td>
+						<td><?php echo round($totales[$usr_anterior.'noincentivables'],2); ?></td>
+					</tr>
+			<?php	}
 					?>
-					<tr <?php echo  ($fila_par)?"par":"impar";?> <?php  echo $resaltado?>>
+					<tr <?php echo  ($fila_par)?"par":"impar";?> <?php  echo $resaltado?> >
 						<td>
 							<strong><?php if($primero_mes) {echo $nombre_mes.'/'.$year; $primero_mes = false;}?></strong>
 						</td>
@@ -204,6 +217,7 @@ include ($appRoot.'/Common/php/menu.php');
 										$unidades_incentivables = $proyecto->get_Horas_Totales_Reales();
 									echo round($unidades_incentivables,2);
 								}
+								$totales[$usr_proyecto.'incentivables'] += $unidades_incentivables;
 							?>
 						</td>
 						<td>
@@ -227,17 +241,25 @@ include ($appRoot.'/Common/php/menu.php');
 										$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
 									echo round($unidades_no_incentivables,2);
 								}
+								$totales[$usr_proyecto.'noincentivables'] += $unidades_no_incentivables;
 							?>
 						</td>
 					</tr>
-	<?php
+	<?php $usr_anterior = $usr_proyecto;
 				//}
-			}
-			$siguiente_mes = Fechas::siguienteMes($mes);
+			} ?>
+					<tr class="total">>
+						<td>Total</td>
+						<td colspan="7"></td>
+						<td><?php echo round($totales[$usr_anterior.'incentivables'],2); ?></td>
+						<td><?php echo round($totales[$usr_anterior.'noincentivables'],2); ?></td>
+					</tr>
+	<?php
+		/*	$siguiente_mes = Fechas::siguienteMes($mes);
 			$mes = $siguiente_mes;
 			if($mes == 1)
-				$year++;
-		}
+				$year++;*/
+		//}
 	?>
     </tbody>
 </table>

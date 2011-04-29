@@ -262,15 +262,15 @@ $estado = $var->Proyecto->get_Estado();?>
 			foreach($Cliente->get_Lista_Sedes() as $sede){
 				?>
 			<tr class="sedes">
-				<td ><?php echo  $sede->get_Localidad();?></td>
+				<td ><?php echo  $sede->get_Localidad();?>aaaaa</td>
 				<td >
 					<?php $url_dest = $appDir.'/Tareas/addTarea.php?id_sede='.$sede->get_Id().'&id_proyecto='.$var->Proyecto->get_Id();
 					//Éste bot&oacute;n tiene que aparecer si el proyecto no está cerrado o fuera de plazo y si el usuario es el gestor asignado al proyecto					
 					$estados_prohibidos = array(5,6);
-					if($permisos->escritura && $_SESSION['usuario_login'] == $var->Proyecto->get_Id_Usuario())
+					if($permisos->escritura)
 					if(!in_array($estado['id'], $estados_prohibidos) &&
-							($var->usuario->get_Id() == $var->Proyecto->get_Id_Usuario()
-								|| $var->usuario->esAdministradorTotal())){?>
+							($var->usuario->get_Id() == $var->Proyecto->get_Id_Usuario())){
+								//|| $var->usuario->esAdministradorTotal())){?>
 						<label title="<?php echo  _translate("A&ntilde;adir tarea")?>">
 							<a href="javascript: void(0);" onclick="window.open('<?php echo  $url_dest?>','<?php echo  rand()?>','width=600,height=460,scrollbars=yes');">Nueva tarea</a>
 						</label>
