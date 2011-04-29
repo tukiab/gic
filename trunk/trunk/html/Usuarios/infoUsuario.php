@@ -240,7 +240,7 @@ $cfilaImpar = "#EEEEEE";
 						$cliente_accion = $accion->get_Cliente();
 					?>
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="acciones_hoy">
-					<td><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>"</td>
+					<td><?php if($accion->get_Usuario() == $var->usuario->get_Id()){?><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>" /><? }?></td>
 					<td><?php echo $accion->get_Usuario();?></td>
 					<td>
 						<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
@@ -270,7 +270,7 @@ $cfilaImpar = "#EEEEEE";
 						$cliente_accion = $accion->get_Cliente();
 					?>
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="acciones_pendientes">
-					<td><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>"</td>
+					<td><?php if($accion->get_Usuario() == $var->usuario->get_Id()){?><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>" /> <?php }?></td>
 					<td><?php echo $accion->get_Usuario();?></td>
 					<td>
 						<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
