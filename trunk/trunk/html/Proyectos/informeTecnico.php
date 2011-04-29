@@ -123,31 +123,16 @@ include ($appRoot.'/Common/php/menu.php');
     <thead>
         <tr>
 			<th>
+                   <?php echo  _translate("T&eacute;nico")?>
+            </th>
+            <th>
                    <?php echo  _translate("Mes/A&ntilde;o")?>
             </th>
             <th>
-                   <?php echo  _translate("Id proyecto")?>
-            </th>
-			<th>
-                    <?php echo  _translate("Empresa");?>
+                   <?php echo  _translate("N&uacute;mero de empresas")?>
             </th>
             <th>
-                    <?php echo  _translate("Nombre")?>
-            </th>
-            <th>
-                   <?php echo  _translate("T&eacute;nico asignado")?>
-            </th>
-            <th>
-                   <?php echo  _translate("Estado")?>
-            </th>
-            <th>
-                    <?php echo  _translate("Fecha de inicio")?>
-            </th>
-			<th>
-                    <?php echo  _translate("Fecha de finalizaci&oacute;n")?>
-            </th>
-			<th>
-                    <?php echo  _translate("Unidades incentivables");?>
+                    <?php echo  _translate("Unidades incentivables")?>
             </th>
 			<th>
                     <?php echo  _translate("Unidades no incentivables");?>
@@ -156,160 +141,33 @@ include ($appRoot.'/Common/php/menu.php');
     </thead>
     <tbody>
 	<?php
-		/*
-		 * Vamos a recorrer todos los meses entre las fechas dadas.
-		 * Para cada mes recorremos los proyectos, y si en el mes dado el proyecto estaba "vivo" (había comenzado)
-		 *	imprimimos la información relativa al proyecto
-		 */
-		$mes  = $var->opt['mes_desde'];
-		$year = $var->opt['year_desde'];
 
-		while(Fechas::date2timestamp('1/'.$mes.'/'.$year) < $var->opt['fecha_hasta']){
-			$nombre_mes = Fechas::obtenerNombreMes($mes);
-			$primero_mes = true; //para imprimir el nombre del mes
-			$var->datos['lista_proyectos']->inicio();
-			$fila_par=true;
-			while($proyecto = $var->datos['lista_proyectos']->siguiente() ){
-				if($proyecto->get_Fecha_Inicio() < Fechas::date2timestamp(date('1/'.$mes.'/'.$year))){
-					$estado = $proyecto->get_Estado();
-	?>
-					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
-						<td>
-							<strong><?php if($primero_mes) {echo $nombre_mes.'/'.$year; $primero_mes = false;}?></strong>
-						</td>
-						<td>
-							<a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $proyecto->get_Id()?>&nbsp;&nbsp;</a>
-						</td>
-						<td>
-							<?php $cliente = $proyecto->get_Cliente();?>
-							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $cliente->get_Razon_Social()?>&nbsp;&nbsp;</a>
-						</td>
-						<td>
-							<?php  echo $proyecto->get_Nombre()?>
-						</td>
-						<td>
-							<?php  echo $proyecto->get_Id_Usuario();?>
-						</td>
-						<td>
-							<?php  echo  $estado['nombre'];?>
-						</td>
-						<td>
-							<?php  echo timestamp2date($proyecto->get_Fecha_Inicio())?>
-						</td>
-						<td>
-							<?php  echo timestamp2date($proyecto->get_Fecha_Fin())?>
-						</td>
-						<td>
-							<?php 
-								//unidades incentivables: =unidades si fecha_fin proyecto < fecha_hasta; e.o.c. =0
-								if($proyecto->get_Id_Venta()){
-									/*Proyectos "normales" derivados de una venta:
-									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS TEÓRICAS (HT*)=HORAS INCENTIVABLES
-										HT*= Horas teóricas TOTALES del proyecto/ número de meses TEÓRICOS de duración del proyecto.
-									 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo, LAS HORAS INCENTIVABLES es siempre CERO
-									 */
-									$unidades_incentivables = 0;
-									if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-										$unidades_incentivables = $proyecto->get_Unidades();
-									echo round($unidades_incentivables,2);
-								}else{
-									/*Proyectos creados DIRECTAMENTE por el director técnico.
-									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS REALES dedicada por el técnico en ese
-										mes a ese proyecto=HORAS INCENTIVABLES
-									 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo, LAS HORAS INCENTIVABLES es siempre CERO
-									 */
-									$unidades_incentivables = 0;
-									if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-										$unidades_incentivables = $proyecto->get_Horas_Totales_Reales();
-									echo round($unidades_incentivables,2);
-								}
-							?>
-						</td>
-						<td>
-							<?php //unidades no incentivables: =horas reales/8 si fecha_fin proyecto < fecha_hasta; e.o.c. =0
-
-								if($proyecto->get_Id_Venta()){
-									/*Proyectos "normales" derivados de una venta:
-									 * Las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
-									 */
-									$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
-									echo round($unidades_no_incentivables,2);
-								}else{
-									/*Proyectos creados DIRECTAMENTE por el director técnico.
-									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo
-										las HORAS NO INCENTIVABLES son siempre CERO
-									 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo
-										las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES
-									 */
-									$unidades_no_incentivables = 0;
-									if($proyecto->get_Fecha_Fin() <= date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-										$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
-									echo round($unidades_no_incentivables,2);
-								}
-							?>
-						</td>
-					</tr>
-	<?php
-				}
+	if($var->informe){
+		$tecnico_anterior = null;
+		foreach($var->informe as $tecnico => $informe){ FB::info($informe);
+			if($tecnico == '') $tecnico="Sin asignar";
+			foreach($informe as $mes_year => $informe_mensual){?>
+		<tr>
+			<td <?php if($tecnico_anterior != $tecnico) echo 'style="background: #ccc;"'; ?> >
+				<b><?php if($tecnico_anterior != $tecnico) echo $tecnico;?></b>
+			</td>
+			<td><b><?php echo $mes_year; ?></b></td>
+			<td><?php echo $informe_mensual['numero_empresas'];?></td>
+			<td><?php echo $informe_mensual['incentivables'];?></td>
+			<td><?php echo $informe_mensual['no_incentivables'];?></td>
+		</tr>
+		<?php
+			$tecnico_anterior = $tecnico;
 			}
-			$siguiente_mes = Fechas::siguienteMes($mes);
-			$mes = $siguiente_mes;
-			if($mes == 1)
-				$year++;
 		}
+	}
 	?>
-    <?php/* $fila_par=true;
-    ?>
-    <?php while($proyecto = $var->datos['lista_proyectos']->siguiente() ){
-        $estado = $proyecto->get_Estado();?>
-        <tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> <?php  echo $resaltado?>>
-            <td>
-                    <a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $proyecto->get_Id()?>&nbsp;&nbsp;</a>
-            </td>
-			<td>
-				<?php $cliente = $proyecto->get_Cliente();?>
-                    <a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $cliente->get_Razon_Social()?>&nbsp;&nbsp;</a>
-            </td>
-            <td>
-                    <?php  echo $proyecto->get_Nombre()?>
-            </td>
-			<td>
-                    <?php  echo $proyecto->get_Id_Usuario();?>
-            </td>
-			<td>
-                    <?php  echo  $estado['nombre'];?>
-            </td>
-            <td>
-                    <?php  echo timestamp2date($proyecto->get_Fecha_Inicio())?>
-            </td>
-			<td>
-                    <?php  echo timestamp2date($proyecto->get_Fecha_Fin())?>
-            </td>
-            <td>
-                    <?php //unidades incentivables: =unidades si fecha_fin proyecto < fecha_hasta; e.o.c. =0
-						$unidades_incentivables = 0;
-						if($proyecto->get_Fecha_Fin()<=$var->opt['fecha_hasta'])
-							$unidades_incentivables = $proyecto->get_Unidades();
-						echo round($unidades_incentivables,2);
-					?>
-            </td>
-			<td>
-                    <?php //unidades no incentivables: =horas reales/8 si fecha_fin proyecto < fecha_hasta; e.o.c. =0
-						$unidades_no_incentivables = 0;
-						if($proyecto->get_Fecha_Fin()>=$var->opt['fecha_hasta'])
-							$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales()/8;
-						echo round($unidades_no_incentivables,2);
-					?>
-            </td>
-        </tr>
-    <?php
-    }*/?>
     </tbody>
 </table>
 </div>
 </form>
 </div>
-<?php 
+<?php
 include($appRoot.'/Common/php/bottomMenu.php');
 include ($appRoot.'/Common/php/footer.php');
 ?>
