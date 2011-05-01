@@ -287,6 +287,26 @@
 	public function get_Penalizaciones_Departamento(){
  		return $this->penalizaciones_departamento;
  	}
+	/**
+	 * Devuelve la penalización asociada al porcentaje dado
+	 */
+	public function get_Penalizacion_Porcentaje($porcentaje){
+		if($porcentaje <= 50)
+			$id_penalizacion = 1;
+		else if($porcentaje <= 75)
+			$id_penalizacion = 2;
+		else if($porcentaje <= 100)
+			$id_penalizacion = 3;
+		else if($porcentaje <= 120)
+			$id_penalizacion = 4;
+		else if($porcentaje <= 150)
+			$id_penalizacion = 5;
+		else
+			$id_penalizacion = 6;
+
+		$penalizacion = $this->get_Penalizacion($id_penalizacion);
+		return $penalizacion['penalizacion'];
+	}
 
 	public function get_Comisiones(){
  		return $this->comisiones;

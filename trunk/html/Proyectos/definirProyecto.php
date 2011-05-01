@@ -53,6 +53,24 @@ function cargar_plantilla(id_proyecto){
 						<input type="text" value="<?php echo $var->opt['horas_auditoria_interna'];?>" name="horas_auditoria_interna" id="horas_auditoria_interna" />
 					</td>
 				</tr>
+				<tr>
+					<td class="ColIzq"><?php echo  _translate("Horas desplazamiento auditor&iacute;a interna")?></td>
+					<td>
+						<input type="text" value="<?php echo $var->opt['horas_desplazamiento_auditoria_interna'];?>" name="horas_desplazamiento_auditoria_interna" id="horas_desplazamiento_auditoria_interna" />
+					</td>
+				</tr>
+				<tr>
+					<td class="ColIzq"><?php echo  _translate("Horas de auditor&iacute;a externa")?></td>
+					<td>
+						<input type="text" value="<?php echo $var->opt['horas_auditoria_externa'];?>" name="horas_auditoria_externa" id="horas_auditoria_externa" />
+					</td>
+				</tr>
+				<tr>
+					<td class="ColIzq"><?php echo  _translate("Horas de desplazamiento auditor&iacute;a externa")?></td>
+					<td>
+						<input type="text" value="<?php echo $var->opt['horas_desplazamiento_auditoria_externa'];?>" name="horas_desplazamiento_auditoria_externa" id="horas_desplazamiento_auditoria_externa" />
+					</td>
+				</tr>
 				<?php if($venta){?>
 				<tr>
 					<td class="ColIzq"><?php echo  _translate("Plazo de ejecuci&oacute;n (venta)")?></td>
@@ -89,14 +107,14 @@ function cargar_plantilla(id_proyecto){
 					</td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("Horas de cada visita")?></td>
+					<td class="ColIzq"><?php echo  _translate("Horas de cada visita seguimiento")?></td>
 					<td>
 						<input type="text" value="<?php echo $var->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita'];?>"
 							name="<?php echo 'definicion_sedes_'.$sede->get_Id().'_horas_cada_visita';?>"/>
 					</td>
 				</tr>
 				<tr>
-					<td class="ColIzq"><?php echo  _translate("N&uacute;mero de visitas")?></td>
+					<td class="ColIzq"><?php echo  _translate("N&uacute;mero de visitas seguimiento")?></td>
 					<td>
 						<input type="text" value="<?php echo $var->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas'];?>"
 							name="<?php echo 'definicion_sedes_'.$sede->get_Id().'_numero_visitas';?>"/>

@@ -34,6 +34,9 @@ class Proyecto{
 	 * @var integer
 	 */
 	private $horas_auditoria_interna;
+	private $horas_desplazamiento_auditoria_interna;
+	private $horas_auditoria_externa;
+	private $horas_desplazamiento_auditoria_externa;
 	/**
 	 * Nombre del proyecto
 	 * @var string
@@ -85,6 +88,8 @@ class Proyecto{
 	 * @var array indexado por fecha y hora
 	 */
 	private $planificacion;
+
+	private $planificacion_sedes;
 
 	/**
 	 * Indica si el proyecto se puede cerrar
@@ -138,6 +143,9 @@ class Proyecto{
 			$this->id_venta = $row['fk_venta'];
 			$this->horas_documentacion = $row['horas_documentacion'];
 			$this->horas_auditoria_interna = $row['horas_auditoria_interna'];
+			$this->horas_desplazamiento_auditoria_interna = $row['horas_desplazamiento_auditoria_interna'];
+			$this->horas_auditoria_externa = $row['horas_auditoria_interna'];
+			$this->horas_desplazamiento_auditoria_externa = $row['horas_desplazamiento_auditoria_externa'];
 			$this->nombre = $row['nombre'];
 			$this->fecha_inicio = $row['fecha_inicio'];
 			$this->fecha_fin = $row['fecha_fin'];
@@ -191,7 +199,7 @@ class Proyecto{
 	}
 
 	private function cargar_Planificacion(){
-		$query = "SELECT visitas.fecha, visitas.hora, visitas.fk_usuario, visitas.id
+		$query = "SELECT visitas.*
 					FROM visitas
 					WHERE fk_proyecto = '$this->id' ORDER BY fecha, hora";
 
@@ -201,6 +209,17 @@ class Proyecto{
 		$this->planificacion = array();
 		while($row = mysql_fetch_array($result))
 		$this->planificacion[$row['id']] = $row;
+
+		$query = "SELECT visitas_de_seguimiento.*
+					FROM visitas_de_seguimiento
+					WHERE fk_proyecto = '$this->id' ORDER BY fecha, hora";
+
+		if(!$result = mysql_query($query))
+			throw new Exception('Error al cargar la planificaci&oacute;n de las sedes del proyecto');
+
+		$this->planificacion_sedes = array();
+		while($row = mysql_fetch_array($result))
+		$this->planificacion_sedes[$row['id']] = $row;
 	}
 
 	/*
@@ -262,6 +281,10 @@ class Proyecto{
 
 		return $count;
 	}
+	public function get_Horas_Desplazamiento_Auditoria_Interna(){return $this->horas_desplazamiento_auditoria_interna ;}
+	public function get_Horas_Auditoria_Externa(){return $this->horas_auditoria_externa ;}
+	public function get_Horas_Desplazamiento_Auditoria_Externa(){return $this->horas_desplazamiento_auditoria_externa ;}
+
 	/**
 	 * Nombre del proyecto
 	 * @var string
@@ -341,6 +364,10 @@ class Proyecto{
 		return $this->planificacion;
 	}
 	
+	public function get_Planificacion_Sedes(){
+		return $this->planificacion_sedes;
+	}
+
 	/**
 	 * Indica la definición teórica del proyecto
 	 * @var Array indexado por id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, localidad
@@ -609,6 +636,22 @@ class Proyecto{
 				$this->horas_auditoria_interna = trim($datos['horas_auditoria_interna']);
 			else
 				$this->horas_auditoria_interna = 0;
+
+			if(is_numeric(trim($datos['horas_desplazamiento_auditoria_interna'])))
+				$this->horas_desplazamiento_auditoria_interna = trim($datos['horas_desplazamiento_auditoria_interna']);
+			else
+				$this->horas_desplazamiento_auditoria_interna = 0;
+
+			if(is_numeric(trim($datos['horas_auditoria_externa'])))
+				$this->horas_auditoria_externa = trim($datos['horas_auditoria_externa']);
+			else
+				$this->horas_auditoria_externa = 0;
+
+			if(is_numeric(trim($datos['horas_desplazamiento_auditoria_externa'])))
+				$this->horas_desplazamiento_auditoria_externa = trim($datos['horas_desplazamiento_auditoria_externa']);
+			else
+				$this->horas_desplazamiento_auditoria_externa = 0;
+
 				//$errores .= '<br/>Proyecto: Campo horas de auditor&iacute;a interna inv&aacute;lido';
 		//}
 		if($datos['nombre'] == '' || ! isset($datos['nombre']))
@@ -688,6 +731,9 @@ class Proyecto{
 		$query = "UPDATE proyectos 
 					SET horas_documentacion = '$this->horas_documentacion',
 					horas_auditoria_interna = '$this->horas_auditoria_interna',
+					horas_desplazamiento_auditoria_interna = '$this->horas_desplazamiento_auditoria_interna',
+					horas_auditoria_externa = '$this->horas_auditoria_externa',
+					horas_desplazamiento_auditoria_externa = '$this->horas_desplazamiento_auditoria_externa',
 					nombre = '$this->nombre',
 					fecha_inicio = '$this->fecha_inicio',
 					fecha_fin = '$this->fecha_fin',
@@ -753,6 +799,21 @@ class Proyecto{
 		$visita = new Visita();
 		$datos_visita['fecha'] = $datos['fecha_visita'];
 		$datos_visita['hora'] = $datos['hora_visita'];
+		$datos_visita['es_visita_interna'] = $datos['es_visita_interna'];
+		$datos_visita['id_proyecto'] = $this->id;
+
+		$visita->crear($datos_visita);
+		$this->cargar_Planificacion();
+
+		if($this->estado['id'] == 3)//pendiente de planificación
+			$this->set_Estado(4);
+	}
+
+	public function add_Visita_De_Seguimiento($datos){FB::error($datos);
+		$visita = new VisitaDeSeguimiento();
+		$datos_visita['fecha'] = $datos['fecha_visita_seguimiento'];
+		$datos_visita['hora'] = $datos['hora_visita_seguimiento'];
+		$datos_visita['id_sede'] = $datos['id_sede_visita_seguimiento'];
 		$datos_visita['id_proyecto'] = $this->id;
 
 		$visita->crear($datos_visita);

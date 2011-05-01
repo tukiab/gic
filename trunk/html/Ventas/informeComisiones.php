@@ -247,22 +247,41 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 						echo $var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]." &euro;"; ?>
 				</td>
 				<td>
-					<?php 
+					<?php
+						// El % acumulado de venta sólo se calcula si el tipo de venta es objetivable (id de tipo de comisión 1 o 3), si no es 100%,
+						// .
 						// % Acumulado (Acumulado de ventas/objetivo Acumulado, por tipo, gestor y mes)
-						if($Usuario_venta->get_Objetivo_Acumulado($mes))
-							echo round($var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2);
-						else echo 0;?>%
+						$porc_acumulado = 0;
+						if(!in_array($tipo_comision['id'], array(1,3)))
+							$porc_acumulado = 100;
+						else if($Usuario_venta->get_Objetivo_Acumulado($mes))
+							$porc_acumulado = round($var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2);
+						echo $porc_acumulado;?>%
 				</td>
 				<td>
 					<?php
-						// VCO*(CVi+VP)+VFO*(CVi+VP)+VCNO*CVi+VFNO*CVi+VL*CVi+OV*CVi
+						/** Cálculo de la comisión:
+						 *
+						 * VCO*(CVi+VP)+VFO*(CVi+VP)+VCNO*CVi+VFNO*CVi+VL*CVi+OV*CVi
+						 * La comisión sólo se pondera (tiene en cuenta las penalizaciones) si el tipo de venta es objetivable (id de tipo de comisión 1 o 3),
+						 *	si no sólo se tiene en cuenta las comisiones por tipo de venta
+						 */
+					
 						//if($nuevo_mes){
 							//foreach($var->lista_Ventas->lista_Tipos_Comision() as $tipoventa){
-							$id_tipo = $tipoventa['id'];
+							//$id_tipo = $tipoventa['id'];
+
+							//Penalización:
 							$VP = 0;
+							if(in_array($tipo_comision['id'], array(1,3)))
+								$VP = $Usuario_venta->get_Penalizacion_Porcentaje($porc_acumulado);
+
+							//Comisión por tipo de venta
 							$comision_tipo = $Usuario_venta->get_Comision($id_tipo_venta);
 							$CV = $comision_tipo['comision'];
 							$total_venta = $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta];
+
+							//Cálculo de la comisión
 							$comision =  $total_venta * ($CV + $VP) /100;
 							//}
 							echo $comision." &euro;";

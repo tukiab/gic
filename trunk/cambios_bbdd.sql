@@ -383,3 +383,24 @@ ALTER TABLE `proyectos_rel_sedes` CHANGE `horas_desplazamiento` `horas_desplazam
 CHANGE `numero_visitas` `numero_visitas` INT( 11 ) NULL ,
 CHANGE `horas_cada_visita` `horas_cada_visita` FLOAT NULL ,
 CHANGE `gastos_incurridos` `gastos_incurridos` FLOAT NULL ;
+
+
+
+
+
+
+
+
+
+-- datos nuevos de la nueva definición
+ALTER TABLE `proyectos` ADD `horas_desplazamiento_auditoria_interna` FLOAT NULL AFTER `horas_auditoria_interna` ,
+ADD `horas_auditoria_externa` FLOAT NULL AFTER `horas_desplazamiento_auditoria_interna` ,
+ADD `horas_desplazamiento_auditoria_externa` FLOAT NULL AFTER `horas_auditoria_externa` ;
+
+
+-- datos nuevos de tareas técnicas
+UPDATE `tareas_tecnicas_tipos` SET `nombre` = 'Visita de seguimiento' WHERE `tareas_tecnicas_tipos`.`id` =1;
+INSERT INTO `tareas_tecnicas_tipos` (`nombre`)VALUES ('Visita de auditoría interna'), ('Visita de auditoría externa');
+
+-- planificando visitas de otra forma ¬¬
+ALTER TABLE `visitas` ADD `es_visita_interna` BOOLEAN NOT NULL ;

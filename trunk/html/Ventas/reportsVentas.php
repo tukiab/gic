@@ -288,7 +288,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 				$totales['clientes']	+= $total_clientes;
 				$totales['importe']	+= $total_importe;
 			}
-		}
+		
 		}?>
 				<?php
 					$total_ventas = $totales['ventas'];
@@ -342,7 +342,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 
 					</tbody>
 				</table>
-			<?php if(!$var->opt['exportar']){?>
+			<?php }if(!$var->opt['exportar']){?>
 
 		</div>
 </form>

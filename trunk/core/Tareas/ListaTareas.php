@@ -66,10 +66,16 @@ class ListaTareas implements IIterador{
 		
 		$filtro ="";
 		$join="";
-		$join .= "INNER JOIN clientes ON clientes.id = tareas_tecnicas.fk_cliente";
+		$join .= "INNER JOIN proyectos ON proyectos.id = tareas_tecnicas.fk_proyecto INNER JOIN clientes ON clientes.id = proyectos.fk_cliente";
 		(isset($filtros['id']))?$filtro.=" AND tareas_tecnicas.id = '".$filtros['id']."' ":null;
 		(isset($filtros['id_proyecto']))?$filtro.=" AND tareas_tecnicas.fk_proyecto = '".$filtros['id_proyecto']."' ":null;
-		(isset($filtros['tipo_tarea']))?$filtro.=" AND tareas_tecnicas.fk_tipo_tarea = '".$filtros['tipo_tarea']."' ":null;
+
+		($filtros['id_usuario'])?$filtro.=" AND tareas_tecnicas.fk_usuario = '".$filtros['id_usuario']."' ":null;
+
+		(isset($filtros['razon_social']))?$filtro.=" AND clientes.razon_social LIKE '%".$filtros['razon_social']."%' ":null;
+		(isset($filtros['observaciones']))?$filtro.=" AND tareas_tecnicas.observaciones LIKE '%".$filtros['observaciones']."%' ":null;
+
+		(isset($filtros['tipo_tarea']))?$filtro.=" AND tareas_tecnicas.fk_tipo = '".$filtros['tipo_tarea']."' ":null;
 		(isset($filtros['id_sede']))?$filtro.=" AND tareas_tecnicas.fk_sede = '".$filtros['id_sede']."' ":null;
 		(isset($filtros['fecha_desde']))?$filtro.=" AND tareas_tecnicas.fecha >= '".$filtros['fecha_desde']."' ":null;
 		(isset($filtros['fecha_hasta']))?$filtro.=" AND tareas_tecnicas.fecha <= '".$filtros['fecha_hasta']."' ":null;
@@ -94,8 +100,23 @@ class ListaTareas implements IIterador{
 				case 'id':
 						$order_by = " tareas_tecnicas.id ";
 					break;
+				case 'fecha':
+						$order_by = " tareas_tecnicas.fecha ";
+					break;
+				case 'horas_desplazamiento':
+						$order_by = " tareas_tecnicas.horas_desplazamiento ";
+					break;
+				case 'horas_despacho':
+						$order_by = " tareas_tecnicas.horas_despacho ";
+					break;
+				case 'horas_auditoria_interna':
+						$order_by = " tareas_tecnicas.horas_auditoria_interna ";
+					break;
+				case 'horas_visita':
+						$order_by = " tareas_tecnicas.horas_visita ";
+					break;
 				case 'tipo_tarea':
-						$order_by = " tareas_tecnicas.fk_tipo_tarea ";
+						$order_by = " tareas_tecnicas.fk_tipo ";
 					break;
 				case 'fecha':
 						$order_by = "tareas_tecnicas.fecha";
@@ -105,6 +126,8 @@ class ListaTareas implements IIterador{
 					break;
 				case 'id_proyecto':
 						$order_by = "clientes.fk_proyecto";
+				case 'id_cliente':
+					$order_by = "clientes.id";
 					break;
 			}
 			if($order_by){
@@ -126,6 +149,8 @@ class ListaTareas implements IIterador{
 				    WHERE 1
 						$filtro
 				    GROUP BY tareas_tecnicas.id $order $limit;";
+
+		FB::error($query);
 		
 		$this->result = @mysql_query($query);
 		

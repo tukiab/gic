@@ -3,7 +3,7 @@
  * Clase que gestiona las Visitas.
  */
 include_once('../../html/Common/php/utils/utils.php');
-class Visita{
+class VisitaDeSeguimiento{
 
 	/**
 	 * Identificador de la Visita. Coincide con el id de la BBDD.
@@ -22,16 +22,20 @@ class Visita{
 	 * @var array indexado por id y nombre
 	 */
 	private $proyecto;
-	
+
 	/**
 	 * Fecha en formato timestamp.
 	 * @var integer
 	 */
 	private $fecha;
-	
+
 	private $hora;
 
-	private $es_visita_interna;
+	/**
+	 * sede que se visita
+	 * @var <array> indexado por id y localidad
+	 */
+	private $sede;
 
 	/*
 	 * Métodos de la Clase.
@@ -62,10 +66,11 @@ class Visita{
 	 */
 	private function cargar(){
 		if($this->id){
-			$query = "SELECT visitas.*, proyectos.id as id_proyecto, proyectos.nombre as nombre_proyecto
-						FROM visitas
-						INNER JOIN proyectos ON visitas.fk_proyecto = proyectos.id
-						WHERE visitas.id = '$this->id'";
+			$query = "SELECT visitas_de_seguimiento.*, proyectos.id as id_proyecto, proyectos.nombre as nombre_proyecto, clientes_sedes.id as id_sede, clientes_sedes.localidad as localidad
+						FROM visitas_de_seguimiento
+						INNER JOIN proyectos ON visitas_de_seguimiento.fk_proyecto = proyectos.id
+						INNER JOIN clientes_sedes ON visitas_de_seguimiento.fk_sede = clientes_sedes.id
+						WHERE visitas_de_seguimiento.id = '$this->id'";
 
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Visita de la BBDD");
@@ -77,7 +82,7 @@ class Visita{
 			$this->fecha = $row['fecha'];
 			$this->hora = $row['hora'];$this->id_usuario =$row['fk_usuario'];
 			$this->proyecto = array('id'=>$row['id_proyecto'], 'nombre'=>$row['nombre_proyecto']);
-			$this->es_visita_interna = $row['es_visita_interna'];
+			$this->sede = array('id'=>$row['id_sede'], 'localidad'=>$row['localidad']);
 
 		}
 	}
@@ -88,7 +93,7 @@ class Visita{
 	 ***********************/
 
 	/**
-	 * Devuelve la fecha 
+	 * Devuelve la fecha
 	 * @return int $fecha
 	 */
 	public function get_Fecha(){
@@ -127,11 +132,15 @@ class Visita{
 		return $this->proyecto;
 	}
 
-	public function get_Es_Visita_Interna(){
-		return $this->es_visita_interna;
+	/**
+	 * Devuelve la sede
+	 * @return <type> indezxado por id y localidad
+	 */
+	public function get_Sede(){
+		return $this->sede;
 	}
 	/*
-	 * Métodos Modificadores. 
+	 * Métodos Modificadores.
 	 *
 	 ************************/
 
@@ -160,49 +169,47 @@ class Visita{
 			throw new Exception("La fecha ha de ser posterior a la actual");
 		if($datos['id_proyecto'] == '' || ! isset($datos['id_proyecto']))
 			throw new Exception("Visita: El proyecto de la visita es obligatorio .");
+		if($datos['id_sede'] == '' || ! isset($datos['id_sede']))
+			throw new Exception("Visita:La sede de la visita es obligatoria .");
 
 		$this->hora = trim($datos['hora']);
 		$this->fecha = trim($datos['fecha']);
 		$this->proyecto = trim($datos['id_proyecto']); //ojo, este atributo luego es un array
-
-		if(!isset($datos['es_visita_interna']))
-			$this->es_visita_interna = 0;
-		else
-			$this->es_visita_interna = 1;
+		$this->sede = trim($datos['id_sede']); //ojo, este atributo luego es un array
 
 		$proyecto = new Proyecto($this->proyecto);
 		if($proyecto->get_Id_Usuario())
 			$this->id_usuario	= $proyecto->get_Id_Usuario();
 		else
 			throw new Exception('No se puede planificar una visita a un proyecto sin t&eacute;cnico asignado');
-		
+
 
 		//Si todo ha ido bien:
 		return $this->guardar();
 	}
 
 	/**
-	 * Método privado que lanza las consultas necesarias para insertar en la BBDD los datos de un 
+	 * Método privado que lanza las consultas necesarias para insertar en la BBDD los datos de un
 	 * visita, una vez filtrados y validados.
 	 *
 	 * @param array $datos Array indexado por nombre con los datos de una visita.
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
 	private function guardar($datos){
-		
+
 		$query = "
-			INSERT INTO visitas (   fecha,
+			INSERT INTO visitas_de_seguimiento (   fecha,
 									fk_proyecto,
 									fk_usuario,
 									hora,
-									es_visita_interna
+									fk_sede
 								)VALUES(
 									'$this->fecha',
 									'$this->proyecto',
 									'$this->id_usuario',
 									'$this->hora',
-									'$this->es_visita_interna'
-								);"; 
+									'$this->sede'
+								);";
 
 		if(!mysql_query($query))
 			throw new Exception("Error al crear la Visita");
@@ -215,12 +222,13 @@ class Visita{
 
 	/**
 	 * Modifica la fecha  de la visita
-	 * @param int $fecha nueva fecha 
+	 * @param int $fecha nueva fecha
 	 */
 	public function set_Fecha($fecha){
+		FB::info(timestamp2date($fecha));
 
 		if(is_numeric($fecha)){
-			$query = "UPDATE visitas SET fecha='$fecha' WHERE id='$this->id' ";
+			$query = "UPDATE visitas_de_seguimiento SET fecha='$fecha' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 			throw new Exception("Error al actualizar la fecha en la BBDD.");
 			$this->fecha = $fecha;
@@ -232,7 +240,7 @@ class Visita{
 	public function set_Hora($hora){
 		$validar = new Validador();
 		if($validar->hora($hora)){
-			$query = "UPDATE visitas SET hora='$hora' WHERE id='$this->id' ";
+			$query = "UPDATE visitas_de_seguimiento SET hora='$hora' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 			throw new Exception("Error al actualizar la hora en la BBDD.");
 			$this->hora = $hora;
@@ -247,7 +255,7 @@ class Visita{
 	 */
 	public function set_Id_Usuario($id_usuario){
 		if($id_usuario){
-			$query = "UPDATE visitas SET fk_usuario='$id_usuario' WHERE id='$this->id' ";
+			$query = "UPDATE visitas_de_seguimiento SET fk_usuario='$id_usuario' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 			throw new Exception("Error al actualizar el id_usuario en la BBDD.");
 			$this->id_usuario = $id_usuario;
@@ -256,19 +264,8 @@ class Visita{
 			throw new Exception("Debe introducir un id_usuario v&aacute;lido.");
 	}
 
-	public function set_Es_Visita_Interna($es){
-		$es_interna = 0;
-		if($es)
-			$es_interna = 1;
-
-		$query = "UPDATE visitas SET es_visita_interna='$es_interna' WHERE id='$this->id' ";
-		if(!mysql_query($query))
-		throw new Exception("Error al actualizar el tipo de visita en la BBDD.");
-		$this->es_visita_interna = $es_interna;
-	}
-
 	public function del_Visita(){
-		$query = "DELETE FROM visitas WHERE id='$this->id'";
+		$query = "DELETE FROM visitas_de_seguimiento WHERE id='$this->id'";
 			mysql_query($query);
 	}
 }

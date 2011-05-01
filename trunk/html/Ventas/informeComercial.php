@@ -28,7 +28,7 @@ if(!$var->opt['exportar']){
 	table{color:#000;}
 	table td, table th{padding:4px;}
 </style>
-<div id="titulo"><?php echo  _translate("Ventas")?></div>
+<div id="titulo"><?php echo  _translate("Comercial")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
 <div id="contenedor" align="center">
 <form method="GET" id="frm_ventas" action="<?php echo  $_SERVER['_SELF']?>">
@@ -118,7 +118,6 @@ if(!$var->opt['exportar']){
     </tr>
 </table>
 </div>
-<br/>
 <!-- RESULTADOS -->
 <?php }
 if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<input type="submit" id="exportar" name="exportar" value="<?php echo  _translate("Exportar")?>" />-->
@@ -264,7 +263,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 				$totales['importe']	+= $total_importe;
 			}
 		}
-		}?>
+		?>
 				<?php
 					$total_ventas = $totales['ventas'];
 					$total_clientes = $totales['clientes'];
@@ -318,7 +317,9 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 
 					</tbody>
 				</table>
-			<?php if(!$var->opt['exportar']){?>
+			<?php
+			}
+				if(!$var->opt['exportar']){?>
 
 		</div>
 </form>

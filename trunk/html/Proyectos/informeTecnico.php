@@ -119,7 +119,7 @@ include ($appRoot.'/Common/php/menu.php');
 
 <!-- RESULTADOS -->
 <div class="listado">
-<table>
+<table style="width:300px;">
     <thead>
         <tr>
 			<th>
@@ -151,10 +151,10 @@ include ($appRoot.'/Common/php/menu.php');
 			<td <?php if($tecnico_anterior != $tecnico) echo 'style="background: #ccc;"'; ?> >
 				<b><?php if($tecnico_anterior != $tecnico) echo $tecnico;?></b>
 			</td>
-			<td><b><?php echo $mes_year; ?></b></td>
+			<td style="text-align: left; padding-left:25px;"><b><?php echo $mes_year; ?></b></td>
 			<td><?php echo $informe_mensual['numero_empresas'];?></td>
-			<td><?php echo $informe_mensual['incentivables'];?></td>
-			<td><?php echo $informe_mensual['no_incentivables'];?></td>
+			<td><?php echo round($informe_mensual['incentivables'],2);?></td>
+			<td><?php echo round($informe_mensual['no_incentivables'],2);?></td>
 		</tr>
 		<?php
 			$tecnico_anterior = $tecnico;

@@ -20,6 +20,8 @@ include ($appRoot.'/Common/php/popupHeader.php');
 <style type="text/css">
 	.izqder{width:40%;margin:20px;float:left;}
 	.izqder table{border: none; margin:10px;width:100%;}
+	table td{width:50%;}
+	input[type="text"]{width:50px;}
 </style>
 <div id="titulo"><?php echo  _translate("Editar Usuario")?></div>
 		<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
@@ -83,7 +85,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<table>
 				<tr>
 					<td class="ListaTitulo" colspan="2">
-						<?php echo  _translate("Penalizaciones (todos los datos han de ser positivos)")?>
+						<?php echo  _translate("Penalizaciones (valores negativos o positivos)")?>
 					</td>
 				</tr>
 				
