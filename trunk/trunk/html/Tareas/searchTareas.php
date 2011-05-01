@@ -114,10 +114,10 @@ include ($appRoot.'/Common/php/menu.php');
 				<input type="text" size="15"name="razon_social" value="<?php  echo $var->opt['razon_social']?>"/>
 			</td>
 			<td class="busquedaIzda">
-				<?php echo  _translate('Id tarea')?> &nbsp;
+				<?php //echo  _translate('Id tarea')?> &nbsp;
 			</td>
 			<td class="busquedaDcha">
-				<input type="text" size="15"name="id" value="<?php  echo $var->opt['id']?>"/>
+				<!-- <input type="text" size="15"name="id" value="<?php  echo $var->opt['id']?>"/> -->
 			</td>
 		</tr>
 		<tr>
@@ -199,7 +199,7 @@ include ($appRoot.'/Common/php/menu.php');
 			<table>
 				<thead>
 					<tr>
-						<th  nowrap>
+						<!--<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('id')" ><?php echo  _translate("Id")?></a>
 							<?php 
 								if($var->opt['order_by']=='id' && $var->opt['order_by_asc_desc']=='ASC')
@@ -207,7 +207,7 @@ include ($appRoot.'/Common/php/menu.php');
 								else if($var->opt['order_by']=='id' && $var->opt['order_by_asc_desc']=='DESC')
 									echo  "&darr;";
 							?>
-						</th>
+						</th>-->
 						<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('id_usuario')" ><?php echo  _translate("Gestor")?></a>
 							<?php 
@@ -300,9 +300,9 @@ include ($appRoot.'/Common/php/menu.php');
 				<?php while($tarea = $var->datos['lista_tareas']->siguiente() ){
 					?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?>>
-						<td >
+						<!--<td >
 							<a href="<?php echo  $appDir.'/Tareas/showTarea.php?id='.$tarea->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $tarea->get_Id()?>&nbsp;&nbsp;</a>							
-						</td>	
+						</td>-->
 						<td >
 							<?php echo $tarea->get_Id_Usuario();?>
 						</td>
