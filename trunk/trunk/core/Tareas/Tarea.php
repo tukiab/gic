@@ -265,30 +265,36 @@ class Tarea{
 			throw new Exception('No se puede crear una tarea a un proyecto sin t&eacute;cnico asignado');
 
 
-		if($this->id_tipo == 1){//Visita: los datos obligatorios son horas_desplazamiento y horas_visita
+		// Ahora vemos de qué tipo es la tarea, y en función del tipo que sea vemos sus datos obligatorios.
+		if($this->id_tipo == 1){//Visita de seguimiento: los datos obligatorios son horas_desplazamiento
+			if(!isset($datos['horas_desplazamiento'])
+					|| !is_numeric($datos['horas_desplazamiento']))
+				throw new Exception('Las horas de desplazamiento no son v&aacute;lidas.');
+			
+			$this->horas_desplazamiento = trim($datos['horas_desplazamiento']);
+			$this->horas_visita = 0;
+			$this->horas_auditoria_interna = 0;
+			$this->horas_despacho = 0;
+		}
+		else if($this->id_tipo == 2){//Documentación: los datos obligatorios son horas_despacho
+			if(!isset($datos['horas_despacho'])
+					|| !is_numeric($datos['horas_despacho']))
+				throw new Exception('Las horas de despacho no son v&aacute;lidas.');
+
+			$this->horas_despacho = trim($datos['horas_despacho']);
+			$this->horas_auditoria_interna = 0;
+			$this->horas_visita = 0;
+			$this->horas_desplazamiento = 0;
+		}
+		else{//Visita de auditoría interna o externa: los datos obligatorios son horas_desplazamiento y horas_visita
 			if(!isset($datos['horas_visita']) && !isset($datos['horas_desplazamiento'])
 					|| !is_numeric($datos['horas_visita']) && !is_numeric($datos['horas_desplazamiento']))
 				throw new Exception('Las horas de desplazamiento y/o de visita no son v&aacute;lidas.');
-			
+
 			$this->horas_visita = trim($datos['horas_visita']);
 			$this->horas_desplazamiento = trim($datos['horas_desplazamiento']);
 			$this->horas_auditoria_interna = 0;
 			$this->horas_despacho = 0;
-		}
-		else{//Documentación: los datos obligatorios son horas_despacho Ó horas_auditoria_interna
-			if(!isset($datos['horas_despacho']) && !isset($datos['horas_auditoria_interna'])
-					|| !is_numeric($datos['horas_despacho']) && !is_numeric($datos['horas_auditoria_interna']))
-				throw new Exception('Las horas de despacho y/o de auditor&iacute;a no son v&aacute;lidas.');
-			if($datos['horas_despacho'] > 0){
-				$this->horas_despacho = trim($datos['horas_despacho']);
-				$this->horas_auditoria_interna = 0;
-			}
-			else{
-				$this->horas_auditoria_interna = trim($datos['horas_auditoria_interna']);
-				$this->horas_despacho = 0;
-			}
-			$this->horas_visita = 0;
-			$this->horas_desplazamiento = 0;
 		}
 
 		//Falta por ver si las horas son o no incentivables:

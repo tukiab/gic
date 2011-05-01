@@ -21,7 +21,7 @@ class ShowProyecto{
 	 * 
 	 * @param array $opciones Array de opciones pasados al script. Se corresponde con el array $_GET de la vista.
 	 */
-	public function __construct($opciones_get, $opciones){
+	public function __construct($opciones_get, $opciones){FB::info($opciones);
 		try{
 			global $permisos;
 					
@@ -34,10 +34,13 @@ class ShowProyecto{
 			if($this->opt['reabrir']) $this->reabrir();
 			if($this->opt['asignar']) $this->asignar();
 			if($this->opt['planificar']) $this->insertar_visita();
+			if($this->opt['planificar_sede']) $this->insertar_visita_seguimiento();
 			if($this->opt['tarea_editar']) $this->editar_tarea();
 			if($this->opt['visita_editar']) $this->editar_visita();
+			if($this->opt['visita_seguimiento_editar']) $this->editar_visita_seguimiento();
 			if($this->opt['tarea_eliminar']) $this->eliminar_tarea();
 			if($this->opt['visita_eliminar']) $this->eliminar_visita();
+			if($this->opt['visita_seguimiento_eliminar']) $this->eliminar_visita_seguimiento();
 
 			if($this->opt['nuevo_nombre']) $this->Proyecto->set_Nombre($this->opt['nuevo_nombre']);
 			
@@ -78,6 +81,12 @@ class ShowProyecto{
 
 	private function insertar_visita(){
 		$this->Proyecto->add_Visita($this->opt);
+		header("Location: showProyecto.php?id=".$this->Proyecto->get_Id());
+	}
+
+	private function insertar_visita_seguimiento(){ 
+		$this->Proyecto->add_Visita_De_Seguimiento($this->opt);
+		header("Location: showProyecto.php?id=".$this->Proyecto->get_Id());
 	}
 	/**
 	 * Obtiene los parámetros necesarios pasados al constructor.
@@ -102,8 +111,10 @@ class ShowProyecto{
 		@($opciones['borrado_total'])?$this->opt['borrado_total']=true:$this->opt['borrado_total']=false;
 		@($opciones['tarea_editar'])?$this->opt['tarea_editar']=$opciones['tarea_editar']:null;
 		@($opciones['visita_editar'])?$this->opt['visita_editar']=$opciones['visita_editar']:null;
+		@($opciones['visita_seguimiento_editar'])?$this->opt['visita_seguimiento_editar']=$opciones['visita_seguimiento_editar']:null;
 		@($opciones['tarea_eliminar'])?$this->opt['tarea_eliminar']=$opciones['tarea_eliminar']:null;
 		@($opciones['visita_eliminar'])?$this->opt['visita_eliminar']=$opciones['visita_eliminar']:null;
+		@($opciones['visita_seguimiento_eliminar'])?$this->opt['visita_seguimiento_eliminar']=$opciones['visita_seguimiento_eliminar']:null;
 
 		foreach($this->Proyecto->get_Tareas() as $tarea){
 			@($opciones['fecha_tarea_'.$tarea['id']])?$this->opt['fecha_tarea_'.$tarea['id']]=date2timestamp($opciones['fecha_tarea_'.$tarea['id']]):null;
@@ -111,16 +122,29 @@ class ShowProyecto{
 			@($opciones['horas_visita_tarea_'.$tarea['id']])?$this->opt['horas_visita_tarea_'.$tarea['id']]=$opciones['horas_visita_tarea_'.$tarea['id']]:null;
 			@($opciones['horas_despacho_tarea_'.$tarea['id']])?$this->opt['horas_despacho_tarea_'.$tarea['id']]=$opciones['horas_despacho_tarea_'.$tarea['id']]:null;
 			@($opciones['horas_auditoria_interna_tarea_'.$tarea['id']])?$this->opt['horas_auditoria_interna_tarea_'.$tarea['id']]=$opciones['horas_auditoria_interna_tarea_'.$tarea['id']]:null;
+			@($opciones['observaciones_tarea_'.$tarea['id']])?$this->opt['observaciones_tarea_'.$tarea['id']]=$opciones['observaciones_tarea_'.$tarea['id']]:null;
 		}
 
 		foreach($this->Proyecto->get_Planificacion() as $planificacion){
 			@($opciones['fecha_visita_'.$planificacion['id']])?$this->opt['fecha_visita_'.$planificacion['id']]=date2timestamp($opciones['fecha_visita_'.$planificacion['id']]):null;
 			@($opciones['hora_visita_'.$planificacion['id']])?$this->opt['hora_visita_'.$planificacion['id']]=$opciones['hora_visita_'.$planificacion['id']]:null;
+			@($opciones['es_visita_interna_visita_'.$planificacion['id']])?$this->opt['es_visita_interna_visita_'.$planificacion['id']]=$opciones['es_visita_interna_visita_'.$planificacion['id']]:null;
+		}
+
+		foreach($this->Proyecto->get_Planificacion_Sedes() as $planificacion){
+			@($opciones['fecha_visita_seguimiento_'.$planificacion['id']])?$this->opt['fecha_visita_seguimiento_'.$planificacion['id']]=date2timestamp($opciones['fecha_visita_seguimiento_'.$planificacion['id']]):null;
+			@($opciones['hora_visita_seguimiento_'.$planificacion['id']])?$this->opt['hora_visita_seguimiento_'.$planificacion['id']]=$opciones['hora_visita_seguimiento_'.$planificacion['id']]:null;
 		}
 
 		@($opciones['planificar'])?$this->opt['planificar']=$opciones['planificar']:null;
 		@($opciones['hora_visita'])?$this->opt['hora_visita']=$opciones['hora_visita']:null;
 		@($opciones['fecha_visita'])?$this->opt['fecha_visita']=date2timestamp($opciones['fecha_visita']):null;
+		@($opciones['es_visita_interna'])?$this->opt['es_visita_interna']=$opciones['es_visita_interna']:null;
+		
+		@($opciones['planificar_sede'])?$this->opt['planificar_sede']=$opciones['planificar_sede']:null;
+		@($opciones['id_sede_visita_seguimiento'])?$this->opt['id_sede_visita_seguimiento']=$opciones['id_sede_visita_seguimiento']:null;
+		@($opciones['hora_visita_seguimiento'])?$this->opt['hora_visita_seguimiento']=$opciones['hora_visita_seguimiento']:null;
+		@($opciones['fecha_visita_seguimiento'])?$this->opt['fecha_visita_seguimiento']=date2timestamp($opciones['fecha_visita_seguimiento']):null;
 
 		
 		//Opciones de si mostrar o no la cabecera de la página:
@@ -141,6 +165,7 @@ class ShowProyecto{
 		$tarea->set_Horas_Visita($this->opt['horas_visita_tarea_'.$tarea->get_Id()]);
 		$tarea->set_Horas_Despacho($this->opt['horas_despacho_tarea_'.$tarea->get_Id()]);
 		$tarea->set_Horas_Auditoria_Interna($this->opt['horas_auditoria_interna_tarea_'.$tarea->get_Id()]);
+		$tarea->set_Observaciones($this->opt['observaciones_tarea_'.$tarea->get_Id()]);
 
 		//recargamos el proyecto:
 		$this->Proyecto = new Proyecto($this->opt['id']);
@@ -150,6 +175,16 @@ class ShowProyecto{
 		$visita = new Visita($this->opt['visita_editar']);
 		$visita->set_Fecha($this->opt['fecha_visita_'.$visita->get_Id()]);
 		$visita->set_Hora($this->opt['hora_visita_'.$visita->get_Id()]);
+		$visita->set_Es_Visita_Interna($this->opt['es_visita_interna_visita_'.$visita->get_Id()]);
+
+		//recargamos el proyecto:
+		$this->Proyecto = new Proyecto($this->opt['id']);
+	}
+
+	private function editar_visita_seguimiento(){
+		$visita = new VisitaDeSeguimiento($this->opt['visita_seguimiento_editar']);
+		$visita->set_Fecha($this->opt['fecha_visita_seguimiento_'.$visita->get_Id()]);
+		$visita->set_Hora($this->opt['hora_visita_seguimiento_'.$visita->get_Id()]);
 
 		//recargamos el proyecto:
 		$this->Proyecto = new Proyecto($this->opt['id']);
@@ -165,6 +200,14 @@ class ShowProyecto{
 
 	private function eliminar_visita(){
 		$visita = new Visita($this->opt['visita_eliminar']);
+		$visita->del_Visita();
+
+		//recargamos el proyecto:
+		$this->Proyecto = new Proyecto($this->opt['id']);
+	}
+
+	private function eliminar_visita_seguimiento(){
+		$visita = new VisitaDeSeguimiento($this->opt['visita_seguimiento_eliminar']);
 		$visita->del_Visita();
 
 		//recargamos el proyecto:

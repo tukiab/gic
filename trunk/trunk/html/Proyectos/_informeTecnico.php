@@ -71,7 +71,14 @@ class InformeTecnico{
 				$nombre_mes = Fechas::obtenerNombreMes($mes);
 				$mes_year = $nombre_mes.'/'.$year;
 				
-				if($proyecto->get_Fecha_Inicio() < Fechas::date2timestamp(date('1/'.$mes.'/'.$year))){
+				if($proyecto->get_Id_Usuario() == 'rosario' && $year==2011)
+					{FB::info($proyecto,$mes_year);
+					FB::warn(timestamp2date($proyecto->get_Fecha_Inicio()));
+					}
+
+				if(Fechas::inicioMes($proyecto->get_Fecha_Inicio()) <= Fechas::date2timestamp(date('1/'.$mes.'/'.$year))){
+					if($proyecto->get_Id_Usuario() == 'rosario')
+						FB::error($proyecto);
 					$this->informe[$proyecto->get_Id_Usuario()][$mes_year]['incentivables'] += $this->get_unidades_incentivables($proyecto, $mes, $year);
 					$this->informe[$proyecto->get_Id_Usuario()][$mes_year]['no_incentivables'] += $this->get_unidades_no_incentivables($proyecto, $mes, $year);
 

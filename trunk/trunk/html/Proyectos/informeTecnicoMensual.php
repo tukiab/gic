@@ -248,7 +248,7 @@ include ($appRoot.'/Common/php/menu.php');
 	<?php $usr_anterior = $usr_proyecto;
 				//}
 			} ?>
-					<tr class="total">>
+					<tr class="total">
 						<td>Total</td>
 						<td colspan="7"></td>
 						<td><?php echo round($totales[$usr_anterior.'incentivables'],2); ?></td>

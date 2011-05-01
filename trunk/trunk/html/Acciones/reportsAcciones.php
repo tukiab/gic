@@ -16,7 +16,7 @@ include ($appRoot.'/Common/php/header.php');
 include ($appRoot.'/Common/php/menu.php');
 
 ?>
-<?php if($permisos->lectura){?>
+<?php if($permisos->escritura){?>
 <!-- Funciones varias para mejorar la interfaz -->
 <script language="JavaScript" type="text/javascript">
 
@@ -252,7 +252,6 @@ include ($appRoot.'/Common/php/menu.php');
 				$totales['clientes']	+= $total_clientes;
 				
 			}
-		}
 		}?>
 				<!-- TOTALES -->
 				<?php
@@ -299,6 +298,7 @@ include ($appRoot.'/Common/php/menu.php');
 
 					</tbody>
 				</table>
+			<?php }?>
 		</div>
 </form>
 </div>

@@ -67,6 +67,15 @@ function eliminar_visita(id_tarea){
 if(confirm('confirmar borrado')){	$('#visita_eliminar').val(id_tarea);
 	$('#frm').submit();}
 }
+
+function editar_visita_seguimiento(id_tarea){
+	$('#visita_seguimiento_editar').val(id_tarea);
+	$('#frm').submit();
+}
+function eliminar_visita_seguimiento(id_tarea){
+if(confirm('confirmar borrado')){	$('#visita_seguimiento_eliminar').val(id_tarea);
+	$('#frm').submit();}
+}
 </script>
 
 <?php
@@ -140,7 +149,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				</td>
 			</tr>
 			<tr class="datos">
-				<td class="ColIzq" nowrap><?php echo  _translate("Venta")?>:</td>
+				<td class="ColIzq" no5wrap><?php echo  _translate("Venta")?>:</td>
 				<td class="ColDer">
 					<?php if($venta){?>
 						<a href="<?php echo  $appDir.'/Ventas/showVenta.php?id='.$venta->get_Id(); ?>">
@@ -219,9 +228,9 @@ $estado = $var->Proyecto->get_Estado();?>
 			<?php }?>
 		</table>
 		<!-- TAREAS DEL PROYECTO -->
-		<table >
+		<table style="width:100%;">
 			<tr>
-				<td class="ListaTitulo" colspan="8"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
+				<td class="ListaTitulo" colspan="9"><?php echo  _translate("Tareas")?><a class="show" href="#" clase="tareas"></a></td>
 			</tr>
 
 			<tr class="tareas">
@@ -231,6 +240,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<th>Horas de visita</th>
 				<th>Horas de despacho</th>
 				<th>Horas de auditor&iacute;a interna</th>
+				<th>Observaciones</th>
 				<th>Editar</th>
 				<th>Eliminar</th>
 			</tr>
@@ -238,10 +248,11 @@ $estado = $var->Proyecto->get_Estado();?>
 			<tr class="tareas">
 				<td ><?php echo  $tarea['localidad'];?></td>
 				<td style="width:120px;"><input type="text" style="width:80px;" class="fecha" name="fecha_tarea_<?php echo $tarea['id']?>" value="<?php echo timestamp2date($tarea['fecha']);?>" /></td>
-				<td ><input type="text" style="width:20px;" name="horas_desplazamiento_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_desplazamiento'];?>" /></td>
-				<td ><input type="text" style="width:20px;" name="horas_visita_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_visita'];?>" /></td>
-				<td ><input type="text" style="width:20px;" name="horas_despacho_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_despacho'];?>" /></td>
-				<td ><input type="text" style="width:20px;" name="horas_auditoria_interna_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_auditoria_interna'];?>" /></td>
+				<td ><?php if ($tarea['horas_desplazamiento']){?><input type="text" style="width:20px;" name="horas_desplazamiento_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_desplazamiento'];?>" /><?php } else echo '--';?></td>
+				<td ><?php if ($tarea['horas_visita']){?><input type="text" style="width:20px;" name="horas_visita_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_visita'];?>" /><?php } else echo '--';?></td>
+				<td ><?php if ($tarea['horas_despacho']){?><input type="text" style="width:20px;" name="horas_despacho_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_despacho'];?>" /><?php } else echo '--';?></td>
+				<td ><?php if ($tarea['horas_auditoria_interna']){?><input type="text" style="width:20px;" name="horas_auditoria_interna_tarea_<?php echo $tarea['id']?>" value="<?php echo  $tarea['horas_auditoria_interna'];?>" /><?php } else echo '--';?></td>
+				<td><a href="#" onclick="$('#observaciones_tarea_<?php echo $tarea['id'];?>').toggle();return false;">ver/ocultar</a><textarea style="display:none;" id="observaciones_tarea_<?php echo $tarea['id'];?>" name="observaciones_tarea_<?php echo $tarea['id'];?>"><?php echo $tarea['observaciones'];?></textarea></td>
 				<?php if($tarea['id_usuario'] == $_SESSION['usuario_login']){ ?>
 				<td><a href="#" onclick="editar_tarea('<?php echo $tarea['id']?>')" >guardar</a></td>
 				<td style="text-align: center"><a href="#" class="borrar" onclick="eliminar_tarea('<?php echo $tarea['id']?>')" >eliminar</a></td>
@@ -262,7 +273,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			foreach($Cliente->get_Lista_Sedes() as $sede){
 				?>
 			<tr class="sedes">
-				<td ><?php echo  $sede->get_Localidad();?>aaaaa</td>
+				<td ><?php echo  $sede->get_Localidad();?></td>
 				<td >
 					<?php $url_dest = $appDir.'/Tareas/addTarea.php?id_sede='.$sede->get_Id().'&id_proyecto='.$var->Proyecto->get_Id();
 					//Éste bot&oacute;n tiene que aparecer si el proyecto no está cerrado o fuera de plazo y si el usuario es el gestor asignado al proyecto					
@@ -364,9 +375,9 @@ $estado = $var->Proyecto->get_Estado();?>
 		<!-- PLANIFICACIÓN -->
 		<table  >			
 			<tr>
-				<td class="ListaTitulo" colspan="5"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
+				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
 			</tr>
-			<tr><th>Fecha</th><th>Fecha</th><th>Hora</th> <th>editar</th><th>eliminar</th></tr>
+			<tr><th>¿Auditor&iacute;a interna?</th><th>Fecha</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>editar</th><th>eliminar</th></tr>
 		<?php
 		if($var->Proyecto->get_Planificacion()){?>
 		
@@ -374,9 +385,10 @@ $estado = $var->Proyecto->get_Estado();?>
 			foreach($var->Proyecto->get_Planificacion() as $planificacion){
 		?>
 			<tr class="planificacion">
+				<td> <input type="checkbox" <?php if($planificacion['es_visita_interna']) echo 'checked="checked"'; ?> name="es_visita_interna_visita_<?php echo $planificacion['id']?>"  /></td>
 				<td><?php echo imprimirFecha($planificacion['fecha']); ?></td>
-				<td><input type="text" class="fecha" value="<?php echo timestamp2date($planificacion['fecha']); ?>" name="fecha_visita_<?php echo $planificacion['id']?>" /></td>
-				<td><input type="text" value="<?php echo $planificacion['hora'];?>" name="hora_visita_<?php echo $planificacion['id']?>" /></td>
+				<td><input style="width:80px;" type="text" class="fecha" value="<?php echo timestamp2date($planificacion['fecha']); ?>" name="fecha_visita_<?php echo $planificacion['id']?>" /></td>
+				<td><input style="width:80px;" type="text" value="<?php echo $planificacion['hora'];?>" name="hora_visita_<?php echo $planificacion['id']?>" /></td>
 				<?php if($_SESSION['usuario_login'] == $planificacion['fk_usuario']) {?>
 				<td><a href="#" onclick="editar_visita('<?php echo $planificacion['id']?>')" >guardar</a></td>
 				<td style="text-align: center"> <a class="borrar" href="#" onclick="eliminar_visita('<?php echo $planificacion['id']?>')" >eliminar</a></td>
@@ -385,23 +397,80 @@ $estado = $var->Proyecto->get_Estado();?>
 		<?php
 			}?>
 		<?php
-		}if($estado['id'] == 3  || ($estado['id'] == 4 && count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas())){ //pendiente de planificación
-			if(count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas()){			
+		}if($estado['id'] == 3  || ($estado['id'] == 4)){// && count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas())){ //pendiente de planificación
+			//if(count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas()){
 				$num_visitas = $var->Proyecto->get_Numero_visitas();
 				$planificadas = count($var->Proyecto->get_Planificacion());
-				$quedan = $num_visitas-$planificadas;
+				$quedan = $num_visitas-$planificadas;if($quedan < 0)$quedan=0;
 				?>
-			<tr class="planificacion"><td colspan="3"> <?php echo "Quedan ".$quedan." visitas por planificar"?> </td></tr>
+			<tr>
+				<td class="ListaTitulo" colspan="6"><?php echo "Quedan ".$quedan." visitas por planificar"?></td>
+			</tr>
+			<tr><th>¿Auditor&iacute;a interna?</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>Insertar</th><th></th></tr>
 			<tr class="planificacion">
-				<td></td>
-				<td> <input type="text" class="fecha" name="fecha_visita" id="fecha_visita" /> </td>
-				<td> <input type="text" name="hora_visita" id="hora_visita" </td>
-				<td> <?php if($permisos->escritura && $_SESSION['usuario_login'] == $var->Proyecto->get_Id_Usuario()){?><input type="submit" name="planificar" id="planificar" value="insertar visita" /> <?php }?></td>
+				<td> <input type="checkbox" id="es_visita_interna" name="es_visita_interna" /></td>
+				<td> <input style="width:80px;" type="text" class="fecha" name="fecha_visita" id="fecha_visita" /> </td>
+				<td> <input style="width:80px;" type="text" name="hora_visita" id="hora_visita" /></td>
+				<td> <?php if($permisos->escritura && $_SESSION['usuario_login'] == $var->Proyecto->get_Id_Usuario()){?>
+					<input type="submit" name="planificar" id="planificar" value="insertar visita" /> <?php }?></td>
 			</tr>
 		<?php 
-			}
+		//	}
 		} ?>
 		</table>
+
+
+
+		
+		<!-- PLANIFICACIÓN DE LAS SEDES (VISITAS DE SEGUIMIENTO) -->
+
+		<table  >
+			<tr>
+				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Visitas de seguimiento")?><a class="show" href="#" clase="seguimiento"></a></td>
+			</tr>
+			<tr><th>Sede</th><th>Fecha</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>editar</th><th>eliminar</th></tr>
+		<?php
+		if($var->Proyecto->get_Planificacion_Sedes()){?>
+
+			<?php
+			foreach($var->Proyecto->get_Planificacion_Sedes() as $planificacion){ $sede = new Sede($planificacion['fk_sede']);
+		?>
+			<tr class="seguimiento">
+				<td><?php echo $sede->get_Localidad(); ?></td>
+				<td><?php echo imprimirFecha($planificacion['fecha']); ?></td>
+				<td><input style="width:80px;" type="text" class="fecha" value="<?php echo timestamp2date($planificacion['fecha']); ?>" name="fecha_visita_seguimiento_<?php echo $planificacion['id']?>" /></td>
+				<td><input style="width:80px;" type="text" value="<?php echo $planificacion['hora'];?>" name="hora_visita_seguimiento_<?php echo $planificacion['id']?>" /></td>
+				<?php if($_SESSION['usuario_login'] == $planificacion['fk_usuario']) {?>
+				<td><a href="#" onclick="editar_visita_seguimiento('<?php echo $planificacion['id']?>')" >guardar</a></td>
+				<td style="text-align: center"> <a class="borrar" href="#" onclick="eliminar_visita_seguimiento('<?php echo $planificacion['id']?>')" >eliminar</a></td>
+				<?php }?>
+			</tr>
+		<?php
+			}?>
+		<?php
+		}if($estado['id'] == 3  || ($estado['id'] == 4 )){ //pendiente de planificación			
+				?>
+			<tr>
+				<td class="ListaTitulo" colspan="6"><?php echo "Nueva visita de seguimiento"?></td>
+			</tr>
+			<tr><th>Sede</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>Insertar</th><th></th></tr>
+			<tr class="seguimiento">
+				<td>
+					<select name="id_sede_visita_seguimiento">
+						<?php foreach($Cliente->get_Sedes() as $id_sede){ $Sede = new Sede($id_sede);?>
+						<option name="id_sede_visita_seguimiento" value="<?php echo $id_sede;?>"><?php echo $Sede->get_Localidad(); ?></option>
+						<?php }?>
+					</select>
+				</td>
+				<td> <input style="width:80px;" type="text" class="fecha" name="fecha_visita_seguimiento" id="fecha_visita_seguimiento" /> </td>
+				<td> <input style="width:80px;" type="text" name="hora_visita_seguimiento" id="hora_visita_seguimiento" /></td>
+				<td> <?php if($permisos->escritura && $_SESSION['usuario_login'] == $var->Proyecto->get_Id_Usuario()){?>
+					<input type="submit" name="planificar_sede" id="planificar_sede" value="insertar visita" /> <?php }?></td>
+			</tr>
+		<?php
+		} ?>
+		</table>
+		
 </div>
 <input type="hidden" id="eliminar" name="eliminar" value="0"/>
 <input type="hidden" id="cerrar" name="cerrar" value="0"/>
@@ -409,8 +478,10 @@ $estado = $var->Proyecto->get_Estado();?>
 <input type="hidden" id="borrado_total" name="borrado_total" value="0"/>
 <input type="hidden" id="tarea_editar" name="tarea_editar" value=""/>
 <input type="hidden" id="visita_editar" name="visita_editar" value=""/>
+<input type="hidden" id="visita_seguimiento_editar" name="visita_seguimiento_editar" value=""/>
 <input type="hidden" id="tarea_eliminar" name="tarea_eliminar" value=""/>
 <input type="hidden" id="visita_eliminar" name="visita_eliminar" value=""/>
+<input type="hidden" id="visita_seguimiento_eliminar" name="visita_seguimiento_eliminar" value=""/>
 <input type=hidden name="id" value="<?php echo $var->opt['id']?>"/>
 
 </form>

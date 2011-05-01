@@ -11,7 +11,6 @@ include ($appRoot.'/Common/php/utils/lang.php');
 include_once($appRoot.'/Common/php/utils/utils.php');
 	include ('_addTarea.php');
 	$var = new AddTarea ($_GET);
-		FB::info($var->opt);
 include ($appRoot.'/Common/php/popupHeader.php');
 	
 	?>
@@ -39,7 +38,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 	<?php if($permisos->escritura){?>
 	
 	<div align="center">
-		<table style="margin-top:8ex;margin-left:2%;margin-right:2%;">
+		<table style="margin-top:8ex;">
 			<tr>
 				<td class="ListaTitulo"  colspan="2"><?php echo  _translate("Datos de la Tarea")?></td>
 			</tr>
@@ -65,19 +64,19 @@ include ($appRoot.'/Common/php/popupHeader.php');
 					<input    type="text" class="fecha" name="fecha" value="<?php echo  timestamp2date($var->opt['fecha']);?>" />
 				</td>
 			</tr>
-			<tr class="tipo tipo1">
+			<tr class="tipo tipo1 tipo3 tipo4">
 				<td class="ColIzq"><?php echo  _translate("Horas desplazamiento")?>&#42;</td>
 				<td>
 					<input type="text" name="horas_desplazamiento" value="<?php echo  $var->opt['horas_desplazamiento'];?>" />
 				</td>
 			</tr>
-			<tr class="tipo tipo1">
+			<tr class="tipo tipo3 tipo4">
 				<td class="ColIzq"><?php echo  _translate("Horas de visita")?>&#42;</td>
 				<td>
 					<input type="text" name="horas_visita" value="<?php echo  $var->opt['horas_visita'];?>" />
 				</td>
 			</tr>
-			<tr class="tipo tipo2">
+			<tr class="tipo ">
 				<td class="ColIzq"><?php echo  _translate("Horas de auditor&iacute;a interna")?>&#42;</td>
 				<td>
 					<input type="text" name="horas_auditoria_interna" value="<?php echo  $var->opt['horas_auditoria_interna'];?>" />
@@ -87,6 +86,12 @@ include ($appRoot.'/Common/php/popupHeader.php');
 				<td class="ColIzq"><?php echo  _translate("Horas de despacho")?>&#42;</td>
 				<td>
 					<input type="text" name="horas_despacho" value="<?php echo  $var->opt['horas_despacho'];?>" />
+				</td>
+			</tr>
+			<tr>
+				<td class="ColIzq"><?php echo  _translate("Observaciones")?></td>
+				<td>
+					<textarea name="observaciones" ><?php echo  $var->opt['observaciones'];?></textarea>
 				</td>
 			</tr>
 		</table>

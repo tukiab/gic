@@ -69,6 +69,9 @@ FB::info($this->opt);
 		($opciones['nombre'])?$this->opt['nombre'] = $opciones['nombre']:$this->opt['nombre'] = $this->Proyecto->get_Nombre();
 		($opciones['horas_documentacion'])?$this->opt['horas_documentacion'] = $opciones['horas_documentacion']:$this->opt['horas_documentacion'] = $this->Proyecto->get_Horas_Documentacion();
 		($opciones['horas_auditoria_interna'])?$this->opt['horas_auditoria_interna'] = $opciones['horas_auditoria_interna']:$this->opt['horas_auditoria_interna'] = $this->Proyecto->get_Horas_Auditoria_Interna();
+		($opciones['horas_desplazamiento_auditoria_interna'])?$this->opt['horas_desplazamiento_auditoria_interna'] = $opciones['horas_desplazamiento_auditoria_interna']:$this->opt['horas_desplazamiento_auditoria_interna'] = $this->Proyecto->get_Horas_Desplazamiento_Auditoria_Interna();
+		($opciones['horas_auditoria_externa'])?$this->opt['horas_auditoria_externa'] = $opciones['horas_auditoria_externa']:$this->opt['horas_auditoria_externa'] = $this->Proyecto->get_Horas_Auditoria_Externa();
+		($opciones['horas_desplazamiento_auditoria_externa'])?$this->opt['horas_desplazamiento_auditoria_externa'] = $opciones['horas_desplazamiento_auditoria_externa']:$this->opt['horas_desplazamiento_auditoria_externa'] = $this->Proyecto->get_Horas_Desplazamiento_Auditoria_externa();
 		($opciones['es_plantilla'])?$this->opt['es_plantilla'] = $opciones['es_plantilla']:$this->opt['es_plantilla'] = $this->Proyecto->get_Es_Plantilla();
 
 		($opciones['fecha_inicio'])?$this->opt['fecha_inicio'] = date2timestamp($opciones['fecha_inicio']):$this->opt['fecha_inicio'] = $this->Proyecto->get_Fecha_Inicio();

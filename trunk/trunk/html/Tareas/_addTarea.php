@@ -73,7 +73,6 @@ class AddTarea{
 	 * @param array $opciones Array de opciones pasadas a la página.
 	 */
 	private function obtenerOpciones($opciones){
-		FB::error($opciones);
 		//Obteniendo las opciones pasadas
 		
 		@(isset($opciones['tipo']))?$this->opt['tipo']=$opciones['tipo']:$this->opt['tipo']=1;
@@ -82,6 +81,7 @@ class AddTarea{
 		@(isset($opciones['horas_visita']))?$this->opt['horas_visita']=$opciones['horas_visita']:null;
 		@(isset($opciones['horas_auditoria_interna']))?$this->opt['horas_auditoria_interna']=$opciones['horas_auditoria_interna']:null;
 		@(isset($opciones['horas_despacho']))?$this->opt['horas_despacho']=$opciones['horas_despacho']:null;
+		@(isset($opciones['observaciones']))?$this->opt['observaciones']=$opciones['observaciones']:null;
 		
 		@(isset($opciones['id_usuario']))?$this->opt['usuario']=$opciones['id_usuario']:$this->opt['usuario']=$_SESSION['usuario_login'];
 		$this->Usuario = new Usuario($this->opt['usuario']);

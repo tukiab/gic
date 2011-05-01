@@ -9,7 +9,6 @@
  */
 class InformeComisiones{
 
-
 	/*
 	 *Variable array que contendrá los valores que se le pasaran a la clase como parámetros para construirla.
 	 *
