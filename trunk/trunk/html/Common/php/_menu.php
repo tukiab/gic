@@ -45,16 +45,16 @@ class MainMenu{
 			
 		if($perfil_usuario['id'] == 5 || $perfil_usuario['id'] == 4){
 		
-			$this->menus[8][0]= new Menu("#", "Informes +", "informes");
-				$this->menus[8][1] = new Menu("$appDir/Acciones/reportsAcciones.php", "Acciones", "acciones");
-				$this->menus[8][2] = new Menu("$appDir/Ofertas/reportsOfertas.php", "Ofertas", "ofertas");
-				$this->menus[8][3] = new Menu("$appDir/Ventas/reportsVentas.php", "Ventas", "ventas");
-				$this->menus[8][5] = new Menu("$appDir/Ventas/informeComercial.php", "Comercial", "comercial");
-				$this->menus[8][6] = new Menu("$appDir/Ventas/informeComisiones.php", "Comisiones", "comisiones");
-				$this->menus[8][7] = new Menu("$appDir/Proyectos/searchProyectos.php?informe=resumen", "Proyectos", "proyectos");
-				$this->menus[8][8] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
-				$this->menus[8][9] = new Menu("$appDir/Proyectos/informeTecnico.php", "Tecnico", "tecnico");
-				$this->menus[8][10] = new Menu("$appDir/Proyectos/informeTecnicoMensual.php", "Tecnico mensual", "tecnico");
+			$this->menus[7][0]= new Menu("#", "Informes +", "informes");
+				$this->menus[7][1] = new Menu("$appDir/Acciones/reportsAcciones.php", "Acciones", "acciones");
+				$this->menus[7][2] = new Menu("$appDir/Ofertas/reportsOfertas.php", "Ofertas", "ofertas");
+				$this->menus[7][3] = new Menu("$appDir/Ventas/reportsVentas.php", "Ventas", "ventas");
+				$this->menus[7][5] = new Menu("$appDir/Ventas/informeComercial.php", "Comercial", "comercial");
+				$this->menus[7][6] = new Menu("$appDir/Ventas/informeComisiones.php", "Comisiones", "comisiones");
+				$this->menus[7][7] = new Menu("$appDir/Proyectos/searchProyectos.php?informe=resumen", "Proyectos", "proyectos");
+				$this->menus[7][8] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
+				$this->menus[7][9] = new Menu("$appDir/Proyectos/informeTecnico.php", "Tecnico", "tecnico");
+				$this->menus[7][10] = new Menu("$appDir/Proyectos/informeTecnicoMensual.php", "Tecnico mensual", "tecnico");
 				
 			$this->menus[8][0]= new Menu("#", "Colaboradores +", "colaboradores");
 				$this->menus[8][1]= new Menu("$appDir/Colaboradores/searchColaboradores.php", "Listado");
