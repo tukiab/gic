@@ -266,7 +266,7 @@ include ($appRoot.'/Common/php/menu.php');
 							?>
 						</th>	
 						<th  nowrap>
-							<a href="#" onClick="javascript:orderBy('horas_visita')" ><?php echo  _translate("Horas de visita de seguimiento")?></a>
+							<a href="#" onClick="javascript:orderBy('horas_visita')" ><?php echo  _translate("Horas de visita")?></a>
 							<?php 
 								if($var->opt['order_by']=='horas_visita' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";

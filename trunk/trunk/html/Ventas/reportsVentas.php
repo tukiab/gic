@@ -178,10 +178,10 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 						<th >
 							<?php echo _translate("Usuario"); ?>
 						</th>
-						<th >
+						<!--<th >
 							<?php echo _translate("Fecha"); ?>
 						</th>
-						<!--<th >
+						<th >
 							Objetivo
 						</th>-->
 						<th >
@@ -231,10 +231,10 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 										<td>
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
-										<td>
+										<!--<td>
 											<?php echo timestamp2date($informe_tipo_producto['fecha']);?>
 										</td>
-										<!--<td>
+										<td>
 											<?php $usuario = new Usuario($user);
 											$objetivo = $usuario->get_Objetivo(obtenerMes($informe_tipo_producto['fecha']));
 											echo $objetivo['comision'];?>
@@ -273,7 +273,6 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 								<tr>
 									<td>Total</td>
 									<td></td>
-									<td></td>
 									<td><?php echo  $total_ventas;?></td>
 									<td></td>
 									<td><?php echo  $total_clientes;?></td>
@@ -307,7 +306,6 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 							<td>
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
-							<td></td>
 							<td>
 								<?php echo $nombre; ?>
 							</td>
@@ -332,7 +330,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 						<?php } ?>
 						</tr>
 						<tr>
-							<td>Total</td><td></td><td></td>
+							<td>Total</td><td></td>
 							<td><?php echo  $total_ventas;?></td>
 							<td></td>
 							<td><?php echo  $total_clientes;?></td>

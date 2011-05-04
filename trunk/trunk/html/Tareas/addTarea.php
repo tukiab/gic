@@ -70,7 +70,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 					<input type="text" name="horas_desplazamiento" value="<?php echo  $var->opt['horas_desplazamiento'];?>" />
 				</td>
 			</tr>
-			<tr class="tipo tipo3 tipo4">
+			<tr class="tipo tipo1 tipo3 tipo4">
 				<td class="ColIzq"><?php echo  _translate("Horas de visita")?>&#42;</td>
 				<td>
 					<input type="text" name="horas_visita" value="<?php echo  $var->opt['horas_visita'];?>" />

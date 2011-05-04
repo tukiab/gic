@@ -144,7 +144,7 @@ class Proyecto{
 			$this->horas_documentacion = $row['horas_documentacion'];
 			$this->horas_auditoria_interna = $row['horas_auditoria_interna'];
 			$this->horas_desplazamiento_auditoria_interna = $row['horas_desplazamiento_auditoria_interna'];
-			$this->horas_auditoria_externa = $row['horas_auditoria_interna'];
+			$this->horas_auditoria_externa = $row['horas_auditoria_externa'];
 			$this->horas_desplazamiento_auditoria_externa = $row['horas_desplazamiento_auditoria_externa'];
 			$this->nombre = $row['nombre'];
 			$this->fecha_inicio = $row['fecha_inicio'];
@@ -392,7 +392,7 @@ class Proyecto{
 
 	// Los siguientes atributos no son sacados de la bbdd, se calculan a partir de los anteriores
 	/**
-	 * Horas de desplazamiento totales de todas las sedes
+	 * Horas de desplazamiento totales de todas las sedes + las específicas de AI y AE
 	 * @var integer
 	 */
 	public function get_Horas_Desplazamiento(){
@@ -400,7 +400,7 @@ class Proyecto{
 		foreach($this->definicion_sedes as $definicion)
 			$count += $definicion['horas_desplazamiento'];
 		
-		return $count;
+		return $count+$this->get_Horas_Desplazamiento_Auditoria_Externa()+$this->get_Horas_Desplazamiento_Auditoria_Interna();
 	}
 
 	public function get_Horas_Desplazamiento_Reales(){
@@ -464,7 +464,7 @@ class Proyecto{
 	 * @var <type>
 	 */
 	public function get_Horas_Totales(){
-		return ($this->get_Horas_Documentacion()+$this->get_Horas_Desplazamiento()+$this->get_Horas_Cada_Visita()+$this->get_Horas_Auditoria_Interna());
+		return ($this->get_Horas_Documentacion()+$this->get_Horas_Desplazamiento()+$this->get_Horas_Cada_Visita()+$this->get_Horas_Auditoria_Interna()+$this->get_Horas_Auditoria_Externa());
 	}
 
 	public function get_Horas_Totales_Reales(){
@@ -613,7 +613,7 @@ class Proyecto{
 	 * @param array $datos Array indexado con todos los atributos para definir un Proyecto.
 	 * @return integer $id_proyecto Id del Proyecto.
 	 */
-	public function definir($datos){  
+	public function definir($datos){  FB::error($datos);
 		if($this->id_estado > 3)
 			throw new Exception ('El proyecto no se puede redefinir');
 
@@ -727,7 +727,7 @@ class Proyecto{
 	 *
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar_Definicion($definicion_sedes){
+	private function guardar_Definicion($definicion_sedes){FB::info($definicion_sedes);
 		$query = "UPDATE proyectos 
 					SET horas_documentacion = '$this->horas_documentacion',
 					horas_auditoria_interna = '$this->horas_auditoria_interna',
@@ -836,6 +836,7 @@ class Proyecto{
 	private function del_Definicion_Sedes(){
 		$query = "DELETE FROM proyectos_rel_sedes WHERE fk_proyecto = '$this->id';";
 		mysql_query($query);
+		$this->cargar();
 	}
 	
 	/**

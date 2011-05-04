@@ -169,7 +169,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 			 */
 			$usuario_anterior = null;
 			$mes_year_anterior = null;
-			$tipo_anterior = null;
+			$tipos_anteriores = array();
 			$par=false;			
 			while($venta=$var->lista_Ventas->siguiente()){
 				$usuario = $venta->get_Usuario();
@@ -181,7 +181,8 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 				$tipo_comision = $venta->get_Tipo_Comision();
 				$tipo_venta = $tipo_comision['nombre']; if(!$tipo_venta)FB::warn($venta);
 				$id_tipo_venta = $tipo_comision['id'];
-				$nuevo_tipo = ($tipo_venta != $tipo_anterior) || $nuevo_mes;
+				$nuevo_tipo = !in_array($mes_year.$tipo_venta, $tipos_anteriores);//($tipo_venta != $tipo_anterior) || $nuevo_mes;
+					if($nuevo_tipo) $tipos_anteriores[] = $mes_year.$tipo_venta;
 				if($nuevo_mes)$par=!$par;
 				if($nuevo_tipo){
 			?>
@@ -243,8 +244,8 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 				</td>
 				<td>
 					<?php
-						// Venta del mes (venta de ese gestor, para ese tipo y en ese mes)
-						echo $var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]." &euro;"; ?>
+						// Venta acumulada por tipo de venta (venta de ese gestor, para ese tipo y en ese mes)
+						echo $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta]." &euro;"; ?>
 				</td>
 				<td>
 					<?php
@@ -255,7 +256,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 						if(!in_array($tipo_comision['id'], array(1,3)))
 							$porc_acumulado = 100;
 						else if($Usuario_venta->get_Objetivo_Acumulado($mes))
-							$porc_acumulado = round($var->datos['totales'][$venta->get_Usuario().$year.$id_tipo_venta]*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2);
+							$porc_acumulado = round($var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta]*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2);
 						echo $porc_acumulado;?>%
 				</td>
 				<td>

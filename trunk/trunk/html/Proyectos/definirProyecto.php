@@ -27,7 +27,7 @@ function cargar_plantilla(id_proyecto){
 <form method="GET" target="" action="" id="frm_definicion">
 	<div id="titulo"><?php echo $var->Proyecto->get_Nombre();?></div>
 	<?php
-	$venta = $var->Proyecto->get_Venta();FB::info($venta);
+	$venta = $var->Proyecto->get_Venta();
 	if($permisos->administracion){?>
 	<?php echo  ($var->msg)?"<div id=\"error_msg\" >".$var->msg."</div>":null;?>
 	<div id="contenedor">
