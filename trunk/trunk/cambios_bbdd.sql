@@ -404,13 +404,4 @@ INSERT INTO `tareas_tecnicas_tipos` (`nombre`)VALUES ('Visita de auditoría inte
 
 -- planificando visitas de otra forma ¬¬
 ALTER TABLE `visitas` ADD `es_visita_interna` BOOLEAN NOT NULL ;
-
-CREATE TABLE IF NOT EXISTS `visitas_de_seguimiento` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fk_proyecto` int(11) NOT NULL,
-  `fecha` int(11) NOT NULL,
-  `hora` varchar(5) NOT NULL,
-  `fk_usuario` varchar(15) DEFAULT NULL,
-  `fk_sede` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+ALTER TABLE `visitas` ADD `fk_sede` int(11) DEFAULT NULL;

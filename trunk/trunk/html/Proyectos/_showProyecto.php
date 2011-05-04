@@ -168,7 +168,8 @@ class ShowProyecto{
 		$tarea->set_Observaciones($this->opt['observaciones_tarea_'.$tarea->get_Id()]);
 
 		//recargamos el proyecto:
-		$this->Proyecto = new Proyecto($this->opt['id']);
+		//$this->Proyecto = new Proyecto($this->opt['id']);
+		header("Location: showProyecto.php?id=".$this->Proyecto->get_Id());
 	}
 
 	private function editar_visita(){
@@ -178,16 +179,18 @@ class ShowProyecto{
 		$visita->set_Es_Visita_Interna($this->opt['es_visita_interna_visita_'.$visita->get_Id()]);
 
 		//recargamos el proyecto:
-		$this->Proyecto = new Proyecto($this->opt['id']);
+		//$this->Proyecto = new Proyecto($this->opt['id']);
+		header("Location: showProyecto.php?id=".$this->Proyecto->get_Id());
 	}
 
 	private function editar_visita_seguimiento(){
-		$visita = new VisitaDeSeguimiento($this->opt['visita_seguimiento_editar']);
+		$visita = new Visita($this->opt['visita_seguimiento_editar']);
 		$visita->set_Fecha($this->opt['fecha_visita_seguimiento_'.$visita->get_Id()]);
 		$visita->set_Hora($this->opt['hora_visita_seguimiento_'.$visita->get_Id()]);
 
 		//recargamos el proyecto:
-		$this->Proyecto = new Proyecto($this->opt['id']);
+		//$this->Proyecto = new Proyecto($this->opt['id']);
+		header("Location: showProyecto.php?id=".$this->Proyecto->get_Id());
 	}
 
 	private function eliminar_tarea(){
@@ -195,7 +198,8 @@ class ShowProyecto{
 		$tarea->del_Tarea();
 
 		//recargamos el proyecto:
-		$this->Proyecto = new Proyecto($this->opt['id']);
+		//$this->Proyecto = new Proyecto($this->opt['id']);
+		header("Location: showProyecto.php?id=".$this->Proyecto->get_Id());
 	}
 
 	private function eliminar_visita(){
@@ -203,15 +207,17 @@ class ShowProyecto{
 		$visita->del_Visita();
 
 		//recargamos el proyecto:
-		$this->Proyecto = new Proyecto($this->opt['id']);
+		//$this->Proyecto = new Proyecto($this->opt['id']);
+		header("Location: showProyecto.php?id=".$this->Proyecto->get_Id());
 	}
 
 	private function eliminar_visita_seguimiento(){
-		$visita = new VisitaDeSeguimiento($this->opt['visita_seguimiento_eliminar']);
+		$visita = new Visita($this->opt['visita_seguimiento_eliminar']);
 		$visita->del_Visita();
 
 		//recargamos el proyecto:
-		$this->Proyecto = new Proyecto($this->opt['id']);
+		//$this->Proyecto = new Proyecto($this->opt['id']);
+		header("Location: showProyecto.php?id=".$this->Proyecto->get_Id());
 	}
 }
 ?>

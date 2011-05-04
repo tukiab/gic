@@ -33,6 +33,12 @@ class Visita{
 
 	private $es_visita_interna;
 
+		/**
+	 * sede que se visita
+	 * @var <array> indexado por id y localidad
+	 */
+	private $sede;
+
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -68,9 +74,9 @@ class Visita{
 						WHERE visitas.id = '$this->id'";
 
 			if(!($result = mysql_query($query)))
-				throw new Exception("Error al cargar la Visita de la BBDD");
+				throw new Exception("Error al cargar la Visita de la BBDD ".$query);
 			else if(mysql_num_rows($result) == 0)
-				throw new Exception("No se ha encontrado la Visita en la BBDD");
+				throw new Exception("No se ha encontrado la Visita en la BBDD ".$query);
 
 			$row = mysql_fetch_array($result);
 
@@ -79,9 +85,21 @@ class Visita{
 			$this->proyecto = array('id'=>$row['id_proyecto'], 'nombre'=>$row['nombre_proyecto']);
 			$this->es_visita_interna = $row['es_visita_interna'];
 
+			$this->sede = null;
+			if($row['fk_sede']){
+				$this->sede = $row['fk_sede'];
+				$this->cargar_Sede();
+			}
 		}
 	}
 
+	private function cargar_Sede(){
+		$query = " SELECT clientes_sedes.*
+					FROM clientes_sedes WHERE clientes_sedes.id = '$this->sede'";
+		$row = mysql_fetch_array($result);
+
+		$this->sede = $row;
+	}
 
 	/*
 	 * Métodos observadores.
@@ -130,6 +148,14 @@ class Visita{
 	public function get_Es_Visita_Interna(){
 		return $this->es_visita_interna;
 	}
+
+	/**
+	 * Devuelve la sede
+	 * @return <type> indezxado por id y localidad
+	 */
+	public function get_Sede(){
+		return $this->sede;
+	}
 	/*
 	 * Métodos Modificadores. 
 	 *
@@ -156,8 +182,8 @@ class Visita{
 			throw new Exception("Visita: Ingrese una hora v&aacute;lida");
 		if($datos['fecha'] == '' || ! isset($datos['fecha']))
 			throw new Exception("Visita: La fecha es obligatoria.");
-		if($datos['fecha'] < fechaActualTimeStamp())
-			throw new Exception("La fecha ha de ser posterior a la actual");
+		/*if($datos['fecha'] < fechaActualTimeStamp())
+			throw new Exception("La fecha ha de ser posterior a la actual");*/
 		if($datos['id_proyecto'] == '' || ! isset($datos['id_proyecto']))
 			throw new Exception("Visita: El proyecto de la visita es obligatorio .");
 
@@ -176,6 +202,9 @@ class Visita{
 		else
 			throw new Exception('No se puede planificar una visita a un proyecto sin t&eacute;cnico asignado');
 		
+		$this->sede = null;
+		if(isset($datos['id_sede']))
+			$this->sede = $datos['id_sede'];
 
 		//Si todo ha ido bien:
 		return $this->guardar();
@@ -188,20 +217,26 @@ class Visita{
 	 * @param array $datos Array indexado por nombre con los datos de una visita.
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar($datos){
-		
+	private function guardar(){
+		if($this->sede){
+			$campo = ", fk_sede";
+			$valor = ", '$this->sede'";
+		}
+
 		$query = "
 			INSERT INTO visitas (   fecha,
 									fk_proyecto,
 									fk_usuario,
 									hora,
 									es_visita_interna
+									$campo
 								)VALUES(
 									'$this->fecha',
 									'$this->proyecto',
 									'$this->id_usuario',
 									'$this->hora',
 									'$this->es_visita_interna'
+									$valor
 								);"; 
 
 		if(!mysql_query($query))
