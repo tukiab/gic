@@ -96,6 +96,9 @@ class Visita{
 	private function cargar_Sede(){
 		$query = " SELECT clientes_sedes.*
 					FROM clientes_sedes WHERE clientes_sedes.id = '$this->sede'";
+		if(!($result = mysql_query($query)))
+			throw new Exception("Error al cargar la sede de la Visita de la BBDD ".$query);
+
 		$row = mysql_fetch_array($result);
 
 		$this->sede = $row;
