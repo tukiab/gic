@@ -80,7 +80,7 @@ class MainMenu{
 			$this->menus[8][4] = new Menu("$appDir/Proyectos/informeTecnicoMensual.php", "Tecnico mensual", "tecnico");
 		}
 		
-		$this->menus[11] = new Menu("$appDir/Facturas/searchFacturas.php", "Facturas", "facturas");
+	//	$this->menus[11] = new Menu("$appDir/Facturas/searchFacturas.php", "Facturas", "facturas");
 		
 				
 	}

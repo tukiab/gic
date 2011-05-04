@@ -136,9 +136,9 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 						<th>
 							<?php echo _translate("Usuario"); ?>
 						</th>
-						<th>
+						<!-- <th>
 							Mes/A&ntilde;o
-						</th>
+						</th>-->
 						<th>
 							Objetivo
 						</th>
@@ -201,9 +201,9 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 										<td>
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
-										<td>
+										<!--<td>
 											<?php if($primero_mes) echo $mes_year;?>
-										</td>
+										</td>-->
 										<td>
 											<?php 
 											if($primero_mes){
@@ -247,7 +247,6 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 									<td>Total</td>
 									<td></td>
 									<td></td>
-									<td></td>
 									<td><?php echo  $total_ventas;?></td>
 									<td></td>
 									<td><?php echo  $total_clientes;?></td>
@@ -282,7 +281,6 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
 							<td></td>
-							<td></td>
 							<td>
 								<?php echo $nombre; ?>
 							</td>
@@ -307,7 +305,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 						<?php } ?>
 						</tr>
 						<tr>
-							<td>Total</td><td></td><td></td><td></td>
+							<td>Total</td><td></td><td></td>
 							<td><?php echo  $total_ventas;?></td>
 							<td></td>
 							<td><?php echo  $total_clientes;?></td>

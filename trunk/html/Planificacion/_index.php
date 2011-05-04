@@ -32,6 +32,7 @@ class BusquedaVisitas{
 	 *
 	 */
 	private $lista_Visitas;
+	private $lista_Visitas_De_Seguimiento;
 
 	public $gestor;
 	/*
@@ -47,6 +48,8 @@ class BusquedaVisitas{
 		//Usamos el método para asignar las opciones pasadas desde la interfaz 	
 		$this->obtener_Opciones($opciones);
 		$this->lista_Visitas = new ListaVisitas();
+		$this->lista_Visitas_De_Seguimiento = new ListaVisitasDeSeguimiento();
+
 			
 		//Obtenemos las listas necesarias para completar los desplegables de la interfaz.		
 		$this->obtener_Listas();
@@ -55,15 +58,17 @@ class BusquedaVisitas{
 		list($this->datos['page'], $this->datos['paso'], $this->datos['lastPage']) = $this->get_Variables_Paginado($opciones);
 		
 		//Buscamos los visitas con los parámetros establecidos en la interfaz
-		$this->lista_Visitas->buscar($this->opt, $this->datos['page'], $this->datos['paso']);
-		//$this->lista_Visitas->buscar($this->opt);
+		$this->lista_Visitas->buscar($this->opt);//, $this->datos['page'], $this->datos['paso']);
+		$this->lista_Visitas_De_Seguimiento->buscar($this->opt);
+
 		$total = $this->lista_Visitas->num_Resultados();
-		$this->datos['lastPage'] = @($total/$this->datos['paso']); 
+		/*$this->datos['lastPage'] = @($total/$this->datos['paso']);
 		$this->datos['lastPage'] = floor ($this->datos['lastPage']);
-		$this->datos['lastPage'] = @( fmod($total,$this->datos['paso'])==0 ? $this->datos['lastPage'] : $this->datos['lastPage']+1 );
+		$this->datos['lastPage'] = @( fmod($total,$this->datos['paso'])==0 ? $this->datos['lastPage'] : $this->datos['lastPage']+1 );*/
 		
 		//Hacemos accesible esta informacion desde fuera de la clase
 		$this->datos['lista_visitas']=$this->lista_Visitas;
+		$this->datos['lista_visitas_seguimiento'] = $this->lista_Visitas_De_Seguimiento;
 	}
 	
 	

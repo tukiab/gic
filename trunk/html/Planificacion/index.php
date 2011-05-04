@@ -145,12 +145,12 @@ include ($appRoot.'/Common/php/menu.php');
 			</td>
 		</tr>
 		<tr>
-			<td class="busquedaIzda">
+			<!-- <td class="busquedaIzda">
 				<?php echo  _translate('N&uacute;mero por p&aacute;gina')?> &nbsp;
 			</td>
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"/>
-			</td>
+			</td> -->
 				<td class="busquedaIzda" <?php if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<?php echo  _translate('Gestor')?> &nbsp;
 			</td>
@@ -205,6 +205,9 @@ include ($appRoot.'/Common/php/menu.php');
 							<?php echo  _translate("T&eacute;cnico")?>
 						</th>
 						<th >
+							<?php echo  _translate("Tipo de visita")?>
+						</th>
+						<th >
 							<?php echo  _translate("Proyecto")?>
 						</th>
 						<th >
@@ -243,6 +246,9 @@ include ($appRoot.'/Common/php/menu.php');
 							<?php echo $visita->get_Usuario();?>
 						</td>
 						<td>
+							<?php if($visita->get_Es_Visita_Interna()) echo "interna"; else echo "externa"; ?>
+						</td>
+						<td>
 							<a href="<?php echo $appDir."/Proyectos/showProyecto.php?id=".$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a>
 						</td>
 						<td>
@@ -256,7 +262,7 @@ include ($appRoot.'/Common/php/menu.php');
 						<td>
 							<?php echo  $var->datos['lista_visitas']->num_Resultados()?>&nbsp;<?php echo  _translate("Resultados")?>
 						</td>
-						<td colspan="10">
+						<!--<td colspan="10">
 							<div style="display:inline;position:absolute;">
 							<?php if($var->datos['page']>1){?>
 								<a href="javaScript:repagina('Inicio')" title="<?php echo  _translate("Ir a la Primera")?>"><<</a> &nbsp;
@@ -273,10 +279,80 @@ include ($appRoot.'/Common/php/menu.php');
 								<input type="text" name="numpag" id="numpag" value="" size="4" onkeypress="return EvaluateText('%f', this, event);">
 								<input type="button" value="Ir" onclick="javascript:irpag('numpag');">&nbsp;
 							</div>
-						</td>
+						</td>-->
 					</tr>					
 				</tbody>
-			</table>	
+			</table>
+
+			<table>
+				<tbody>
+				<?php $fila_par=true;
+				?>
+				<?php while($visita = $var->datos['lista_visitas_seguimiento']->siguiente() ){
+					$pro = $visita->get_Proyecto();
+					$proyecto = new Proyecto($pro['id']);
+					$style_laborable = "";
+					if(!esLaborable($visita->get_Fecha()))
+						$style_laborable = 'background: red';
+					?>
+					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> style="<?php echo $style_laborable?>">
+						<td>
+							<?php echo date("Y",$visita->get_Fecha());?>
+						</td>
+						<td>
+							<?php echo get_Nombre_Mes($visita->get_Fecha());?>
+						</td>
+
+						<td>
+							<?php echo date("d",$visita->get_Fecha());?>
+						</td>
+						<td>
+							<?php echo get_Nombre_Dia_Semana($visita->get_Fecha());?>
+						</td>
+						<td>
+							<?php echo $visita->get_Hora();?>
+						</td>
+						<td>
+							<?php echo $visita->get_Usuario();?>
+						</td>
+						<td>
+							de seguimiento
+						</td>
+						<td>
+							<a href="<?php echo $appDir."/Proyectos/showProyecto.php?id=".$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a>
+						</td>
+						<td>
+							<?php $cliente = $proyecto->get_Cliente(); ?>
+							<a href="<?php echo $appDir."/Clientes/showCliente.php?id=".$cliente->get_Id();?>"><?php echo $cliente->get_Razon_Social();?></a>
+						</td>
+					</tr>
+				<?php
+				}?>
+					<tr>
+						<td>
+							<?php echo  $var->datos['lista_visitas_seguimiento']->num_Resultados()?>&nbsp;<?php echo  _translate("Resultados")?>
+						</td>
+						<!--<td colspan="10">
+							<div style="display:inline;position:absolute;">
+							<?php if($var->datos['page']>1){?>
+								<a href="javaScript:repagina('Inicio')" title="<?php echo  _translate("Ir a la Primera")?>"><<</a> &nbsp;
+								<a href="javaScript:repagina('Anterior')" title="<?php echo  _translate("Ir a la Anterior")?>"><</a> &nbsp;
+							<?php }?>
+								<?php echo  "P&aacute;gina ";echo  @($var->datos['page']/$var->datos['paso'])+1 ." de ".$var->datos['lastPage']?> &nbsp;
+							<?php if((@($var->datos['page']/$var->datos['paso'])+1) < $var->datos['lastPage']){?>
+								<a href="javaScript:repagina('Siguiente')" title="<?php echo  _translate("Ir a la Siguiente")?>">></a> &nbsp;
+								<a href="javaScript:repagina('Fin')" title="<?php echo  _translate("Ir a la &Uacute;ltima")?>">>></a>
+							<?php }?>
+							</div>
+							<div style="display:inline;float:right;">
+								Ir a p&aacute;gina:
+								<input type="text" name="numpag" id="numpag" value="" size="4" onkeypress="return EvaluateText('%f', this, event);">
+								<input type="button" value="Ir" onclick="javascript:irpag('numpag');">&nbsp;
+							</div>
+						</td>-->
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 </form>

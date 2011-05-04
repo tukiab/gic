@@ -294,7 +294,7 @@ $estado = $var->Proyecto->get_Estado();?>
 	<!-- **************** DEFINICIÓN **************** -->
 		<table >
 			<tr>
-				<td class="ListaTitulo" colspan="2"><?php echo  _translate("Definici&oacute;n")?><a class="show" href="#" clase="definition"></a></td>
+				<td class="ListaTitulo" colspan="2"><?php FB::info($var->Proyecto);echo  _translate("Definici&oacute;n")?><a class="show" href="#" clase="definition"></a></td>
 			</tr>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Horas documentaci&oacute;n")?>:</td>
@@ -303,6 +303,10 @@ $estado = $var->Proyecto->get_Estado();?>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Horas auditor&iacute;a interna")?>:</td>
 				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Auditoria_Interna();?></td>
+			</tr>
+			<tr class="definition">
+				<td class="ColIzq" nowrap><?php echo  _translate("Horas auditor&iacute;a externa")?>:</td>
+				<td class="ColDer"><?php echo  $var->Proyecto->get_Horas_Auditoria_Externa();?></td>
 			</tr>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Precio de venta")?>:</td>
@@ -377,7 +381,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			<tr>
 				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
 			</tr>
-			<tr><th>¿Auditor&iacute;a interna?</th><th>Fecha</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>editar</th><th>eliminar</th></tr>
+			<tr><th style="width:150px;">Chequeado si es auditor&iacute;a interna</th><th>Fecha</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>editar</th><th>eliminar</th></tr>
 		<?php
 		if($var->Proyecto->get_Planificacion()){?>
 		
@@ -406,7 +410,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			<tr>
 				<td class="ListaTitulo" colspan="6"><?php echo "Quedan ".$quedan." visitas por planificar"?></td>
 			</tr>
-			<tr><th>¿Auditor&iacute;a interna?</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>Insertar</th><th></th></tr>
+			<tr><th style="width:150px;">Chequear si es auditor&iacute;a interna, en blanco para auditor&iacute;a externa</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>Insertar</th><th></th></tr>
 			<tr class="planificacion">
 				<td> <input type="checkbox" id="es_visita_interna" name="es_visita_interna" /></td>
 				<td> <input style="width:80px;" type="text" class="fecha" name="fecha_visita" id="fecha_visita" /> </td>

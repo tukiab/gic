@@ -50,7 +50,7 @@ class DefinirProyecto{
 			
 			$this->obtenerOpciones($opciones);
 			$this->obtenerDatos();
-FB::info($this->opt);
+
 			if($this->opt['id_plantilla'])
 				$this->cargar_Plantilla();
 			else if($opciones['guardar'])
@@ -90,7 +90,7 @@ FB::info($this->opt);
 	}
 	
 	private function definir_Proyecto(){
-		//FB::info('definir');
+		
 		$this->Proyecto->definir($this->opt);
 		//Redirigimos al proyecto
 		header('Location: showProyecto.php?id='.$this->Proyecto->get_Id());
