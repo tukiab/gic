@@ -201,7 +201,7 @@ class Proyecto{
 	private function cargar_Planificacion(){
 		$query = "SELECT visitas.*
 					FROM visitas
-					WHERE fk_proyecto = '$this->id' ORDER BY fecha, hora";
+					WHERE fk_proyecto = '$this->id' AND fk_sede IS NULL ORDER BY fecha, hora"; FB::error($query);
 
 		if(!$result = mysql_query($query))
 			throw new Exception('Error al cargar la planificaci&oacute;n del proyecto');
@@ -210,9 +210,9 @@ class Proyecto{
 		while($row = mysql_fetch_array($result))
 		$this->planificacion[$row['id']] = $row;
 
-		$query = "SELECT visitas_de_seguimiento.*
-					FROM visitas_de_seguimiento
-					WHERE fk_proyecto = '$this->id' ORDER BY fecha, hora";
+		$query = "SELECT visitas.*
+					FROM visitas
+					WHERE fk_proyecto = '$this->id' AND fk_sede IS NOT NULL ORDER BY fecha, hora";
 
 		if(!$result = mysql_query($query))
 			throw new Exception('Error al cargar la planificaci&oacute;n de las sedes del proyecto');
@@ -809,8 +809,8 @@ class Proyecto{
 			$this->set_Estado(4);
 	}
 
-	public function add_Visita_De_Seguimiento($datos){FB::error($datos);
-		$visita = new VisitaDeSeguimiento();
+	public function add_Visita_De_Seguimiento($datos){
+		$visita = new Visita();
 		$datos_visita['fecha'] = $datos['fecha_visita_seguimiento'];
 		$datos_visita['hora'] = $datos['hora_visita_seguimiento'];
 		$datos_visita['id_sede'] = $datos['id_sede_visita_seguimiento'];

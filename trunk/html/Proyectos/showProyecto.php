@@ -381,7 +381,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			<tr>
 				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Planificaci&oacute;n")?><a class="show" href="#" clase="planificacion"></a></td>
 			</tr>
-			<tr><th style="width:150px;">Chequeado si es auditor&iacute;a interna</th><th>Fecha</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>editar</th><th>eliminar</th></tr>
+			<tr><th style="width:20%;">Chequeado si es auditor&iacute;a interna</th><th>Fecha</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>editar</th><th>eliminar</th></tr>
 		<?php
 		if($var->Proyecto->get_Planificacion()){?>
 		
@@ -389,19 +389,22 @@ $estado = $var->Proyecto->get_Estado();?>
 			foreach($var->Proyecto->get_Planificacion() as $planificacion){
 		?>
 			<tr class="planificacion">
-				<td> <input type="checkbox" <?php if($planificacion['es_visita_interna']) echo 'checked="checked"'; ?> name="es_visita_interna_visita_<?php echo $planificacion['id']?>"  /></td>
-				<td><?php echo imprimirFecha($planificacion['fecha']); ?></td>
-				<td><input style="width:80px;" type="text" class="fecha" value="<?php echo timestamp2date($planificacion['fecha']); ?>" name="fecha_visita_<?php echo $planificacion['id']?>" /></td>
-				<td><input style="width:80px;" type="text" value="<?php echo $planificacion['hora'];?>" name="hora_visita_<?php echo $planificacion['id']?>" /></td>
+				<td style="text-align:center;"> <input type="checkbox" <?php if($planificacion['es_visita_interna']) echo 'checked="checked"'; ?> name="es_visita_interna_visita_<?php echo $planificacion['id']?>"  /></td>
+				<td style="text-align:center;"><?php echo imprimirFecha($planificacion['fecha']); ?></td>
+				<td style="text-align:center;"><input style="width:80px;" type="text" class="fecha" value="<?php echo timestamp2date($planificacion['fecha']); ?>" name="fecha_visita_<?php echo $planificacion['id']?>" /></td>
+				<td style="text-align:center;"><input style="width:80px;" type="text" value="<?php echo $planificacion['hora'];?>" name="hora_visita_<?php echo $planificacion['id']?>" /></td>
 				<?php if($_SESSION['usuario_login'] == $planificacion['fk_usuario']) {?>
-				<td><a href="#" onclick="editar_visita('<?php echo $planificacion['id']?>')" >guardar</a></td>
+				<td style="text-align:center;"><a href="#" onclick="editar_visita('<?php echo $planificacion['id']?>')" >guardar</a></td>
 				<td style="text-align: center"> <a class="borrar" href="#" onclick="eliminar_visita('<?php echo $planificacion['id']?>')" >eliminar</a></td>
 				<?php }?>
 			</tr>
 		<?php
 			}?>
 		<?php
-		}if($estado['id'] == 3  || ($estado['id'] == 4)){// && count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas())){ //pendiente de planificación
+		}?>
+		</table>
+		<table>
+			<?php if($estado['id'] == 3  || ($estado['id'] == 4)){// && count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas())){ //pendiente de planificación
 			//if(count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas()){
 				$num_visitas = $var->Proyecto->get_Numero_visitas();
 				$planificadas = count($var->Proyecto->get_Planificacion());
@@ -410,7 +413,7 @@ $estado = $var->Proyecto->get_Estado();?>
 			<tr>
 				<td class="ListaTitulo" colspan="6"><?php echo "Quedan ".$quedan." visitas por planificar"?></td>
 			</tr>
-			<tr><th style="width:150px;">Chequear si es auditor&iacute;a interna, en blanco para auditor&iacute;a externa</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>Insertar</th><th></th></tr>
+			<tr><th style="width:200px;">Chequear si es auditor&iacute;a interna, en blanco para auditor&iacute;a externa</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>Insertar</th></tr>
 			<tr class="planificacion">
 				<td> <input type="checkbox" id="es_visita_interna" name="es_visita_interna" /></td>
 				<td> <input style="width:80px;" type="text" class="fecha" name="fecha_visita" id="fecha_visita" /> </td>
