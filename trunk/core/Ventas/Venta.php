@@ -302,6 +302,9 @@ class Venta{
 		return $this->tipo_comision;
 	}
 
+	public function get_Tipo_Producto(){
+		return $this->Oferta->get_Producto();
+	}
 	public function get_Codigo(){
 		return $this->Oferta->get_Codigo();
 	}
