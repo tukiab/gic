@@ -409,7 +409,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				
 				?>
 			<tr>
-				<td class="ListaTitulo" colspan="6">Auditor&iacutea;s</td>
+				<td class="ListaTitulo" colspan="6">Auditor&iacute;as</td>
 			</tr>
 			<tr><th style="width:200px;">Chequear si es auditor&iacute;a interna, en blanco para auditor&iacute;a externa</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>Insertar</th></tr>
 			<tr class="planificacion">

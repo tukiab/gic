@@ -201,7 +201,7 @@ class Proyecto{
 	private function cargar_Planificacion(){
 		$query = "SELECT visitas.*
 					FROM visitas
-					WHERE fk_proyecto = '$this->id' AND fk_sede IS NULL ORDER BY fecha, hora"; FB::error($query);
+					WHERE fk_proyecto = '$this->id' AND fk_sede IS NULL ORDER BY fecha, hora"; 
 
 		if(!$result = mysql_query($query))
 			throw new Exception('Error al cargar la planificaci&oacute;n del proyecto');
@@ -538,7 +538,7 @@ class Proyecto{
 			$this->fecha_inicio = $venta->get_Fecha_Inicio();
 			$this->id_estado = 1;
 			$this->observaciones = $venta->get_Observaciones();
-		}else{FB::warn($datos);
+		}else{
 			if(!isset($datos['nombre']))
 				throw new Exception('Debe indicar el nombre del proyecto');
 			if(!isset($datos['fecha_inicio']))
@@ -585,7 +585,7 @@ class Proyecto{
 
 		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";FB::info($query);
+								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";
 		
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto ');
@@ -613,7 +613,7 @@ class Proyecto{
 	 * @param array $datos Array indexado con todos los atributos para definir un Proyecto.
 	 * @return integer $id_proyecto Id del Proyecto.
 	 */
-	public function definir($datos){  FB::error($datos);
+	public function definir($datos){  
 		if($this->id_estado > 3)
 			throw new Exception ('El proyecto no se puede redefinir');
 
@@ -705,6 +705,7 @@ class Proyecto{
 
 		//Resto de atributos
 		$this->importe = ($datos['importe'] && is_numeric(trim($datos['importe'])))?trim($datos['importe']):$this->importe;
+		
 		$this->es_plantilla = (isset($datos['es_plantilla']))?1:0;
 		$this->observaciones = trim($datos['observaciones']);
 		
@@ -827,10 +828,9 @@ class Proyecto{
 		$query = "DELETE FROM proyectos WHERE id = '$this->id';";
 		mysql_query($query);
 		$this->del_Definicion_Sedes();
-		foreach($this->planificacion as $planificacion){
-			$visita = new Visita($planificacion['id']);
-			$visita->del_Visita();
-		}
+
+		$query = " DELETE FROM visitas WHERE fk_proyecto='$this->id';";
+		mysql_query($query);
 
 	}
 	private function del_Definicion_Sedes(){

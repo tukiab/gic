@@ -179,10 +179,10 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 				$mes_year = $nombre_mes.'/'.$year;
 				$nuevo_mes = ($mes_year != $mes_year_anterior || $usuario != $usuario_anterior);
 				$tipo_comision = $venta->get_Tipo_Comision();
-				$tipo_venta = $tipo_comision['nombre']; if(!$tipo_venta)FB::warn($venta);
+				$tipo_venta = $tipo_comision['nombre']; 
 				$id_tipo_venta = $tipo_comision['id'];
-				$nuevo_tipo = !in_array($mes_year.$tipo_venta, $tipos_anteriores);//($tipo_venta != $tipo_anterior) || $nuevo_mes;
-					if($nuevo_tipo) $tipos_anteriores[] = $mes_year.$tipo_venta;
+				$nuevo_tipo = !in_array($usuario.$mes_year.$tipo_venta, $tipos_anteriores);//($tipo_venta != $tipo_anterior) || $nuevo_mes;
+					if($nuevo_tipo) $tipos_anteriores[] = $usuario.$mes_year.$tipo_venta;
 				if($nuevo_mes)$par=!$par;
 				if($nuevo_tipo){
 			?>
@@ -286,7 +286,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 							//Comisión por tipo de venta
 							$comision_tipo = $Usuario_venta->get_Comision($id_tipo_venta);
 							$CV = $comision_tipo['comision'];
-							$total_venta = $venta_acumulada;//$var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta];
+							$total_venta = $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta];
 
 							//Cálculo de la comisión
 							$comision =  round($total_venta * ($CV + $VP) /100,1);
