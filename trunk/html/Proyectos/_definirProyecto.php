@@ -66,26 +66,26 @@ class DefinirProyecto{
 		($opciones['id'])?$this->opt['id'] = $opciones['id']:null;
 		$this->Proyecto = new Proyecto($this->opt['id']);
 
-		($opciones['nombre'])?$this->opt['nombre'] = $opciones['nombre']:$this->opt['nombre'] = $this->Proyecto->get_Nombre();
-		($opciones['horas_documentacion'])?$this->opt['horas_documentacion'] = $opciones['horas_documentacion']:$this->opt['horas_documentacion'] = $this->Proyecto->get_Horas_Documentacion();
-		($opciones['horas_auditoria_interna'])?$this->opt['horas_auditoria_interna'] = $opciones['horas_auditoria_interna']:$this->opt['horas_auditoria_interna'] = $this->Proyecto->get_Horas_Auditoria_Interna();
-		($opciones['horas_desplazamiento_auditoria_interna'])?$this->opt['horas_desplazamiento_auditoria_interna'] = $opciones['horas_desplazamiento_auditoria_interna']:$this->opt['horas_desplazamiento_auditoria_interna'] = $this->Proyecto->get_Horas_Desplazamiento_Auditoria_Interna();
-		($opciones['horas_auditoria_externa'])?$this->opt['horas_auditoria_externa'] = $opciones['horas_auditoria_externa']:$this->opt['horas_auditoria_externa'] = $this->Proyecto->get_Horas_Auditoria_Externa();
-		($opciones['horas_desplazamiento_auditoria_externa'])?$this->opt['horas_desplazamiento_auditoria_externa'] = $opciones['horas_desplazamiento_auditoria_externa']:$this->opt['horas_desplazamiento_auditoria_externa'] = $this->Proyecto->get_Horas_Desplazamiento_Auditoria_externa();
-		($opciones['es_plantilla'])?$this->opt['es_plantilla'] = $opciones['es_plantilla']:$this->opt['es_plantilla'] = $this->Proyecto->get_Es_Plantilla();
+		(isset($opciones['nombre']))?$this->opt['nombre'] = $opciones['nombre']:$this->opt['nombre'] = $this->Proyecto->get_Nombre();
+		(isset($opciones['horas_documentacion']))?$this->opt['horas_documentacion'] = $opciones['horas_documentacion']:$this->opt['horas_documentacion'] = $this->Proyecto->get_Horas_Documentacion();
+		(isset($opciones['horas_auditoria_interna']))?$this->opt['horas_auditoria_interna'] = $opciones['horas_auditoria_interna']:$this->opt['horas_auditoria_interna'] = $this->Proyecto->get_Horas_Auditoria_Interna();
+		(isset($opciones['horas_desplazamiento_auditoria_interna']))?$this->opt['horas_desplazamiento_auditoria_interna'] = $opciones['horas_desplazamiento_auditoria_interna']:$this->opt['horas_desplazamiento_auditoria_interna'] = $this->Proyecto->get_Horas_Desplazamiento_Auditoria_Interna();
+		(isset($opciones['horas_auditoria_externa']))?$this->opt['horas_auditoria_externa'] = $opciones['horas_auditoria_externa']:$this->opt['horas_auditoria_externa'] = $this->Proyecto->get_Horas_Auditoria_Externa();
+		(isset($opciones['horas_desplazamiento_auditoria_externa']))?$this->opt['horas_desplazamiento_auditoria_externa'] = $opciones['horas_desplazamiento_auditoria_externa']:$this->opt['horas_desplazamiento_auditoria_externa'] = $this->Proyecto->get_Horas_Desplazamiento_Auditoria_externa();
+		(isset($opciones['es_plantilla']))?$this->opt['es_plantilla'] = $opciones['es_plantilla']:null;
 
-		($opciones['fecha_inicio'])?$this->opt['fecha_inicio'] = date2timestamp($opciones['fecha_inicio']):$this->opt['fecha_inicio'] = $this->Proyecto->get_Fecha_Inicio();
-		($opciones['fecha_fin'])?$this->opt['fecha_fin'] = date2timestamp($opciones['fecha_fin']):$this->opt['fecha_fin'] = $this->Proyecto->get_Fecha_Fin();
+		(isset($opciones['fecha_inicio']))?$this->opt['fecha_inicio'] = date2timestamp($opciones['fecha_inicio']):$this->opt['fecha_inicio'] = $this->Proyecto->get_Fecha_Inicio();
+		(isset($opciones['fecha_fin']))?$this->opt['fecha_fin'] = date2timestamp($opciones['fecha_fin']):$this->opt['fecha_fin'] = $this->Proyecto->get_Fecha_Fin();
 
-		($opciones['id_plantilla'])?$this->opt['id_plantilla'] = $opciones['id_plantilla']:null;
+		(isset($opciones['id_plantilla']))?$this->opt['id_plantilla'] = $opciones['id_plantilla']:null;
 
 		$Cliente = $this->Proyecto->get_Cliente();
 			foreach($Cliente->get_Lista_Sedes() as $sede){
 				$definicion_sede = $this->Proyecto->get_Definicion_Sede($sede->get_Id());
-				($opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']:$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$definicion_sede['horas_desplazamiento'];
-				($opciones['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']:$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']=$definicion_sede['horas_cada_visita'];
-				($opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas']:$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$definicion_sede['numero_visitas'];
-				($opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos'])?$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']:$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$definicion_sede['gastos_incurridos'];
+				(isset($opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']))?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']:$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$definicion_sede['horas_desplazamiento'];
+				(isset($opciones['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']))?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']:$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_cada_visita']=$definicion_sede['horas_cada_visita'];
+				(isset($opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas']))?$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$opciones['definicion_sedes_'.$sede->get_Id().'_numero_visitas']:$this->opt['definicion_sedes_'.$sede->get_Id().'_numero_visitas']=$definicion_sede['numero_visitas'];
+				(isset($opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']))?$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$opciones['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']:$this->opt['definicion_sedes_'.$sede->get_Id().'_gastos_incurridos']=$definicion_sede['gastos_incurridos'];
 			}
 	}
 	
@@ -138,6 +138,9 @@ class DefinirProyecto{
 		$this->opt['nombre'] = $plantilla->get_Nombre();
 		$this->opt['horas_documentacion'] = $plantilla->get_Horas_Documentacion();
 		$this->opt['horas_auditoria_interna'] = $plantilla->get_Horas_Auditoria_Interna();
+		$this->opt['horas_desplazamiento_auditoria_interna'] = $plantilla->get_Horas_Desplazamiento_Auditoria_Interna();
+		$this->opt['horas_auditoria_externa'] = $plantilla->get_Horas_Auditoria_Externa();
+		$this->opt['horas_desplazamiento_auditoria_externa'] = $plantilla->get_Horas_Desplazamiento_Auditoria_Externa();
 		$this->opt['es_plantilla'] = false;
 	}
 }

@@ -162,7 +162,7 @@ class ListaVentas implements IIterador{
 					
 					$limit;";
 		
-		//FB::error($query,'query ListaVentas:buscar');
+		FB::error($query,'query ListaVentas:buscar');
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

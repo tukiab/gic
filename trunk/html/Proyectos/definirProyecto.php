@@ -131,7 +131,7 @@ function cargar_plantilla(id_proyecto){
 				<tr>
 					<td class="ColIzq"><?php echo  _translate("Guardar como plantilla")?></td>
 					<td>
-						<input type="checkbox" <?php echo ($var->opt['es_plantilla'])?'checked="checked"':null;?> />
+						<input type="checkbox" name="es_plantilla" <?php if($var->Proyecto->get_Es_Plantilla()) echo 'checked="checked"';?> />
 					</td>
 				</tr>
 				<tr class="botones">
