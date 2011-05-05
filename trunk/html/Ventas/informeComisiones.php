@@ -290,7 +290,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 
 							//Cálculo de la comisión
 							$comision =  round($total_venta * ($CV + $VP) /100,1);
-							echo "$total_venta * ($CV + $VP) /100 = ";
+							
 							//}
 							echo $comision." &euro;";
 						//}?>
