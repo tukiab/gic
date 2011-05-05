@@ -1,4 +1,4 @@
-<?php 
+<?php
 include ('../appRoot.php');
 require ($appRoot.'/Autentificacion/Usuarios.php');
 
@@ -28,11 +28,11 @@ else
 		if(confirm('confirmar borrado')){
 			$('#eliminar').val(1);
 			$('#frm').submit();
-		}		
+		}
 	}
 </script>
 <div id="titulo"><?php echo  "Venta: ".$var->opt['Venta']->get_Nombre();?></div>
-<?php 
+<?php
 if($var->opt['msg']){
 	echo  "<div id=\"error_msg\" >".$var->opt['msg']."</div>";
 }
@@ -98,7 +98,13 @@ else{?>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("Tipo de venta")?>:</td>
 			<td class="ColDer">
-				<?php $producto=$var->opt['Venta']->get_Tipo_Comision();echo  $producto['nombre'];?>
+				<select  name="tipo_comision" onchange="$('#frm').submit();">
+					<?php 
+					$tipo_comision_seleccionado = $var->opt['tipo_comision'];?>
+					<?php foreach($var->datos['lista_tipos_comision'] as $tipo){?>
+					<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_comision_seleccionado) echo  "selected=\"selected\"";?>><?php  echo $tipo['nombre']?></option>
+					<?php }?>
+				</select>
 			</td>
 		</tr>
 		<tr>
@@ -131,7 +137,7 @@ else{?>
 				<?php  if($var->opt['Venta']->get_Formacion_Bonificada()) echo "S&Iacute;"; else echo "NO";?>
 			</td>
 		</tr>
-		
+
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("Fecha de toma de contacto")?>:</td>
 			<td class="ColDer">
@@ -263,6 +269,7 @@ else{?>
 
 	</table>
 </div>
+<input type="hidden" name="id" value="<?php echo $var->opt['id'];?>" />
 </form>
 <?php }else{
 echo  _translate("No tiene permisos suficientes");
