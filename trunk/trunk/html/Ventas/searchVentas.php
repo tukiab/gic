@@ -311,7 +311,12 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>
-						
+						<th>
+							Tipo producto
+						</th>
+						<th>
+							Precio de venta
+						</th>
 						<th>
 							<a href="#" onClick="javascript:orderBy('formacion_bonificada')" ><?php echo  _translate("Formaci&oacute;n bonificada")?></a>
 							<?php 
@@ -320,44 +325,13 @@ include ($appRoot.'/Common/php/menu.php');
 								else if($var->opt['order_by']=='formacion_bonificada' && $var->opt['order_by_asc_desc']=='DESC')
 									echo  "&darr;";
 							?>
-						</th>
-						
-						<th>
-							<a href="#" onClick="javascript:orderBy('forma_pago')" ><?php echo  _translate("Forma de pago")?></a>
-							<?php 
-								if($var->opt['order_by']=='forma_pago' && $var->opt['order_by_asc_desc']=='ASC')
-									echo  "&uarr;";
-								else if($var->opt['order_by']=='forma_pago' && $var->opt['order_by_asc_desc']=='DESC')
-									echo  "&darr;";
-							?>
-						</th>
-						
+						</th>						
 						<th>
 							<a href="#" onClick="javascript:orderBy('fecha_aceptado')" ><?php echo  _translate("Fecha aceptado")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_aceptado' && $var->opt['order_by_asc_desc']=='ASC')
 									echo  "&uarr;";
 								else if($var->opt['order_by']=='fecha_aceptado' && $var->opt['order_by_asc_desc']=='DESC')
-									echo  "&darr;";
-							?>
-						</th>
-						<!--
-						<th>
-							<a href="#" onClick="javascript:orderBy('fecha_asignacion_tecnico')" ><?php echo  _translate("Fecha asignaci&oacute;n t&eacute;cnico")?></a>
-							<?php 
-								if($var->opt['order_by']=='fecha_asignacion_tecnico' && $var->opt['order_by_asc_desc']=='ASC')
-									echo  "&uarr;";
-								else if($var->opt['order_by']=='fecha_asignacion_tecnico' && $var->opt['order_by_asc_desc']=='DESC')
-									echo  "&darr;";
-							?>
-						</th>
-						-->
-						<th>
-							<a href="#" onClick="javascript:orderBy('fecha_entrada_vigor')" ><?php echo  _translate("Fecha entrada vigor")?></a>
-							<?php 
-								if($var->opt['order_by']=='fecha_entrada_vigor' && $var->opt['order_by_asc_desc']=='ASC')
-									echo  "&uarr;";
-								else if($var->opt['order_by']=='fecha_entrada_vigor' && $var->opt['order_by_asc_desc']=='DESC')
 									echo  "&darr;";
 							?>
 						</th>
@@ -390,21 +364,19 @@ include ($appRoot.'/Common/php/menu.php');
 						<td >
 							<?php $tipo = $venta->get_Tipo_Comision();echo $tipo['nombre'];?>
 						</td>
+						<td>
+							<?php $tipo_producto = $venta->get_Tipo_Producto();
+							echo $tipo_producto['nombre'];?>
+						</td>
+						<td>
+							<?php echo $venta->get_Precio_Total();?>&euro;
+						</td>
 						<td >
 							<?php if($venta->get_Formacion_Bonificada()) echo "S&Iacute;"; else echo "NO";?>
 						</td>
 						<td >
-							<?php  $forma = $venta->get_Forma_Pago(); echo $forma['nombre'];?>
-						</td>
-						<td >
 							<?php  echo timestamp2date($venta->get_Fecha_Aceptado()); ?>
-						</td>	<!--
-						<td >
-							<?php  echo timestamp2date($venta->get_Fecha_Asignacion_Tecnico());?>
-						</td>		-->
-						<td >
-							<?php  echo timestamp2date($venta->get_Fecha_Entrada_Vigor());?>
-						</td>
+						</td>	
 					</tr>
 				<?php 
 				}?>	

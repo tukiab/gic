@@ -49,7 +49,7 @@ class MainMenu{
 				$this->menus[7][1] = new Menu("$appDir/Acciones/reportsAcciones.php", "Acciones", "acciones");
 				$this->menus[7][2] = new Menu("$appDir/Ofertas/reportsOfertas.php", "Ofertas", "ofertas");
 				$this->menus[7][3] = new Menu("$appDir/Ventas/reportsVentas.php", "Ventas", "ventas");
-				$this->menus[7][5] = new Menu("$appDir/Ventas/informeComercial.php", "Comercial", "comercial");
+				//$this->menus[7][5] = new Menu("$appDir/Ventas/informeComercial.php", "Comercial", "comercial");
 				$this->menus[7][6] = new Menu("$appDir/Ventas/informeComisiones.php", "Comisiones", "comisiones");
 				$this->menus[7][7] = new Menu("$appDir/Proyectos/searchProyectos.php?informe=resumen", "Proyectos", "proyectos");
 				$this->menus[7][8] = new Menu("$appDir/Planificacion/", "Planificacion", "planificacion");
