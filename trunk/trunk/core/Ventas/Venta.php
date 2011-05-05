@@ -918,7 +918,15 @@ class Venta{
 
 	public function del_Venta(){
 		$query = "DELETE FROM ventas WHERE id='$this->id';";
-		mysql_query($query);		
+		mysql_query($query);
+
+		$query = "SELECT proyectos.id WHERE fk_venta='$this->id';";
+		$result = mysql_query($query);
+		if(mysql_num_rows($result) > 0){
+			$proyecto = new Proyecto($row['id']);
+			$proyecto->del_Proyecto();
+		}
+
 	}
 
 	public function get_Proyecto(){
