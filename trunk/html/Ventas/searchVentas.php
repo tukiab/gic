@@ -297,6 +297,9 @@ include ($appRoot.'/Common/php/menu.php');
 							?>
 						</th>
 						<th>
+							Empresa
+						</th>
+						<th>
 							Usuario
 						</th>
 						<th>
@@ -375,6 +378,11 @@ include ($appRoot.'/Common/php/menu.php');
 						</td>
 						<td >
 							<?php echo $venta->get_Nombre();?>
+						</td>
+						<td >
+							<?php $cliente = $venta->get_Cliente(); if($cliente){ ?>
+							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $cliente->get_Razon_Social()?>&nbsp;&nbsp;</a>
+							<?php }?>
 						</td>
 						<td >
 							<?php echo $venta->get_Usuario();?>

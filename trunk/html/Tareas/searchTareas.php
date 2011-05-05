@@ -283,7 +283,7 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>	
-						<th  nowrap>
+						<!--<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('horas_auditoria_interna')" ><?php echo  _translate("Horas de auditor&iacute;a")?></a>
 							<?php 
 								if($var->opt['order_by']=='horas_auditoria_interna' && $var->opt['order_by_asc_desc']=='ASC')
@@ -291,7 +291,7 @@ include ($appRoot.'/Common/php/menu.php');
 								else if($var->opt['order_by']=='horas_auditoria_interna' && $var->opt['order_by_asc_desc']=='DESC')
 									echo  "&darr;";
 							?>
-						</th>
+						</th>-->
 					</tr>
 				</thead>
 				<tbody>
@@ -332,9 +332,9 @@ include ($appRoot.'/Common/php/menu.php');
 						<td >
 							<?php  echo $tarea->get_Horas_Despacho();?>
 						</td>
-						<td >
+						<!--<td >
 							<?php  echo $tarea->get_Horas_Auditoria_Interna();?>
-						</td>
+						</td>-->
 					</tr>
 				<?php 
 				}?>	

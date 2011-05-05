@@ -406,12 +406,10 @@ $estado = $var->Proyecto->get_Estado();?>
 		<table>
 			<?php if($estado['id'] == 3  || ($estado['id'] == 4)){// && count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas())){ //pendiente de planificación
 			//if(count($var->Proyecto->get_Planificacion()) < $var->Proyecto->get_Numero_Visitas()){
-				$num_visitas = $var->Proyecto->get_Numero_visitas();
-				$planificadas = count($var->Proyecto->get_Planificacion());
-				$quedan = $num_visitas-$planificadas;if($quedan < 0)$quedan=0;
+				
 				?>
 			<tr>
-				<td class="ListaTitulo" colspan="6"><?php echo "Quedan ".$quedan." visitas por planificar"?></td>
+				<td class="ListaTitulo" colspan="6">Auditor&iacutea;s</td>
 			</tr>
 			<tr><th style="width:200px;">Chequear si es auditor&iacute;a interna, en blanco para auditor&iacute;a externa</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>Insertar</th></tr>
 			<tr class="planificacion">
@@ -425,15 +423,16 @@ $estado = $var->Proyecto->get_Estado();?>
 		//	}
 		} ?>
 		</table>
-
-
-
-		
 		<!-- PLANIFICACIÓN DE LAS SEDES (VISITAS DE SEGUIMIENTO) -->
 
 		<table  >
+			<?php
+				$num_visitas = $var->Proyecto->get_Numero_visitas();
+				$planificadas = count($var->Proyecto->get_Planificacion_Sedes());
+				$quedan = $num_visitas-$planificadas;if($quedan < 0)$quedan=0;
+				?>
 			<tr>
-				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Visitas de seguimiento")?><a class="show" href="#" clase="seguimiento"></a></td>
+				<td class="ListaTitulo" colspan="6"><?php echo  _translate("Visitas de seguimiento.")?> <?php echo "Quedan ".$quedan;?><a class="show" href="#" clase="seguimiento"></a></td>
 			</tr>
 			<tr><th>Sede</th><th>Fecha</th><th>Fecha</th><th>Hora (HH:MM)</th> <th>editar</th><th>eliminar</th></tr>
 		<?php

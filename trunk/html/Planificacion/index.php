@@ -217,8 +217,13 @@ include ($appRoot.'/Common/php/menu.php');
 				</thead>
 				<tbody>
 				<?php $fila_par=true;
-				?>
-				<?php while($visita = $var->datos['lista_visitas']->siguiente() ){
+					$year_anterior = null;
+					$mes_anterior = null;
+					$dia_anterior = null;
+				while($visita = $var->datos['lista_visitas']->siguiente() ){
+					$year = date("Y",$visita->get_Fecha());
+					$mes = get_Nombre_Mes($visita->get_Fecha());
+					$dia = date("d",$visita->get_Fecha());
 					$pro = $visita->get_Proyecto();
 					$proyecto = new Proyecto($pro['id']);
 					$style_laborable = "";
@@ -227,14 +232,14 @@ include ($appRoot.'/Common/php/menu.php');
 					?>
 					<tr <?php echo  ($fila_par)?"par":"impar";$fila_par=(!$fila_par);?> style="<?php echo $style_laborable?>">
 						<td>
-							<?php echo date("Y",$visita->get_Fecha());?>
+							<?php echo ($year_anterior != $year)?$year:null; ?>
 						</td>
 						<td>
-							<?php echo get_Nombre_Mes($visita->get_Fecha());?>
+							<?php echo ($year_anterior != $year || $mes_anterior != $mes)?$mes:null;?>
 						</td>
 
 						<td>
-							<?php echo date("d",$visita->get_Fecha());?>
+							<?php echo ($year_anterior != $year || $mes_anterior != $mes || $dia_anterior != $dia)?$dia:null;?>
 						</td>
 						<td>
 							<?php echo get_Nombre_Dia_Semana($visita->get_Fecha());?>
@@ -256,7 +261,10 @@ include ($appRoot.'/Common/php/menu.php');
 							<a href="<?php echo $appDir."/Clientes/showCliente.php?id=".$cliente->get_Id();?>"><?php echo $cliente->get_Razon_Social();?></a>
 						</td>
 					</tr>
-				<?php 
+				<?php
+				$year_anterior = $year;
+				$mes_anterior = $mes;
+				$dia_anterior = $dia;
 				}?>	
 					<tr>	
 						<td>

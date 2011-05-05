@@ -737,7 +737,7 @@ class Venta{
 			$this->tipo_comision = $id_tipo_comision;
 
 		}else
-		throw new Exception("Debe introducir un tipo_comision v&aacute;lido.");
+		throw new Exception("Debe introducir un tipo v&aacute;lido.");
 	}
 
 	public function set_Forcem($texto){

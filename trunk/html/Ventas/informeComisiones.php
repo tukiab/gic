@@ -230,10 +230,10 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 				</td>
 				<td>
 					<?php
-						// Venta del mes (venta de ese gestor en ese mes)
-						if($nuevo_mes){
-							echo $var->datos['totales'][$venta->get_Usuario().$mes_year]." &euro;";
-						} ?> 
+						// Venta del mes: venta de ese gestor en ese mes para ese tipo de venta
+						//if($nuevo_mes){
+							echo $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta]." &euro;";
+						//} ?>
 				</td>
 				<td>
 					<?php
@@ -244,19 +244,25 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 				</td>
 				<td>
 					<?php
-						// Venta acumulada por tipo de venta (venta de ese gestor, para ese tipo y en ese mes)
-						echo $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta]." &euro;"; ?>
+						// Venta acumulada por tipo de venta (venta de ese gestor, para ese tipo acumulado desde enero)
+						$venta_acumulada = 0;
+						for($month=1;$month<=$mes;$month++){
+							$nombre_month = Fechas::obtenerNombreMes($month);
+							$venta_acumulada += $var->datos['totales'][$venta->get_Usuario().$nombre_month.'/'.$year.$id_tipo_venta];
+						}
+						echo $venta_acumulada." &euro;";
+						//echo $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta]." &euro;"; ?>
 				</td>
 				<td>
 					<?php
 						// El % acumulado de venta sólo se calcula si el tipo de venta es objetivable (id de tipo de comisión 1 o 3), si no es 100%,
 						// .
 						// % Acumulado (Acumulado de ventas/objetivo Acumulado, por tipo, gestor y mes)
-						$porc_acumulado = 0;
+						$porc_acumulado = 200;
 						if(!in_array($tipo_comision['id'], array(1,3)))
 							$porc_acumulado = 100;
 						else if($Usuario_venta->get_Objetivo_Acumulado($mes))
-							$porc_acumulado = round($var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta]*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2);
+							$porc_acumulado = round($venta_acumulada*100/$Usuario_venta->get_Objetivo_Acumulado($mes),2);
 						echo $porc_acumulado;?>%
 				</td>
 				<td>
@@ -280,10 +286,11 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 							//Comisión por tipo de venta
 							$comision_tipo = $Usuario_venta->get_Comision($id_tipo_venta);
 							$CV = $comision_tipo['comision'];
-							$total_venta = $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta];
+							$total_venta = $venta_acumulada;//$var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta];
 
 							//Cálculo de la comisión
-							$comision =  $total_venta * ($CV + $VP) /100;
+							$comision =  round($total_venta * ($CV + $VP) /100,1);
+							echo "$total_venta * ($CV + $VP) /100 = ";
 							//}
 							echo $comision." &euro;";
 						//}?>
