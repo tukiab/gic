@@ -18,6 +18,7 @@ class InformeTecnicoMensual{
 			
 			if($this->opt['mostrar']){				
 				//$this->opt['estados'] = '(3,4,5)'; //sólo los proyectos en estados 3,4,5; pendiente planificación, en curso, fuera de plazo
+				$this->opt['order_by'] = 'gestor';
 				$this->lista_Proyectos->buscar($this->opt);
 			}
 			$this->datos['lista_proyectos']=$this->lista_Proyectos;

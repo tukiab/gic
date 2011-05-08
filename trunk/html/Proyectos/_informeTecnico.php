@@ -70,15 +70,10 @@ class InformeTecnico{
 			while($proyecto = $this->lista_Proyectos->siguiente() ){
 				$nombre_mes = Fechas::obtenerNombreMes($mes);
 				$mes_year = $nombre_mes.'/'.$year;
-				
-				if($proyecto->get_Id_Usuario() == 'rosario' && $year==2011)
-					{FB::info($proyecto,$mes_year);
-					FB::warn(timestamp2date($proyecto->get_Fecha_Inicio()));
-					}
 
-				if(Fechas::inicioMes($proyecto->get_Fecha_Inicio()) <= Fechas::date2timestamp(date('1/'.$mes.'/'.$year))){
-					if($proyecto->get_Id_Usuario() == 'rosario')
-						FB::error($proyecto);
+				$fecha_inicio_mes = Fechas::date2timestamp(date('1/'.$mes.'/'.$year));
+				if($proyecto->get_Fecha_Inicio() <= $fecha_inicio_mes && $proyecto->get_Fecha_Fin() >= $fecha_inicio_mes){
+											
 					$this->informe[$proyecto->get_Id_Usuario()][$mes_year]['incentivables'] += $this->get_unidades_incentivables($proyecto, $mes, $year);
 					$this->informe[$proyecto->get_Id_Usuario()][$mes_year]['no_incentivables'] += $this->get_unidades_no_incentivables($proyecto, $mes, $year);
 
@@ -97,17 +92,18 @@ class InformeTecnico{
 	 }
 
 	 private function get_unidades_incentivables($proyecto, $mes, $year){
-		 //unidades incentivables: =unidades si fecha_fin proyecto < fecha_hasta; e.o.c. =0
+		 $fecha_fin_mes = date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year);
 		if($proyecto->get_Id_Venta()){
 			/*Proyectos "normales" derivados de una venta:
-			 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS TEÓRICAS (HT*)=HORAS INCENTIVABLES
+			 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo Y EL PROYECTO SE HA INICIADO, LAS HORAS TEÓRICAS (HT*)=HORAS INCENTIVABLES
 				HT*= Horas teóricas TOTALES del proyecto/ número de meses TEÓRICOS de duración del proyecto.
 			 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo, LAS HORAS INCENTIVABLES es siempre CERO
 			 */
+
 			$unidades_incentivables = 0;
-			if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
+			if( $proyecto->get_Fecha_Inicio() <= $fecha_fin_mes && $proyecto->get_Fecha_Fin() > $fecha_fin_mes)
 				$unidades_incentivables = $proyecto->get_Unidades();
-			
+
 		}else{
 			/*Proyectos creados DIRECTAMENTE por el director técnico.
 			 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS REALES dedicada por el técnico en ese
@@ -115,8 +111,8 @@ class InformeTecnico{
 			 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo, LAS HORAS INCENTIVABLES es siempre CERO
 			 */
 			$unidades_incentivables = 0;
-			if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-				$unidades_incentivables = $proyecto->get_Horas_Totales_Reales();
+			if($proyecto->get_Fecha_Inicio() <= $fecha_fin_mes && $proyecto->get_Fecha_Fin() > $fecha_fin_mes)
+				$unidades_incentivables = $proyecto->get_Horas_Totales_Reales()/8;
 			
 		}
 
@@ -125,12 +121,12 @@ class InformeTecnico{
 
  	 private function get_unidades_no_incentivables($proyecto, $mes, $year){
 		 //unidades no incentivables: =horas reales/8 si fecha_fin proyecto < fecha_hasta; e.o.c. =0
-
+		 $fecha_fin_mes = date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year);
 		if($proyecto->get_Id_Venta()){
 			/*Proyectos "normales" derivados de una venta:
 			 * Las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
 			 */
-			$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
+			$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales()/8;
 			
 		}else{
 			/*Proyectos creados DIRECTAMENTE por el director técnico.
@@ -140,8 +136,8 @@ class InformeTecnico{
 				las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES
 			 */
 			$unidades_no_incentivables = 0;
-			if($proyecto->get_Fecha_Fin() <= date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-				$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
+			if($proyecto->get_Fecha_Inicio() <= $fecha_fin_mes && $proyecto->get_Fecha_Fin() <= $fecha_fin_mes)
+				$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales()/8;
 			
 		}
 

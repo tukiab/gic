@@ -144,7 +144,7 @@ include ($appRoot.'/Common/php/menu.php');
 
 	if($var->informe){
 		$tecnico_anterior = null;
-		foreach($var->informe as $tecnico => $informe){ FB::info($informe);
+		foreach($var->informe as $tecnico => $informe){ 
 			if($tecnico == '') $tecnico="Sin asignar";
 			foreach($informe as $mes_year => $informe_mensual){?>
 		<tr>

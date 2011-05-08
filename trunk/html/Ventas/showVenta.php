@@ -98,13 +98,13 @@ else{?>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("Tipo de venta")?>:</td>
 			<td class="ColDer">
-				<select  name="tipo_comision" onchange="$('#frm').submit();">
+				<select  name="tipo_comision">
 					<?php 
 					$tipo_comision_seleccionado = $var->opt['tipo_comision'];?>
 					<?php foreach($var->datos['lista_tipos_comision'] as $tipo){?>
 					<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_comision_seleccionado) echo  "selected=\"selected\"";?>><?php  echo $tipo['nombre']?></option>
 					<?php }?>
-				</select>
+				</select><?php if($permisos->administracion){?><input type="submit" value="Guardar" /> <?php } ?>
 			</td>
 		</tr>
 		<tr>

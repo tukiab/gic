@@ -126,7 +126,9 @@ class ListaProyectos implements IIterador{
 				($filtros['order_by_asc_desc']=="DESC")?$asc_desc=" DESC ":$asc_desc=" ASC ";
 				$order=" ORDER BY ".$order_by." $asc_desc ";
 			}
-		}else
+		}else if($filtros['order'])
+			$order = "ORDER BY ".$filtros['order'];
+		else
 			$order = null;
 			
 		//Paginando...
@@ -141,7 +143,7 @@ class ListaProyectos implements IIterador{
 				    GROUP BY proyectos.id $order
 					$limit;";
 		
-		//FB::info($query,'query ListaProyectos:buscar');
+		FB::info($query,'query ListaProyectos:buscar');
 		$this->result = @mysql_query($query);
 
 		//Obtenemos el número total de resultados sin paginar:

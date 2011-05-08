@@ -568,8 +568,10 @@ class Proyecto{
 			$campo="";
 			//Se asigna el gestor directamente
 			if($datos['id_usuario']){
-				$this->id_estado=2;
 				$this->id_usuario = trim($datos['id_usuario']);				
+				$this->estado = 3;
+				if($this->id_cliente == $lista->get_Id_Cliente_Principal())
+					$this->estado = 4;
 			}else throw new Exception('Ha de indicar el t&eacute;cnico asignado al proyecto');
 			
 			if($datos['fecha_fin']){
@@ -830,6 +832,9 @@ class Proyecto{
 		$this->del_Definicion_Sedes();
 
 		$query = " DELETE FROM visitas WHERE fk_proyecto='$this->id';";
+		mysql_query($query);
+
+		$query = " DELETE FROM tareas_tecnicas WHERE fk_proyecto='$this->id';";
 		mysql_query($query);
 
 	}
