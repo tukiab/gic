@@ -479,6 +479,24 @@ class Proyecto{
 
 		return $count;
 	}
+        
+        public function get_Horas_Totales_Reales_Mensual($mes, $year){
+	    
+	    $fecha_inicio_mes = Fechas::date2timestamp('1/'.$mes.'/'.$year);
+	    $fecha_fin_mes = Fechas::date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year);
+	    //cada tarea es un array Indexado por id, fecha, tipo, horas_desplazamiento, horas_visita, horas_despacho,
+	    //horas_auditoria_interna, incentivable, id_sede, observaciones, id_usuario, localidad
+	    $count = 0;
+	    foreach($this->tareas as $tarea){
+		FB::info(timestamp2date ($tarea['fecha']));
+		if($tarea['fecha']>=$fecha_inicio_mes && $tarea['fecha']<=$fecha_fin_mes){
+		   FB::error('La sumo en el mes'. $mes);
+		    $count += $tarea['horas_desplazamiento']+$tarea['horas_visita']+$tarea['horas_despacho']+$tarea['horas_auditoria_interna'];
+		}else FB::error('NO La sumo en el mes'. $mes);
+	    }
+
+	    return $count;
+	}
 	/**
 	 * Duración del proyecto en días
 	 * @return timestamp
