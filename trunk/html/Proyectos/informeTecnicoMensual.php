@@ -195,52 +195,15 @@ include ($appRoot.'/Common/php/menu.php');
 						</td>
 						<td>
 							<?php 
-								//unidades incentivables: =unidades si fecha_fin proyecto < fecha_hasta; e.o.c. =0
-								if($proyecto->get_Id_Venta()){
-									/*Proyectos "normales" derivados de una venta:
-									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS TEÓRICAS (HT*)=HORAS INCENTIVABLES
-										HT*= Horas teóricas TOTALES del proyecto/ número de meses TEÓRICOS de duración del proyecto.
-									 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo, LAS HORAS INCENTIVABLES es siempre CERO
-									 */
-									$unidades_incentivables = 0;
-									if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-										$unidades_incentivables = $proyecto->get_Unidades();
-									echo round($unidades_incentivables,2);
-								}else{
-									/*Proyectos creados DIRECTAMENTE por el director técnico.
-									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo, LAS HORAS REALES dedicada por el técnico en ese
-										mes a ese proyecto=HORAS INCENTIVABLES
-									 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo, LAS HORAS INCENTIVABLES es siempre CERO
-									 */
-									$unidades_incentivables = 0;
-									if($proyecto->get_Fecha_Fin() > date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-										$unidades_incentivables = $proyecto->get_Horas_Totales_Reales();
-									echo round($unidades_incentivables,2);
-								}
+								$unidades_incentivables = ListaProyectos::get_unidades_incentivables($proyecto, $mes, $year);
+								echo round($unidades_incentivables,2);
 								$totales[$usr_proyecto.'incentivables'] += $unidades_incentivables;
 							?>
 						</td>
 						<td>
-							<?php //unidades no incentivables: =horas reales/8 si fecha_fin proyecto < fecha_hasta; e.o.c. =0
-
-								if($proyecto->get_Id_Venta()){
-									/*Proyectos "normales" derivados de una venta:
-									 * Las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES.
-									 */
-									$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
-									echo round($unidades_no_incentivables,2);
-								}else{
-									/*Proyectos creados DIRECTAMENTE por el director técnico.
-									 * Si EL MES de la fecha fin del proyecto es MAYOR que el MES de calculo
-										las HORAS NO INCENTIVABLES son siempre CERO
-									 * Si EL MES de la fecha fin del proyecto es MENOR que el MES de calculo
-										las HORAS REALES dedicada por el técnico en ese mes a ese proyecto=HORAS NO INCENTIVABLES
-									 */
-									$unidades_no_incentivables = 0;
-									if($proyecto->get_Fecha_Fin() <= date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year))
-										$unidades_no_incentivables = $proyecto->get_Horas_Totales_Reales();
-									echo round($unidades_no_incentivables,2);
-								}
+							<?php
+								$unidades_no_incentivables = ListaProyectos::get_unidades_no_incentivables($proyecto, $mes, $year);
+								echo round($unidades_no_incentivables,2);
 								$totales[$usr_proyecto.'noincentivables'] += $unidades_no_incentivables;
 							?>
 						</td>
