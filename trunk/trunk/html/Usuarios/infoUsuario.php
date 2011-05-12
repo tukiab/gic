@@ -243,7 +243,7 @@ $cfilaImpar = "#EEEEEE";
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="acciones_hoy">
 					<td><?php if($accion->get_Usuario() == $var->usuario->get_Id()){?><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>" /><? }?></td>
 					<td><?php echo $accion->get_Usuario();?></td>
-					<td><?php echo Fechas::timestamp2date($accion->get_Fecha());?></td>
+					<td><?php echo Fechas::timestamp2date($accion->get_Fecha_Siguiente_Accion());?></td>
 					<td>
 						<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
 					</td>
@@ -275,7 +275,7 @@ $cfilaImpar = "#EEEEEE";
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="acciones_pendientes">
 					<td><?php if($accion->get_Usuario() == $var->usuario->get_Id()){?><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>" /> <?php }?></td>
 					<td><?php echo $accion->get_Usuario();?></td>
-					<td><?php echo Fechas::timestamp2date($accion->get_Fecha());?></td>
+					<td><?php echo Fechas::timestamp2date($accion->get_Fecha_Siguiente_Accion());?></td>
 					<td>
 						<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
 					</td>
