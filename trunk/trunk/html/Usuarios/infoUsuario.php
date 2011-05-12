@@ -225,11 +225,12 @@ $cfilaImpar = "#EEEEEE";
 		<?php if(esPerfilComercial($perfil['id'])){ ?>
     		<table >
 				<tr>
-					<td class="ListaTitulo"  colspan="4"><?php echo  _translate("Acciones del d&iacute;a")?><a class="show" href="#" clase="acciones_hoy"></a></td>
+					<td class="ListaTitulo"  colspan="5"><?php echo  _translate("Acciones del d&iacute;a")?><a class="show" href="#" clase="acciones_hoy"></a></td>
 				</tr>
 				<tr class="acciones_hoy">
 					<th ><?php echo  _translate("Desactivar")?></th>
 					<th ><?php echo  _translate("Gestor")?></th>
+					<th>Fecha</th>
 					<th ><?php echo  _translate("Acci&oacute;n")?></th>
 					<th ><?php echo  _translate("Empresa")?></th>
 				</tr>
@@ -242,6 +243,7 @@ $cfilaImpar = "#EEEEEE";
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="acciones_hoy">
 					<td><?php if($accion->get_Usuario() == $var->usuario->get_Id()){?><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>" /><? }?></td>
 					<td><?php echo $accion->get_Usuario();?></td>
+					<td><?php echo Fechas::timestamp2date($accion->get_Fecha());?></td>
 					<td>
 						<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
 					</td>
@@ -255,11 +257,12 @@ $cfilaImpar = "#EEEEEE";
 		<!-- acciones pendientes -->
 			<table>
 				<tr>
-					<td class="ListaTitulo"  colspan="4"><?php echo  _translate("Acciones pendientes")?><a class="show" href="#" clase="acciones_pendientes"></a></td>
+					<td class="ListaTitulo"  colspan="5"><?php echo  _translate("Acciones pendientes")?><a class="show" href="#" clase="acciones_pendientes"></a></td>
 				</tr>
 				<tr class="acciones_pendientes">
 					<th ><?php echo  _translate("Desactivar")?></th>
 					<th ><?php echo  _translate("Gestor")?></th>
+					<th>Fecha</th>
 					<th ><?php echo  _translate("Acci&oacute;n")?></th>
 					<th ><?php echo  _translate("Empresa")?></th>
 				</tr>
@@ -272,6 +275,7 @@ $cfilaImpar = "#EEEEEE";
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="acciones_pendientes">
 					<td><?php if($accion->get_Usuario() == $var->usuario->get_Id()){?><input type="checkbox" name="ids_acciones_leer[]" value="<?php echo $accion->get_Id();?>" /> <?php }?></td>
 					<td><?php echo $accion->get_Usuario();?></td>
+					<td><?php echo Fechas::timestamp2date($accion->get_Fecha());?></td>
 					<td>
 						<a href="<?php echo  $appDir.'/Acciones/showAccion.php?id='.$accion->get_Id(); ?>"><?php echo $tipo_accion['nombre']; ?></a>
 					</td>

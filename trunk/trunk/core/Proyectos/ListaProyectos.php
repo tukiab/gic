@@ -192,7 +192,7 @@ class ListaProyectos implements IIterador{
 		     */
 
 			$unidades_incentivables = 0;
-			if( $proyecto->get_Fecha_Inicio() <= $fecha_fin_mes && $proyecto->get_Fecha_Fin() > $fecha_fin_mes)
+			if( $proyecto->get_Fecha_Inicio() <= $fecha_fin_mes && $proyecto->get_Fecha_Fin() >= $fecha_fin_mes)
                             $unidades_incentivables = $proyecto->get_Unidades();
 
                         if($proyecto->get_Id_Usuario()=='rosario' && $mes == 5)
@@ -209,7 +209,7 @@ class ListaProyectos implements IIterador{
 			    NO -> uds incentivables= 0
 			 */
 			$unidades_incentivables = 0;
-			if($proyecto->get_Fecha_Inicio() <= $fecha_fin_mes && $proyecto->get_Fecha_Fin() > $fecha_fin_mes)
+			if($proyecto->get_Fecha_Inicio() <= $fecha_fin_mes && $proyecto->get_Fecha_Fin() >= $fecha_fin_mes)
 				$unidades_incentivables = $proyecto->get_Horas_Totales_Reales_Mensual($mes,$year)/8;
 
                         if($proyecto->get_Id_Usuario()=='rosario' && $mes == 5)
