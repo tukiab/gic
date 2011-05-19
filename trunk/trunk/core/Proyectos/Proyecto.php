@@ -586,6 +586,7 @@ class Proyecto{
 			$campo="";
 			//Se asigna el gestor directamente
 			if($datos['id_usuario']){
+				$lista = new ListaClientes();
 				$this->id_usuario = trim($datos['id_usuario']);				
 				$this->estado = 3;
 				if($this->id_cliente == $lista->get_Id_Cliente_Principal())
