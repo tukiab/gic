@@ -76,7 +76,7 @@ $cfilaImpar = "#EEEEEE";
 						$cliente_oferta = $oferta->get_Cliente();
 					?>
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="ofertas_hoy">
-					<td><input type="checkbox" name="ids_ofertas_leer[]" value="<?php echo $oferta->get_Id();?>"</td>
+					<td><?php if($oferta->get_Usuario() == $var->usuario->get_Id()){?><input type="checkbox" name="ids_ofertas_leer[]" value="<?php echo $oferta->get_Id();?>" /><?php }?></td>
 					<td><?php echo $oferta->get_Usuario();?></td>
 					<td><?php if($es_oportunidad) echo "OPORTUNIDAD DE NEGOCIO"; else echo "OFERTA";?></td>
 					<td>
@@ -109,7 +109,7 @@ $cfilaImpar = "#EEEEEE";
 						$cliente_oferta = $oferta->get_Cliente();
 					?>
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="ofertas_pendientes">
-					<td><input type="checkbox" name="ids_ofertas_leer[]" value="<?php echo $oferta->get_Id();?>"</td>
+					<td><?php if($oferta->get_Usuario() == $var->usuario->get_Id()){?><input type="checkbox" name="ids_ofertas_leer[]" value="<?php echo $oferta->get_Id();?>" /><?php }?></td>
 					<td><?php echo $oferta->get_Usuario();?></td>
 					<td><?php if($es_oportunidad) echo "OPORTUNIDAD DE NEGOCIO"; else echo "OFERTA";?></td>
 					<td>

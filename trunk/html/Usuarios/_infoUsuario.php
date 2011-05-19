@@ -112,7 +112,7 @@ class infoUsuario{
 			$filtros['id_usuario'] = $this->usuario->get_Id();
 		$filtros['fecha_definicion_desde'] = fechaActualTimeStamp();
 		$filtros['fecha_definicion_hasta'] = fechaActualTimeStamp();
-
+		$filtros['no_leida'] = true;
 		$this->DB_ofertas->buscar($filtros);
 		$this->lista_ofertas = $this->DB_ofertas;
 
