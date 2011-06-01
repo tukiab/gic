@@ -923,9 +923,14 @@ class Venta{
 		$query = "SELECT proyectos.id WHERE fk_venta='$this->id';";
 		$result = mysql_query($query);
 		if(mysql_num_rows($result) > 0){
-			$proyecto = new Proyecto($row['id']);
-			$proyecto->del_Proyecto();
+			while($row=  mysql_fetch_array($result)){
+				$proyecto = new Proyecto($row['id']);
+				$proyecto->del_Proyecto();
+			}
 		}
+
+		$oferta = new Oferta($this->Oferta);
+		$oferta->set_Estado(1);
 
 	}
 

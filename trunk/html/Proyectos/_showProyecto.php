@@ -28,6 +28,8 @@ class ShowProyecto{
 			$this->get_Opciones($opciones_get, $opciones);
 			$this->get_Datos();
 			$this->usuario = new Usuario($_SESSION['usuario_login']);
+
+			actualizarProyectosFueraDePlazo();
 			
 			if($this->opt['eliminar']) $this->eliminar();
 			if($this->opt['cerrar']) $this->cerrar();

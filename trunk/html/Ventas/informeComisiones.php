@@ -28,7 +28,7 @@ if(!$var->opt['exportar']){
 	table{color:#000;}
 	table td, table th{padding:4px;}
 </style>
-<div id="titulo"><?php echo  _translate("Ventas")?></div>
+<div id="titulo"><?php echo  _translate("Comisiones")?></div>
 	<?php echo  ($var->opt['msg'])?"<div id=\"error_msg\">".$var->opt['msg']."</div>":null;?>
 <div id="contenedor" align="center">
 <form method="GET" id="frm_ventas" action="<?php echo  $_SERVER['_SELF']?>">

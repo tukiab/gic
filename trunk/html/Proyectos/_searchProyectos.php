@@ -44,9 +44,11 @@ class BusquedaProyectos{
 	public function __construct($opciones){
 		
 		try{
-			//FB::info($opciones, "BusquedaProyectos:Opciones");
-			$this->gestor = new Usuario($_SESSION['usuario_login']);
-			//Usamos el método para asignar las opciones pasadas desde la interfaz 	
+			$this->gestor = new Usuario($_SESSION['usuario_login']);			
+
+			actualizarProyectosFueraDePlazo();
+
+			//Usamos el método para asignar las opciones pasadas desde la interfaz
 			$this->obtener_Opciones($opciones);
 		
 			//Asignamos a una variable el objeto Lista_Proyectos

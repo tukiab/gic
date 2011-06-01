@@ -164,10 +164,10 @@ include ($appRoot.'/Common/php/menu.php');
 			<td class="busquedaDcha"> 
 				<input type="text" size="15"name="paso" value="<?php  echo $var->datos['paso']?>"/>
 			</td>
-				<td class="busquedaIzda" <?php $perfil = $var->gestor->get_Perfil(); if(!$permisos->administracion && !esPerfilTecnico($perfil['id'])) echo 'style="display:none"';?>>
+				<td class="busquedaIzda" <?php $perfil = $var->gestor->get_Perfil(); if(!$permisos->administracion) echo 'style="display:none"';?>>
 				<?php echo  _translate('Usuario')?> &nbsp;
 			</td>
-			<td class="busquedaDcha" <?php  if(!$permisos->administracion && !esPerfilTecnico($perfil['id'])) echo 'style="display:none"';?>>
+			<td class="busquedaDcha" <?php  if(!$permisos->administracion ) echo 'style="display:none"';?>>
 				<select name="gestor">
 					<?php 
 					$gestor_seleccionado = $var->opt['gestor'];?>
