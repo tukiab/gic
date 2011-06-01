@@ -270,7 +270,7 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>		
-						<th  nowrap>
+			<!--			<th  nowrap>
 							<a href="#" onClick="javascript:orderBy('fecha_siguiente')" ><?php echo  _translate("Fecha siguiente")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_siguiente' && $var->opt['order_by_asc_desc']=='ASC')
@@ -278,7 +278,7 @@ include ($appRoot.'/Common/php/menu.php');
 								else if($var->opt['order_by']=='fecha_siguiente' && $var->opt['order_by_asc_desc']=='DESC')
 									echo  "&darr;";
 							?>
-						</th>	
+						</th>	-->
 						<!--<th ><?php echo  _translate("Operaciones")?></th>-->	
 					</tr>
 				</thead>
@@ -309,10 +309,10 @@ include ($appRoot.'/Common/php/menu.php');
 						<td >
 							<?php  echo timestamp2date($accion->get_Fecha());?>
 						</td>
-						<td >
+				<!--		<td >
 							<?php  echo timestamp2date($accion->get_Fecha_Siguiente_Accion());?>
 						</td>
-					</tr>
+					</tr> -->
 				<?php 
 				}?>	
 					<tr>	
