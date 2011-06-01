@@ -96,10 +96,10 @@ include ($appRoot.'/Common/php/menu.php');
 	</tr>
     <tr >
             <td class="busquedaIzda">
-                    <?php echo  _translate('T&eacute;cnico')?>
+                 <?php if($permisos->administracion){?>   <?php echo  _translate('T&eacute;cnico')?><?php }?>
             </td>
             <td class="busquedaDcha">
-				<select name="gestor">
+				 <?php if($permisos->administracion){?><select name="gestor">
 					<?php
 					$gestor_seleccionado = $var->opt['gestor'];?>
 					<option value="0" <?php if($gestor_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
@@ -108,7 +108,7 @@ include ($appRoot.'/Common/php/menu.php');
 						<?php  echo $gestor->get_Id()?>
 					</option>
 					<?php }?>
-				</select>
+				</select><?php }?>
             </td>
             <td style="text-align:right;background: none;" >
                     <input type="submit" id="mostrar" name="mostrar" value="<?php echo  _translate("Generar informe")?>" />

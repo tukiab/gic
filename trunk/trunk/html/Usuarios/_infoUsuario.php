@@ -72,6 +72,7 @@ class infoUsuario{
 	}
 
 	private function obtener_Proyectos(){
+		actualizarProyectosFueraDePlazo();
 		global $gestor_actual;
 		global $permisos;
 		$perfil_usr = $gestor_actual->get_Perfil();

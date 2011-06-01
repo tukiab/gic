@@ -15,6 +15,8 @@ class InformeTecnicoMensual{
 			$this->obtener_Opciones($opciones);
 			$this->lista_Proyectos =  new ListaProyectos();
 			$this->obtener_Listas();
+
+			actualizarProyectosFueraDePlazo();
 			
 			if($this->opt['mostrar']){				
 				//$this->opt['estados'] = '(3,4,5)'; //sólo los proyectos en estados 3,4,5; pendiente planificación, en curso, fuera de plazo
@@ -28,8 +30,13 @@ class InformeTecnicoMensual{
 	}
 		
 	private function obtener_Opciones($opciones){
-		
-		@($opciones['gestor'])?$this->opt['gestor']=$opciones['gestor']:null;
+		global $permisos;
+
+		if(!$permisos->administracion)//$perfil_usuario['id'] != 5 && $perfil_usuario['id'] != 4)
+			$this->opt['gestor'] = $_SESSION['usuario_login'];
+		else
+			@($opciones['gestor'])?$this->opt['gestor']=$opciones['gestor']:null;
+
 		@($opciones['mostrar'])?$this->opt['mostrar']=$opciones['mostrar']:null;
 
 		@($opciones['mes_desde'])?$this->opt['mes_desde']=$opciones['mes_desde']:null;

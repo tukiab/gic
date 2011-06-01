@@ -29,12 +29,11 @@ class MainMenu{
 			$this->menus[1][1]= new Menu("$appDir/Clientes/searchClientes.php", "B&uacute;squeda");
 			$this->menus[1][2]= new Menu("$appDir/Clientes/addCliente.php", "Nueva");
 
-		$this->menus[2]= new Menu("$appDir/Ofertas/searchOfertas.php", "Ofertas/O-N", "ofertas");
-			//$this->menus[2][1]= new Menu("$appDir/Ofertas/searchOfertas.php", "B&uacute;squeda");
-
-		$this->menus[3]= new Menu("$appDir/Ventas/searchVentas.php", "Ventas", "ventas");
-		
-		$this->menus[4]= new Menu("$appDir/Acciones/searchAcciones.php", "Acciones de trabajo", "acciones");
+		if(esPerfilComercial($perfil_usuario['id'])){
+			$this->menus[2]= new Menu("$appDir/Ofertas/searchOfertas.php", "Ofertas/O-N", "ofertas");			
+			$this->menus[3]= new Menu("$appDir/Ventas/searchVentas.php", "Ventas", "ventas");
+			$this->menus[4]= new Menu("$appDir/Acciones/searchAcciones.php", "Acciones de trabajo", "acciones");
+		}
 		$this->menus[5]= new Menu("$appDir/Tareas/searchTareas.php", "Tareas t&eacute;cnicas", "tareas");
 
 		$this->menus[6][0]= new Menu("#", "Proyectos", "proyectos");
