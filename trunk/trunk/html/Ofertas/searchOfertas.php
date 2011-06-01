@@ -326,7 +326,7 @@ include ($appRoot.'/Common/php/menu.php');
 									echo  "&darr;";
 							?>
 						</th>		
-						<th >
+					<!--	<th >
 							<a href="#" onClick="javascript:orderBy('fecha_definicion')" ><?php echo  _translate("Fecha de definici&oacute;n")?></a>
 							<?php 
 								if($var->opt['order_by']=='fecha_definicion' && $var->opt['order_by_asc_desc']=='ASC')
@@ -334,7 +334,7 @@ include ($appRoot.'/Common/php/menu.php');
 								else if($var->opt['order_by']=='fecha_definicion' && $var->opt['order_by_asc_desc']=='DESC')
 									echo  "&darr;";
 							?>
-						</th>	
+						</th>	-->
 						<!--<th style="text-align: center;font-size: x-small;font-weight: normal"><?php echo  _translate("Operaciones")?></th>-->	
 					</tr>
 				</thead>
@@ -373,10 +373,10 @@ include ($appRoot.'/Common/php/menu.php');
 						<td>
 							<?php  echo timestamp2date($oferta->get_Fecha());?>
 						</td>
-						<td>
+					<!--	<td>
 							<?php  echo timestamp2date($oferta->get_Fecha_Definicion());?>
 						</td>
-					</tr>
+					</tr> -->
 				<?php 
 				}?>	
 					<tr>	
