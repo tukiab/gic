@@ -358,4 +358,10 @@ function esPerfilComercial($id_perfil){
 function esPerfilTecnico($id_perfil){
 	return in_array($id_perfil, perfilesTecnicos());
 }
+
+function actualizarProyectosFueraDePlazo(){
+	$query = "UPDATE proyectos SET fk_estado='5' WHERE fecha_fin <= ".Fechas::fechaActualTimeStamp();
+	if(!mysql_query($query))
+		throw new Exception('Error al actualizar los proyectos fuera de plazo ');
+}
 ?>
