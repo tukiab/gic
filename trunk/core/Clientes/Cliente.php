@@ -712,15 +712,14 @@ class Cliente{
 			$errores .= "<br/>Empresa: Gestor no v&aacute;lido.";
 		if(isset($datos['telefono'])){
 			if($datos['telefono'] == '')
-				$errores .= "<br/>Empresa: El tele&eacute;fono es obligatorio.";
+				$errores .= "<br/>Empresa: El tel&eacute;fono es obligatorio.";
 			if(!$validar->telefono($datos['telefono']))
 				$errores .= "<br/>El n&uacute;mero de tel&eacute;fono no es v&aacute;lido";
-		}else $errores .= "<br/>Empresa: El tele&eacute;fono es obligatorio.";
+		}else $errores .= "<br/>Empresa: El tel&eacute;fono es obligatorio.";
 
 		if(!is_numeric($datos['grupo_empresas']) || !in_array($datos['grupo_empresas'], array_keys($array_grupos_empresas)))
 			$errores .= "<br/>Empresa: Grupo de empresas no v&aacute;lido.";
 		
-			
 		if($errores != '') throw new Exception($errores);
 
 		//Si todo ha ido bien:
