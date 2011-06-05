@@ -29,8 +29,6 @@ class ShowProyecto{
 			$this->get_Datos();
 			$this->usuario = new Usuario($_SESSION['usuario_login']);
 
-			actualizarProyectosFueraDePlazo();
-			
 			if($this->opt['eliminar']) $this->eliminar();
 			if($this->opt['cerrar']) $this->cerrar();
 			if($this->opt['reabrir']) $this->reabrir();
@@ -45,6 +43,8 @@ class ShowProyecto{
 			if($this->opt['visita_seguimiento_eliminar']) $this->eliminar_visita_seguimiento();
 
 			if($this->opt['nuevo_nombre']) $this->Proyecto->set_Nombre($this->opt['nuevo_nombre']);
+			
+			actualizarProyectosFueraDePlazo();
 			
 		}catch(Exception $e){
 			$this->opt['msg'] = $e->getMessage();
