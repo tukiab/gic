@@ -98,7 +98,7 @@ $estado = $var->Proyecto->get_Estado();?>
 		<li>
 			<?php
 				if($permisos->administracion)
-				if($estado['id'] == 4 ){// si está en curso?>
+				if($estado['id'] != 6 ){// si está en curso?>
 					<label title="<?php echo  _translate("Cerrar")?>">
 						<a href="#" onclick="cerrar();"><?php echo  _translate("Cerrar proyecto")?></a>
 					</label>

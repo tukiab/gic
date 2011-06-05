@@ -941,8 +941,8 @@ class Proyecto{
 	public function cerrar(){
 		if(!$this->cerrar)
 			throw new Exception('Este proyecto no se puede cerrar');
-		if(!$this->estado['id'] == 4)//Sólo se cierran proyectos en curso
-			throw new Exception('No se puede cerrar un proyecto que no est&eacute; en curso');
+		//if(!$this->estado['id'] == 4)//Sólo se cierran proyectos en curso
+		//	throw new Exception('No se puede cerrar un proyecto que no est&eacute; en curso');
 
 		$this->set_Estado(6);
 	}
