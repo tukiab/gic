@@ -63,6 +63,8 @@ class ListaProyectos implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Proyectos.
 	 */
 	public function buscar($filtros=null, $page=0, $paso=0){
+	    
+	    actualizarProyectosFueraDePlazo();
 		//FB::info($filtros,'filtros ListaProyectos:buscar');
 		$filtro ="";
 		$join="";
@@ -84,10 +86,16 @@ class ListaProyectos implements IIterador{
 		(isset($filtros['fecha_fin_hasta']))?$filtro.=" AND proyectos.fecha_fin <= '".trim($filtros['fecha_fin_hasta'])."' ":null;
 
 		if(isset($filtros['fecha_desde']) && isset($filtros['fecha_hasta'])){
-			$filtro .= " AND (
-								(proyectos.fecha_inicio >= '".trim($filtros['fecha_desde'])."' AND proyectos.fecha_inicio <= '".trim($filtros['fecha_hasta'])."' ) OR
-								(proyectos.fecha_fin >= '".trim($filtros['fecha_desde'])."' AND proyectos.fecha_fin <= '".trim($filtros['fecha_hasta'])."' )
-							)";
+			/*$filtro .= " AND (
+					    (proyectos.fecha_inicio >= '".trim($filtros['fecha_desde'])."' AND proyectos.fecha_inicio <= '".trim($filtros['fecha_hasta'])."' ) OR
+					    (proyectos.fecha_fin >= '".trim($filtros['fecha_desde'])."' AND proyectos.fecha_fin <= '".trim($filtros['fecha_hasta'])."' )
+				    )";*/
+			/*$filtro .= " AND (
+				    (proyectos.fecha_inicio <= '".trim($filtros['fecha_hasta'])."' AND 
+				     proyectos.fecha_fin >= '".trim($filtros['fecha_desde'])."' )
+				     )";*/
+		    $filtro.= " AND proyectos.fk_estado < 6 ";
+			
 		}
 
 		(isset($filtros['gestor']) && $filtros['gestor'] != '0')?$filtros['id_usuario']=$filtros['gestor']:null;

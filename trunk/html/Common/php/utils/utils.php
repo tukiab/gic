@@ -360,7 +360,7 @@ function esPerfilTecnico($id_perfil){
 }
 
 function actualizarProyectosFueraDePlazo(){
-	$query = "UPDATE proyectos SET fk_estado='5' WHERE fecha_fin <= ".Fechas::fechaActualTimeStamp();
+	$query = "UPDATE proyectos SET fk_estado='5' WHERE fecha_fin <= ".Fechas::fechaActualTimeStamp()." AND fk_estado <> 6";
 	if(!mysql_query($query))
 		throw new Exception('Error al actualizar los proyectos fuera de plazo ');
 }
