@@ -488,11 +488,11 @@ class Proyecto{
 	    //horas_auditoria_interna, incentivable, id_sede, observaciones, id_usuario, localidad
 	    $count = 0;
 	    foreach($this->tareas as $tarea){
-		FB::info(timestamp2date ($tarea['fecha']));
+		//FB::info(timestamp2date ($tarea['fecha']));
 		if($tarea['fecha']>=$fecha_inicio_mes && $tarea['fecha']<=$fecha_fin_mes){
-		   FB::error('La sumo en el mes'. $mes);
+		   //FB::error('La sumo en el mes'. $mes);
 		    $count += $tarea['horas_desplazamiento']+$tarea['horas_visita']+$tarea['horas_despacho']+$tarea['horas_auditoria_interna'];
-		}else FB::error('NO La sumo en el mes'. $mes);
+		}//else //FB::error('NO La sumo en el mes'. $mes);
 	    }
 
 	    return $count;
@@ -749,7 +749,7 @@ class Proyecto{
 	 *
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar_Definicion($definicion_sedes){FB::info($definicion_sedes);
+	private function guardar_Definicion($definicion_sedes){//FB::info($definicion_sedes);
 		$query = "UPDATE proyectos 
 					SET horas_documentacion = '$this->horas_documentacion',
 					horas_auditoria_interna = '$this->horas_auditoria_interna',

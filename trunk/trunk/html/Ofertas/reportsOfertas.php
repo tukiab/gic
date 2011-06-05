@@ -177,9 +177,9 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 						<th>
 							<?php echo _translate("Usuario"); ?>
 						</th>
-						<th>
+						<!-- <th>
 							<?php echo _translate("Fecha"); ?>
-						</th>
+						</th> -->
 						<th>
 							<?php echo _translate("Tipo producto"); ?>
 						</th>
@@ -229,9 +229,9 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 										<td>
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
-										<td>
+									<!--	<td>
 											<?php echo timestamp2date($informe_tipo_producto['fecha']);?>
-										</td>
+										</td> -->
 										<td>
 											<?php echo $informe_tipo_producto['nombre']; ?>
 										</td>
@@ -265,7 +265,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 							}else{?>
 								<tr>
 									<td>Total</td>
-									<td></td>
+									
 									<td></td>
 									<td><?php echo  $total_ofertas;?></td>
 									<td></td>
@@ -300,7 +300,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 							<td>
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
-							<td></td>
+							
 							<td>
 								<?php echo $nombre; ?>
 							</td>
@@ -325,7 +325,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 						<?php } ?>
 						</tr>
 						<tr>
-							<td>Total</td><td></td><td></td>
+							<td>Total</td><td></td>
 							<td><?php echo  $total_ofertas;?></td>
 							<td></td>
 							<td><?php echo  $total_clientes;?></td>

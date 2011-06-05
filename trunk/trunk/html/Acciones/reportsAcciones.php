@@ -168,9 +168,9 @@ include ($appRoot.'/Common/php/menu.php');
 						<th >
 							<?php echo _translate("Usuario"); ?>
 						</th>
-						<th >
+						<!--<th >
 							<?php echo _translate("Fecha"); ?>
-						</th>
+						</th>-->
 						<th >
 							<?php echo _translate("Tipo acci&oacute;n"); ?>
 						</th>
@@ -210,9 +210,9 @@ include ($appRoot.'/Common/php/menu.php');
 										<td>
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
-										<td>
+									<!--	<td>
 											<?php echo timestamp2date($informe_tipo_accion['fecha']);?>
-										</td>
+										</td> -->
 										<td>
 											<?php echo $informe_tipo_accion['nombre']; ?>
 										</td>
@@ -238,7 +238,7 @@ include ($appRoot.'/Common/php/menu.php');
 							}else{?>
 								<tr>
 									<td>Total</td>
-									<td></td>
+									
 									<td></td>
 									<td><?php echo  $total_acciones;?></td>
 									<td></td>
@@ -270,7 +270,7 @@ include ($appRoot.'/Common/php/menu.php');
 							<td>
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
-							<td></td>
+							
 							<td>
 								<?php echo $nombre; ?>
 							</td>
@@ -289,7 +289,7 @@ include ($appRoot.'/Common/php/menu.php');
 						<?php } ?>
 						</tr>
 						<tr>
-							<td>Total</td><td></td><td></td>
+							<td>Total</td><td></td>
 							<td><?php echo  $total_acciones;?></td>
 							<td></td>
 							<td><?php echo  $total_clientes;?></td>
@@ -330,9 +330,6 @@ header("Expires: 0");
 							<?php echo _translate("Usuario"); ?>
 						</th>
 						<th >
-							<?php echo _translate("Fecha"); ?>
-						</th>
-						<th >
 							<?php echo _translate("Tipo acci&oacute;n"); ?>
 						</th>
 						<th >
@@ -372,9 +369,6 @@ header("Expires: 0");
 											<?php if($primero) echo "<b>".$user."</b>"; $primero=false;?>
 										</td>
 										<td>
-											<?php echo timestamp2date($informe_tipo_accion['fecha']);?>
-										</td>
-										<td>
 											<?php echo $informe_tipo_accion['nombre']; ?>
 										</td>
 										<td>
@@ -399,7 +393,7 @@ header("Expires: 0");
 							}else{?>
 								<tr>
 									<td>Total</td>
-									<td></td>
+									
 									<td></td>
 									<td><?php echo  $total_acciones;?></td>
 									<td></td>
@@ -430,7 +424,7 @@ header("Expires: 0");
 							<td>
 								<?php if($primero) echo "<b>TOTALES</b>"; $primero=false;?>
 							</td>
-							<td></td>
+							
 							<td>
 								<?php echo $nombre; ?>
 							</td>
@@ -449,7 +443,7 @@ header("Expires: 0");
 						<?php } ?>
 						</tr>
 						<tr>
-							<td>Total</td><td></td><td></td>
+							<td>Total</td><td></td>
 							<td><?php echo  $total_acciones;?></td>
 							<td></td>
 							<td><?php echo  $total_clientes;?></td>
