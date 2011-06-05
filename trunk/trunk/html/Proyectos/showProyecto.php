@@ -277,7 +277,8 @@ $estado = $var->Proyecto->get_Estado();?>
 				<td >
 					<?php $url_dest = $appDir.'/Tareas/addTarea.php?id_sede='.$sede->get_Id().'&id_proyecto='.$var->Proyecto->get_Id();
 					//Éste bot&oacute;n tiene que aparecer si el proyecto no está cerrado o fuera de plazo y si el usuario es el gestor asignado al proyecto					
-					$estados_prohibidos = array(5,6);
+					//$estados_prohibidos = array(5,6);
+					$estados_prohibidos = array(6);
 					if($permisos->escritura)
 					if(!in_array($estado['id'], $estados_prohibidos) &&
 							($var->usuario->get_Id() == $var->Proyecto->get_Id_Usuario())){
