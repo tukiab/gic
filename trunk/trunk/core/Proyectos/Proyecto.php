@@ -585,18 +585,21 @@ class Proyecto{
 			$value = "";
 			$campo="";
 			//Se asigna el gestor directamente
-			if($datos['id_usuario']){
+			if($datos['id_usuario']){ FB::info('joder');
 				$lista = new ListaClientes();
-				$this->id_usuario = trim($datos['id_usuario']);				
+				$this->id_usuario = $datos['id_usuario'];				
 				$this->estado = 3;
 				if($this->id_cliente == $lista->get_Id_Cliente_Principal())
-					$this->estado = 4;
+				    $this->estado = 4;
+				
+				$campo .= " ,fk_usuario ";
+				$value .= " ,'$this->id_usuario'";
 			}else throw new Exception('Ha de indicar el t&eacute;cnico asignado al proyecto');
 			
 			if($datos['fecha_fin']){
 				$this->fecha_fin = $datos['fecha_fin'];
-				$campo = ', fecha_fin';
-				$value = ", '$this->fecha_fin'";
+				$campo .= ', fecha_fin';
+				$value .= ", '$this->fecha_fin'";
 			}
 		}
 
@@ -606,7 +609,7 @@ class Proyecto{
 
 		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";
+								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";FB::error($query);
 		
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto ');
