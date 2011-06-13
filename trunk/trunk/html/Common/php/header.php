@@ -9,6 +9,7 @@
 	<style type="text/css">
 		@import '<?php echo  $appDir?>/Common/css/estilo.css';
 		@import '<?php echo  $appDir?>/Common/css/jquery-calendar.css';
+		@import '<?php echo  $appDir?>/Common/js/jQuery/jquery.ui.css';
 	</style>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -16,6 +17,8 @@
 		var img_cal='<?php echo  $appDir."/Common/imagenes/img/calendar.gif";?>';
 	</script>	
 	<script language="JavaScript" type="text/javascript" src="<?php echo  $appDir.'/Common/js/jQuery/jQuery.js';?>" > </script>
+	<script language="JavaScript" type="text/javascript" src="<?php echo  $appDir.'/Common/js/jQuery/jquery-ui.min.js';?>" > </script>
+
 	<script language="JavaScript" type="text/javascript" src="<?php echo  $appDir.'/Common/js/interface_1.2/interface.js';?>" > </script>
 	<script language="JavaScript" type="text/javascript" src="<?php  echo  $appDir.'/Common/js/jQuery/calendario/jquery-calendar.js' ?>"></script>
 	<script language="JavaScript" type="text/javascript" src="<?php  echo  $appDir.'/Common/js/jQuery/calendario/calend_esp.js' ?>"></script>
