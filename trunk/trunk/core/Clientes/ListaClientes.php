@@ -63,7 +63,7 @@ class ListaClientes implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Clientes.
 	 */
 	public function buscar($filtros=null, $page=0, $paso=0){
-		//FB::info($filtros,'filtros ListaClientes:buscar');
+		////FB::info($filtros,'filtros ListaClientes:buscar');
 		$filtro ="";
 		$join="";
 
@@ -213,7 +213,7 @@ class ListaClientes implements IIterador{
 				    GROUP BY clientes.id $order
 					$limit;";
 		//throw new Exception($query);
-		//FB::info($query,'query ListaClientes:buscar');
+		////FB::info($query,'query ListaClientes:buscar');
 		$this->result = @mysql_query($query);
 
 		//Obtenemos el número total de resultados sin paginar:

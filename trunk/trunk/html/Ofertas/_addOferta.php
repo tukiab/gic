@@ -47,7 +47,7 @@ class AddOferta{
 	 * @param array $opciones Array de opciones pasadas a la página.
 	 */
 	public function __construct($opciones){
-		//FB::info($opciones,'addOferta: opciones pasadas');
+		////FB::info($opciones,'addOferta: opciones pasadas');
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 		
@@ -65,7 +65,7 @@ class AddOferta{
 	 * @param array $opciones Array de opciones pasadas a la página.
 	 */
 	private function obtenerOpciones($opciones){
-		FB::error($opciones);
+		//FB::error($opciones);
 		//Obteniendo las opciones pasadas
 		
 		@(isset($opciones['nombre_oferta']))?$this->opt['nombre_oferta']=$opciones['nombre_oferta']:null;

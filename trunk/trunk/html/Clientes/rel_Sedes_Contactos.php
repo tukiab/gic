@@ -43,7 +43,7 @@ $(document).ready(function(){
 			<td></td>
 		</tr>
 			<?php
-			FB::info($var->Cliente->get_Lista_Contactos());
+			//FB::info($var->Cliente->get_Lista_Contactos());
 			foreach($var->Cliente->get_Lista_Contactos() as $Contacto){
 			?>
 				<tr class="ListaTitulo" align="center">

@@ -46,7 +46,7 @@ class EditProveedor{
 	 */
 	public function __construct($opciones){
 		//Debugging..
-		//FB::log($opciones, '_editar_datos_proveedor.php -> opciones');
+		////FB::log($opciones, '_editar_datos_proveedor.php -> opciones');
 		$this->gestor = new Usuario($_SESSION['usuario_login']);
 		//Obtenemos las opciones pasadas al script
 		if(!$opciones['NIF'])
@@ -68,7 +68,7 @@ class EditProveedor{
 	 * @param array $opciones Array $_GET
 	 */
 	public function EditarDatosProveedor($opciones){
-		//FB::log($opciones, "Opciones:EditarDatosProveedor");
+		////FB::log($opciones, "Opciones:EditarDatosProveedor");
 		
 		//Por si eliminamos un contacto
 		$datos_contactos = $this->get_Opciones_Contactos($opciones);

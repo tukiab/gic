@@ -65,7 +65,7 @@ class GestionTiposProducto{
 	 * Guardar:
  	 */
 	private function guardar(){
-		FB::info('guardando');
+		//FB::info('guardando');
 		$id = $this->opt['id_tipoproducto'];
 		$tipoproducto = new TipoDeProducto($id);
 		$tipoproducto->set_Nombre($this->opt['nombre_'.$id]);

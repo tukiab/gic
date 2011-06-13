@@ -63,7 +63,7 @@ class ListaFacturas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Facturas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		//FB::info($filtros,'filtros ListaFacturas:buscar');
+		////FB::info($filtros,'filtros ListaFacturas:buscar');
 		$filtro ="";
 		$join="";
 		
@@ -152,7 +152,7 @@ class ListaFacturas implements IIterador{
 				$order		
 				$limit;";
 		
-		FB::info($query,'query ListaFacturas:buscar');
+		//FB::info($query,'query ListaFacturas:buscar');
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

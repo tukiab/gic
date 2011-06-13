@@ -56,14 +56,14 @@ class ListaTiposDeFormasDePago implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de TipoDeFormaDePago.
 	 */
 	public function buscar($filtros=null){
-		//FB::info($filtros,'filtros ListaTipoDeFormaDePago:buscar');
+		////FB::info($filtros,'filtros ListaTipoDeFormaDePago:buscar');
 		
 		(isset($filtros['id']))?$filtro.=" AND .id = '".$filtros['id']."' ":null;
 		(isset($filtros['nombre']))?$filtro.=" AND nombre LIKE '%".$filtros['descripcion']."%' ":null;
 		
 		$query = "SELECT id FROM formas_de_pago WHERE 1 $filtro
 				    GROUP BY id;";
-		FB::info($query,'buscar grupos');
+		//FB::info($query,'buscar grupos');
 	
 		$this->result = @mysql_query($query);
 	}

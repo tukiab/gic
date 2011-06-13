@@ -47,7 +47,7 @@ class AddAccion{
 	 * @param array $opciones Array de opciones pasadas a la pÃ¡gina.
 	 */
 	public function __construct($opciones){
-		//FB::info($opciones,'addAccion: opciones pasadas');
+		////FB::info($opciones,'addAccion: opciones pasadas');
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 		
@@ -68,11 +68,11 @@ class AddAccion{
 		
 		//Obteniendo las opciones pasadas
 		
-		@($opciones['descripcion'])?$this->opt['descripcion']=$opciones['descripcion']:$this->opt['descripcion']=utf8_encode(" - Acción realizada:
+		@($opciones['descripcion'])?$this->opt['descripcion']=$opciones['descripcion']:$this->opt['descripcion']=utf8_encode(" - Acciï¿½n realizada:
 
 
 
-- Siguiente acción a realizar:
+- Siguiente acciï¿½n a realizar:
 
 ");
 		@($opciones['tipo_accion'])?$this->opt['tipo_accion']=$opciones['tipo_accion']:null;			

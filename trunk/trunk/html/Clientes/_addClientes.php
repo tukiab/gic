@@ -73,7 +73,7 @@ class InsertarClientes{
 			
 				//datos propios del cliente:
 				$datos['razon_social'] = utf8_encode($datos_cliente[0]);
-				//FB::info($datos['razon_social']);
+				////FB::info($datos['razon_social']);
 				$datos['domicilio'] = utf8_encode($datos_cliente[4]);
 				$datos['localidad'] = utf8_encode($datos_cliente[5]);
 				$datos['provincia'] = utf8_encode(trim($datos_cliente[6]));
@@ -110,7 +110,7 @@ class InsertarClientes{
 				if(!$gestor = $lista_usuarios->siguiente())
                                     throw new Exception("No existe el gestor");
 				
-				//FB::error($gestor," gestor de ".$datos['razon_social']);
+				////FB::error($gestor," gestor de ".$datos['razon_social']);
 				
 				$datos['gestor']=$gestor->get_Id();
 				$datos['continuar'] = true;

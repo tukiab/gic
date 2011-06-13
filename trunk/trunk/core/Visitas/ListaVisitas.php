@@ -97,7 +97,7 @@ class ListaVisitas implements IIterador{
 				    WHERE 1
 						$filtro
 				    GROUP BY visitas.id $order ;";
-		FB::error($query);
+		//FB::error($query);
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

@@ -51,7 +51,7 @@ class TipoDeComision{
 			$query = "SELECT tipos_comision.*
 					FROM tipos_comision
 					WHERE id = '$this->id'";
-			//FB::info($query,'TipoDeComision->cargar: QUERY');
+			////FB::info($query,'TipoDeComision->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el Tipo de acci�n de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -104,7 +104,7 @@ class TipoDeComision{
 	 * @return integer $id_grupoEmpresas Id del nuevo TipoDeComision.
 	 */
 	public function crear($datos){
-		//FB::info($datos,'TipoDeComision crear: datos recibidos');
+		////FB::info($datos,'TipoDeComision crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una grupoEmpresas nuevo:
 		 * 		nombre
@@ -131,7 +131,7 @@ class TipoDeComision{
 
 		$query = "
 			INSERT INTO tipos_comision (nombre) VALUES('".mysql_real_escape_string(trim($datos['nombre']))."');";
-									//FB::info($query,'TipoDeComision crear: QUERY');
+									////FB::info($query,'TipoDeComision crear: QUERY');
 									if(!mysql_query($query))
 										throw new Exception("Error al crear el tipo de comision.");
 									$this->id = mysql_insert_id();

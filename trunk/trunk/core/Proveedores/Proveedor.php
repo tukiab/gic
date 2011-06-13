@@ -83,7 +83,7 @@ class Proveedor{
 			$query = "SELECT proveedores.*
 						FROM proveedores
 				    		WHERE proveedores.NIF = '$this->NIF'";
-			//FB::info($query,'Proveedor->cargar: QUERY');
+			////FB::info($query,'Proveedor->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 			throw new Exception("Error al cargar el Proveedor de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -252,7 +252,7 @@ class Proveedor{
 	 * @return integer $NIF NIF del nuevo Proveedor.
 	 */
 	public function crear($datos){
-		FB::info($datos,'Proveedor crear: datos recibidos');
+		//FB::info($datos,'Proveedor crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear un proveedor nuevo:
 		 * 		razon social
@@ -317,7 +317,7 @@ class Proveedor{
 									$s_values
 								);
 		";
-									FB::info($query,'Proveedor crear: QUERY');
+									//FB::info($query,'Proveedor crear: QUERY');
 									if(!mysql_query($query))
 									throw new Exception("Error al crear el Proveedor.");
 									$this->NIF = mysql_real_escape_string(trim($datos['NIF']));

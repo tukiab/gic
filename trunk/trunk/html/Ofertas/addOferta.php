@@ -11,7 +11,7 @@ include ($appRoot.'/Common/php/utils/lang.php');
 include_once($appRoot.'/Common/php/utils/utils.php');
 	include ('_addOferta.php');
 	$var = new AddOferta ($_GET);
-		FB::info($var->opt);
+		//FB::info($var->opt);
 include ($appRoot.'/Common/php/popupHeader.php');
 	
 	?>

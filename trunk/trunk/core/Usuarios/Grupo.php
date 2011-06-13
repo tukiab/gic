@@ -123,7 +123,7 @@
  
  
  	public function crear($datos){
-		FB::info($datos,'Grupo crear: datos recibidos');
+		//FB::info($datos,'Grupo crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear un gruponuevo:
 		 *	nombre
@@ -151,7 +151,7 @@
 		$query = "
 			INSERT INTO grupos_empresas (nombre)
 							VALUES('".mysql_real_escape_string(trim($datos['nombre']))."');";
-									FB::info($query,'Grupo crear: QUERY');
+									//FB::info($query,'Grupo crear: QUERY');
 									if(!mysql_query($query))
 									throw new Exception("Error al crear el Grupo.");
 									$this->id = mysql_insert_id();
@@ -168,7 +168,7 @@
 	}
 	
 	public function set_Nombre($nombre){
-		FB::info($nombre,'guardar el nombre del gurpo:');
+		//FB::info($nombre,'guardar el nombre del gurpo:');
 	if($this->id && strcmp($this->nombre, $nombre) != 0){
 			
 				$query = "UPDATE grupos_empresas SET nombre='".mysql_real_escape_string($nombre)."' WHERE id='$this->id' ";

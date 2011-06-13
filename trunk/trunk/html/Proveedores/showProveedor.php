@@ -98,7 +98,7 @@ else{?>
 		</tr>
 		<?php $impar=false;
 			$listaContactos = $var->opt['Proveedor']->get_Lista_Contactos();
-			FB::info($var->opt['Proveedor']);
+			//FB::info($var->opt['Proveedor']);
 			foreach ($listaContactos as $contacto){
 				if($impar){
 					$impar=false;

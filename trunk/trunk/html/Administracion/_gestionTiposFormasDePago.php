@@ -67,7 +67,7 @@ class GestionTiposFormasDePago{
 	 * Guardar:
  	 */
 	private function guardar(){
-		FB::info('guardando');
+		//FB::info('guardando');
 		$id = $this->opt['id_tipoformadepago'];
 		$tipoformadepago = new TipoDeFormaDePago($id);
 		$tipoformadepago->set_Nombre($this->opt['nombre_'.$id]);

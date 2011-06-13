@@ -295,7 +295,7 @@ $estado = $var->Proyecto->get_Estado();?>
 	<!-- **************** DEFINICIÓN **************** -->
 		<table >
 			<tr>
-				<td class="ListaTitulo" colspan="2"><?php FB::info($var->Proyecto);echo  _translate("Definici&oacute;n")?><a class="show" href="#" clase="definition"></a></td>
+				<td class="ListaTitulo" colspan="2"><?php //FB::info($var->Proyecto);echo  _translate("Definici&oacute;n")?><a class="show" href="#" clase="definition"></a></td>
 			</tr>
 			<tr class="definition">
 				<td class="ColIzq" nowrap><?php echo  _translate("Horas documentaci&oacute;n")?>:</td>

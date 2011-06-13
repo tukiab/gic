@@ -49,7 +49,7 @@ class AddVenta{
 	public function __construct($opciones){
 	
 	try{
-		//FB::info($opciones,'addVenta: opciones pasadas');
+		////FB::info($opciones,'addVenta: opciones pasadas');
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 		if(!$this->opt['id_oferta'])
@@ -71,7 +71,7 @@ class AddVenta{
 	 * @param array $opciones Array de opciones pasadas a la página.
 	 */
 	private function obtenerOpciones($opciones){
-		//FB::error($opciones,'opciones pasadas');
+		////FB::error($opciones,'opciones pasadas');
 		//Obteniendo las opciones pasadas
 		@(isset($opciones['id_oferta']))?$this->opt['id_oferta']=$opciones['id_oferta']:null;
 		$this->opt['Oferta'] = new Oferta($this->opt['id_oferta']);

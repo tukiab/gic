@@ -488,11 +488,11 @@ class Proyecto{
 	    //horas_auditoria_interna, incentivable, id_sede, observaciones, id_usuario, localidad
 	    $count = 0;
 	    foreach($this->tareas as $tarea){
-		//FB::info(timestamp2date ($tarea['fecha']));
+		////FB::info(timestamp2date ($tarea['fecha']));
 		if($tarea['fecha']>=$fecha_inicio_mes && $tarea['fecha']<=$fecha_fin_mes){
-		   //FB::error('La sumo en el mes'. $mes);
+		   ////FB::error('La sumo en el mes'. $mes);
 		    $count += $tarea['horas_desplazamiento']+$tarea['horas_visita']+$tarea['horas_despacho']+$tarea['horas_auditoria_interna'];
-		}//else //FB::error('NO La sumo en el mes'. $mes);
+		}//else ////FB::error('NO La sumo en el mes'. $mes);
 	    }
 
 	    return $count;
@@ -585,7 +585,7 @@ class Proyecto{
 			$value = "";
 			$campo="";
 			//Se asigna el gestor directamente
-			if($datos['id_usuario']){ FB::info('joder');
+			if($datos['id_usuario']){ //FB::info('joder');
 				$lista = new ListaClientes();
 				$this->id_usuario = $datos['id_usuario'];				
 				$this->estado = 3;
@@ -609,7 +609,7 @@ class Proyecto{
 
 		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
 					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";FB::error($query);
+								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";//FB::error($query);
 		
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto ');
@@ -752,7 +752,7 @@ class Proyecto{
 	 *
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar_Definicion($definicion_sedes){//FB::info($definicion_sedes);
+	private function guardar_Definicion($definicion_sedes){////FB::info($definicion_sedes);
 		$query = "UPDATE proyectos 
 					SET horas_documentacion = '$this->horas_documentacion',
 					horas_auditoria_interna = '$this->horas_auditoria_interna',

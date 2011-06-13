@@ -66,7 +66,7 @@ class GestionTiposAccion{
 	 * Guardar:
  	 */
 	private function guardar(){
-		FB::info('guardando');
+		//FB::info('guardando');
 		$id = $this->opt['id_tipoaccion'];
 		$tipoaccion = new TipoDeAccion($id);
 		$tipoaccion->set_Nombre($this->opt['nombre_'.$id]);

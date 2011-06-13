@@ -47,7 +47,7 @@ class EditColaborador{
 	
 	public function __construct($opciones){
 		//Debugging..
-		//FB::log($opciones, '_editar_datos_colaborador.php -> opciones');
+		////FB::log($opciones, '_editar_datos_colaborador.php -> opciones');
 		$this->gestor = new Usuario($_SESSION['usuario_login']);
 		//Obtenemos las opciones pasadas al script
 		if(!$opciones['id'] || !is_numeric($opciones['id']))
@@ -72,7 +72,7 @@ class EditColaborador{
 	 * @param array $opciones Array $_GET
 	 */
 	public function EditarDatosColaborador($opciones){
-		//FB::log($opciones, "Opciones:EditarDatosColaborador");
+		////FB::log($opciones, "Opciones:EditarDatosColaborador");
 		
 		//Por si eliminamos un contacto
 		$datos_contactos = $this->get_Opciones_Contactos($opciones);
