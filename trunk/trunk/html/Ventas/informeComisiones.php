@@ -210,7 +210,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 						if($nuevo_mes){
 							$obj = $Usuario_venta->get_Objetivo($mes);
 							if($obj['comision'])
-								echo $obj['comision']." &euro;";
+								echo formatearImporte($obj['comision'])." &euro;";
 							else echo "0"." &euro;";
 						}
 						?> 
@@ -220,7 +220,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 						// mostrar el objetivo acumulado del mes (la primera vez de cada gestor/mes)
 						if($nuevo_mes){
 							$obj = $Usuario_venta->get_Objetivo_Acumulado($mes);
-							echo $obj." &euro;";
+							echo formatearImporte($obj)." &euro;";
 						} ?> 
 				</td>
 				<td>
@@ -232,7 +232,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 					<?php
 						// Venta del mes: venta de ese gestor en ese mes para ese tipo de venta
 						//if($nuevo_mes){
-							echo $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta]." &euro;";
+							echo formatearImporte($var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta])." &euro;";
 						//} ?>
 				</td>
 				<td>
@@ -250,7 +250,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 							$nombre_month = Fechas::obtenerNombreMes($month);
 							$venta_acumulada += $var->datos['totales'][$venta->get_Usuario().$nombre_month.'/'.$year.$id_tipo_venta];
 						}
-						echo $venta_acumulada." &euro;";
+						echo formatearImporte($venta_acumulada)." &euro;";
 						//echo $var->datos['totales'][$venta->get_Usuario().$mes_year.$id_tipo_venta]." &euro;"; ?>
 				</td>
 				<td>
@@ -292,7 +292,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><!--<
 							$comision =  round($total_venta * ($CV + $VP) /100,1);
 							
 							//}
-							echo $comision." &euro;";
+							echo formatearImporte($comision)." &euro;";
 						//}?>
 				</td>
 			</tr>
