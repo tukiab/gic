@@ -113,7 +113,7 @@ class Factura{
 				    		INNER JOIN facturas_estados
 								ON facturas.fk_estado_factura = facturas_estados.id
 						WHERE facturas.id = '$this->id'";
-			//FB::info($query,'Factura->cargar: QUERY');
+			////FB::info($query,'Factura->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Factura de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -247,7 +247,7 @@ class Factura{
 	 * @return integer $id_factura Id del nuevo Factura.
 	 */
 	public function crear($datos){
-		FB::info($datos,'Factura crear: datos recibidos');
+		//FB::info($datos,'Factura crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una factura nuevo:
 		 * 		numero_factura
@@ -322,7 +322,7 @@ class Factura{
 						'".$this->numero_factura."'								
 					);
 		";
-			FB::info($query,'Factura crear: QUERY');
+			//FB::info($query,'Factura crear: QUERY');
 			if(!mysql_query($query))
 				throw new Exception("Error al crear la Factura. ");
 			$this->id = mysql_insert_id();
@@ -438,7 +438,7 @@ class Factura{
 	}
 	
 	public function set_Cantidad_Pagada($cantidad){	
-FB::info($cantidad);
+//FB::info($cantidad);
 		$validar = new Validador();
 		if((is_numeric($cantidad))){
 			$query = "UPDATE facturas SET cantidad_pagada='$cantidad' WHERE id='$this->id' ";

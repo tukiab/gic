@@ -62,7 +62,7 @@ class datosProcesos{
 		$qry 	= "SELECT SQL_CACHE * FROM permisos_usuarios_perfiles WHERE fk_perfil='$id_perfil' AND fk_proceso='$id_proceso'";
 		$res 	= mysql_query($qry);
 		$grp 	= mysql_fetch_assoc($res);
-		//FB::info($qry,'query permisos');
+		////FB::info($qry,'query permisos');
 		
 		$prm['lectura'] 		= $grp['lectura'];
 		$prm['escritura']	= $grp['escritura'];

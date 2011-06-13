@@ -21,7 +21,7 @@ class ShowProyecto{
 	 * 
 	 * @param array $opciones Array de opciones pasados al script. Se corresponde con el array $_GET de la vista.
 	 */
-	public function __construct($opciones_get, $opciones){FB::info($opciones);
+	public function __construct($opciones_get, $opciones){//FB::info($opciones);
 		try{
 			global $permisos;
 					

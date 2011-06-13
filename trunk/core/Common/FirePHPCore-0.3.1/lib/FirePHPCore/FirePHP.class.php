@@ -727,7 +727,7 @@ class FirePHP {
                || $trace[$i]['class']=='FB')
            && (substr($this->_standardizePath($trace[$i]['file']),-18,18)=='FirePHPCore/fb.php'
                || substr($this->_standardizePath($trace[$i]['file']),-29,29)=='FirePHPCore/FirePHP.class.php')) {
-          /* Skip - FB::trace(), FB::send(), $firephp->trace(), $firephp->fb() */
+          /* Skip - //FB::trace(), //FB::send(), $firephp->trace(), $firephp->fb() */
         } else
         if(isset($trace[$i]['class'])
            && isset($trace[$i+1]['file'])
@@ -790,7 +790,7 @@ class FirePHP {
                  || $trace[$i]['class']=='FB')
              && (substr($this->_standardizePath($trace[$i]['file']),-18,18)=='FirePHPCore/fb.php'
                  || substr($this->_standardizePath($trace[$i]['file']),-29,29)=='FirePHPCore/FirePHP.class.php')) {
-            /* Skip - FB::trace(), FB::send(), $firephp->trace(), $firephp->fb() */
+            /* Skip - //FB::trace(), //FB::send(), $firephp->trace(), $firephp->fb() */
           } else
           if(isset($trace[$i]['class'])
              && isset($trace[$i+1]['file'])
@@ -800,7 +800,7 @@ class FirePHP {
           } else
           if(isset($trace[$i]['file'])
              && substr($this->_standardizePath($trace[$i]['file']),-18,18)=='FirePHPCore/fb.php') {
-            /* Skip FB::fb() */
+            /* Skip //FB::fb() */
           } else {
             $meta['file'] = isset($trace[$i]['file'])?$this->_escapeTraceFile($trace[$i]['file']):'';
             $meta['line'] = isset($trace[$i]['line'])?$trace[$i]['line']:'';

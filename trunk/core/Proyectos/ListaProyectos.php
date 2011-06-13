@@ -65,7 +65,7 @@ class ListaProyectos implements IIterador{
 	public function buscar($filtros=null, $page=0, $paso=0){
 	    
 	    actualizarProyectosFueraDePlazo();
-		//FB::info($filtros,'filtros ListaProyectos:buscar');
+		////FB::info($filtros,'filtros ListaProyectos:buscar');
 		$filtro ="";
 		$join="";
 
@@ -151,7 +151,7 @@ class ListaProyectos implements IIterador{
 				    GROUP BY proyectos.id $order
 					$limit;";
 		
-		FB::info($query,'query ListaProyectos:buscar');
+		//FB::info($query,'query ListaProyectos:buscar');
 		$this->result = @mysql_query($query);
 
 		//Obtenemos el número total de resultados sin paginar:

@@ -52,7 +52,7 @@ class AddTarea{
 	 */
 	public function __construct($opciones){
 		try{
-		//FB::info($opciones,'addTarea: opciones pasadas');
+		////FB::info($opciones,'addTarea: opciones pasadas');
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 

@@ -14,7 +14,7 @@ class GestionUsuarios{
 	 * @param array $opciones
 	 */
 	public function GestionUsuarios($opciones){
-//FB::info($opciones, 'opciones gestion usuarios');
+////FB::info($opciones, 'opciones gestion usuarios');
 		try{
 			//Inicializando el acceso a datos
 			$this->DB_usuarios = new ListaUsuarios();
@@ -43,7 +43,7 @@ class GestionUsuarios{
 		
 		$this->datos['lista_perfiles'] = $this->DB_usuarios->lista_Perfiles();			
 	}
-	private function obtenerOpciones($opciones){FB::info($opciones,'opcionesa');
+	private function obtenerOpciones($opciones){//FB::info($opciones,'opcionesa');
 
 		($opciones['guardar'] == 1)?$this->opt['guardar']=true:null;
 		(isset($opciones['crear']))?$this->opt['crear']=true:null;
@@ -86,14 +86,14 @@ class GestionUsuarios{
  	 */
 
 	private function crear(){
-		//FB::warn('creando');
+		////FB::warn('creando');
 		$usuario = new Usuario();
 		$usuario->crear($this->opt);
 		$this->opt['guardado'] = true;
 	}
 
 	private function eliminar(){
-		//FB::warn('eliminando');
+		////FB::warn('eliminando');
 		$usuario = new Usuario($this->opt['id_usuario_accion']);
 		$usuario->eliminar();
 	}

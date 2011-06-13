@@ -66,7 +66,7 @@ class GestionTiposComision{
 	 * Guardar:
  	 */
 	private function guardar(){
-		FB::info('guardando');
+		//FB::info('guardando');
 		$id = $this->opt['id_tipocomision'];
 		$tipocomision = new TipoDeComision($id);
 		$tipocomision->set_Nombre($this->opt['nombre_'.$id]);

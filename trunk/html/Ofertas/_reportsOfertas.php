@@ -103,7 +103,7 @@ class InformesOfertas{
 						ON clientes.id = ofertas.fk_cliente
 					WHERE 1 $filtro
 					GROUP BY usuario, tipo WITH ROLLUP;";
-FB::info($query);
+//FB::info($query);
 		$result = mysql_query($query);
 		$datos = array();
 		while($row = mysql_fetch_array($result)){

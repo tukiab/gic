@@ -47,7 +47,7 @@ class EditProyecto{
 	
 	public function __construct($opciones){
 		//Debugging..
-		//FB::log($opciones, '_editar_datos_proyecto.php -> opciones');
+		////FB::log($opciones, '_editar_datos_proyecto.php -> opciones');
 		$this->gestor = new Usuario($_SESSION['usuario_login']);
 		//Obtenemos las opciones pasadas al script
 		if(!$opciones['id'] || !is_numeric($opciones['id']))
@@ -81,7 +81,7 @@ class EditProyecto{
 	 * @param array $opciones Array $_GET
 	 */
 	public function EditarDatosProyecto($opciones){
-		//FB::log($opciones, "Opciones:EditarDatosProyecto");
+		////FB::log($opciones, "Opciones:EditarDatosProyecto");
 		//Si se ha pulsado en guardar, comprobamos qué se va a guardar...
 		if($opciones['guardar']){
 			switch($opciones['edit']){

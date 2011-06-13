@@ -150,7 +150,7 @@ class ListaTareas implements IIterador{
 						$filtro
 				    GROUP BY tareas_tecnicas.id $order $limit;";
 
-		FB::error($query);
+		//FB::error($query);
 		
 		$this->result = @mysql_query($query);
 		

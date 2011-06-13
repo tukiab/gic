@@ -163,7 +163,7 @@ class FB
    * @return true
    */
   function groupEnd() {
-    return FB::send(null, null, FirePHP_GROUP_END);
+    return //FB::send(null, null, FirePHP_GROUP_END);
   }
 
   /**
@@ -175,7 +175,7 @@ class FB
    * @return true
    */
   function log($Object, $Label=null) {
-    return FB::send($Object, $Label, FirePHP_LOG);
+    return //FB::send($Object, $Label, FirePHP_LOG);
   } 
 
   /**
@@ -187,7 +187,7 @@ class FB
    * @return true
    */
   function info($Object, $Label=null) {
-    return FB::send($Object, $Label, FirePHP_INFO);
+    return //FB::send($Object, $Label, FirePHP_INFO);
   } 
 
   /**
@@ -199,7 +199,7 @@ class FB
    * @return true
    */
   function warn($Object, $Label=null) {
-    return FB::send($Object, $Label, FirePHP_WARN);
+    return //FB::send($Object, $Label, FirePHP_WARN);
   } 
 
   /**
@@ -211,7 +211,7 @@ class FB
    * @return true
    */
   function error($Object, $Label=null) {
-    return FB::send($Object, $Label, FirePHP_ERROR);
+    return //FB::send($Object, $Label, FirePHP_ERROR);
   } 
 
   /**
@@ -223,7 +223,7 @@ class FB
    * @return true
    */
   function dump($Key, $Variable) {
-    return FB::send($Variable, $Key, FirePHP_DUMP);
+    return //FB::send($Variable, $Key, FirePHP_DUMP);
   } 
 
   /**
@@ -234,7 +234,7 @@ class FB
    * @return true
    */
   function trace($Label) {
-    return FB::send($Label, FirePHP_TRACE);
+    return //FB::send($Label, FirePHP_TRACE);
   } 
 
   /**
@@ -246,6 +246,6 @@ class FB
    * @return true
    */
   function table($Label, $Table) {
-    return FB::send($Table, $Label, FirePHP_TABLE);
+    return //FB::send($Table, $Label, FirePHP_TABLE);
   } 
 }

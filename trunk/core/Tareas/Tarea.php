@@ -80,7 +80,7 @@ class Tarea{
 				    		INNER JOIN tareas_tecnicas_tipos
 								ON tareas_tecnicas.fk_tipo = tareas_tecnicas_tipos.id
 						WHERE tareas_tecnicas.id = '$this->id'";
-			//FB::info($query,'Tarea->cargar: QUERY');
+			////FB::info($query,'Tarea->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Tarea de la BBDD");
 			else if(mysql_num_rows($result) == 0)

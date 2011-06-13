@@ -104,7 +104,7 @@ class TipoDeProducto{
 	 * @return integer $id_grupoEmpresas Id del nuevo TipoDeProducto.
 	 */
 	public function crear($datos){
-		FB::info($datos,'TipoDeProducto crear: datos recibidos');
+		//FB::info($datos,'TipoDeProducto crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una grupoEmpresas nuevo:
 		 * 		nombre
@@ -131,7 +131,7 @@ class TipoDeProducto{
 
 		$query = "
 			INSERT INTO productos_tipos (nombre) VALUES('".mysql_real_escape_string(trim($datos['nombre']))."');";
-									FB::info($query,'TipoDeProducto crear: QUERY');
+									//FB::info($query,'TipoDeProducto crear: QUERY');
 									if(!mysql_query($query))
 										throw new Exception("Error al crear el tipo de producto.");
 									$this->id = mysql_insert_id();

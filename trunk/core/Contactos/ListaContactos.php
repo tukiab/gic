@@ -56,7 +56,7 @@ class ListaContactos implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Contactos.
 	 */
 	public function buscar($filtros){
-		FB::info($filtros,'filtros ListaContactos:buscar');
+		//FB::info($filtros,'filtros ListaContactos:buscar');
 		$filtro ="";
 		$join="";
 		
@@ -76,7 +76,7 @@ class ListaContactos implements IIterador{
 						$filtro
 				    GROUP BY contactos.id;";
 		
-		FB::info($query,'query ListaContactos:buscar');
+		//FB::info($query,'query ListaContactos:buscar');
 		$this->result = @mysql_query($query);
 	}
 	

@@ -49,7 +49,7 @@ class AddColaborador{
 	 * @param array $opciones Array de opciones pasadas a la página.
 	 */
 	public function __construct($opciones){
-		FB::info($opciones,'addColaborador: opciones pasadas');
+		//FB::info($opciones,'addColaborador: opciones pasadas');
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 		

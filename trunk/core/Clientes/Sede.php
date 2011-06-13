@@ -81,7 +81,7 @@ class Sede{
 			$query = "SELECT *
 						FROM clientes_sedes
 						WHERE id = '$this->id'";
-			//FB::info($query,'Sede->cargar: QUERY');
+			////FB::info($query,'Sede->cargar: QUERY');
 			if(!($result = mysql_query($query)))
                             throw new Exception("Error al cargar la sede de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -222,7 +222,7 @@ class Sede{
 	 * @return integer $id_sede Id del nuevo Sede.
 	 */
 	public function crear($datos){
-		//FB::info($datos,'Sede crear: datos recibidos');
+		////FB::info($datos,'Sede crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear un sede nuevo:
 		 * 		id_cliente
@@ -309,7 +309,7 @@ class Sede{
 			if($this->direccion != '')
 				$disable['direccion'] = 'readonly="readonly"';			
 		}
-		//FB::error($disable);
+		////FB::error($disable);
 		return $disable;
 	}
 
@@ -376,7 +376,7 @@ class Sede{
 
 		if($this->id && $Validar->CP($CP)){
 
-			$query = "UPDATE clientes_sedes SET CP='".trim($CP)."' WHERE id='$this->id' ";//FB::info($query);
+			$query = "UPDATE clientes_sedes SET CP='".trim($CP)."' WHERE id='$this->id' ";////FB::info($query);
 			if(!mysql_query($query))
 			throw new Exception("Error al actualizar el CP en la BBDD.");
 

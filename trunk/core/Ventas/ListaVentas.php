@@ -63,7 +63,7 @@ class ListaVentas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Ventas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		//FB::error($filtros,'filtros ListaVentas');
+		////FB::error($filtros,'filtros ListaVentas');
 		$filtro ="";
 		$join_ofertas="";
 		
@@ -162,7 +162,7 @@ class ListaVentas implements IIterador{
 					
 					$limit;";
 		
-		FB::error($query,'query ListaVentas:buscar');
+		//FB::error($query,'query ListaVentas:buscar');
 		$this->result = @mysql_query($query);
 		
 		//Obtenemos el número total de resultados sin paginar:

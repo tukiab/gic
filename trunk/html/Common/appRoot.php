@@ -7,7 +7,7 @@
 
 //DEBUG
 	define('DEBUG', true);
-	//FB::log($var, 'Etiqueta'); / info / warn / error
+	////FB::log($var, 'Etiqueta'); / info / warn / error
 
 //Obtenemos los parámetros necesarios para calcular la ruta de instalación..
 

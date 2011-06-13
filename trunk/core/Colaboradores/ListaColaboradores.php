@@ -63,7 +63,7 @@ class ListaColaboradores implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Colaboradores.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		FB::info($filtros,'filtros ListaColaboradores:buscar');
+		//FB::info($filtros,'filtros ListaColaboradores:buscar');
 		$filtro ="";
 		$join="";
 		
@@ -111,7 +111,7 @@ class ListaColaboradores implements IIterador{
 				    GROUP BY colaboradores.id $order
 					$limit;";
 		//throw new Exception($query);
-		FB::info($query,'query ListaColaboradores:buscar');
+		//FB::info($query,'query ListaColaboradores:buscar');
 		$this->result = @mysql_query($query);
 
 		//Obtenemos el número total de resultados sin paginar:

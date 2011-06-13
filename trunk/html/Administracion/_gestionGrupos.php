@@ -49,7 +49,7 @@ class GestionGrupos{
 			$this->datos['lista_grupos'][] = $grupo;
 	}
 	private function obtenerOpciones($opciones){
-FB::info($opciones);
+//FB::info($opciones);
 		($opciones['guardar'] == 1)?$this->opt['guardar']=true:null;
 		(isset($opciones['crear']))?$this->opt['crear']=true:null;
 		($opciones['eliminar'] == 1)?$this->opt['eliminar']=true:null;
@@ -68,7 +68,7 @@ FB::info($opciones);
 	 * Guardar:
  	 */
 	private function guardar(){
-		FB::info('guardando');
+		//FB::info('guardando');
 		$id = $this->opt['id_grupo'];
 		$grupo = new GrupoEmpresas($id);
 		$grupo->set_Nombre($this->opt['nombre_'.$id]);

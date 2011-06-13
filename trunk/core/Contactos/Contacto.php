@@ -293,7 +293,7 @@ class Contacto{
 								)VALUES( $valores
 								);
 		";
-		FB::info($query,'crear contacto');
+		//FB::info($query,'crear contacto');
 		if(!mysql_query($query))
 			throw new Exception("Error al crear el Contacto.".$query);
 		$this->id = mysql_insert_id();
@@ -406,7 +406,7 @@ class Contacto{
 			if($this->nombre != '')
 				$disable['nombre'] = 'readonly="readonly"';
 		}
-		FB::error($disable);
+		//FB::error($disable);
 		return $disable;
 	}
 	

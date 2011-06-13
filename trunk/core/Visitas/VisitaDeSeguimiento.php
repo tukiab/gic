@@ -225,7 +225,7 @@ class VisitaDeSeguimiento{
 	 * @param int $fecha nueva fecha
 	 */
 	public function set_Fecha($fecha){
-		FB::info(timestamp2date($fecha));
+		//FB::info(timestamp2date($fecha));
 
 		if(is_numeric($fecha)){
 			$query = "UPDATE visitas_de_seguimiento SET fecha='$fecha' WHERE id='$this->id' ";

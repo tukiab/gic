@@ -98,7 +98,7 @@ class Colaborador{
 			$query = "SELECT colaboradores.*
 					FROM colaboradores
 					WHERE colaboradores.id = '$this->id'";
-			//FB::info($query,'Colaborador->cargar: QUERY');
+			////FB::info($query,'Colaborador->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el Colaborador de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -252,7 +252,7 @@ class Colaborador{
 	 * @return integer $id_colaborador Id del nuevo Colaborador.
 	 */
 	public function crear($datos){
-		FB::info($datos,'Colaborador crear: datos recibidos');
+		//FB::info($datos,'Colaborador crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear un colaborador nuevo:
 		 * 		razon social
@@ -422,7 +422,7 @@ class Colaborador{
 					FROM colaboradores
 						INNER JOIN colaboradores_rel_usuarios ON colaboradores.id = colaboradores_rel_usuarios.fk_colaborador AND colaboradores_rel_usuarios.ha_insertado = '1'
 					WHERE 1 $filtro";
-		FB::error($query);
+		//FB::error($query);
 		$rs = mysql_query($query);
 		if(mysql_num_rows($rs) > 0){
 			while($row = mysql_fetch_array($rs))
@@ -435,7 +435,7 @@ class Colaborador{
 		$disable = array();
 		$usuario = new Usuario($_SESSION['usuario_login']);
 		if(!$usuario->esAdministrador()){ 
-			FB::error($this,'entro');
+			//FB::error($this,'entro');
 			if($this->razon_social != '')
 				$disable['razon_social'] = 'readonly="readonly"'; 
 			if($this->NIF != '')
@@ -456,7 +456,7 @@ class Colaborador{
 				$disable['comision'] = 'readonly="readonly"';
 			
 		}
-		FB::error($disable);
+		//FB::error($disable);
 		return $disable;
 	}
 	/**

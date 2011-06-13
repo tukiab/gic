@@ -51,7 +51,7 @@ class TipoDeFormaDePago{
 			$query = "SELECT formas_de_pago.*
 					FROM formas_de_pago
 					WHERE id = '$this->id'";
-			FB::info($query,'formas_de_pago->cargar: QUERY');
+			//FB::info($query,'formas_de_pago->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el tipo de forma de pago de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -104,7 +104,7 @@ class TipoDeFormaDePago{
 	 * @return integer $id_grupoEmpresas Id del nuevo TipoDeFormaDePago.
 	 */
 	public function crear($datos){
-		FB::info($datos,'TipoDeFormaDePago crear: datos recibidos');
+		//FB::info($datos,'TipoDeFormaDePago crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una grupoEmpresas nuevo:
 		 * 		nombre
@@ -131,7 +131,7 @@ class TipoDeFormaDePago{
 
 		$query = "
 			INSERT INTO formas_de_pago (nombre) VALUES('".mysql_real_escape_string(trim($datos['nombre']))."');";
-									FB::info($query,'formas_de_pago crear: QUERY');
+									//FB::info($query,'formas_de_pago crear: QUERY');
 									if(!mysql_query($query))
 										throw new Exception("Error al crear el tipo de formaDePago.");
 									$this->id = mysql_insert_id();

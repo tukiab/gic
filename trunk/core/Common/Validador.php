@@ -266,10 +266,10 @@
 	       if ($num[8] == chr(64 + $n) || $num[8] == substr($n, strlen($n) - 1, 1))
 	          return true;
 	       else{
-		   FB::error($num[8]);
-		   FB::error($n,'n');
-		   FB::warn(chr(64 + $n));
-		   FB::warn(substr($n, strlen($n) - 1, 1));
+		   //FB::error($num[8]);
+		   //FB::error($n,'n');
+		   //FB::warn(chr(64 + $n));
+		   //FB::warn(substr($n, strlen($n) - 1, 1));
 	          return false;
 	       }
 	    }
