@@ -1,0 +1,172 @@
+@import url('general.css');
+
+#main-container{
+	text-align:left;
+	margin:0 auto;
+	padding:20px;
+	width:900px;
+	height:500px;
+	margin-top:100px;
+	background: #FFF;
+
+	border-radius: 8px;
+	box-shadow: #666 0px 2px 15px;
+}
+
+
+#tasks-lists-container{
+	position:fixed;
+	bottom:0;
+	left:10px;
+}
+
+#tasks-lists{
+	width:275px;
+	height: 300px;
+
+	overflow: auto;
+	
+	border-right: 1px solid #666;
+	border-left: 1px solid #666;
+
+	background: #fff;
+}
+
+.tasks-bar{
+	height:15px;
+	padding: 5px;
+	width:265px;
+
+	border: 1px solid #666;
+
+	color:#eee;
+	font-weight: bold;
+	font-size: 14px;
+
+	background: #ACB9CA;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ACB9CA), to(#6D84A2));
+	background: -moz-linear-gradient(#ACB9CA, #6D84A2);
+	background: linear-gradient(#ACB9CA, #6D84A2);
+	-pie-background: linear-gradient(#ACB9CA, #6D84A2);
+}
+.tasks-bar span{
+	display: block;
+	float:left;
+	padding-left:5px;
+}
+
+ul#tasks-list{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul#tasks-list li{	
+	border-bottom: 1px dotted #999;
+	height: 20px;
+    padding: 2px 0;
+}
+ul#tasks-list li#parameters{
+	height:120px;
+}
+ul#tasks-list li:last-child{
+	border: none;
+}
+ul#tasks-list li .check{
+	display:block;
+	float:left;
+	margin: 2px;
+}
+.task-title,
+.list-title,
+#task-name,
+#list-name,
+.date,
+#description{
+	display:block;
+	float:left;
+	width:50%;
+	color: #111;
+	font-weight: bold;
+	border:none;
+	font-size: 12px;
+	padding-left:5px;
+	border: none;
+}
+#task-name{
+	font-weight: normal;
+	font-style: italic;
+}
+.task-title.ended{
+	font-weight: normal;
+	color: #aaa;
+}
+
+.date,
+#description{
+    border: 1px solid #AFAFAF;
+    font-weight: normal;
+    /*max-width: 80%;*/
+}
+ul#tasks-list li span.task-date{
+	display:block;
+	float:left;
+	width:20%;
+	color:#8599B1;
+	font-size: 11px;
+	text-align: right;
+}
+#tasks-lists label{
+	display:block;
+	clear:both;
+	color: #ccc;
+	font-size: 11px;
+}
+
+ul#lists{
+	background: #fff;
+	position:fixed;
+	bottom:30px;
+	left:75px;
+	width:190px;
+	border: 1px solid #666;
+	color: #333;
+	font-size: 12px;
+	font-weight: normal;
+	overflow: auto;
+	margin:0;
+	padding:5px;
+}
+ul#lists li{
+	padding: 2px;
+	min-height: 20px;
+}
+
+ul#lists li#new-list{
+	border-bottom: 1px solid #ccc;
+}
+
+.task-loaded{
+	padding:25px;
+	position:relative;
+}
+
+.task-loaded a{
+	bottom: -150px;
+    clear: both;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    right: 10px;
+    text-decoration: underline;
+}
+
+.task-loaded #description,
+.task-loaded .date,
+.task-loaded #task-name{
+	width: 80%;
+}
+
+.task-loaded #description{
+	height: 100px;
+}

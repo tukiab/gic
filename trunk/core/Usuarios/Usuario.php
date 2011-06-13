@@ -59,6 +59,13 @@
 
 	private $comisiones = array();
 	private $comisiones_departamento = array();
+
+	/**
+	 * Lista de las tareas (tasks) del user
+	 * @var array de arryays indexados por (id, name, fk_user)
+	 */
+	private $lists;
+	
  	/**
  	 * Constructor de la clase.
  	 * 
@@ -104,6 +111,7 @@
  			$this->cargar_Objetivos();
 			$this->cargar_Penalizaciones();
 			$this->cargar_Comisiones();
+			$this->load_lists();
  		}
  	}
  	
@@ -193,6 +201,27 @@
 			}
  		}
  	}
+
+	/**
+	 * Carga las listas de tareas (tasks lists) del usuario
+	 */
+	private function load_lists(){
+		$query = "SELECT * FROM tasks_lists WHERE fk_user='$this->id';";
+
+		if(!($result = mysql_query($query))){
+			throw new Exception("Error al cargar las listas del usuario");
+		}
+
+		if(mysql_num_rows($result) == 0){
+			$query = " INSERT INTO tasks_lists (`name`, `fk_user`, `default`) VALUES ('general', '$this->id', '1');";
+			if(!mysql_query($query))
+				throw new Exception("Error al crear la lista general");
+		}
+
+		while($row=  mysql_fetch_array($result)){
+			$this->lists[$row['id']] = $row;
+		}
+	}
  	
  	/*
  	 * Métodos observadores
@@ -329,7 +358,16 @@
 		$listaAcciones->buscar($filtros);
 		return $listaAcciones;
 	}
- 	/*
+
+	/**
+	 * Devuelve la lista con las listas de tareas
+	 * @return <array> de arrays, cada uno indexado por (id, name, fk_user)
+	 */
+	public function get_lists(){
+		return $this->lists;
+	}
+
+	/*
 	 * Métodos Modificadores. 
 	 * 
 	 ************************/
@@ -444,9 +482,11 @@
 	}
  	
  	public function eliminar(){
-		$query = "DELETE FROM usuarios WHERE id='$this->id';";
+		/*$query = "DELETE FROM usuarios WHERE id='$this->id';";
 		if(!mysql_query($query))
-			throw new Exception("Error al borrar el Usuario.");
+			throw new Exception("Error al borrar el Usuario.");*/
+
+		throw new Exception("No se pueden eliminar usuarios");
 	}	
 
 	public function actualizar($datos){
@@ -621,6 +661,19 @@
  	public function esAdministradorTotal(){
 		return $this->perfil['id'] == 5;  
 	}
-	
+
+	/**
+	 * Crea una nueva lista de tareas para el user
+	 * @param <string> $name
+	 */
+	public function add_list($name){
+		$tasks_list = new TasksList();
+		$data = array('name' => $name, 'user_id' => $this->id);
+
+		$tasks_list->create($data);
+		$this->load_lists();
+
+		return $tasks_list;
+	}
  }
 ?>
