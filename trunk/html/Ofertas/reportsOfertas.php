@@ -248,7 +248,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 											<?php if($total_clientes) echo  round($num_clientes*100/$total_clientes,2)."%"; ?>
 										</td>
 										<td>
-											<?php echo $importe; ?>
+											<?php echo formatearImporte($importe)." &euro;"; ?>
 										</td>
 										<td>
 											<?php if($total_importe) echo  round($importe*100/$total_importe,2)."%"; ?>
@@ -271,7 +271,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 									<td></td>
 									<td><?php echo  $total_empresas[$user];?></td>
 									<td></td>
-									<td><?php echo  $total_importe;?></td>
+									<td><?php echo  formatearImporte($total_importe)." &euro;";?></td>
 									<td></td>
 								</tr>
 					<?php	}
@@ -317,7 +317,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 								<?php if($total_clientes)echo round($num_clientes*100/$total_clientes,2)."%"; ?>
 							</td>
 							<td>
-								<?php echo $importe; ?>
+								<?php echo formatearImporte($importe)." &euro;"; ?>
 							</td>
 							<td>
 								<?php if($total_importe)echo round($importe*100/$total_importe,2)."%"; ?>
@@ -330,7 +330,7 @@ if($permisos->administracion && $var->resumen && !$var->opt['exportar']){?><inpu
 							<td></td>
 							<td><?php echo  $total_clientes;?></td>
 							<td></td>
-							<td><?php echo  $total_importe;?></td>
+							<td><?php echo  formatearImporte($total_importe)." &euro;";?></td>
 						</tr>
 
 					</tbody>

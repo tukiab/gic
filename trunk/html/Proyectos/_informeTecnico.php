@@ -20,7 +20,7 @@ class InformeTecnico{
 			actualizarProyectosFueraDePlazo();
 			
 			if($this->opt['mostrar']){
-				//$this->opt['estados'] = '(3,4,5)'; //sólo los proyectos en estados 3,4,5; pendiente planificación, en curso, fuera de plazo
+				$this->opt['estados'] = '(3,4,5)'; //sólo los proyectos en estados 3,4,5; pendiente planificación, en curso, fuera de plazo
 				$this->lista_Proyectos->buscar($this->opt);
 				$this->obtener_informe();
 			}
@@ -85,17 +85,15 @@ class InformeTecnico{
 				$fecha_inicio_mes = Fechas::date2timestamp(date('1/'.$mes.'/'.$year));
 				$fecha_fin_mes = date2timestamp(Fechas::numeroDeDias($mes, $year).'/'.$mes.'/'.$year);
 				if
-				    (
-					($proyecto->get_Fecha_Inicio() <= $fecha_fin_mes && $proyecto->get_Fecha_Fin() >= $fecha_inicio_mes)
-					    ||
-					($est['id'] == 5 && $proyecto->get_Horas_Totales_Reales_Mensual($mes, $year))
-				    ){
+				    ($proyecto->get_Fecha_Inicio() <= $fecha_fin_mes
+				  ){
 
 					$this->informe[$proyecto->get_Id_Usuario()][$mes_year]['incentivables'] += ListaProyectos::get_unidades_incentivables($proyecto, $mes, $year);
 					$this->informe[$proyecto->get_Id_Usuario()][$mes_year]['no_incentivables'] += ListaProyectos::get_unidades_no_incentivables($proyecto, $mes, $year);
 
-					if(!$clientes[$proyecto->get_Id_Usuario()] ||
-							!in_array($proyecto->get_Id_Cliente(), $clientes[$proyecto->get_Id_Usuario()])){
+					if((!$clientes[$proyecto->get_Id_Usuario()] ||
+							!in_array($proyecto->get_Id_Cliente(), $clientes[$proyecto->get_Id_Usuario()]))
+						&& $proyecto->get_Id_Cliente() != getIdClientePrincipal()){
 						$clientes[$proyecto->get_Id()][] = $proyecto->get_Id_Cliente();
 						$this->informe[$proyecto->get_Id_Usuario()][$mes_year]['numero_empresas'] ++;
 					}

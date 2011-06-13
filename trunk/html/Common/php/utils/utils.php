@@ -364,4 +364,8 @@ function actualizarProyectosFueraDePlazo(){
 	if(!mysql_query($query))
 		throw new Exception('Error al actualizar los proyectos fuera de plazo ');
 }
+
+function formatearImporte($importe){
+    return str_replace(',00', '', number_format($importe, 2, ',','.'));
+}
 ?>
