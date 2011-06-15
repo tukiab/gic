@@ -108,28 +108,28 @@ class Cliente{
 	 * Contactos del cliente.
 	 * @var array de ids de contactos
 	 */
-	private $contactos;
+	private $contactos=null;
 
 	/**
 	 * Gestor/Gestores asociados al cliente
 	 * @var array con ids de usuarios
 	 * El primero de la lista es el usuario que inserta al cliente
 	 */
-	private $gestores;
+	private $gestores=null;
 
 	/**
 	 * Acciones asociadas al cliente
 	 * @var array con ids de acciones
 	 */
-	private $acciones;
+	private $acciones=null;
 
 	/**
 	 * Ofertas asociadas al cliente
 	 * @var array con ids de ofertas
 	 */
-	private $ofertas;
-	private $ventas;
-	private $proyectos;
+	private $ofertas=null;
+	private $ventas=null;
+	private $proyectos=null;
 
 	private $observaciones;
 	private $actividad;
@@ -138,13 +138,14 @@ class Cliente{
 	 * Ids de las sedes de la empresa
 	 * @var <type>
 	 */
-	private $sedes;
+	private $sedes=null;
 
 	/**
 	 * Indica si el cliente representa a la empresa usuaria de la aplicación
 	 * @var <integer>
 	 */
 	private $cliente_principal;
+	
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -216,15 +217,9 @@ class Cliente{
 
 			$this->observaciones = $row['observaciones'];
 			$this->actividad = $row['actividad'];
-			
 
-			$this->cargar_Contactos();
-			$this->cargar_Sedes();
-			$this->cargar_Gestores();
-			$this->cargar_Acciones();
-			$this->cargar_Ofertas();
-			$this->cargar_Ventas();
-			$this->cargar_Proyectos();
+			$this->cliente_principal = $row['cliente_principal'];
+			
 		}
 	}
 
@@ -343,6 +338,9 @@ class Cliente{
 	 * @return array $contactos
 	 */
 	public function get_Contactos(){
+		if(!$this->contactos)
+			$this->cargar_Contactos();
+
 		return $this->contactos;
 	}
 
@@ -351,6 +349,9 @@ class Cliente{
 	 * @return <type>
 	 */
 	public function get_Sedes(){
+		if(!$this->sedes)
+			$this->cargar_Sedes();
+
 		return $this->sedes;
 	}
 	/**
@@ -407,6 +408,9 @@ class Cliente{
 	 * @return array $acciones
 	 */
 	public function get_Acciones(){
+		if(!$this->acciones)
+			$this->cargar_Acciones();
+		
 		return $this->acciones;
 	}
 
@@ -415,6 +419,9 @@ class Cliente{
 	 * @return array $ofertas
 	 */
 	public function get_Ofertas(){
+		if(!$this->ofertas)
+			$this->cargar_Ofertas();
+
 		return $this->ofertas;
 	}
 
@@ -423,6 +430,8 @@ class Cliente{
 	 * @return <type>
 	 */
 	public function get_Ventas(){
+		if(!$this->ventas)
+			$this->cargar_Ventas();
 		return $this->ventas;
 	}
 
@@ -431,6 +440,9 @@ class Cliente{
 	 * @return <type> 
 	 */
 	public function get_Proyectos(){
+		if(!$this->proyectos)
+			$this->cargar_Proyectos();
+
 		return $this->proyectos;
 	}
 	/**
@@ -438,11 +450,14 @@ class Cliente{
 	 * @return array $gestores
 	 */
 	public function get_Gestores(){
+		if(!$this->gestores)
+			$this->cargar_Gestores();
+		
 		return $this->gestores;
 	}
 
 	public function get_Gestor_Inserta(){
-		return array_shift(array_values($this->gestores));
+		return array_shift(array_values($this->get_Gestores()));
 	}
 	/**
 	 * Devuelve el id
@@ -544,7 +559,7 @@ class Cliente{
 	}
 
 	public function get_Cliente_Principal(){
-		return $this_principal;
+		return $this->cliente_principal;
 	}
 
 	
@@ -558,9 +573,9 @@ class Cliente{
 	 */
 	public function get_Lista_Contactos(){
 		$array_Contactos = array();
-		if($this->contactos)
-		foreach($this->contactos as $id_Contacto)
-		array_push($array_Contactos, new Contacto($id_Contacto));
+		if($this->get_Contactos())
+			foreach($this->contactos as $id_Contacto)
+				array_push($array_Contactos, new Contacto($id_Contacto));
 
 		return $array_Contactos;
 	}
@@ -571,7 +586,7 @@ class Cliente{
 	 */
 	public function get_Lista_Sedes(){
 		$array = array();
-		foreach($this->sedes as $id)
+		foreach($this->get_Sedes() as $id)
 			array_push($array, new Sede ($id));
 
 		return $array;
@@ -587,8 +602,8 @@ class Cliente{
 	 */
 	public function get_Lista_Gestores(){
 		$array_gestores = array();
-		foreach($this->gestores as $id_usuario)
-		array_push($array_gestores, new Usuario($id_usuario));
+		foreach($this->get_Gestores() as $id_usuario)
+			array_push($array_gestores, new Usuario($id_usuario));
 
 		return $array_gestores;
 	}
@@ -603,8 +618,8 @@ class Cliente{
 	 */
 	public function get_Lista_Acciones(){
 		$array_acciones = array();
-		foreach($this->acciones as $id_accion)
-		array_push($array_acciones, new Accion($id_accion));
+		foreach($this->get_Acciones() as $id_accion)
+			array_push($array_acciones, new Accion($id_accion));
 
 		return $array_acciones;
 	}
@@ -619,22 +634,22 @@ class Cliente{
 	 */
 	public function get_Lista_Ofertas(){
 		$array_ofertas = array();
-		foreach($this->ofertas as $id_oferta)
-		array_push($array_ofertas, new Oferta($id_oferta));
+		foreach($this->get_Ofertas() as $id_oferta)
+			array_push($array_ofertas, new Oferta($id_oferta));
 
 		return $array_ofertas;
 	}
 
 	public function get_Lista_Ventas(){
 		$arra= array();
-		foreach($this->ventas as $id)
+		foreach($this->get_Ventas() as $id)
 			array_push($arra, new Venta($id));
 
 		return $arra;
 	}
 	public function get_Lista_Proyectos(){
 		$arra= array();
-		foreach($this->proyectos as $id)
+		foreach($this->get_Proyectos() as $id)
 			array_push($arra, new Proyecto($id));
 
 		return $arra;
@@ -1039,8 +1054,8 @@ class Cliente{
 	}
 
 	public function tiene_Contacto($id){
-		if($this->contactos)
-		return in_array($id, $this->contactos);
+		if($this->get_Contactos())
+			return in_array($id, $this->contactos);
 
 		return false;
 	}
@@ -1055,24 +1070,28 @@ class Cliente{
 		$query = "DELETE FROM clientes WHERE id = '$this->id'; ";
 		mysql_query($query);
 
-		foreach($this->acciones as $idaccion){
-                    $accion = new Accion($idaccion);
-                    $accion->del_Accion();
-			/*$query = "DELETE FROM acciones_de_trabajo WHERE id = '$idaccion'; ";
-			mysql_query($query);*/
-		}
-		foreach($this->ofertas as $id){
-                    $oferta = new Oferta($id);
-                    $oferta->del_Oferta();
-			/*$query = "DELETE FROM ofertas WHERE id = '$id'; ";
-			mysql_query($query);*/
+		
+		$query = "DELETE FROM acciones_de_trabajo WHERE fk_cliente = '$this->id'; ";
+		mysql_query($query);
+		$query = "DELETE FROM ofertas WHERE fk_cliente = '$this->id'; ";
+		mysql_query($query);
+		
+		/*foreach($this->get_Acciones() as $idaccion){
+			$accion = new Accion($idaccion);
+			$accion->del_Accion();
 		}
 
-                $query = "DELETE FROM clientes_rel_usuarios WHERE fk_cliente = '$this->id'; ";
+		foreach($this->get_Ofertas() as $id){
+			$oferta = new Oferta($id);
+			$oferta->del_Oferta();
+		}*/
+
+		$query = "DELETE FROM clientes_rel_usuarios WHERE fk_cliente = '$this->id'; ";
 		mysql_query($query);
 
-                $query = "DELETE FROM clientes_rel_contactos WHERE fk_cliente = '$this->id'; ";
+		$query = "DELETE FROM clientes_rel_contactos WHERE fk_cliente = '$this->id'; ";
 		mysql_query($query);
+		
 		
 	}
 	public function relacionar_Contacto($id_contacto){
