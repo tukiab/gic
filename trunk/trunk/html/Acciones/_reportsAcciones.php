@@ -96,9 +96,7 @@ class InformesAcciones{
 						COUNT(DISTINCT acciones_de_trabajo.fk_cliente) as num_clientes
 					FROM acciones_de_trabajo
 					INNER JOIN acciones_tipos
-						ON acciones_tipos.id = acciones_de_trabajo.fk_tipo_accion
-					INNER JOIN clientes
-						ON clientes.id = acciones_de_trabajo.fk_cliente
+						ON acciones_tipos.id = acciones_de_trabajo.fk_tipo_accion					
 					WHERE 1 $filtro
 					GROUP BY usuario, tipo WITH ROLLUP;";
 
