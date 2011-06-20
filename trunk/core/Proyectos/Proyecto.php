@@ -607,8 +607,12 @@ class Proyecto{
 		if(isset($datos['cerrar']))
 			$this->cerrar = $datos['cerrar'];		
 
+		$id_venta = $this->id_venta;
+		if(!$this->id_venta)
+			$id_venta = 'NULL';
+		
 		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
-					VALUE ('$this->id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
+					VALUE ('$id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
 								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";//FB::error($query);
 		
 		if(!mysql_query($query))

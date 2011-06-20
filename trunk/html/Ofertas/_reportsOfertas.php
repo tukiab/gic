@@ -99,8 +99,6 @@ class InformesOfertas{
 					FROM ofertas
 					INNER JOIN productos_tipos
 						ON productos_tipos.id = ofertas.fk_tipo_producto
-					INNER JOIN clientes
-						ON clientes.id = ofertas.fk_cliente
 					WHERE 1 $filtro
 					GROUP BY usuario, tipo WITH ROLLUP;";
 //FB::info($query);
