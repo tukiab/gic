@@ -42,7 +42,11 @@ class Tarea{
 	private $horas_despacho ;
 	private $horas_auditoria_interna ;
 	private $id_proyecto ;
+	private $proyecto;
 	private $id_sede ;
+	private $sede;
+
+	private $cliente=null;
 
 
 	/*
@@ -74,11 +78,8 @@ class Tarea{
 	 */
 	private function cargar(){
 		if($this->id){
-			$query = "SELECT tareas_tecnicas.*,
-							 tareas_tecnicas_tipos.id AS id_tipo, tareas_tecnicas_tipos.nombre AS nombre_tipo
+			$query = "SELECT tareas_tecnicas.*
 						FROM tareas_tecnicas
-				    		INNER JOIN tareas_tecnicas_tipos
-								ON tareas_tecnicas.fk_tipo = tareas_tecnicas_tipos.id
 						WHERE tareas_tecnicas.id = '$this->id'";
 			//FB::info($query,'Tarea->cargar: QUERY');
 			if(!($result = mysql_query($query)))
@@ -91,15 +92,17 @@ class Tarea{
 			$this->fecha = $row['fecha'];
 			$this->incentivable = $row['incentivable'];
 			$this->observaciones = $row['observaciones'];
-			$this->id_tipo = $row['id_tipo'];
-			$this->tipo = array('id'=>$row['id_tipo'], 'nombre'=>$row['nombre_tipo']);
 			$this->id_usuario =$row['fk_usuario'];
 			$this->horas_desplazamiento =$row['horas_desplazamiento'];
 			$this->horas_visita =$row['horas_visita'];
 			$this->horas_despacho =$row['horas_despacho'];
 			$this->horas_auditoria_interna =$row['horas_auditoria_interna'];
+			$this->id_tipo = $row['fk_tipo'];
+			$this->tipo = array('id'=>$row['fk_tipo'], 'nombre'=>$row['nombre_tipo']);
 			$this->id_proyecto =$row['fk_proyecto'];
+			$this->proyecto = array('id'=>$row['fk_proyecto'], 'nombre'=>$row['nombre_proyecto']);
 			$this->id_sede =$row['fk_sede'];
+			$this->sede = array('id'=>$row['fk_sede'], 'localidad'=>$row['localidad_sede']);
 		}
 	}
 
@@ -200,7 +203,7 @@ class Tarea{
 	 * @return Proyecto
 	 */
 	public function get_Proyecto(){
-		return new Proyecto($this->id_proyecto);
+		return $this->proyecto;
 	}
 	/**
 	 * Devuelve el id de la sede a la que se realiza la tarea
@@ -214,7 +217,18 @@ class Tarea{
 	 * @return Sede
 	 */
 	public function get_Sede(){
-		return new Sede($this->id_sede);
+		return $this->sede;
+	}
+
+	public function get_Cliente(){
+		if(!$this->cliente){
+			$query = "SELECT fk_cliente as id, razon_social_cliente as razon_social FROM proyectos WHERE id = '$this->id_proyecto' LIMIT 1";
+			if(!$result=  mysql_query($query))
+				throw new Exception('Error al recuperar la empresa de la tarea');
+			$this->cliente = mysql_fetch_array($result);
+		}
+
+		return $this->cliente;
 	}
 	/*
 	 * Métodos Modificadores. 
@@ -254,11 +268,17 @@ class Tarea{
 		$this->fecha		= trim($datos['fecha']);
 		$this->id_tipo		= trim($datos['tipo']);
 		$this->id_proyecto	= trim($datos['id_proyecto']);
+		$proyecto = new Proyecto($this->id_proyecto);
+		$this->proyecto		= array('id' => $this->id_proyecto, 'nombre' => $proyecto->get_Nombre()	);
 		$this->id_sede		= trim($datos['id_sede']);
+		
+		$query = "SELECT id,localidad FROM clientes_sedes WHERE id='".$this->id_sede."' LIMIT 1";
+		if(!$result=  mysql_query($query))
+			throw new Exception('No existe la sede');
+		$this->sede			= mysql_fetch_array($result);
 
 
 		//El usuario es el técnico asignado del proyecto
-		$proyecto = new Proyecto($this->id_proyecto);
 		if($proyecto->get_Id_Usuario())
 			$this->id_usuario	= $proyecto->get_Id_Usuario();
 		else
@@ -288,7 +308,7 @@ class Tarea{
 		}
 
 		//Falta por ver si las horas son o no incentivables:
-		$proyecto = new Proyecto($this->id_proyecto);
+		//$proyecto = new Proyecto($this->id_proyecto);
 		$this->incentivable = 0;
 		if($this->fecha < $proyecto->get_Fecha_Fin())
 			$this->incentivable = 1;
@@ -296,7 +316,7 @@ class Tarea{
 		$this->observaciones = mysql_real_escape_string($datos['observaciones']);
 
 		//Por último comprobamos que el usuario que crea la tarea es el asignado al proyecto
-		$proyecto = new Proyecto($this->id_proyecto);
+		//$proyecto = new Proyecto($this->id_proyecto);
 		if($this->id_usuario != $proyecto->get_Id_Usuario())
 			throw new Exception('Tarea: no puede crear una tarea en un proyecto al que no est&aacute; asignado');
 

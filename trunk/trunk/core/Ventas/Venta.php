@@ -162,7 +162,7 @@ class Venta{
 			$oferta = new Oferta($this->oferta);
 			$this->Oferta = $oferta;
 			$cliente = $oferta->get_Cliente();
-			$this->cliente = $cliente->get_Id();
+			$this->cliente = $cliente['id'];
 			
 			$q = "SELECT * FROM tipos_comision WHERE id = '".$row['fk_tipo_comision']."'";
 			$rs = mysql_query($q);

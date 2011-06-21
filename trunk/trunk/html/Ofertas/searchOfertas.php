@@ -158,7 +158,7 @@ include ($appRoot.'/Common/php/menu.php');
 				$estado_seleccionado = $var->opt['proveedor'];?>
 				<option value="0" <?php if($estado_seleccionado == 0) echo  'selected="selected"';?>><?php echo  _translate("Cualquiera")?></option>
 				<?php foreach($var->datos['lista_proveedores_ofertas'] as $estado){?>
-				<option value="<?php  echo $estado['NIF']?>" <?php if($estado['NIF'] == $estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
+				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
 				<?php }?> 
 				</select>
 			</td>
