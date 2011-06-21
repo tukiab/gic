@@ -83,7 +83,7 @@ class Proveedor{
 			$query = "SELECT proveedores.*
 						FROM proveedores
 				    		WHERE proveedores.NIF = '$this->NIF'";
-			////FB::info($query,'Proveedor->cargar: QUERY');
+			//FB::info($query,'Proveedor->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 			throw new Exception("Error al cargar el Proveedor de la BBDD");
 			else if(mysql_num_rows($result) == 0)

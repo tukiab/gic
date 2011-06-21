@@ -26,7 +26,7 @@ class ImgData_Stars extends ImgData {
 	$this->imgdata[0][0]= 329 ;
 	$this->imgdata[0][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAMAAABsDg4iAAAAUV'.
-	    'BMVEX///////+/v7+83rqcyY2Q/4R7/15y/1tp/05p/0lg/zdX'.
+	    'BMVEX/////+/v7+83rqcyY2Q/4R7/15y/1tp/05p/0lg/zdX'.
 	    '/zdX/zVV/zdO/zFJ9TFJvDFD4yg+8Bw+3iU68hwurhYotxYosx'.
 	    'YokBoTfwANgQFUp7DWAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgF'.
 	    'HUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElNRQfTAxYTJj'.

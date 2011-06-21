@@ -51,7 +51,7 @@ class GrupoEmpresas{
 			$query = "SELECT grupos_empresas.*
 					FROM grupos_empresas
 					WHERE id = '$this->id'";
-			////FB::info($query,'GrupoEmpresas->cargar: QUERY');
+			//FB::info($query,'GrupoEmpresas->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el Grupo de Empresas de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -104,7 +104,7 @@ class GrupoEmpresas{
 	 * @return integer $id_grupoEmpresas Id del nuevo GrupoEmpresas.
 	 */
 	public function crear($datos){
-		////FB::info($datos,'GrupoEmpresas crear: datos recibidos');
+		//FB::info($datos,'GrupoEmpresas crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una grupoEmpresas nuevo:
 		 * 		nombre
@@ -131,7 +131,7 @@ class GrupoEmpresas{
 
 		$query = "
 			INSERT INTO grupos_empresas (nombre) VALUES('".mysql_real_escape_string(trim($datos['nombre']))."');";
-									////FB::info($query,'GrupoEmpresas crear: QUERY');
+									//FB::info($query,'GrupoEmpresas crear: QUERY');
 									if(!mysql_query($query))
 										throw new Exception("Error al crear el Grupo de Empresas.");
 									$this->id = mysql_insert_id();

@@ -10,7 +10,7 @@ include ('_searchAcciones.php');
 
 //Instanciamso la clase busqueda de acciones.
 $var = new BusquedaAcciones($_GET);
-////FB::info($var);
+//FB::info($var);
 if(!$var->opt['exportar']){
 include ($appRoot.'/Common/php/header.php');
 include ($appRoot.'/Common/php/menu.php');

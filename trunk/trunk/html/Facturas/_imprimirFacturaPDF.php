@@ -35,7 +35,7 @@ class ImprimirFacturaPDF{
 	 * @param $opciones Array con los parámetros pasados a la interfaz.
 	 */
 	public function __construct($opciones){
-		////FB::info($opciones, 'opciones pasadas a control de facturas');
+		//FB::info($opciones, 'opciones pasadas a control de facturas');
 		try{
 			//Obteniendo opciones pasadas a la página:
 			$this->obtenerOpciones($opciones);

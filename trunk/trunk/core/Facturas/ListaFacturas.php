@@ -63,7 +63,7 @@ class ListaFacturas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Facturas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		////FB::info($filtros,'filtros ListaFacturas:buscar');
+		//FB::info($filtros,'filtros ListaFacturas:buscar');
 		$filtro ="";
 		$join="";
 		

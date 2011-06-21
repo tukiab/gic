@@ -184,7 +184,7 @@ class Cliente{
 							INNER JOIN grupos_empresas 
 								ON clientes.fk_grupo_empresas = grupos_empresas.id
 						WHERE clientes.id = '$this->id'";
-			////FB::info($query,'Cliente->cargar: QUERY');
+			//FB::info($query,'Cliente->cargar: QUERY');
 			if(!($result = mysql_query($query)))
                             throw new Exception("Error al cargar la empresa de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -681,7 +681,7 @@ class Cliente{
 	 * @return integer $id_cliente Id del nuevo Cliente.
 	 */
 	public function crear($datos){
-		////FB::info($datos,'Cliente crear: datos recibidos');
+		//FB::info($datos,'Cliente crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear un cliente nuevo:
 		 * 		razon social
@@ -939,7 +939,7 @@ class Cliente{
 					FROM clientes
 						INNER JOIN clientes_rel_usuarios ON clientes.id = clientes_rel_usuarios.fk_cliente AND clientes_rel_usuarios.ha_insertado = '1'
 					WHERE 1 $filtro";
-		////FB::error($query);
+		//FB::error($query);
 		$rs = mysql_query($query);
 		if(mysql_num_rows($rs) > 0){
 			while($row = mysql_fetch_array($rs))
@@ -952,7 +952,7 @@ class Cliente{
 		$disable = array();
 		$usuario = new Usuario($_SESSION['usuario_login']);
 		if(!$usuario->esAdministrador()){ 
-			////FB::error($this,'entro');
+			//FB::error($this,'entro');
 			if($this->razon_social != '')
 				$disable['razon_social'] = 'readonly="readonly"'; 
 		/*	if($this->tipo_cliente != '')
@@ -993,7 +993,7 @@ class Cliente{
 				$disable['actividad'] = 'readonly="readonly"';
 			
 		}
-		////FB::error($disable);
+		//FB::error($disable);
 		return $disable;
 	}
 	/**
@@ -1132,7 +1132,7 @@ class Cliente{
 		if(!in_array($id_gestor,$this->gestores)){
 			
 			$query = "INSERT INTO clientes_rel_usuarios (fk_cliente, fk_usuario) VALUES ('$this->id','$id_gestor')";
-			////FB::info($query,'query relacionar gestor');
+			//FB::info($query,'query relacionar gestor');
 			$rs = mysql_query($query);
 		}
 	}
@@ -1172,7 +1172,7 @@ class Cliente{
 
 		if($this->id && $Validar->CP($CP)){
 
-			$query = "UPDATE clientes SET CP='".trim($CP)."' WHERE id='$this->id' ";////FB::info($query);
+			$query = "UPDATE clientes SET CP='".trim($CP)."' WHERE id='$this->id' ";//FB::info($query);
 			if(!mysql_query($query))
 			throw new Exception("Error al actualizar el CP en la BBDD.");
 
@@ -1466,7 +1466,7 @@ class Cliente{
 	public function set_Grupo_Empresas($id_grupo){
 		$ListaClientes = new ListaClientes();
 		$array_grupos_empresas = $ListaClientes->lista_Grupos_Empresas();
-		////FB::info($array_grupos_empresas);
+		//FB::info($array_grupos_empresas);
 		if(is_numeric($id_grupo) && in_array($id_grupo, array_keys($array_grupos_empresas))){
 			$query = "UPDATE clientes SET fk_grupo_empresas='$id_grupo' WHERE id='$this->id' ";
 			if(!mysql_query($query))

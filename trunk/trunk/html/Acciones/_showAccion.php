@@ -34,7 +34,7 @@ class ShowAccion{
 			$this->opt['Accion'] = $Accion;
 		}catch(Exception $e){
 			$this->opt['msg'] = $e->getMessage();
-			////FB::error($e->getMessage());
+			//FB::error($e->getMessage());
 		}
 	}
 	
@@ -44,7 +44,7 @@ class ShowAccion{
 	 * @param Array $opciones Array de opciones pasados al constructor.
 	 */
 	private function get_Opciones($opciones){
-		////FB::info($opciones, 'opciones _showAccion');
+		//FB::info($opciones, 'opciones _showAccion');
 		//Indispensable, el id de la Accion:
 		@(isset($opciones['id'])?$this->opt['id']=$opciones['id']:null);
 		

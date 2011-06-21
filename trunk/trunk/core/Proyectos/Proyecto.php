@@ -158,9 +158,9 @@ class Proyecto{
 			$this->id_estado = $row['id_estado'];
 			$this->estado = array('id'=>$row['id_estado'], 'nombre'=>$row['nombre_estado']);
 			
-			$this->cargar_Definicion();
-			$this->cargar_Tareas();
-			$this->cargar_Planificacion();
+			$this->definicion_sedes=null;
+			$this->tareas=null;
+			$this->planificacion_sedes=null;
 		}
 	}
 
@@ -260,7 +260,7 @@ class Proyecto{
 	public function get_Horas_Documentacion(){return $this->horas_documentacion ;}
 	public function get_Horas_Documentacion_Reales(){
 		$count = 0;
-		foreach($this->tareas as $tarea){
+		foreach($this->get_Tareas() as $tarea){
 			if($tarea['tipo'] == 2)
 				$count += $tarea['horas_despacho'];
 		}
@@ -274,7 +274,7 @@ class Proyecto{
 	public function get_Horas_Auditoria_Interna(){return $this->horas_auditoria_interna ;}
 	public function get_Horas_Auditoria_Interna_Reales(){
 		$count = 0;
-		foreach($this->tareas as $tarea){
+		foreach($this->get_Tareas() as $tarea){
 			if($tarea['tipo'] == 2)
 				$count += $tarea['horas_auditoria_interna'];
 		}
@@ -336,6 +336,8 @@ class Proyecto{
 	 *
 	 */
 	public function get_Tareas(){
+		if(!$this->tareas)
+			$this->cargar_Tareas();
 		return $this->tareas;
 	}
 
@@ -344,7 +346,7 @@ class Proyecto{
 	}
 	public function get_Horas_Incentivables(){
 		$count = 0;
-		foreach($this->tareas as $tarea){
+		foreach($this->get_Tareas() as $tarea){
 			$count += ($tarea['incentivable'])?$tarea['horas_auditoria_interna']+$tarea['horas_despacho']+$tarea['horas_visita']:0;
 		}
 
@@ -353,7 +355,7 @@ class Proyecto{
 
 	public function get_Horas_No_Remuneradas(){
 		$count = 0;
-		foreach($this->tareas as $tarea){
+		foreach($this->get_Tareas() as $tarea){
 			$count += ($tarea['incentivable'])?0:$tarea['horas_auditoria_interna']+$tarea['horas_despacho']+$tarea['horas_visita'];
 		}
 
@@ -365,6 +367,8 @@ class Proyecto{
 	}
 	
 	public function get_Planificacion_Sedes(){
+		if(!$this->planificacion_sedes)
+			$this->cargar_Planificacion ();
 		return $this->planificacion_sedes;
 	}
 
@@ -372,9 +376,17 @@ class Proyecto{
 	 * Indica la definición teórica del proyecto
 	 * @var Array indexado por id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos, localidad
 	 */
-	public function get_Definicion_Sedes(){return $this->definicion_sedes ;}
+	public function get_Definicion_Sedes(){
+		if(!$this->definicion_sedes)
+			$this->cargar_Definicion ();
+
+		return $this->definicion_sedes ;
+	}
 
 	public function get_Definicion_Sede($id_sede){
+		if(!$this->definicion_sedes)
+			$this->cargar_Definicion ();
+		
 		return $this->definicion_sedes[$id_sede];
 	}
 	/**
@@ -397,7 +409,7 @@ class Proyecto{
 	 */
 	public function get_Horas_Desplazamiento(){
 		$count = 0;
-		foreach($this->definicion_sedes as $definicion)
+		foreach($this->get_Definicion_Sedes() as $definicion)
 			$count += $definicion['horas_desplazamiento'];
 		
 		return $count+$this->get_Horas_Desplazamiento_Auditoria_Externa()+$this->get_Horas_Desplazamiento_Auditoria_Interna();
@@ -405,7 +417,7 @@ class Proyecto{
 
 	public function get_Horas_Desplazamiento_Reales(){
 		$count = 0;
-		foreach($this->tareas as $tarea)
+		foreach($this->get_Tareas() as $tarea)
 			$count += $tarea['horas_desplazamiento'];
 
 		return $count;
@@ -416,7 +428,7 @@ class Proyecto{
 	 * @return <type>
 	 */
 	public function esta_Definido(){
-		return $this->definicion_sedes;
+		return $this->get_Definicion_Sedes();
 	}
 	/**
 	 * Horas de visita totales de todas las sedes
@@ -424,7 +436,7 @@ class Proyecto{
 	 */
 	public function get_Horas_Cada_Visita(){
 		$count = 0;
-		foreach($this->definicion_sedes as $definicion)
+		foreach($this->get_Definicion_Sedes() as $definicion)
 			$count += $definicion['horas_cada_visita']*$definicion['numero_visitas'];
 		
 		return $count;
@@ -435,14 +447,14 @@ class Proyecto{
 	 */
 	public function get_Numero_Visitas(){
 		$count = 0;
-		foreach($this->definicion_sedes as $definicion)
+		foreach($this->get_Definicion_Sedes() as $definicion)
 			$count += $definicion['numero_visitas'];
 		
 		return $count;
 	}
 	public function get_Numero_Visitas_Reales(){
 		$count = 0;
-		foreach($this->tareas as $tarea){
+		foreach($this->get_Tareas() as $tarea){
 			$count += ($tarea['tipo'] == 1)?1:0;
 		}
 
@@ -454,7 +466,7 @@ class Proyecto{
 	 */
 	public function get_Gastos_Incurridos(){
 		$count = 0;
-		foreach($this->definicion_sedes as $definicion)
+		foreach($this->get_Definicion_Sedes() as $definicion)
 			$count += $definicion['gastos_incurridos'];
 		
 		return $count;
@@ -473,7 +485,7 @@ class Proyecto{
 		//cada tarea es un array Indexado por id, fecha, tipo, horas_desplazamiento, horas_visita, horas_despacho,
 		//horas_auditoria_interna, incentivable, id_sede, observaciones, id_usuario, localidad
 		$count = 0;
-		foreach($this->tareas as $tarea){
+		foreach($this->get_Tareas() as $tarea){
 			$count += $tarea['horas_desplazamiento']+$tarea['horas_visita']+$tarea['horas_despacho']+$tarea['horas_auditoria_interna'];
 		}
 
@@ -487,12 +499,12 @@ class Proyecto{
 	    //cada tarea es un array Indexado por id, fecha, tipo, horas_desplazamiento, horas_visita, horas_despacho,
 	    //horas_auditoria_interna, incentivable, id_sede, observaciones, id_usuario, localidad
 	    $count = 0;
-	    foreach($this->tareas as $tarea){
-		////FB::info(timestamp2date ($tarea['fecha']));
+	    foreach($this->get_Tareas() as $tarea){
+		//FB::info(timestamp2date ($tarea['fecha']));
 		if($tarea['fecha']>=$fecha_inicio_mes && $tarea['fecha']<=$fecha_fin_mes){
-		   ////FB::error('La sumo en el mes'. $mes);
+		   //FB::error('La sumo en el mes'. $mes);
 		    $count += $tarea['horas_desplazamiento']+$tarea['horas_visita']+$tarea['horas_despacho']+$tarea['horas_auditoria_interna'];
-		}//else ////FB::error('NO La sumo en el mes'. $mes);
+		}//else //FB::error('NO La sumo en el mes'. $mes);
 	    }
 
 	    return $count;
@@ -756,7 +768,7 @@ class Proyecto{
 	 *
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar_Definicion($definicion_sedes){////FB::info($definicion_sedes);
+	private function guardar_Definicion($definicion_sedes){//FB::info($definicion_sedes);
 		$query = "UPDATE proyectos 
 					SET horas_documentacion = '$this->horas_documentacion',
 					horas_auditoria_interna = '$this->horas_auditoria_interna',
@@ -821,6 +833,8 @@ class Proyecto{
 	}
 
 	private function existe_Definicion_Sede($id_sede){
+		if(!$this->definicion_sedes)
+			$this->cargar_Definicion ();
 		return in_array($id_sede, array_keys($this->definicion_sedes));
 	}
 

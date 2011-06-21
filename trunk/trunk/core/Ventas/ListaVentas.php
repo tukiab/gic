@@ -63,7 +63,7 @@ class ListaVentas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Ventas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		////FB::error($filtros,'filtros ListaVentas');
+		//FB::error($filtros,'filtros ListaVentas');
 		$filtro ="";
 		$join_ofertas="";
 		

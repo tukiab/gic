@@ -134,7 +134,7 @@ class Oferta{
 				    		INNER JOIN ofertas_estados
 								ON ofertas.fk_estado_oferta = ofertas_estados.id
 						WHERE ofertas.id = '$this->id'";
-			//////FB::info($query,'Oferta->cargar: QUERY');
+			////FB::info($query,'Oferta->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Oferta de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -293,7 +293,7 @@ class Oferta{
 	 * @return integer $id_oferta Id del nuevo Oferta.
 	 */
 	public function crear($datos){
-		////FB::info($datos,'Oferta crear: datos recibidos');
+		//FB::info($datos,'Oferta crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una oferta nuevo:
 		 * 		nombre
@@ -360,7 +360,7 @@ class Oferta{
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
 	private function guardar($datos){
-		////FB::info($datos, 'datos al crear O');
+		//FB::info($datos, 'datos al crear O');
 		$aceptado = 0;if($datos['estado_oferta'] == 2) $aceptado=1;
 		$query = "
 			INSERT INTO ofertas (   nombre_oferta,
@@ -393,7 +393,7 @@ class Oferta{
 									
 								);
 		";
-			////FB::info($query,'Oferta crear: QUERY');
+			//FB::info($query,'Oferta crear: QUERY');
 			if(!mysql_query($query))
 				throw new Exception("Error al crear la Oferta. ".$query);
 			$this->id = mysql_insert_id();
@@ -409,12 +409,12 @@ class Oferta{
 		$opor = 0;
 		if($es_oportunidad == 1)
 			$opor = 1;
-			////FB::info($es_oportunidad." ".$year);
+			//FB::info($es_oportunidad." ".$year);
 		$query = "SELECT * FROM ofertas_codigos_patch WHERE de_oportunidad = '$opor' ORDER BY id DESC limit 1;";
-		////FB::info($query);
+		//FB::info($query);
 		$rs = mysql_query($query);
 		$row = mysql_fetch_array($rs);
-		////FB::warn($row);
+		//FB::warn($row);
 		if($year != $row['year'])//si el a�o no es el mismo,empezamos desde numero 100
 			$num = 100;
 		else//si el a�o es el mismo aumentamos el numero en 1

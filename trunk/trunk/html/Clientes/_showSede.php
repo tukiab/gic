@@ -50,7 +50,7 @@ class ShowSede{
 	 * @param Array $opciones Array de opciones pasados al constructor.
 	 */
 	private function get_Opciones($opciones){
-		////FB::info($opciones, 'opciones _showSede');
+		//FB::info($opciones, 'opciones _showSede');
 		//Indispensable, el id de la Sede:
 		@(isset($opciones['id'])?$this->opt['id']=$opciones['id']:null);
 

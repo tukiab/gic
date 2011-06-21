@@ -51,7 +51,7 @@ class ShowFactura{
 	 * @param Array $opciones Array de opciones pasados al constructor.
 	 */
 	private function get_Opciones($opciones){
-		////FB::info($opciones, 'opciones _showFactura');
+		//FB::info($opciones, 'opciones _showFactura');
 		//Indispensable, el id de la Factura:
 		@(isset($opciones['id'])?$this->opt['id']=$opciones['id']:null);
 		@($opciones['eliminar'])?$this->opt['eliminar']=true:$this->opt['eliminar']=false;		

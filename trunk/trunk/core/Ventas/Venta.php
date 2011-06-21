@@ -121,7 +121,7 @@ class Venta{
 			$query = "SELECT ventas.*
 						FROM ventas
 						WHERE ventas.id = '$this->id'";
-			////FB::info($query,'Venta->cargar: QUERY');
+			//FB::info($query,'Venta->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Venta de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -434,7 +434,7 @@ class Venta{
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
 	private function guardar($datos){
-		////FB::info($datos, 'datos al crear Venta');
+		//FB::info($datos, 'datos al crear Venta');
 		$campos = "";
 		$valores = "";
 
@@ -563,7 +563,7 @@ class Venta{
 	}
 	
 	public function add_Plazo($plazo,$estado){
-		////FB::info($plazo);
+		//FB::info($plazo);
 			if(count($this->plazos) < 12){
 				$q = "INSERT INTO ventas_plazos (fecha, fk_venta, fk_estado) 
 							VALUES ('".$plazo."','$this->id', '".$estado."')";

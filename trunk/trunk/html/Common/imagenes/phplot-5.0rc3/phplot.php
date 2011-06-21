@@ -30,7 +30,7 @@ class PHPlot {
      * used only when strictly necessary. Many users will be able to put default values here in the
      * class and thus avoid memory overhead and reduce parsing times.
      */
-    //////////////// CONFIG PARAMETERS //////////////////////
+    //////// CONFIG PARAMETERS ////////////
 
     var $is_inline = FALSE;             // FALSE = Sends headers, TRUE = sends just raw image data
     var $browser_cache = FALSE;         // FALSE = Sends headers for browser to not cache the image,
@@ -185,9 +185,9 @@ class PHPlot {
     var $draw_broken_lines = FALSE;          // Tells not to draw lines for missing Y data.
 
 
-//////////////////////////////////////////////////////
+////////////////////////////
 //BEGIN CODE
-//////////////////////////////////////////////////////
+////////////////////////////
 
     /*!
      * Constructor: Setup img resource, colors and size of the image, and font sizes.
@@ -259,9 +259,9 @@ class PHPlot {
     }
 
 
-/////////////////////////////////////////////
-//////////////                         COLORS
-/////////////////////////////////////////////
+///////////////////////
+////////                         COLORS
+///////////////////////
 
     /*!
      * Returns an index to a color passed in as anything (string, hex, rgb)
@@ -682,9 +682,9 @@ class PHPlot {
     }
 
 
-/////////////////////////////////////////////
-//////////////                          FONTS
-/////////////////////////////////////////////
+///////////////////////
+////////                          FONTS
+///////////////////////
 
 
     /*!
@@ -1000,9 +1000,9 @@ class PHPlot {
     } // function DrawText()
 
 
-/////////////////////////////////////////////
-///////////            INPUT / OUTPUT CONTROL
-/////////////////////////////////////////////
+///////////////////////
+///////            INPUT / OUTPUT CONTROL
+///////////////////////
 
     /*!
      * Sets output file format.
@@ -1186,9 +1186,9 @@ class PHPlot {
 //        return TRUE;
     }
 
-/////////////////////////////////////////////
-///////////                            LABELS
-/////////////////////////////////////////////
+///////////////////////
+///////                            LABELS
+///////////////////////
 
 
     /*!
@@ -1295,9 +1295,9 @@ class PHPlot {
         return TRUE;
     }
 
-/////////////////////////////////////////////
-///////////                              MISC
-/////////////////////////////////////////////
+///////////////////////
+///////                              MISC
+///////////////////////
 
     /*!
      * Checks the valididy of an option.
@@ -1798,9 +1798,9 @@ class PHPlot {
     }
 
 
-//////////////////////////////////////////////////////////
-///////////         DATA ANALYSIS, SCALING AND TRANSLATION
-//////////////////////////////////////////////////////////
+//////////////////////////////
+///////         DATA ANALYSIS, SCALING AND TRANSLATION
+//////////////////////////////
 
     /*!
      * Analizes data and sets up internal maxima and minima
@@ -1948,7 +1948,7 @@ class PHPlot {
         if ($this->max_t > strlen ($xlab))
             $xlab = sprintf ("%{$this->max_t}s","_");
 
-        //////// Calculate maximum X/Y axis label height and width:
+        //// Calculate maximum X/Y axis label height and width:
 
         // TTFonts:
         if ($this->use_ttf) {
@@ -1975,7 +1975,7 @@ class PHPlot {
         }
 
 
-        ///////// Calculate margins:
+        ///// Calculate margins:
 
         // Upper title, ticks and tick labels, and data labels:
         $this->y_top_margin = $this->title_height + $this->safe_margin * 2;
@@ -2363,9 +2363,9 @@ class PHPlot {
 
 
 
-/////////////////////////////////////////////
-///////////////                         TICKS
-/////////////////////////////////////////////
+///////////////////////
+/////////                         TICKS
+///////////////////////
 
     /*!
      * Use either this or SetNumXTicks() to set where to place x tick marks
@@ -2497,9 +2497,9 @@ class PHPlot {
     }
 
 
-/////////////////////////////////////////////
-////////////////////          GENERIC DRAWING
-/////////////////////////////////////////////
+///////////////////////
+//////////          GENERIC DRAWING
+///////////////////////
 
     /*!
      * Fills the background.
@@ -3119,7 +3119,7 @@ class PHPlot {
         }
         $max_len += 5;          // Leave room for the boxes and margins
 
-        /////// Calculate legend labels sizes:  FIXME - dirty hack - FIXME
+        ///// Calculate legend labels sizes:  FIXME - dirty hack - FIXME
         // TTF:
         if ($this->use_ttf) {
             $size = $this->TTFBBoxSize($this->legend_font['size'], 0,
@@ -3140,7 +3140,7 @@ class PHPlot {
         $dot_height = $char_h + $this->line_spacing;   // Height of the small colored boxes
         $width = $char_w * $max_len;
 
-        //////// Calculate box size
+        //// Calculate box size
         // upper Left
         if ( (! $which_x1) || (! $which_y1) ) {
             $box_start_x = $this->plot_area[2] - $width;
@@ -3197,9 +3197,9 @@ class PHPlot {
         // Draw.
     }
 
-/////////////////////////////////////////////
-////////////////////             PLOT DRAWING
-/////////////////////////////////////////////
+///////////////////////
+//////////             PLOT DRAWING
+///////////////////////
 
 
     /*!
@@ -4004,7 +4004,7 @@ class PHPlot {
             return;
         }
 
-        ////// All other chart types:
+        //// All other chart types:
 
         if (! $this->grid_at_foreground) {         // Usually one wants grids to go back, but...
             $this->DrawYAxis();     // Y axis must be drawn before X axis (see DrawYAxis())
@@ -4072,9 +4072,9 @@ class PHPlot {
 
     } //function DrawGraph()
 
-/////////////////////////////////////////////
-//////////////////         DEPRECATED METHODS
-/////////////////////////////////////////////
+///////////////////////
+//////////         DEPRECATED METHODS
+///////////////////////
 
     /*!
      * Deprecated, use SetYTickPos()
@@ -4518,7 +4518,7 @@ class PHPlot {
 
 
 
-////////////////////////
+////////////
 
 
 /*!
