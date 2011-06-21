@@ -56,7 +56,7 @@ class ListaTiposDeComision implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de TipoDeComision.
 	 */
 	public function buscar($filtros=null){
-		////FB::info($filtros,'filtros ListaTipoDeComision:buscar');
+		//FB::info($filtros,'filtros ListaTipoDeComision:buscar');
 		
 		(isset($filtros['id']))?$filtro.=" AND .id = '".$filtros['id']."' ":null;
 		(isset($filtros['nombre']))?$filtro.=" AND nombre LIKE '%".$filtros['descripcion']."%' ":null;

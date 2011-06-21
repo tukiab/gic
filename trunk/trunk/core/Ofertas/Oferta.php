@@ -134,7 +134,7 @@ class Oferta{
 				    		INNER JOIN ofertas_estados
 								ON ofertas.fk_estado_oferta = ofertas_estados.id
 						WHERE ofertas.id = '$this->id'";
-			////FB::info($query,'Oferta->cargar: QUERY');
+			//FB::info($query,'Oferta->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Oferta de la BBDD");
 			else if(mysql_num_rows($result) == 0)

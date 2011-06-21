@@ -63,9 +63,8 @@ class ListaOfertas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Ofertas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		////FB::info($filtros,'filtros ListaOfertas:buscar');
+		//FB::info($filtros,'filtros ListaOfertas:buscar');
 		$filtro ="";
-		$join="";
 		
 		(isset($filtros['id']))?$filtro.=" AND ofertas.id = '".$filtros['id']."' ":null;
 		(isset($filtros['codigo']))?$filtro.=" AND ofertas.codigo = '".$filtros['codigo']."' ":null;
@@ -144,8 +143,7 @@ class ListaOfertas implements IIterador{
 			
 		$query = "SELECT ofertas.id, CAST(SUBSTRING_INDEX(codigo,'/',1) AS SIGNED ) as sub_codigo,
     								 CAST(substr(SUBSTRING_INDEX(codigo,'/',1),3) AS SIGNED ) as sub_codigo2
-					FROM ofertas
-						$join				
+					FROM ofertas		
 				    WHERE 1
 						$filtro
 				    GROUP BY ofertas.id 
