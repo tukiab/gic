@@ -73,9 +73,9 @@ class ListaClientes implements IIterador{
 		}
 		(isset($filtros['id']))?$filtro.=" AND clientes.id = '".trim($filtros['id'])."' ":null;
 		(isset($filtros['razon_social']))?$filtro.=" AND clientes.razon_social LIKE '%".trim($filtros['razon_social'])."%' ":null;
-		(isset($filtros['tipo_cliente']))?$join .= " INNER JOIN clientes_tipos ON clientes.fk_tipo_cliente = '".trim($filtros['tipo_cliente'])."'":null;
+		(isset($filtros['tipo_cliente']))?$filtro .= " AND clientes.fk_tipo_cliente = '".trim($filtros['tipo_cliente'])."'":null;
 		if(isset($filtros['grupo_empresas'])){
-			$join .= " INNER JOIN grupos_empresas ON clientes.fk_grupo_empresas = '".trim($filtros['grupo_empresas'])."'";
+			$filtro .= " AND clientes.fk_grupo_empresas = '".trim($filtros['grupo_empresas'])."'";
 		}
 		(isset($filtros['NIF']))?$filtro.=" AND clientes.NIF LIKE '".trim($filtros['NIF'])."' ":null;
 		(isset($filtros['domicilio']))?$filtro.=" AND clientes.domicilio LIKE '%".trim($filtros['domicilio'])."%' ":null;

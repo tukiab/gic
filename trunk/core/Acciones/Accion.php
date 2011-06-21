@@ -46,7 +46,11 @@ class Accion{
 	 * @var string
 	 */
 	private $descripcion;
-	
+
+	/**
+	 * Indica si la acción está leída o no
+	 * @var <type>
+	 */
 	private $leida;
 
 
@@ -79,17 +83,8 @@ class Accion{
 	 */
 	private function cargar(){
 		if($this->id){
-			$query = "SELECT acciones_de_trabajo.*,
-							 acciones_tipos.id AS id_tipo, acciones_tipos.nombre AS nombre_tipo,
-							 usuarios.id AS id_usuario,
-							 clientes.id AS id_cliente, clientes.razon_social as nombre_cliente
+			$query = "SELECT acciones_de_trabajo.*
 						FROM acciones_de_trabajo
-				    		INNER JOIN acciones_tipos
-								ON acciones_de_trabajo.fk_tipo_accion = acciones_tipos.id
-						INNER JOIN usuarios 
-								ON acciones_de_trabajo.fk_usuario = usuarios.id
-						INNER JOIN clientes 
-								ON acciones_de_trabajo.fk_cliente = clientes.id
 						WHERE acciones_de_trabajo.id = '$this->id'";
 			//FB::info($query,'Accion->cargar: QUERY');
 			if(!($result = mysql_query($query)))
@@ -103,9 +98,9 @@ class Accion{
 			$this->fecha = $row['fecha'];
 			$this->leida = $row['leida'];
 			$this->descripcion = $row['descripcion'];
-			$this->tipo_accion = array('id'=>$row['id_tipo'], 'nombre'=>$row['nombre_tipo']);
-			$this->usuario =$row['id_usuario'];
-			$this->cliente = array('id'=>$row['id_cliente'], 'razon_social'=>$row['nombre_cliente']);
+			$this->tipo_accion = array('id'=>$row['fk_tipo_accion'], 'nombre'=>$row['nombre_tipo_accion']);
+			$this->usuario =$row['fk_usuario'];
+			$this->cliente = array('id'=>$row['fk_cliente'], 'razon_social'=>$row['razon_social_cliente']);
 
 		}
 	}
@@ -198,7 +193,7 @@ class Accion{
 	 * @return integer $id_accion Id del nuevo Accion.
 	 */
 	public function crear($datos){
-		////FB::info($datos,'Accion crear: datos recibidos');
+		//FB::info($datos,'Accion crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una accion nuevo:
 		 * 		descripcion
@@ -221,14 +216,38 @@ class Accion{
 		if($datos['fecha'] == '' || ! isset($datos['fecha']))
 			throw new Exception("Accion: La fecha es obligatoria.");
 		if($datos['cliente'] == '' || ! isset($datos['cliente']))
-			throw new Exception("Accion: El cliente de la acci&oacute;n es obligatorio .");
+			throw new Exception("Accion: La empresa de la acci&oacute;n es obligatorio .");
 		if(!is_numeric($datos['tipo_accion']) || !in_array($datos['tipo_accion'], array_keys($array_tipos)))
 			throw new Exception("Accion: Tipo de accion no válido.");
 		if(!isset($datos['usuario']))
 			throw new Exception("Accion: Usuario no v&aacute;lido.");
-			
+
+		if(isset($datos['fecha_siguiente_accion']) && $datos['fecha_siguiente_accion']!=''){
+			$this->fecha_siguiente_accion = trim($datos['fecha_siguiente_accion']);
+		}
+
+		$this->descripcion = mysql_real_escape_string(trim($datos['descripcion']));
+		$this->fecha = trim($datos['fecha']);
+
+		//tipo de acción
+		$query = "SELECT id,nombre FROM acciones_tipos WHERE id = '".trim($datos['tipo_accion'])."'";
+		if(!$result = mysql_query($query))
+			throw new Exception("Accion: Tipo de accion no válido.");
+		$row=mysql_fetch_array($result);
+		$this->tipo_accion = array('id'=>$row['id'], 'nombre'=>$row['nombre']);
+
+		$this->usuario = trim($datos['usuario']);
+
+		//cliente
+		$query = "SELECT id,razon_social FROM clientes WHERE id = '".trim($datos['cliente'])."'";
+		if(!$result = mysql_query($query))
+			throw new Exception("Accion: Empresa no válido.");
+		$row=mysql_fetch_array($result);
+		$this->cliente = array('id'=>$row['id'], 'razon_social'=>$row['razon_social']);
+
+
 		//Si todo ha ido bien:
-		return $this->guardar($datos);
+		return $this->guardar();
 	}
 
 	/**
@@ -238,29 +257,33 @@ class Accion{
 	 * @param array $datos Array indexado por nombre con los datos de una accion.
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar($datos){
+	private function guardar(){
 		
 		$s_into.="";
 		$s_values.="";
 
-		if(isset($datos['fecha_siguiente_accion']) && $datos['fecha_siguiente_accion']!=''){
+		if($this->fecha_siguiente_accion){
 			$s_into.=",fecha_siguiente_accion";
-			$s_values.=",'".trim($datos['fecha_siguiente_accion'])."'";
+			$s_values.=",'".$this->fecha_siguiente_accion."'";
 		}
 
 		$query = "
 			INSERT INTO acciones_de_trabajo (  descripcion,
 									fecha,
 									fk_tipo_accion,
+									nombre_tipo_accion,
 									fk_usuario,
-									fk_cliente
+									fk_cliente,
+									razon_social_cliente
 									$s_into
 								)VALUES(
-									'".mysql_real_escape_string(trim($datos['descripcion']))."',
-									'".trim($datos['fecha'])."',
-									'".trim($datos['tipo_accion'])."',
-									'".trim($datos['usuario'])."',
-									'".trim($datos['cliente'])."'
+									'".$this->descripcion."',
+									'".$this->fecha."',
+									'".$this->tipo_accion['id']."',
+									'".$this->tipo_accion['nombre']."',
+									'".$this->usuario."',
+									'".$this->cliente['id']."',
+									'".$this->cliente['razon_social']."'
 									$s_values
 								);
 		";
@@ -360,22 +383,24 @@ class Accion{
 	 * @param int $id_cliente nuevo cliente
 	 */
 	public function set_Cliente($id_cliente){
-		$ListaClientes = new ListaClientes();
-		$array_clientes = $ListaClientes->lista_Clientes();
-
-		if(is_numeric($id_cliente) && in_array($id_cliente, array_keys($array_clientes))){
-			$query = "UPDATE acciones_de_trabajo SET fk_cliente='$id_cliente' WHERE id='$this->id' ";
-			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el cliente en la BBDD.");
-
+		if(is_numeric($id_cliente)){			
 			$query = "SELECT id, nombre FROM clientes WHERE id= '$id_cliente' limit 1;";
-			$rs = mysql_query($query);
+			if(!$rs = mysql_query($query))
+				throw new Exception ('Empresa no válida');
 			$row = mysql_fetch_array($rs);
+
+			$query = "UPDATE acciones_de_trabajo 
+						SET fk_cliente='$id_cliente',
+							razon_social_cliente='".$row['razon_social']."'
+						WHERE id='$this->id'";
+			
+			if(!mysql_query($query))
+			throw new Exception("Error al actualizar el cliente en la BBDD.");			
 
 			$this->cliente = array('id'=>$row['id'], 'razon_social'=>$row['razon_social']);
 
 		}else
-		throw new Exception("Debe introducir un cliente v&aacute;lido.");
+			throw new Exception("Debe introducir una empresa v&aacute;lido.");
 	}
 
 	/**
@@ -383,22 +408,24 @@ class Accion{
 	 * @param int $id_tipo nuevo tipo
 	 */
 	public function set_Tipo($id_tipo){
-		$ListaAcciones = new ListaAcciones();
-		$array_tipos = $ListaAcciones->lista_Tipos();
 
-		if(is_numeric($id_tipo) && in_array($id_tipo, array_keys($array_tipos))){
-			$query = "UPDATE acciones_de_trabajo SET fk_tipo_accion='$id_tipo' WHERE id='$this->id' ";
-			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el tipo en la BBDD.");
-
+		if(is_numeric($id_tipo)){
 			$query = "SELECT id, nombre FROM acciones_tipos WHERE id= '$id_tipo' limit 1;";
-			$rs = mysql_query($query);
+			if(!$rs = mysql_query($query))
+				throw new Exception('Tipo de acci&oacute; no v&aacute;lido');
 			$row = mysql_fetch_array($rs);
+
+			$query = "UPDATE acciones_de_trabajo 
+						SET fk_tipo_accion='$id_tipo',
+						nombre_tipo_accion='".$row['nombre']."'
+						WHERE id='$this->id' ";
+			if(!mysql_query($query))
+				throw new Exception("Error al actualizar el tipo en la BBDD.");
 
 			$this->usuario = array('id'=>$row['id'], 'nombre'=>$row['nombre']);
 
 		}else
-		throw new Exception("Debe introducir un tipo v&aacute;lido.");
+			throw new Exception("Debe introducir un tipo v&aacute;lido.");
 	}
 
 	public function del_Accion(){

@@ -46,7 +46,7 @@ else{?>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("Usuario")?>:</td>
 			<td class="ColDer">
-				<?php $usuario = new Usuario($var->opt['Accion']->get_Usuario());echo  $usuario->get_Nombre_Y_Apellidos();?>
+				<?php echo $var->opt['Accion']->get_Usuario();//$usuario = new Usuario($var->opt['Accion']->get_Usuario());echo  $usuario->get_Nombre_Y_Apellidos();?>
 			</td>
 		</tr>
 		<tr>

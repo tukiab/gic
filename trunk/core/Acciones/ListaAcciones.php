@@ -65,8 +65,7 @@ class ListaAcciones implements IIterador{
 	public function buscar($filtros){
 		
 		$filtro ="";
-		$join="";
-		$join .= "INNER JOIN clientes ON clientes.id = acciones_de_trabajo.fk_cliente";
+		
 		(isset($filtros['id']))?$filtro.=" AND acciones_de_trabajo.id = '".$filtros['id']."' ":null;
 		(isset($filtros['descripcion']))?$filtro.=" AND acciones_de_trabajo.descripcion LIKE '%".$filtros['descripcion']."%' ":null;
 		(isset($filtros['tipo_accion']))?$filtro.=" AND acciones_de_trabajo.fk_tipo_accion = '".$filtros['tipo_accion']."' ":null;
@@ -125,7 +124,7 @@ class ListaAcciones implements IIterador{
 			
 		$query = "SELECT acciones_de_trabajo.id
 					FROM acciones_de_trabajo
-						$join				
+										
 				    WHERE 1
 						$filtro
 				    GROUP BY acciones_de_trabajo.id $order $limit;";
