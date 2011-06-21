@@ -221,10 +221,10 @@ class ListaOfertas implements IIterador{
 	
 	function lista_Proveedores(){
 		$tipos = array();
-		$query = "SELECT NIF, razon_social as nombre FROM proveedores;";
+		$query = "SELECT id, razon_social as nombre FROM proveedores;";
 		$result = mysql_query($query);
 		while($row = mysql_fetch_array($result))
-			$tipos[$row['NIF']] = $row;
+			$tipos[$row['id']] = $row;
 		
 		return $tipos;
 	}

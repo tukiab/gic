@@ -13,7 +13,7 @@ class Oferta{
 	
 	/**
 	 * Código de la oferta
-	 * @var string
+	 * @var string 
 	 */
 	private $codigo;
 
@@ -40,7 +40,7 @@ class Oferta{
 	 * @var integer id del producto
 	 */
 	private $producto;
-	
+		
 	/**
 	 * proveedor asociado a la oferta.
 	 * @var integer id del proveedor
@@ -128,11 +128,8 @@ class Oferta{
 	 */
 	private function cargar(){
 		if($this->id){
-			$query = "SELECT ofertas.*,
-							 ofertas_estados.id AS id_estado, ofertas_estados.nombre AS nombre_estado
+			$query = "SELECT ofertas.*
 						FROM ofertas
-				    		INNER JOIN ofertas_estados
-								ON ofertas.fk_estado_oferta = ofertas_estados.id
 						WHERE ofertas.id = '$this->id'";
 			//FB::info($query,'Oferta->cargar: QUERY');
 			if(!($result = mysql_query($query)))
@@ -147,14 +144,14 @@ class Oferta{
 			$this->fecha_definicion = $row['fecha_definicion'];
 			$this->fecha = $row['fecha'];
 			$this->nombre_oferta = $row['nombre_oferta'];
-			$this->estado_oferta = array('id'=>$row['id_estado'], 'nombre'=>$row['nombre_estado']);
+			$this->estado_oferta = array('id'=>$row['fk_estado_oferta'], 'nombre'=>$row['nombre_estado_oferta']);
 			$this->usuario =$row['fk_usuario'];
-			$this->cliente = $row['fk_cliente'];
-			$this->producto = $row['fk_tipo_producto'];
-			$this->proveedor = $row['fk_proveedor'];
-			$this->colaborador = $row['fk_colaborador'];
+			$this->cliente = array( 'id' => $row['fk_cliente'], 'razon_social' => $row['razon_social_cliente']) ;
+			$this->producto = array( 'id' => $row['fk_tipo_producto'], 'nombre' => $row['nombre_tipo_producto']);
+			$this->proveedor = array( 'id' => $row['fk_proveedor'], 'razon_social' =>$row['razon_social_proveedor']);
+			$this->colaborador = array( 'id' => $row['fk_colaborador'], 'nombre' =>$row['razon_social_colaborador']);
 			$this->importe = $row['importe'];
-			$this->probabilidad_contratacion = $row['probabilidad_contratacion'];
+			$this->probabilidad_contratacion = array( 'id' => $row['probabilidad_contratacion'], 'nombre' => $row['nombre_probabilidad']);
 			$this->es_oportunidad_de_negocio = $row['es_oportunidad_de_negocio'];
 			$this->aceptado = $row['aceptado'];
 
@@ -228,31 +225,22 @@ class Oferta{
 
 	/**
 	 * Devuelve el cliente
-	 * @return Cliente $cliente 
+	 * @return array $cliente indexado por id y razon social
 	 */
 	public function get_Cliente(){
-		return new Cliente($this->cliente);
+		return $this->cliente;
 	}
 	
 	public function get_Producto(){
-		$query = "SELECT id, nombre FROM productos_tipos where id = '$this->producto'";
-		$rs = mysql_query($query);
-		$row = mysql_fetch_array($rs);
-		return $row;
+		return $this->producto;
 	}
 	
 	public function get_Proveedor(){
-		$query = "SELECT NIF, razon_social FROM proveedores where NIF = '$this->proveedor'";
-		$rs = mysql_query($query);
-		$row = mysql_fetch_array($rs);
-		return $row;
+		return $this->proveedor;
 	}
 	
 	public function get_Colaborador(){
-		$query = "SELECT id, razon_social as nombre FROM colaboradores where id = '$this->colaborador'";
-		$rs = mysql_query($query);
-		$row = mysql_fetch_array($rs);
-		return $row;
+		return $this->colaborador;
 	}
 	
 	public function get_Importe(){
@@ -260,10 +248,7 @@ class Oferta{
 	}
 	
 	public function get_Probabilidad_Contratacion(){
-		$query = "SELECT * FROM ofertas_probabilidades WHERE id = '$this->probabilidad_contratacion';";
-		$rs = mysql_query($query);
-		$row = mysql_fetch_array($rs);
-		return $row;
+		return $this->probabilidad_contratacion;
 	}
 	
 	public function get_Es_Oportunidad_De_Negocio(){
@@ -303,17 +288,7 @@ class Oferta{
 		 * 		fecha
 		 *
 		 */
-		$validar = new Validador();
-		$ListaOfertas = new ListaOfertas();
-		$ListaUsuarios = new ListaUsuarios();
 
-		$array_estados = $ListaOfertas->lista_Estados();
-		$array_usuarios = $ListaUsuarios->lista_Usuarios();
-		$array_productos = $ListaOfertas->lista_Tipos_Productos();		
-		$array_proveedores = $ListaOfertas->lista_Tipos_Proveedores();
-		$array_probabilidades = $ListaOfertas->lista_Probabilidades();
-		$array_colaboradores = $ListaOfertas->lista_Colaboradores();
-		
 		//Comprobando los datos "imprescindibles":
 		$errores = '';
 		if($datos['nombre_oferta'] == '' || ! isset($datos['nombre_oferta']))
@@ -322,8 +297,6 @@ class Oferta{
 			$errores .= "<br/>Indicar si es oferta u oportunidad";
 		if($datos['fecha'] == '' || ! isset($datos['fecha']))
 			$errores .= "<br/>La fecha es obligatoria.";
-		if($datos['cliente'] == '' || ! isset($datos['cliente']))
-			$errores .= "<br/>El cliente es obligatorio.";			
 		if($datos['usuario'] == '' || ! isset($datos['usuario']))
 			$errores .= "<br/>El usuario es obligatorio.";
 		if($datos['importe'] == '' || ! isset($datos['importe']))
@@ -334,22 +307,61 @@ class Oferta{
 			$errores .= "<br/>La fecha de definici&oacute;n es obligatoria.";
 		else if(!is_numeric($datos['fecha_definicion']))
 			$errores .= "<br/>valor incorrecto de fecha de definicion.";
-		
-		if(!in_array($datos['estado_oferta'], array_keys($array_estados)))
-			$errores .= "<br/>Estado no válido.";
-		if(!in_array($datos['producto'], array_keys($array_productos)))
-			$errores .= "<br/>Producto no válido.";		
-		if(!in_array($datos['proveedor'], array_keys($array_proveedores)) && $datos['proveedor']!=0)
-			$errores .= "<br/>Proveedor no válido.";
-		if(!in_array($datos['probabilidad_contratacion'], array_keys($array_probabilidades)))
-			$errores .= "<br/>Probabilidad de contrataci&oacute;n no válida.";
-		if(!in_array($datos['colaborador'], array_keys($array_colaboradores)))
-			$errores .= "<br/>Colaborador no válido.";
-			
+
+		//cliente
+		$query = "SELECT id, razon_social FROM clientes WHERE id=".$datos['cliente']." LIMIT 1";
+		if(!$result = mysql_query($query))
+			$errores .= "<br/>Empresa no v&aacute;lida.";
+
+		$this->cliente = mysql_fetch_array($result);
+		//estado
+		$query = "SELECT id, nombre FROM ofertas_estados WHERE id=".$datos['estado_oferta']." LIMIT 1";
+		if(!$result = mysql_query($query))
+			$errores .= "<br/>Estado no v&aacute;lido.";
+
+		$this->estado_oferta = mysql_fetch_array($result);
+
+		//tipo de producto
+		$query = "SELECT id, nombre FROM productos_tipos WHERE id=".$datos['producto']." LIMIT 1";
+		if(!$result = mysql_query($query))
+			$errores .= "<br/>Producto no v&aacute;lido.";
+
+		$this->producto = mysql_fetch_array($result);
+
+		//proveedor
+		$query = "SELECT id, razon_social FROM proveedores WHERE id=".$datos['proveedor']." LIMIT 1";
+		if(!$result = mysql_query($query))
+			$errores .= "<br/>Proveedor no v&aacute;lido.";
+
+		$this->proveedor = mysql_fetch_array($result);
+
+		//probabilidad de contratación
+		$query = "SELECT id, nombre FROM ofertas_probabilidades WHERE id=".$datos['probabilidad_contratacion']." LIMIT 1";
+		if(!$result = mysql_query($query))
+			$errores .= "<br/>Probabilidad de contrataci&oacute;n no v&aacute;lida.";
+
+		$this->probabilidad_contratacion = mysql_fetch_array($result);
+
+		// colaborador
+		$query = "SELECT id, razon_social as nombre FROM colaboradores WHERE id=".$datos['colaborador']." LIMIT 1";
+		if(!$result = mysql_query($query))
+			$errores .= "<br/>Colaborador no v&aacute;lido.";
+
+		$this->colaborador = mysql_fetch_array($result);
 			
 		if($errores != '') throw new Exception($errores);
+
+		$this->nombre_oferta = mysql_real_escape_string(trim($datos['nombre_oferta']));
+		$this->usuario = trim($datos['usuario']);
+		$this->fecha = trim($datos['fecha']);
+		$this->importe = trim($datos['importe']);
+		$this->fecha_definicion=trim($datos['fecha_definicion']);
+		$this->es_oportunidad_de_negocio=trim($datos['es_oportunidad_de_negocio']);
+		$aceptado = 0;if($datos['estado_oferta'] == 2) $aceptado=1;
+		$this->aceptado=$aceptado;
+		
 		//Si todo ha ido bien:
-		return $this->guardar($datos);
+		return $this->guardar();
 	}
 
 	/**
@@ -359,52 +371,71 @@ class Oferta{
 	 * @param array $datos Array indexado por nombre con los datos de una oferta.
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
-	private function guardar($datos){
+	private function guardar(){
 		//FB::info($datos, 'datos al crear O');
-		$aceptado = 0;if($datos['estado_oferta'] == 2) $aceptado=1;
+		
 		$query = "
 			INSERT INTO ofertas (   nombre_oferta,
 									fk_usuario,
 									fk_estado_oferta,
+									nombre_estado_oferta,
 									fk_tipo_producto,
+									nombre_tipo_producto,
 									fk_proveedor,
+									razon_social_proveedor,
 									fk_cliente,
+									razon_social_cliente,
 									fk_colaborador,
+									razon_social_colaborador,
 									fecha,
 									importe,
 									probabilidad_contratacion,
+									nombre_probabilidad,
 									fecha_definicion,
 									es_oportunidad_de_negocio,
 									aceptado
 								)VALUES(
-									'".mysql_real_escape_string(trim($datos['nombre_oferta']))."',
-									'".trim($datos['usuario'])."',
-									'".trim($datos['estado_oferta'])."',
-									'".trim($datos['producto'])."',
-									'".trim($datos['proveedor'])."',
-									'".trim($datos['cliente'])."',
-									'".trim($datos['colaborador'])."',
-									'".trim($datos['fecha'])."',
-									'".trim($datos['importe'])."',
-									'".trim($datos['probabilidad_contratacion'])."',
-									'".trim($datos['fecha_definicion'])."',
-									'".trim($datos['es_oportunidad_de_negocio'])."',
-									'".$aceptado."'									
+									'".$this->nombre_oferta."',
+									'".$this->usuario."',
+									'".$this->estado_oferta['id']."',
+										'".$this->estado_oferta['nombre']."',
+									'".$this->producto['id']."',
+										'".$this->producto['nombre']."',
+									'".$this->proveedor['id']."',
+										'".$this->proveedor['razon_social']."',
+									'".$this->cliente['id']."',
+										'".$this->cliente['razon_social']."',
+									'".$this->colaborador['id']."',
+										'".$this->colaborador['nombre']."',
+									'".$this->fecha."',
+									'".$this->importe."',
+									'".$this->probabilidad_contratacion['id']."',
+										'".$this->probabilidad_contratacion['nombre']."',
+									'".$this->fecha_definicion."',
+									'".$this->es_oportunidad_de_negocio."',
+									'".$this->aceptado."'
 									
 								);
-		";
-			//FB::info($query,'Oferta crear: QUERY');
-			if(!mysql_query($query))
-				throw new Exception("Error al crear la Oferta. ".$query);
-			$this->id = mysql_insert_id();
-									
-			$array_fecha = explode('/', date("d/m/Y",time()));
-			$year = $array_fecha[2];
-			
-			$this->crear_Codigo($datos['es_oportunidad_de_negocio'],$year);
+		";		
+				
+		//FB::info($query,'Oferta crear: QUERY');
+		if(!mysql_query($query))
+			throw new Exception("Error al crear la Oferta. ");
+		$this->id = mysql_insert_id();
 
-			return $this->id;
+		$array_fecha = explode('/', date("d/m/Y",time()));
+		$year = $array_fecha[2];
+
+		$this->crear_Codigo($datos['es_oportunidad_de_negocio'],$year);
+
+		return $this->id;
 	}
+
+	/**
+	 * Método que devuelve el próximo código a establecer en el año
+	 * @param <type> $es_oportunidad
+	 * @param <type> $year
+	 */
 	private function crear_Codigo($es_oportunidad,$year){
 		$opor = 0;
 		if($es_oportunidad == 1)
@@ -534,20 +565,26 @@ class Oferta{
 	 */
 	public function set_Cliente($id_cliente){
 		$this->comprobacion_Editar();
+		
+		if(is_numeric($id_cliente)){
 
+			$query = "SELECT id, razon_social FROM clientes WHERE id='$id_cliente' LIMIT 1";
+			if(!$result=  mysql_query($query))
+				throw new Exception('La empresa es incorrecta');
+			$row = mysql_fetch_array($result);
 
-		$ListaClientes = new ListaClientes();
-		$array_clientes = $ListaClientes->lista_Clientes();
-
-		if(is_numeric($id_cliente) && in_array($id_cliente, array_keys($array_clientes))){
-			$query = "UPDATE ofertas SET fk_cliente='$id_cliente' WHERE id='$this->id' ";
+			$query = "UPDATE ofertas 
+						SET fk_cliente='$id_cliente',
+						razon_social_cliente='".$row['razon_social']."'
+						WHERE id='$this->id' ";
+			
 			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el cliente en la BBDD.");
+				throw new Exception("Error al actualizar la empresa en la BBDD.");
 
-			$this->cliente = $id_cliente;
+			$this->cliente = array('id' => $id_cliente, 'razon_social' => $row['razon_social']);
 
 		}else
-		throw new Exception("Debe introducir un cliente v&aacute;lido.");
+			throw new Exception("Debe introducir una empresa v&aacute;lida.");
 	}
 
 	/**
@@ -558,20 +595,27 @@ class Oferta{
 		$this->comprobacion_Editar();
 		
 		if(is_numeric($id_estado)){
-			$query = "UPDATE ofertas SET fk_estado_oferta='$id_estado' WHERE id='$this->id' ";
-			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el estado en la BBDD.");
 
-			$query = "SELECT id, nombre FROM ofertas_estados WHERE id= '$id_estado' limit 1;";
-			$rs = mysql_query($query);
-			$row = mysql_fetch_array($rs);
+			$query = "SELECT id, nombre FROM ofertas_estados WHERE id='$id_estado' LIMIT 1";
+			if(!$result=  mysql_query($query))
+				throw new Exception('El estado es incorrecto');
+			$row = mysql_fetch_array($result);
+
+			$query = "UPDATE ofertas 
+						SET fk_estado_oferta='$id_estado',
+						nombre_estado_oferta = '".$row['nopmbre']."'
+						WHERE id='$this->id' ";
+			
+			if(!mysql_query($query))
+				throw new Exception("Error al actualizar el estado en la BBDD.");
 
 			$this->estado_oferta = array('id'=>$row['id'], 'nombre'=>$row['nombre']);
+			
 			if($id_estado == 2)//Aceptado
 				$this->aceptar();
 
 		}else
-		throw new Exception("Debe introducir un estado v&aacute;lido.");
+			throw new Exception("Debe introducir un estado v&aacute;lido.");
 	}
 
 	private function aceptar(){
@@ -579,33 +623,43 @@ class Oferta{
 			if(!mysql_query($query))
 			throw new Exception("Error al actualizar el estado en la BBDD.");
 		$this->aceptado = true;
-		//TODO: proceso de ventas incompleto..
 	}
 	
 	public function set_Producto($id_producto){
 		$this->comprobacion_Editar();
 
-			if(is_numeric($id_producto)){
-			$query = "UPDATE ofertas SET fk_tipo_producto='$id_producto' WHERE id='$this->id' ";
-			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el producto en la BBDD.");
+		if(is_numeric($id_producto)){
 
-			$this->producto = $id_producto;
+			$query = "SELECT id, nombre FROM productos_tipos WHERE id='$id_producto' LIMIT 1";
+			if(!$result=  mysql_query($query))
+				throw new Exception('El tipo de producto es incorrecto');
+			$row = mysql_fetch_array($result);
+
+			$query = "UPDATE ofertas SET fk_tipo_producto='$id_producto', nombre_tipo_producto='".$row['nombre']."' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+				throw new Exception("Error al actualizar el producto en la BBDD.");
+
+			$this->producto = array('id'=>$id_producto, 'nombre'=>$row['nombre']);
 
 		}else
-		throw new Exception("Debe introducir un producto v&aacute;lido.");
+			throw new Exception("Debe introducir un producto v&aacute;lido.");
 	}
 	
 	public function set_Proveedor($id_proveedor){
 		$this->comprobacion_Editar();
 
-
 		if($id_proveedor){
-			$query = "UPDATE ofertas SET fk_proveedor='$id_proveedor' WHERE id='$this->id' ";
-			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el proveedor en la BBDD.");
 
-			$this->proveedor = $id_proveedor;
+			$query = "SELECT id, razon_social FROM proveedores WHERE id='$id_proveedor' LIMIT 1";
+			if(!$result=  mysql_query($query))
+				throw new Exception('El proveedor es incorrecto');
+			$row = mysql_fetch_array($result);
+			
+			$query = "UPDATE ofertas SET fk_proveedor='$id_proveedor', razon_social_proveedor='".$row['razon_social']."' WHERE id='$this->id' ";
+			if(!mysql_query($query))
+				throw new Exception("Error al actualizar el proveedor en la BBDD.");
+
+			$this->proveedor = array('id'=>$id_producto, 'razon_social'=>$row['razon_social']);
 
 		}else
 		throw new Exception("Debe introducir un proveedor v&aacute;lido.");
@@ -614,25 +668,29 @@ class Oferta{
 	public function set_Colaborador($id_colaborador){
 		$this->comprobacion_Editar();
 
-
 		if(is_numeric($id_colaborador)){
-			$query = "UPDATE ofertas SET fk_colaborador='$id_colaborador' WHERE id='$this->id' ";
+
+			$query = "SELECT id, razon_social FROM colaboradores WHERE id='$id_colaborador' LIMIT 1";
+			if(!$result=  mysql_query($query))
+				throw new Exception('El colaborador es incorrecto');
+			$row = mysql_fetch_array($result);
+
+			$query = "UPDATE ofertas SET fk_colaborador='$id_colaborador', razon_social_colaborador='".$row['razon_social']."' WHERE id='$this->id' ";
 			if(!mysql_query($query))
 			throw new Exception("Error al actualizar el colaborador en la BBDD.");
 
-			$this->colaborador = $id_colaborador;
+			$this->colaborador = array('id'=>$id_producto, 'nombre'=>$row['razon_social']);
 
 		}else
-		throw new Exception("Debe introducir un colaborador v&aacute;lido.");
+			throw new Exception("Debe introducir un colaborador v&aacute;lido.");
 	}
 	public function set_Importe($nombre){
 		$this->comprobacion_Editar();
 
-		$validar = new Validador();
 		if((is_numeric($nombre))){
 			$query = "UPDATE ofertas SET importe='$nombre' WHERE id='$this->id' ";
 			if(!mysql_query($query))
-			throw new Exception("Error al actualizar la descripci&oacute;n en la BBDD.");
+			throw new Exception("Error al actualizar el importe en la BBDD.");
 			$this->importe = $nombre;
 
 		}else
@@ -641,35 +699,38 @@ class Oferta{
 	public function set_Probabilidad_Contratacion($nombre){
 		$this->comprobacion_Editar();
 
-		$validar = new Validador();
 		if((is_numeric($nombre))){
-			$query = "UPDATE ofertas SET probabilidad_contratacion='$nombre' WHERE id='$this->id' ";
+
+			$query = "SELECT id, nombre FROM ofertas_probabilidades WHERE id='$nombre' LIMIT 1";
+			if(!$result=  mysql_query($query))
+				throw new Exception('La probabilidad es incorrecta');
+			$row = mysql_fetch_array($result);
+
+
+			$query = "UPDATE ofertas SET probabilidad_contratacion='$nombre', nombre_probabilidad='".$row['nombre']."' WHERE id='$this->id' ";
 			if(!mysql_query($query))
-			throw new Exception("Error al actualizar la descripci&oacute;n en la BBDD.");
-			$this->probabilidad_contratacion = $nombre;
+			throw new Exception("Error al actualizar la probabilidad en la BBDD.");
+			$this->probabilidad_contratacion = $row;
 
 		}else
 		throw new Exception("Debe introducir un nombre v&aacute;lido.");
 	}
 	public function set_Aceptado($nombre){
 		$this->comprobacion_Editar();
-
 		
-			$query = "UPDATE ofertas SET aceptado='$nombre' WHERE id='$this->id' ";
-			if(!mysql_query($query))
+		$query = "UPDATE ofertas SET aceptado='$nombre' WHERE id='$this->id' ";
+		if(!mysql_query($query))
 			throw new Exception("Error al actualizar la descripci&oacute;n en la BBDD.");
-			$this->aceptado = $nombre;
+		$this->aceptado = $nombre;
 
-		
 	}
 	public function set_Es_Oportunidad_De_Negocio($nombre){
 		$this->comprobacion_Editar();
 
-		
-			$query = "UPDATE ofertas SET es_oportunidad_de_negocio='$nombre' WHERE id='$this->id' ";
-			if(!mysql_query($query))
+		$query = "UPDATE ofertas SET es_oportunidad_de_negocio='$nombre' WHERE id='$this->id' ";
+		if(!mysql_query($query))
 			throw new Exception("Error al actualizar la descripci&oacute;n en la BBDD.");
-			$this->es_oportunidad_de_negocio = $nombre;
+		$this->es_oportunidad_de_negocio = $nombre;
 
 	}
 	

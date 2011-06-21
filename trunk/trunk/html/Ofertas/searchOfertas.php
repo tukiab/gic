@@ -353,7 +353,7 @@ include ($appRoot.'/Common/php/menu.php');
 						</td>
 						<?php $clienteoferta = $oferta->get_Cliente();?>
 						<td>
-							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$clienteoferta->get_Id();?>"><?php echo $clienteoferta->get_Razon_Social();?></a>
+							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$clienteoferta['id'];?>"><?php echo $clienteoferta['razon_social'];?></a>
 						</td>	
 						<td>
 							<?php echo $oferta->get_Usuario();?>
