@@ -94,7 +94,7 @@ class Cliente{
 	 * @var integer
 	 */
 	private $creditos;
-	
+
 	private $FAX;
 	private $telefono;
 
@@ -145,7 +145,7 @@ class Cliente{
 	 * @var <integer>
 	 */
 	private $cliente_principal;
-	
+
 	/*
 	 * Métodos de la Clase.
 	 ***********************/
@@ -175,14 +175,8 @@ class Cliente{
 	 */
 	private function cargar(){
 		if($this->id){
-			$query = "SELECT clientes.*,
-							 clientes_tipos.id AS id_tipo, clientes_tipos.nombre AS nombre_tipo,
-							 grupos_empresas.id AS id_grupo, grupos_empresas.nombre AS nombre_grupo
+			$query = "SELECT clientes.*
 						FROM clientes
-				    		INNER JOIN clientes_tipos
-								ON clientes.fk_tipo_cliente = clientes_tipos.id
-							INNER JOIN grupos_empresas 
-								ON clientes.fk_grupo_empresas = grupos_empresas.id
 						WHERE clientes.id = '$this->id'";
 			//FB::info($query,'Cliente->cargar: QUERY');
 			if(!($result = mysql_query($query)))
@@ -198,20 +192,20 @@ class Cliente{
 			$this->telefono = $row['telefono'];
 			$this->domicilio = $row['domicilio'];
 			$this->fecha_renovacion = $row['fecha_renovacion'];
-				
+
 			$this->localidad = $row['localidad'];
 			$this->provincia = $row['provincia'];
 			$this->NIF = $row['NIF'];
 			$this->norma_implantada = $row['norma_implantada'];
 			$this->numero_empleados = $row['numero_empleados'];
-				
+
 			$this->razon_social = $row['razon_social'];
 			$this->sector = $row['sector'];
 			$this->SPA_actual = $row['SPA_actual'];
 			$this->web = $row['web'];
-				
-			$this->tipo_cliente = array('id'=>$row['id_tipo'], 'nombre'=>$row['nombre_tipo']);
-			$this->grupo_empresas = array('id'=>$row['id_grupo'], 'nombre'=>$row['nombre_grupo']);
+
+			$this->tipo_cliente = array('id'=>$row['fk_tipo_cliente'], 'nombre'=>$row['nombre_tipo_cliente']);
+			$this->grupo_empresas = array('id'=>$row['fk_grupo_empresas'], 'nombre'=>$row['nombre_grupo_empresas']);
 
 			$this_principal = $row['cliente_principal'];
 
@@ -219,7 +213,7 @@ class Cliente{
 			$this->actividad = $row['actividad'];
 
 			$this->cliente_principal = $row['cliente_principal'];
-			
+
 		}
 	}
 
@@ -259,7 +253,7 @@ class Cliente{
 	private function cargar_Gestores(){
 		$query = "SELECT fk_usuario
 					FROM clientes_rel_usuarios
-					WHERE fk_cliente = '$this->id' 
+					WHERE fk_cliente = '$this->id'
 					ORDER BY ha_insertado; ";
 
 		$result = mysql_query($query);
@@ -275,7 +269,7 @@ class Cliente{
 	private function cargar_Acciones(){
 		$query = "SELECT id
 					FROM acciones_de_trabajo
-					WHERE fk_cliente = '$this->id' 
+					WHERE fk_cliente = '$this->id'
 					; ";
 
 		$result = mysql_query($query);
@@ -291,7 +285,7 @@ class Cliente{
 	private function cargar_Ofertas(){
 		$query = "SELECT id
 					FROM ofertas
-					WHERE fk_cliente = '$this->id' 
+					WHERE fk_cliente = '$this->id'
 					; ";
 
 		$result = mysql_query($query);
@@ -371,7 +365,7 @@ class Cliente{
 	public function get_Creditos(){
 		return $this->creditos;
 	}
-	
+
 	public function get_FAX(){
 		return $this->FAX;
 	}
@@ -410,7 +404,7 @@ class Cliente{
 	public function get_Acciones(){
 		if(!$this->acciones)
 			$this->cargar_Acciones();
-		
+
 		return $this->acciones;
 	}
 
@@ -437,7 +431,7 @@ class Cliente{
 
 	/**
 	 * Devuelve un array de ids de proyectos
-	 * @return <type> 
+	 * @return <type>
 	 */
 	public function get_Proyectos(){
 		if(!$this->proyectos)
@@ -452,7 +446,7 @@ class Cliente{
 	public function get_Gestores(){
 		if(!$this->gestores)
 			$this->cargar_Gestores();
-		
+
 		return $this->gestores;
 	}
 
@@ -562,7 +556,7 @@ class Cliente{
 		return $this->cliente_principal;
 	}
 
-	
+
 	/**
 	 * Devuelve la lista de contactos asociados al cliente.
 	 *
@@ -663,7 +657,7 @@ class Cliente{
 	}
 
 	/*
-	 * Métodos Modificadores. 
+	 * Métodos Modificadores.
 	 *
 	 ************************/
 
@@ -701,10 +695,6 @@ class Cliente{
 		$validar = new Validador();
 		$ListaClientes = new ListaClientes();
 
-		$array_tipos = $ListaClientes->lista_Tipos();
-		$array_grupos_empresas = $ListaClientes->lista_Grupos_Empresas();
-		$array_gestores = $ListaClientes->lista_Gestores();
-			
 		//Comprobando los datos "imprescindibles":
 		$errores = '';
 		if($datos['razon_social'] == '' || ! isset($datos['razon_social']))
@@ -717,12 +707,10 @@ class Cliente{
 			$errores .= "<br/>Empresa: El sector es obligatorio.";
 		if($datos['provincia'] == '' || ! isset($datos['provincia']))
 			$errores .= "<br/>Empresa: La provincia es obligatoria.";
-		if($datos['tipo_cliente'] == '' || ! isset($datos['tipo_cliente']))
-			$errores .= "<br/>Empresa: El tipo de cliente es obligatorio.";
-		
+
 		if(isset($datos['NIF']) && !$validar->nif_cif($datos['NIF']))
 			$errores .= "<br/>Empresa: El CIF/NIF es incorrecto.";
-			
+
 		if(!isset($datos['gestor']))
 			$errores .= "<br/>Empresa: Gestor no v&aacute;lido.";
 		if(isset($datos['telefono'])){
@@ -732,24 +720,33 @@ class Cliente{
 				$errores .= "<br/>El n&uacute;mero de tel&eacute;fono no es v&aacute;lido";
 		}else $errores .= "<br/>Empresa: El tel&eacute;fono es obligatorio.";
 
-		if(!is_numeric($datos['grupo_empresas']) || !in_array($datos['grupo_empresas'], array_keys($array_grupos_empresas)))
-			$errores .= "<br/>Empresa: Grupo de empresas no v&aacute;lido.";
-		
+		$query = "SELECT id,nombre FROM clientes_tipos WHERE id='".trim($datos['tipo_cliente'])."' LIMIT 1";
+		if(!$result=  mysql_query($query))
+			$errores .= "<br/>Empresa: Tipo de empresa no valido";
+		$row=mysql_fetch_array($result);
+		$this->tipo_cliente = array('id' => $row['id'], 'nombre' => $row['nombre']);
+
+		$query = "SELECT id,nombre FROM grupos_empresas WHERE id='".trim($datos['grupo_empresas'])."' LIMIT 1";
+		if(!$result=  mysql_query($query))
+			$errores .= "<br/>Empresa: Grupo de empresa no valido";
+		$row=mysql_fetch_array($result);
+		$this->grupo_empresas = array('id' => $row['id'], 'nombre' => $row['nombre']);
+
 		if($errores != '') throw new Exception($errores);
 
 		//Si todo ha ido bien:
 		return $this->guardar($datos);
 	}
-	
+
 	/**
-	 * Método privado que lanza las consultas necesarias para insertar en la BBDD los datos de un 
+	 * Método privado que lanza las consultas necesarias para insertar en la BBDD los datos de un
 	 * cliente, una vez filtrados y validados.
 	 *
 	 * @param array $datos Array indexado por nombre con los datos de un cliente.
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
 	private function guardar($datos){//FB::info($datos);
-	
+
 		if(!$datos['cliente_principal']){
 			$coincidencias = $this->buscar_coincidencias($datos['telefono'], $datos['razon_social']);
 			if($coincidencias != '' && ! $datos['continuar'])
@@ -761,7 +758,7 @@ class Cliente{
 			$query = "UPDATE clientes SET cliente_principal = '0' WHERE cliente_principal='1';";
 			if(!mysql_query($query))
 				throw new Excepcion("Error cr&iacute;tico al deshacer la empresa propietaria anterior");
-		}			
+		}
 
 		$s_into.="";
 		$s_values.="";
@@ -820,20 +817,24 @@ class Cliente{
 			$s_values.=",'".trim($datos['CP'])."'";
 		}
 		$query = "
-			INSERT INTO clientes (  razon_social,									
-									provincia,									
+			INSERT INTO clientes (  razon_social,
+									provincia,
 									fk_tipo_cliente,
+									nombre_tipo_cliente,
 									fk_grupo_empresas,
+									nombre_grupo_empresas,
 									cliente_principal
 									$s_into
 								)VALUES(
-									'".mysql_real_escape_string(trim($datos['razon_social']))."',									
-									'".mysql_real_escape_string(trim($datos['provincia']))."',									
-									'".trim($datos['tipo_cliente'])."',
-									'".trim($datos['grupo_empresas'])."',
+									'".mysql_real_escape_string(trim($datos['razon_social']))."',
+									'".mysql_real_escape_string(trim($datos['provincia']))."',
+									'".$this->tipo_cliente['id']."',
+									'".$this->tipo_cliente['nombre']."',
+									'".$this->grupo_empresas['id']."',
+									'".$this->grupo_empresas['nombre']."',
 									'$cliente_principal'
 									$s_values
-								);";									
+								);";
 									if(!mysql_query($query))
 										throw new Exception("Error al crear la empresa. ".$query);
 									$this->id = mysql_insert_id();
@@ -852,7 +853,7 @@ class Cliente{
 			$this->del_Cliente();
 			throw new Exception("Error al crear el Empresa: No se pudo establecer el gestor.");
 		 }
-		
+
 		 //Los datos de localidad, provincia etc son los datos de la sede principal del cliente/empresa.
 		 //Lo metemos directamente, en lugar de llamar al método crear_Sede
 		 $query = "INSERT INTO clientes_sedes (localidad, CP, provincia, direccion, fk_cliente, es_sede_principal)
@@ -877,7 +878,7 @@ class Cliente{
 		}
 		return $this->id;
 	}
-	
+
 	/**
 	 * Devuelve un STRING con coincidencias encontradas
 	 * @param unknown_type $telefono
@@ -885,29 +886,29 @@ class Cliente{
 	 */
 	private function buscar_coincidencias($telefono, $razon_social){
 		$coincidencias = '';
-		
+
 		$coincidencias_telefono = $this->coincidencias_Telefono($telefono);
 		if(!empty($coincidencias_telefono))
 			$coincidencias .= '<br/>Coincidencias por tel&eacute;fono: ';
 		foreach($coincidencias_telefono as $cliente)
 			$coincidencias .= '<br/>'.$cliente['razon_social'].' del gestor '.$cliente['gestor'];
-			
+
 		$coincidencias_razon_social = $this->coincidencias_Razon_social($razon_social);
 		if(!empty($coincidencias_razon_social))
 			$coincidencias .= '<br/>Coincidencias por raz&oacute;n social:';
 		foreach($coincidencias_razon_social as $cliente)
 			$coincidencias .= '<br/>'.$cliente['razon_social'].' del gestor '.$cliente['gestor'];
-		
+
 		return $coincidencias;
 	}
-	
+
 	/**
 	 * Devuelve un ARRAY con las razones sociales de los clientes que tienen el tel�fono
 	 * @param unknown_type $telefono
 	 */
 	private function coincidencias_Telefono($telefono){
 		$coincidencias = array();
-		$query = "SELECT razon_social, fk_usuario as gestor 
+		$query = "SELECT razon_social, fk_usuario as gestor
 					FROM clientes
 						INNER JOIN clientes_rel_usuarios ON clientes.id = clientes_rel_usuarios.fk_cliente AND clientes_rel_usuarios.ha_insertado = '1'
 					WHERE telefono = '$telefono';";
@@ -915,7 +916,7 @@ class Cliente{
 		if(mysql_num_rows($rs) > 0){
 			while($row = mysql_fetch_array($rs))
 				$coincidencias[] = $row;
-		}			
+		}
 		return $coincidencias;
 	}
 	/**
@@ -923,7 +924,7 @@ class Cliente{
 	 * @param unknown_type $razon_social
 	 */
 	private function coincidencias_Razon_Social($razon_social){
-		
+
 		$filtro = '';
 		$esp_duplicados = eregi_replace("[[:space:]]+"," ",$razon_social);
 			$tmp = explode(" ", $esp_duplicados);
@@ -932,8 +933,8 @@ class Cliente{
 					$filtro.= " OR razon_social LIKE '%$palabro%' ";
 			}
 			$filtro.= " )";
-		
-		
+
+
 		$coincidencias = array();
 		$query = "SELECT razon_social, fk_usuario as gestor
 					FROM clientes
@@ -944,17 +945,17 @@ class Cliente{
 		if(mysql_num_rows($rs) > 0){
 			while($row = mysql_fetch_array($rs))
 				$coincidencias[] = $row;
-		}			
+		}
 		return $coincidencias;
 	}
-	
+
 	public function get_DisableEdit(){
 		$disable = array();
 		$usuario = new Usuario($_SESSION['usuario_login']);
-		if(!$usuario->esAdministrador()){ 
+		if(!$usuario->esAdministrador()){
 			//FB::error($this,'entro');
 			if($this->razon_social != '')
-				$disable['razon_social'] = 'readonly="readonly"'; 
+				$disable['razon_social'] = 'readonly="readonly"';
 		/*	if($this->tipo_cliente != '')
 				$disable['tipo_cliente'] = 'disabled';
 			if($this->grupo_empresas != '')
@@ -991,7 +992,7 @@ class Cliente{
 				$disable['observaciones'] = 'readonly="readonly"';
 			if($this->actividad != '')
 				$disable['actividad'] = 'readonly="readonly"';
-			
+
 		}
 		//FB::error($disable);
 		return $disable;
@@ -1041,14 +1042,14 @@ class Cliente{
 		return $row['id'];
 		return false;
 	}
-	
+
 	public function del_Contacto($id_contacto){
 		$query = "DELETE FROM clientes_rel_contactos WHERE fk_contacto = '$id_contacto'; ";
 		mysql_query($query);
 
 		$query = "DELETE FROM clientes_sedes_rel_contactos WHERE fk_contacto = '$id_contacto'; ";
 		mysql_query($query);
-		
+
 		$query = "DELETE FROM contactos WHERE id = '$id_contacto'; ";
 		mysql_query($query);
 	}
@@ -1059,23 +1060,23 @@ class Cliente{
 
 		return false;
 	}
-	
+
 	public function del_Cliente($borrado_total = 0){
-		
+
 		if(!$borrado_total)
 			if(count($this->acciones) > 0 || count($this->ofertas) > 0)
 				throw new Exception ("La empresa ".$this->razon_social." tiene acciones u ofertas.");
-		
-				
+
+
 		$query = "DELETE FROM clientes WHERE id = '$this->id'; ";
 		mysql_query($query);
 
-		
+
 		$query = "DELETE FROM acciones_de_trabajo WHERE fk_cliente = '$this->id'; ";
 		mysql_query($query);
 		$query = "DELETE FROM ofertas WHERE fk_cliente = '$this->id'; ";
 		mysql_query($query);
-		
+
 		/*foreach($this->get_Acciones() as $idaccion){
 			$accion = new Accion($idaccion);
 			$accion->del_Accion();
@@ -1091,8 +1092,8 @@ class Cliente{
 
 		$query = "DELETE FROM clientes_rel_contactos WHERE fk_cliente = '$this->id'; ";
 		mysql_query($query);
-		
-		
+
+
 	}
 	public function relacionar_Contacto($id_contacto){
 		$query = "INSERT INTO clientes_rel_contactos (fk_cliente, fk_contacto) VALUES ('$this->id','$id_contacto')";
@@ -1100,7 +1101,7 @@ class Cliente{
 	}
 
 	/**
-	* Gestores	
+	* Gestores
 	*/
 	public function add_Gestor($id_gestor){
 		if($this->existe_Gestor($id_gestor)){
@@ -1108,14 +1109,14 @@ class Cliente{
 		}
 		else
 			throw new Exception('Cliente - add_Gestor: El gestor no existe');
-		
+
 	}
 	public function del_Gestor($idGestor){
 		if($this->existe_Gestor($idGestor)){
 			$query = "DELETE FROM clientes_rel_usuarios WHERE fk_cliente='$this->id' AND fk_usuario = '$idGestor'";
 			mysql_query($query);
 			$this->cargar_Gestores();
-		} 
+		}
 	}
 
 	private function existe_Gestor($id_gestor){
@@ -1127,10 +1128,10 @@ class Cliente{
 		return $row['id'];
 		return false;
 	}
-	
+
 	public function relacionar_Gestor($id_gestor){
 		if(!in_array($id_gestor,$this->gestores)){
-			
+
 			$query = "INSERT INTO clientes_rel_usuarios (fk_cliente, fk_usuario) VALUES ('$this->id','$id_gestor')";
 			//FB::info($query,'query relacionar gestor');
 			$rs = mysql_query($query);
@@ -1138,7 +1139,7 @@ class Cliente{
 	}
 
 	/**
-	* Acciones	
+	* Acciones
 	*/
 	public function add_Accion($datos){
 		$datos['cliente'] = $this->id;
@@ -1153,7 +1154,7 @@ class Cliente{
 	}
 
 	/**
-	* Ofertas	
+	* Ofertas
 	*/
 	public function add_Oferta($datos){
 		$datos['cliente'] = $this->id;
@@ -1203,7 +1204,7 @@ class Cliente{
 
 	public function set_FAX($FAX){
 		$Validar = new Validador();
-		
+
 		if($this->id && $Validar->telefono($FAX)){
 			if($FAX != '')
 				$query = "UPDATE clientes SET FAX='".trim($FAX)."' WHERE id='$this->id' ";
@@ -1216,10 +1217,10 @@ class Cliente{
 		}else
 		throw new Exception("FAX incorrecto.");
 	}
-	
+
 	public function set_Telefono($telefono){
 		$Validar = new Validador();
-		
+
 		if($this->id && ($Validar->telefono($telefono) || $Validar->movil($telefono))){
 			if($telefono != '')
 				$query = "UPDATE clientes SET telefono='".trim($telefono)."' WHERE id='$this->id' ";
@@ -1246,7 +1247,7 @@ class Cliente{
 				$query = "UPDATE clientes SET domicilio='".mysql_real_escape_string($domicilio)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar el domicilio en la BBDD.");
-					
+
 				$this->domicilio = $domicilio;
 			}else
 			throw new Exception("Domicilio incorrecto.");
@@ -1267,7 +1268,7 @@ class Cliente{
 				$query = "UPDATE clientes SET localidad='".mysql_real_escape_string($localidad)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar la localidad en la BBDD.");
-					
+
 				$this->localidad = $localidad;
 			}else
 			throw new Exception("Localidad incorrecta.");
@@ -1281,14 +1282,14 @@ class Cliente{
 				$query = "UPDATE clientes SET provincia='".mysql_real_escape_string($provincia)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar la provincia en la BBDD.");
-					
+
 				$this->provincia = $provincia;
 			}else
 			throw new Exception("Provincia incorrecta.");
 		}
 	}
 
-	
+
 	public function set_Actividad($texto){
 		$Validar = new Validador();
 		if($this->id && strcmp($this->actividad, $texto) != 0){
@@ -1331,7 +1332,7 @@ class Cliente{
 				$query = "UPDATE clientes SET norma_implantada='".mysql_real_escape_string($norma_implantada)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar la norma implantada en la BBDD.");
-					
+
 				$this->norma_implantada = $norma_implantada;
 			}else
 			throw new Exception("DNorma implantada incorrecta.");
@@ -1352,7 +1353,7 @@ class Cliente{
 				$query = "UPDATE clientes SET razon_social='".mysql_real_escape_string($razon_social)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar la raz&oacute;n social en la BBDD.");
-					
+
 				$this->razon_social = $razon_social;
 			}else
 			throw new Exception("Raz&oacute;n social incorrecta.");
@@ -1373,7 +1374,7 @@ class Cliente{
 				$query = "UPDATE clientes SET sector='".mysql_real_escape_string($sector)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar el sector en la BBDD.");
-					
+
 				$this->sector = $sector;
 			}else
 			throw new Exception("Ssector incorrecto.");
@@ -1394,7 +1395,7 @@ class Cliente{
 				$query = "UPDATE clientes SET SPA_actual='".mysql_real_escape_string($SPA_actual)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar la SPA en la BBDD.");
-					
+
 				$this->SPA_actual = $SPA_actual;
 			}else
 			throw new Exception("SPA incorrecto.");
@@ -1415,7 +1416,7 @@ class Cliente{
 				$query = "UPDATE clientes SET web='".mysql_real_escape_string($web)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar la web en la BBDD.");
-					
+
 				$this->web = $web;
 			}else
 			throw new Exception("Web incorrecta");
@@ -1436,7 +1437,7 @@ class Cliente{
 				$query = "UPDATE clientes SET NIF='".mysql_real_escape_string($NIF)."' WHERE id='$this->id' ";
 				if(!mysql_query($query))
 				throw new Exception("Error al actualizar el NIF/CIF en la BBDD.");
-					
+
 				$this->NIF = $NIF;
 			}else
 			throw new Exception("NIF/CIF incorrecto.");
@@ -1464,17 +1465,18 @@ class Cliente{
 	 * @param int $id_grupo nuevo grupo de empresas
 	 */
 	public function set_Grupo_Empresas($id_grupo){
-		$ListaClientes = new ListaClientes();
-		$array_grupos_empresas = $ListaClientes->lista_Grupos_Empresas();
-		//FB::info($array_grupos_empresas);
-		if(is_numeric($id_grupo) && in_array($id_grupo, array_keys($array_grupos_empresas))){
-			$query = "UPDATE clientes SET fk_grupo_empresas='$id_grupo' WHERE id='$this->id' ";
-			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el grupo en la BBDD.");
-
+		if(is_numeric($id_grupo)){
 			$query = "SELECT id, nombre FROM grupos_empresas WHERE id= '$id_grupo' limit 1;";
-			$rs = mysql_query($query);
+			if(!$rs = mysql_query($query))
+				throw new Exception('Grupo no valido');
 			$row = mysql_fetch_array($rs);
+
+			$query = "UPDATE clientes 
+						SET fk_grupo_empresas='$id_grupo',
+						nombre_grupo_empresas = '".$row['nombre']."'
+						WHERE id='$this->id' ";
+			if(!mysql_query($query))
+				throw new Exception("Error al actualizar el grupo en la BBDD.");
 
 			$this->grupo_empresas = array('id'=>$row['id'], 'nombre'=>$row['nombre']);
 
@@ -1487,22 +1489,23 @@ class Cliente{
 	 * @param int $id_tipo nuevo tipo
 	 */
 	public function set_Tipo($id_tipo){
-		$ListaClientes = new ListaClientes();
-		$array_tipos = $ListaClientes->lista_Tipos();
-
-		if(is_numeric($id_tipo) && in_array($id_tipo, array_keys($array_tipos))){
-			$query = "UPDATE clientes SET fk_tipo_cliente='$id_tipo' WHERE id='$this->id' ";
-			if(!mysql_query($query))
-			throw new Exception("Error al actualizar el tipo en la BBDD.");
-
+		if(is_numeric($id_tipo)){
 			$query = "SELECT id, nombre FROM clientes_tipos WHERE id= '$id_tipo' limit 1;";
-			$rs = mysql_query($query);
+			if(!$rs = mysql_query($query))
+				throw new Exception('Tipo incorrecto');
 			$row = mysql_fetch_array($rs);
+
+			$query = "UPDATE clientes 
+						SET fk_tipo_cliente='$id_tipo',
+							nombre_tipo_cliente = '".$row['nombre']."'
+						WHERE id='$this->id'";
+			if(!mysql_query($query))
+				throw new Exception("Error al actualizar el tipo en la BBDD.");
 
 			$this->tipo_cliente = array('id'=>$row['id'], 'nombre'=>$row['nombre']);
 
 		}else
-		throw new Exception("Debe introducir un tipo v&aacute;lido.");
+			throw new Exception("Debe introducir un tipo v&aacute;lido.");
 	}
 
 	/**
