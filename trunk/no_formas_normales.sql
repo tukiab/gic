@@ -11,3 +11,4 @@ ALTER TABLE clientes
 	ADD nombre_grupo_empresas VARCHAR(45) NOT NULL AFTER fk_grupo_empresas;
 UPDATE clientes SET nombre_tipo_cliente=(SELECT nombre FROM clientes_tipos WHERE clientes_tipos.id=clientes.fk_tipo_cliente),
 	nombre_grupo_empresas=(SELECT nombre FROM grupos_empresas WHERE grupos_empresas.id = clientes.fk_grupo_empresas);
+

@@ -386,7 +386,7 @@
 	 * @return integer $id_cliente Id del nuevo Cliente.
 	 */
 	public function crear($datos){
-		////FB::info($datos,'datos para crear usuario');
+		//FB::info($datos,'datos para crear usuario');
 		/*
 		 * Datos imprescindibles para crear un cliente nuevo:
 		 * 		id
@@ -422,7 +422,7 @@
 	 * @return integer $id Identificador asignado por el gestor de BBDD.
 	 */
 	private function guardar($datos){
-		////FB::info($datos,'datos para guardar usuario');
+		//FB::info($datos,'datos para guardar usuario');
 		$s_into.="";
 		$s_values.="";
 		if(isset($datos['apellidos'])){
