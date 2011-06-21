@@ -486,7 +486,7 @@ class ImgData_PushPins extends ImgData {
 	    'zMxmzP+ZzACZzDOZzGaZzJmZzMyZzP/MzADMzDPMzGbMzJnMzM'.
 	    'zMzP//zAD/zDP/zGb/zJn/zMz/zP8A/wAA/zMA/2YA/5kA/8wA'.
 	    '//8z/wAz/zMz/2Yz/5kz/8wz//9m/wBm/zNm/2Zm/5lm/8xm//'.
-	    '+Z/wCZ/zOZ/2aZ/5mZ/8yZ///M/wDM/zPM/2bM/5nM/8zM////'.
+	    '+Z/wCZ/zOZ/2aZ/5mZ/8yZ///M/wDM/zPM/2bM/5nM/8zM//'.
 	    '/wD//zP//2b//5n//8z///9jJVUgAAAAAXRSTlMAQObYZgAAAA'.
 	    'FiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElN'.
 	    'RQfTAwkWGTNerea3AAAAYUlEQVR4nHXNwQ3AIAxDUUfyoROxRZ'.

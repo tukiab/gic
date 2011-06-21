@@ -47,7 +47,7 @@ class EditFactura{
 	
 	public function __construct($opciones){
 		//Debugging..
-		////FB::log($opciones, '_editar_datos_factura.php -> opciones');
+		//FB::log($opciones, '_editar_datos_factura.php -> opciones');
 		$this->gestor = new Usuario($_SESSION['usuario_login']);
 		//Obtenemos las opciones pasadas al script
 		if(!$opciones['id'] || !is_numeric($opciones['id']))
@@ -85,7 +85,7 @@ class EditFactura{
 	 * @param array $opciones Array $_GET
 	 */
 	public function EditarDatosFactura($opciones){
-		////FB::log($opciones, "Opciones:EditarDatosFactura");		
+		//FB::log($opciones, "Opciones:EditarDatosFactura");		
 		//Si se ha pulsado en guardar, comprobamos qué se va a guardar...
 		if($opciones['guardar']){
 			switch($opciones['edit']){

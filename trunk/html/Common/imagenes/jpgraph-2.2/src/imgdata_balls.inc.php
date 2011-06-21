@@ -78,7 +78,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_large[0][0]= 1072 ;
 	$this->imgdata_large[0][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAByF'.
-	    'BMVEX/////////xsb/vb3/lIz/hIT/e3v/c3P/c2v/a2v/Y2P/'.
+	    'BMVEX/////xsb/vb3/lIz/hIT/e3v/c3P/c2v/a2v/Y2P/'.
 	    'UlL/Skr/SkL/Qjn/MTH/MSn/KSn/ISH/IRj/GBj/GBD/EBD/EA'.
 	    'j/CAj/CAD/AAD3QkL3MTH3KSn3KSH3GBj3EBD3CAj3AAD1zMzv'.
 	    'QkLvISHvIRjvGBjvEBDvEAjvAADnUlLnSkrnMTnnKSnnIRjnGB'.
@@ -156,7 +156,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_large[2][0]= 1101 ;
 	$this->imgdata_large[2][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAB2l'.
-	    'BMVEX//////////+///+f//9b//8b//73//7X//63//6X//5T/'.
+	    'BMVEX//////+///+f//9b//8b//73//7X//63//6X//5T/'.
 	    '/4z//4T//3P//2v//1r//0r//0L//zH//yn//yH//xj//xD//w'.
 	    'j//wD/90L/9zn/9zH/9xj/9xD/9wj/9wD39yn37zn37zH37yH3'.
 	    '7xD37wj37wDv70Lv50rv50Lv5znv5yHv5xjv5wjv5wDn51Ln5x'.
@@ -238,7 +238,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_large[4][0]= 1149 ;
 	$this->imgdata_large[4][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAACAV'.
-	    'BMVEX/////////7///5///1v//xv//rf//pf//lP//jP//hP//'.
+	    'BMVEX/////7///5///1v//xv//rf//pf//lP//jP//hP//'.
 	    'c///a///Wv//Wvf/Uv//Sv//Qv//Qvf/Off/Mf//Kf//If//If'.
 	    'f/GP//GPf/EP//EPf/CP//CPf/CO//AP//APf3Oe/3Kff3Ke/3'.
 	    'Ie/3GO/3EO/3AO/vSu/vSufvOefvMefvIefvGOfvEOfvCOfvAO'.
@@ -275,7 +275,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_large[5][0]= 905 ;
 	$this->imgdata_large[5][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAABO1'.
-	    'BMVEX////////3///39/fv7+/e5+fW3t7Wzs7WxsbG1tbGzsbG'.
+	    'BMVEX////3///39/fv7+/e5+fW3t7Wzs7WxsbG1tbGzsbG'.
 	    'xsbDxMS/v7++wMC+v7+9zsa9xsa9vb29tbW9ra29pa24uLi1xs'.
 	    'a1vb21tbWxtrattbWmpqalra2cra2cpaWcnJycjIyUpaWUnJyU'.
 	    'lJSUjIyMnJyMnJSMlJSMlIyMjJSMjIyElJSElIyEjIyEhIR7jI'.
@@ -306,13 +306,13 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_large[6][0]= 1053 ;
 	$this->imgdata_large[6][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAABoV'.
-	    'BMVEX////Gzs7GvbXGrZTGpXu9nHO1nHO1nIy9taXGxs7GtaXO'.
+	    'BMVEX//Gzs7GvbXGrZTGpXu9nHO1nHO1nIy9taXGxs7GtaXO'.
 	    'nHPGlFrGjEq9hEq1hEqte0Klczmcazmce1KtnIzGxsbGvb3OlF'.
 	    'LOlFq9hFKte0qcc0KUYzGEWimMc1K9ta3OnGvOnGPWnGO9jFq9'.
 	    'jFKlc0KUazmMYzl7UilzUjGtpZzGxr3GnGPWpWvepXO1hFJ7Wj'.
 	    'FrSiFjUjG1ra3GnHPvxpT/5733zpythFKUa0KEYzlzUilaOSF7'.
 	    'Wjm9jErvvYz/99b///f/78bnrYS1hFqle0p7UjFrSiljQiFCMR'.
-	    'iMhHO9lGvGjFLWnGv/3q3////erXuthEqlc0paQiFKMRhSQin/'.
+	    'iMhHO9lGvGjFLWnGv/3q3//erXuthEqlc0paQiFKMRhSQin/'.
 	    '1qX/997//++cc0pjSilaQilKORhCKRiclIy9pYzGlGPntYT33q'.
 	    '3vvZSEWjlSOSE5KRB7c2O1lHutczmthFqte1JrWkqtjGtCKRBa'.
 	    'SjmljGuca0KMYzGMaznOztaclISUYzmEWjFKOSF7a1qEYzFaSi'.
@@ -341,7 +341,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_large[7][0]= 1113 ;
 	$this->imgdata_large[7][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAB2l'.
-	    'BMVEX////////3///v///n/+/e99bW/+/W99bO786/v7++vr69'.
+	    'BMVEX////3///v///n/+/e99bW/+/W99bO786/v7++vr69'.
 	    '/96999a7wb24vbu1/9a1zqW1u7itxrWosq6l772l1qWlxrWlxq'.
 	    '2lva2cxpSU562U3q2UxqWUvaWUpZyM77WM57WMvYyMtZyMrZyM'.
 	    'pZSMnJSEvZyEtYyErZSElIx7zpR7xpx7xpR7vZR7jIRz1pRzxp'.
@@ -423,7 +423,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_large[9][0]= 1169 ;
 	$this->imgdata_large[9][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAACEF'.
-	    'BMVEX/////////7//35//v1v/exv/Wvf/Wrf/Wpf/Orf+/v7+9'.
+	    'BMVEX/////7//35//v1v/exv/Wvf/Wrf/Wpf/Orf+/v7+9'.
 	    'tc69jP+9hP+5ucW1tc6tlP+rq7Wlpdalpcalpb2cnM6cnMacc/'.
 	    '+cWv+UlLWUjN6UjK2Uc/+Ma/+MUv+EhKWEa/+EQvd7e8Z7e7V7'.
 	    'e6V7c957Wv9za9Zza8ZzSv9ra5xrSv9rOf9rMe9jUudjQv9jOe'.
@@ -461,7 +461,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[0][0]= 437 ;
 	$this->imgdata_small[0][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAk1'.
-	    'BMVEX////////GxsbGra3/xsbOhITWhIT/hIT/e3v/c3P/a2vG'.
+	    'BMVEX////GxsbGra3/xsbOhITWhIT/hIT/e3v/c3P/a2vG'.
 	    'UlK1SkrOUlL/Y2PWUlLGSkrnUlLeSkrnSkr/SkqEGBj/KSmlGB'.
 	    'jeGBjvGBj3GBj/EBD/CAj/AAD3AADvAADnAADeAADWAADOAADG'.
 	    'AAC9AAC1AACtAAClAACcAACUAACMAACEAAB7AABzAABrAABjAA'.
@@ -480,7 +480,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[1][0]= 657 ;
 	$this->imgdata_small[1][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAABVl'.
-	    'BMVEX////////d///AwMC7wcS08P+y+P+xxdCwxM+uws2twMur'.
+	    'BMVEX////d///AwMC7wcS08P+y+P+xxdCwxM+uws2twMur'.
 	    'vsinzNynytylzuKhyN6e5v6d5P+d1fOcwNWcu8ub4f+at8iZ3v'.
 	    '+ZvdGY2/yW2f+VscGU1vuT1fqTr72Sx+SSxeKR0fWRz/GPz/OP'.
 	    'rr+OyeqMy+6Myu2LyeyKxueJudSGw+SGorGDvt+Cvd6CvN2Aud'.
@@ -509,7 +509,7 @@ class ImgData_Balls extends ImgData {
 	    'CE+AB0/ABk/ABU/ABE/AAw/AAg/AAQ/AAA/AAA+AAA6BAA2CAA'.
 	    'yDQAtEQApFQAlGQAhHQAdIgAZJgAVKgARLgAMMgAINwAEOwAAP'.
 	    'wAAPgIAPAQAOgYAOAkANgsANA0AMg8AMBEALhMALBUAKhcAKBo'.
-	    'AJhwAJB4AIiAAID////4+Pjy8vLs7Ozm5ubg4ODa2trT09PNzc'.
+	    'AJhwAJB4AIiAAID//4+Pjy8vLs7Ozm5ubg4ODa2trT09PNzc'.
 	    '3Hx8fBwcG7u7u1tbWurq6oqKiioqKcnJyWlpaQkJCJiYmDg4N9'.
 	    'fX13d3dxcXFra2tkZGReXl5YWFhSUlJMTExGRkZAQEA1BLn4AA'.
 	    'AAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIA'.
@@ -525,7 +525,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[3][0]= 503 ;
 	$this->imgdata_small[3][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAxl'.
-	    'BMVEX///////+/v79znJQhSkJ7raU5hHtjraVKnJRCjIRClIyU'.
+	    'BMVEX/////+/v79znJQhSkJ7raU5hHtjraVKnJRCjIRClIyU'.
 	    '9++E595avbVaxr2/v7+ctbWcvb17nJxrjIx7paUxQkK9//+Mvb'.
 	    '17ra2Evb17tbVCY2MQGBiU5+ec9/eM5+d71tZanJxjra1rvb1j'.
 	    'tbVSnJxara1rzs5jxsZKlJRChIQpUlIhQkJatbVSpaU5c3MxY2'.
@@ -545,7 +545,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[4][0]= 507 ;
 	$this->imgdata_small[4][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAzF'.
-	    'BMVEX///////+/v79zYwCMewDOxoTWzoTezkr/5wj/5wDnzgDe'.
+	    'BMVEX/////+/v79zYwCMewDOxoTWzoTezkr/5wj/5wDnzgDe'.
 	    'xgC1pQCtnACllACcjACUhABjWgDGvVK1rUrOxlLGvUqEexilnB'.
 	    'jv3hj35xj/7wj/7wD35wDv3gDn1gDezgDWxgDOvQDGtQC9rQCE'.
 	    'ewB7cwBzawBrYwDWzlLn3lLe1krn3kre1hi9tQC1rQCtpQClnA'.
@@ -565,7 +565,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[5][0]= 611 ;
 	$this->imgdata_small[5][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAABJl'.
-	    'BMVEX////////o8v/f6O7W4OnR3PXL1OTL0evEyLvCzePAwMC/'.
+	    'BMVEX////o8v/f6O7W4OnR3PXL1OTL0evEyLvCzePAwMC/'.
 	    'v7a8wsq7t7C1xum1vtS1q6GzopmyxeKsrsOqvNWoq7anvN+nsb'.
 	    'qhrcGgqbGfpq6cp7+bqMuVmJKRm7yPlKKMnL6FkKWFipOEkLSE'.
 	    'j6qEhoqAiaB+jqd8haF7hZR4iJt4g5l3hZl2gIt2cod1hJVzeY'.
@@ -589,7 +589,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[6][0]= 666 ;
 	$this->imgdata_small[6][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAABX1'.
-	    'BMVEX////////l/+nAwMC86r+8wb28wby8wLy78sCzw7SywrSx'.
+	    'BMVEX////l/+nAwMC86r+8wb28wby8wLy78sCzw7SywrSx'.
 	    'wLKwvrGuvK+syK+ryq2rx62n36ym3aumxKmk2qij0Keh16ahva'.
 	    'Og1aSguKKe06KeuaCetZ+d0KGdtZ+bz6Cay56ZyZ2Zwp2Zr5qZ'.
 	    'rpqYwJuXyZuXrJmVw5mUxZiTxJeTw5eTq5WRwJWPtJKOvZKKuI'.
@@ -613,7 +613,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[7][0]= 447 ;
 	$this->imgdata_small[7][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAnF'.
-	    'BMVEX///////+/v7/Gvca9rb3Grcb/xv+1hLWte629hL21e7XG'.
+	    'BMVEX/////+/v7/Gvca9rb3Grcb/xv+1hLWte629hL21e7XG'.
 	    'hMbWhNbOe87We9b/hP//e/97OXv/c///a///Y/+cOZz/Sv/WOd'.
 	    'bnOefvOe//Kf9jCGNrCGv/EP//CP/nCOf/AP/3APfvAO/nAOfe'.
 	    'AN7WANbOAM7GAMa9AL21ALWtAK2lAKWcAJyUAJSMAIyEAIR7AH'.
@@ -632,7 +632,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[8][0]= 677 ;
 	$this->imgdata_small[8][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAABaF'.
-	    'BMVEX//////////8X/3oD/3nj/1HX/0Gr/xGP/rkv/gBf+iS/2'.
+	    'BMVEX//////8X/3oD/3nj/1HX/0Gr/xGP/rkv/gBf+iS/2'.
 	    'bAL1agDxaQDuZwDrZwLpZQDmZQLlZADjcx7gZATeYQDdZgraXw'.
 	    'DZXwHYXgDXiEvXZAvUjlfUXwXTjVfTbR7ShUvRbR7RWwDMWQDL'.
 	    'WADKooLKWADJoYLJgkvHWATGoILFn4LFgEvFVgDEZx7EVQDDt6'.
@@ -657,7 +657,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[9][0]= 436 ;
 	$this->imgdata_small[9][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAk1'.
-	    'BMVEX///////+/v7+trcbGxv+EhM6EhNaEhP97e/9zc/9ra/9S'.
+	    'BMVEX/////+/v7+trcbGxv+EhM6EhNaEhP97e/9zc/9ra/9S'.
 	    'UsZKSrVSUs5jY/9SUtZKSsZSUudKSt5KSudKSv8YGIQpKf8YGK'.
 	    'UYGN4YGO8YGPcQEP8ICP8AAP8AAPcAAO8AAOcAAN4AANYAAM4A'.
 	    'AMYAAL0AALUAAK0AAKUAAJwAAJQAAIwAAIQAAHsAAHMAAGsAAG'.
@@ -675,7 +675,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[10][0]= 452 ;
 	$this->imgdata_small[10][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAn1'.
-	    'BMVEX///////+/v7+/v7/G/8aUxpSMvYyUzpSMzoyM1oxarVqE'.
+	    'BMVEX/////+/v7+/v7/G/8aUxpSMvYyUzpSMzoyM1oxarVqE'.
 	    '/4R7/3tavVpKnEpaxlpz/3Nr/2tKtUpj/2Na51pKzkpK1kpK50'.
 	    'pK/0oYcxgp/ykYlBgY3hgY7xgY9xgQ/xAI/wgA/wAA9wAA7wAA'.
 	    '5wAA3gAA1gAAzgAAxgAAvQAAtQAArQAApQAAnAAAlAAAjAAAhA'.
@@ -715,7 +715,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[12][0]= 633 ;
 	$this->imgdata_small[12][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAABPl'.
-	    'BMVEX////////F///AwMCvxsaC1NSC0dGCz8+CzMyA//94//91'.
+	    'BMVEX////F///AwMCvxsaC1NSC0dGCz8+CzMyA//94//91'.
 	    '//9q//9j//9X4uJX09NXz89Xx8dXxMRL//9L5uZL3d1L2NhLxs'.
 	    'ZLt7cv//8e9fUe8fEe7u4e398epqYehoYX//8L+PgK//8F9fUE'.
 	    '/v4E5+cEb28EZ2cC//8C/v4C/f0CzMwCrq4Cjo4CdXUCaWkCZW'.
@@ -738,7 +738,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[13][0]= 493 ;
 	$this->imgdata_small[13][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAvV'.
-	    'BMVEX///////+/v79j//855/8x3v851v9Spb1C1v8AOUqEtcZK'.
+	    'BMVEX/////+/v79j//855/8x3v851v9Spb1C1v8AOUqEtcZK'.
 	    'lK1StdYxzv8hxv8AY4QASmNSlK1KpcZKtd4YQlIYnM4YrecIvf'.
 	    '8AtfcAre8AjL0AhLUAc5wAa5QAWnsAQloAKTkAGCFKhJxKrdYY'.
 	    'jL0Ypd4Atf8ArfcApecAnN4AlM4AjMYAe60Ac6UAY4wAUnNSnL'.
@@ -758,7 +758,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_small[14][0]= 532 ;
 	$this->imgdata_small[14][1]=
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAA3l'.
-	    'BMVEX///////+/v7/Gvb0hGBj/5///3v//zu//1u//xucpGCG9'.
+	    'BMVEX/////+/v7/Gvb0hGBj/5///3v//zu//1u//xucpGCG9'.
 	    'nK21lKVSQkp7Wms5KTExISlaOUpjQlIhEBj/tdbOhKXnrcbGjK'.
 	    'Wla4TetcbGnK2EWmv/rc73pcZ7UmOcY3vOpbW1jJzenLW9e5Rz'.
 	    'Slq1c4xrQlJSOULGhJz/pcb3nL2chIzOnK33rcbelK3WjKWMWm'.
@@ -779,7 +779,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[0][0]= 432 ;
 	$this->imgdata_xsmall[0][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAA3l'.
-	    'BMVEX///////+/v7/Gvb0hGBj/5///3v//zu//1u//xucpGCG9'.
+	    'BMVEX/////+/v7/Gvb0hGBj/5///3v//zu//1u//xucpGCG9'.
 	    'nK21lKVSQkp7Wms5KTExISlaOUpjQlIhEBj/tdbOhKXnrcbGjK'.
 	    'Wla4TetcbGnK2EWmv/rc73pcZ7UmOcY3vOpbW1jJzenLW9e5Rz'.
 	    'Slq1c4xrQlJSOULGhJz/pcb3nL2chIzOnK33rcbelK3WjKWMWm'.
@@ -797,7 +797,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[1][0]= 397 ;
 	$this->imgdata_xsmall[1][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAvV'.
-	    'BMVEX///////+/v79j//855/8x3v851v9Spb1C1v8AOUqEtcZK'.
+	    'BMVEX/////+/v79j//855/8x3v851v9Spb1C1v8AOUqEtcZK'.
 	    'lK1StdYxzv8hxv8AY4QASmNSlK1KpcZKtd4YQlIYnM4YrecIvf'.
 	    '8AtfcAre8AjL0AhLUAc5wAa5QAWnsAQloAKTkAGCFKhJxKrdYY'.
 	    'jL0Ypd4Atf8ArfcApecAnN4AlM4AjMYAe60Ac6UAY4wAUnNSnL'.
@@ -814,7 +814,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[2][0]= 353 ;
 	$this->imgdata_xsmall[2][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAk1'.
-	    'BMVEX///////+/v7+trcbGxv+EhM6EhNaEhP97e/9zc/9ra/9S'.
+	    'BMVEX/////+/v7+trcbGxv+EhM6EhNaEhP97e/9zc/9ra/9S'.
 	    'UsZKSrVSUs5jY/9SUtZKSsZSUudKSt5KSudKSv8YGIQpKf8YGK'.
 	    'UYGN4YGO8YGPcQEP8ICP8AAP8AAPcAAO8AAOcAAN4AANYAAM4A'.
 	    'AMYAAL0AALUAAK0AAKUAAJwAAJQAAIwAAIQAAHsAAHMAAGsAAG'.
@@ -835,7 +835,7 @@ class ImgData_Balls extends ImgData {
 	    'CE+AB0/ABk/ABU/ABE/AAw/AAg/AAQ/AAA/AAA+AAA6BAA2CAA'.
 	    'yDQAtEQApFQAlGQAhHQAdIgAZJgAVKgARLgAMMgAINwAEOwAAP'.
 	    'wAAPgIAPAQAOgYAOAkANgsANA0AMg8AMBEALhMALBUAKhcAKBo'.
-	    'AJhwAJB4AIiAAID////4+Pjy8vLs7Ozm5ubg4ODa2trT09PNzc'.
+	    'AJhwAJB4AIiAAID//4+Pjy8vLs7Ozm5ubg4ODa2trT09PNzc'.
 	    '3Hx8fBwcG7u7u1tbWurq6oqKiioqKcnJyWlpaQkJCJiYmDg4N9'.
 	    'fX13d3dxcXFra2tkZGReXl5YWFhSUlJMTExGRkZAQEA1BLn4AA'.
 	    'AAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxEA'.
@@ -850,7 +850,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[4][0]= 542 ;
 	$this->imgdata_xsmall[4][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAABSl'.
-	    'BMVEX////////11P/MqdvKrNfAwMC+u7+9u7+4rr24lsi3rby3'.
+	    'BMVEX////11P/MqdvKrNfAwMC+u7+9u7+4rr24lsi3rby3'.
 	    'lMe1rLq1o720q7i0oL20ksSzoryyqbaykMGxlb2wkL+vnbiujb'.
 	    '2sjLuri7qpl7GoirWoibenmK2mla6mjLKmhrSllauki7CjhrCj'.
 	    'hLGihLChg6+ggq2fkqadkKOcfqqai6Gag6WYe6WXeqSWeaOTd6'.
@@ -871,7 +871,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[5][0]= 357 ;
 	$this->imgdata_xsmall[5][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAk1'.
-	    'BMVEX////////GxsbGra3/xsbOhITWhIT/hIT/e3v/c3P/a2vG'.
+	    'BMVEX////GxsbGra3/xsbOhITWhIT/hIT/e3v/c3P/a2vG'.
 	    'UlK1SkrOUlL/Y2PWUlLGSkrnUlLeSkrnSkr/SkqEGBj/KSmlGB'.
 	    'jeGBjvGBj3GBj/EBD/CAj/AAD3AADvAADnAADeAADWAADOAADG'.
 	    'AAC9AAC1AACtAAClAACcAACUAACMAACEAAB7AABzAABrAABjAA'.
@@ -887,7 +887,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[6][0]= 414 ;
 	$this->imgdata_xsmall[6][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAzF'.
-	    'BMVEX///////+/v79zYwCMewDOxoTWzoTezkr/5wj/5wDnzgDe'.
+	    'BMVEX/////+/v79zYwCMewDOxoTWzoTezkr/5wj/5wDnzgDe'.
 	    'xgC1pQCtnACllACcjACUhABjWgDGvVK1rUrOxlLGvUqEexilnB'.
 	    'jv3hj35xj/7wj/7wD35wDv3gDn1gDezgDWxgDOvQDGtQC9rQCE'.
 	    'ewB7cwBzawBrYwDWzlLn3lLe1krn3kre1hi9tQC1rQCtpQClnA'.
@@ -905,7 +905,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[7][0]= 410 ;
 	$this->imgdata_xsmall[7][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAxl'.
-	    'BMVEX///////+/v79znJQhSkJ7raU5hHtjraVKnJRCjIRClIyU'.
+	    'BMVEX/////+/v79znJQhSkJ7raU5hHtjraVKnJRCjIRClIyU'.
 	    '9++E595avbVaxr2/v7+ctbWcvb17nJxrjIx7paUxQkK9//+Mvb'.
 	    '17ra2Evb17tbVCY2MQGBiU5+ec9/eM5+d71tZanJxjra1rvb1j'.
 	    'tbVSnJxara1rzs5jxsZKlJRChIQpUlIhQkJatbVSpaU5c3MxY2'.
@@ -922,7 +922,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[8][0]= 364 ;
 	$this->imgdata_xsmall[8][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAnF'.
-	    'BMVEX///////+/v7/Gvca9rb3Grcb/xv+1hLWte629hL21e7XG'.
+	    'BMVEX/////+/v7/Gvca9rb3Grcb/xv+1hLWte629hL21e7XG'.
 	    'hMbWhNbOe87We9b/hP//e/97OXv/c///a///Y/+cOZz/Sv/WOd'.
 	    'bnOefvOe//Kf9jCGNrCGv/EP//CP/nCOf/AP/3APfvAO/nAOfe'.
 	    'AN7WANbOAM7GAMa9AL21ALWtAK2lAKWcAJyUAJSMAIyEAIR7AH'.
@@ -938,7 +938,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[9][0]= 370 ;
 	$this->imgdata_xsmall[9][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAn1'.
-	    'BMVEX///////+/v7+/v7/G/8aUxpSMvYyUzpSMzoyM1oxarVqE'.
+	    'BMVEX/////+/v7+/v7/G/8aUxpSMvYyUzpSMzoyM1oxarVqE'.
 	    '/4R7/3tavVpKnEpaxlpz/3Nr/2tKtUpj/2Na51pKzkpK1kpK50'.
 	    'pK/0oYcxgp/ykYlBgY3hgY7xgY9xgQ/xAI/wgA/wAA9wAA7wAA'.
 	    '5wAA3gAA1gAAzgAAxgAAvQAAtQAArQAApQAAnAAAlAAAjAAAhA'.
@@ -954,7 +954,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[10][0]= 563 ;
 	$this->imgdata_xsmall[10][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAABX1'.
-	    'BMVEX////////l/+nAwMC86r+8wb28wby8wLy78sCzw7SywrSx'.
+	    'BMVEX////l/+nAwMC86r+8wb28wby8wLy78sCzw7SywrSx'.
 	    'wLKwvrGuvK+syK+ryq2rx62n36ym3aumxKmk2qij0Keh16ahva'.
 	    'Og1aSguKKe06KeuaCetZ+d0KGdtZ+bz6Cay56ZyZ2Zwp2Zr5qZ'.
 	    'rpqYwJuXyZuXrJmVw5mUxZiTxJeTw5eTq5WRwJWPtJKOvZKKuI'.
@@ -976,7 +976,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[11][0]= 530 ;
 	$this->imgdata_xsmall[11][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAABPl'.
-	    'BMVEX////////F///AwMCvxsaC1NSC0dGCz8+CzMyA//94//91'.
+	    'BMVEX////F///AwMCvxsaC1NSC0dGCz8+CzMyA//94//91'.
 	    '//9q//9j//9X4uJX09NXz89Xx8dXxMRL//9L5uZL3d1L2NhLxs'.
 	    'ZLt7cv//8e9fUe8fEe7u4e398epqYehoYX//8L+PgK//8F9fUE'.
 	    '/v4E5+cEb28EZ2cC//8C/v4C/f0CzMwCrq4Cjo4CdXUCaWkCZW'.
@@ -997,7 +997,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[12][0]= 572 ;
 	$this->imgdata_xsmall[12][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAABaF'.
-	    'BMVEX//////////8X/3oD/3nj/1HX/0Gr/xGP/rkv/gBf+iS/2'.
+	    'BMVEX//////8X/3oD/3nj/1HX/0Gr/xGP/rkv/gBf+iS/2'.
 	    'bAL1agDxaQDuZwDrZwLpZQDmZQLlZADjcx7gZATeYQDdZgraXw'.
 	    'DZXwHYXgDXiEvXZAvUjlfUXwXTjVfTbR7ShUvRbR7RWwDMWQDL'.
 	    'WADKooLKWADJoYLJgkvHWATGoILFn4LFgEvFVgDEZx7EVQDDt6'.
@@ -1019,7 +1019,7 @@ class ImgData_Balls extends ImgData {
 	$this->imgdata_xsmall[13][0]= 554 ;
 	$this->imgdata_xsmall[13][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAABVl'.
-	    'BMVEX////////d///AwMC7wcS08P+y+P+xxdCwxM+uws2twMur'.
+	    'BMVEX////d///AwMC7wcS08P+y+P+xxdCwxM+uws2twMur'.
 	    'vsinzNynytylzuKhyN6e5v6d5P+d1fOcwNWcu8ub4f+at8iZ3v'.
 	    '+ZvdGY2/yW2f+VscGU1vuT1fqTr72Sx+SSxeKR0fWRz/GPz/OP'.
 	    'rr+OyeqMy+6Myu2LyeyKxueJudSGw+SGorGDvt+Cvd6CvN2Aud'.

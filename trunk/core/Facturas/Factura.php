@@ -113,7 +113,7 @@ class Factura{
 				    		INNER JOIN facturas_estados
 								ON facturas.fk_estado_factura = facturas_estados.id
 						WHERE facturas.id = '$this->id'";
-			////FB::info($query,'Factura->cargar: QUERY');
+			//FB::info($query,'Factura->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Factura de la BBDD");
 			else if(mysql_num_rows($result) == 0)

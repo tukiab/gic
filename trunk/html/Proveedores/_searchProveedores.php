@@ -42,7 +42,7 @@ class BusquedaProveedores{
 	 */
 
 	public function __construct($opciones){
-		////FB::log($opciones, "BusquedaProveedores:Opciones");		
+		//FB::log($opciones, "BusquedaProveedores:Opciones");		
 		$this->gestor = new Usuario($_SESSION['usuario_login']);
 		//Usamos el método para asignar las opciones pasadas desde la interfaz 	
 		$this->obtener_Opciones($opciones);

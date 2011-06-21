@@ -10,7 +10,7 @@ include ($appRoot.'/Common/php/utils/syslogRegister.php');
 
 include ($appRoot.'/Common/php/autoload.php');
 
-////FB::setEnabled(DEBUG);
+//FB::setEnabled(DEBUG);
 if(DEBUG)
 	ob_start();
 
@@ -169,10 +169,10 @@ function getLoginURL(){
 function comprobarPass($usuario, $pass){
 
 	$query = "SELECT password FROM usuarios WHERE id='$usuario'";
-	////FB::info($query,'query pass');
+	//FB::info($query,'query pass');
 	$rs = mysql_query($query);
 	$row = mysql_fetch_array($rs);
-	////FB::info("pass pasado: ".$pass." y pass cogido: ".$row['password']);
+	//FB::info("pass pasado: ".$pass." y pass cogido: ".$row['password']);
 	if($pass == $row['password'])
 		return true;
 		

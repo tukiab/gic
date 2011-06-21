@@ -42,7 +42,7 @@ class ImgData_Squares extends ImgData {
 	$this->imgdata[1][0]= 338 ;
 	$this->imgdata[1][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAWl'.
-	    'BMVEX////+/+H+/9/9/9v8/8P8/8H8/7v8/7n6/4P5/335/3n5'.
+	    'BMVEX//+/+H+/9/9/9v8/8P8/8H8/7v8/7n6/4P5/335/3n5'.
 	    '/3X4/1f4/1P3/031/w30/wn0/wPt+ADp9ADm8ADk7gDc5gDa5A'.
 	    'DL1ADFzgCwuACqsgClrABzeAC9M0MzAAAAAWJLR0QAiAUdSAAA'.
 	    'AAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9MDCxYEDlOgDj'.
@@ -58,7 +58,7 @@ class ImgData_Squares extends ImgData {
 	$this->imgdata[2][0]= 347 ;
 	$this->imgdata[2][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAZl'.
-	    'BMVEX////0+vv0+vrz+fry+frv+Png7e/d7e/a6+zY6+250tSz'.
+	    'BMVEX//0+vv0+vrz+fry+frv+Png7e/d7e/a6+zY6+250tSz'.
 	    '0tSyztCtztGM0NWIz9SDzdNfsLVcrrRZrbJOp61MpqtIr7dHn6'.
 	    'RErrZArLQ6q7M2g4kygYcsp68npa4ctr8QZ20JnqepKsl4AAAA'.
 	    'AWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU'.
@@ -74,7 +74,7 @@ class ImgData_Squares extends ImgData {
 	$this->imgdata[3][0]= 324 ;
 	$this->imgdata[3][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAXV'.
-	    'BMVEX////++Pn99/j99ff99fb98/X98/T98PL55uj43+P24+bw'.
+	    'BMVEX//++Pn99/j99ff99fb98/X98/T98PL55uj43+P24+bw'.
 	    'kKPvjaHviJ3teJHpxMnoL2Pjs73WW3rWNljVWXnUVnbUK1DTJk'.
 	    '3SUHPOBz/KQmmxPVmuOFasNFOeIkWVka/fAAAAAWJLR0QAiAUd'.
 	    'SAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9MDCxYEHd'.
@@ -89,7 +89,7 @@ class ImgData_Squares extends ImgData {
 	$this->imgdata[4][0]= 445 ;
 	$this->imgdata[4][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAApV'.
-	    'BMVEX////6+Pz69/v49Pr38/r17/jr4+/l3Onj2efh1ua/L+i+'.
+	    'BMVEX//6+Pz69/v49Pr38/r17/jr4+/l3Onj2efh1ua/L+i+'.
 	    'q8m+Lue9Lua8qsS8LuW8LeS7pca5LOG4LN+2Y9O2YNW1ZdO1Kt'.
 	    'y0atC0aNGzb82zbc6zKtuzKdqycsuwa8qtJtOISZ2GRpuFN6GE'.
 	    'NqCDQpmCMZ+BPpd/LJ1/K519S5B9Jpx9Jpt9JZt6RY11BJZ1BJ'.
@@ -107,7 +107,7 @@ class ImgData_Squares extends ImgData {
 	$this->imgdata[5][0]= 283 ;
 	$this->imgdata[5][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAQl'.
-	    'BMVEX////4+fz39/z19vvy8vru7/ni4+7g4fHW1ue8vteXmt6B'.
+	    'BMVEX//4+fz39/z19vvy8vru7/ni4+7g4fHW1ue8vteXmt6B'.
 	    'hdhiZ7FQVaZETcxCSJo1Oq4zNoMjKakhJHcKFaMEC2jRVYdWAA'.
 	    'AAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0'.
 	    'SU1FB9MDCxYDN0PkEP4AAABfSURBVHjaVchHAoAgDATAVcCCIF'.
@@ -121,7 +121,7 @@ class ImgData_Squares extends ImgData {
 	$this->imgdata[6][0]= 325 ;
 	$this->imgdata[6][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAXV'.
-	    'BMVEX////2+vX1+vX1+fT0+fPz+PPx9/Dv9u7u9e3h7uHe697a'.
+	    'BMVEX//2+vX1+vX1+fT0+fPz+PPx9/Dv9u7u9e3h7uHe697a'.
 	    '6dnO2s3I1sa10LOvza2ay5aEwYBWlE9TqE5Tkk1RkEpMrUJMg0'.
 	    'hKiUNGpEFBojw8oTcsbScaYBMWlwmMT0NtAAAAAWJLR0QAiAUd'.
 	    'SAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9MDCxYEFd'.
@@ -136,7 +136,7 @@ class ImgData_Squares extends ImgData {
 	$this->imgdata[7][0]= 321 ;
 	$this->imgdata[7][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAUV'.
-	    'BMVEX/////8+n/8uf/8OP/59H/5Mv/zqH/zJ3/ypv/yJf/vYH/'.
+	    'BMVEX///8+n/8uf/8OP/59H/5Mv/zqH/zJ3/ypv/yJf/vYH/'.
 	    'u33/uXn/n0n/nUX/m0H/lzn/ljf/lDP/kS3/kCv/iR//hxv/fg'.
 	    'n/fAX/eQDYZgDW6ia5AAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAL'.
 	    'EgAACxIB0t1+/AAAAAd0SU1FB9MDCxYEJIgbx+cAAAB2SURBVH'.

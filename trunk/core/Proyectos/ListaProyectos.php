@@ -65,7 +65,7 @@ class ListaProyectos implements IIterador{
 	public function buscar($filtros=null, $page=0, $paso=0){
 	    
 	    actualizarProyectosFueraDePlazo();
-		////FB::info($filtros,'filtros ListaProyectos:buscar');
+		//FB::info($filtros,'filtros ListaProyectos:buscar');
 		$filtro ="";
 		$join="";
 

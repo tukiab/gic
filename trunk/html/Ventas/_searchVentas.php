@@ -42,7 +42,7 @@ class BusquedaVentas{
 	 */
 
 	public function __construct($opciones){
-		////FB::log($opciones, "BusquedaVentas:Opciones");
+		//FB::log($opciones, "BusquedaVentas:Opciones");
 		$this->gestor = new Usuario($_SESSION['usuario_login']);
 		//Usamos el método para asignar las opciones pasadas desde la interfaz 	
 		$this->obtener_Opciones($opciones);

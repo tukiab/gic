@@ -62,7 +62,7 @@ class ShowCliente{
 	 * @param Array $opciones Array de opciones pasados al constructor.
 	 */
 	private function get_Opciones($opciones){
-		////FB::info($opciones, 'opciones _showCliente');
+		//FB::info($opciones, 'opciones _showCliente');
 		//Indispensable, el id de la Cliente:
 		@(isset($opciones['id'])?$this->opt['id']=$opciones['id']:null);
 		@($opciones['eliminar'])?$this->opt['eliminar']=true:$this->opt['eliminar']=false;		

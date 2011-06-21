@@ -25,7 +25,7 @@ class ImgData_Bevels extends ImgData {
 	$this->imgdata[0][0]= 337 ;
 	$this->imgdata[0][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
-	    'BMVEX////////27t/f3+LFwcmNxMuxm62DmqKth1VpZmIWg6fv'.
+	    'BMVEX////27t/f3+LFwcmNxMuxm62DmqKth1VpZmIWg6fv'.
 	    'HCa7K0BwMEytCjFnIyUlEBg9vhQvAAAAAXRSTlMAQObYZgAAAA'.
 	    'FiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElN'.
 	    'RQfTAxcBNhk+pYJVAAAAl0lEQVR4nE2Q2xLDIAgFHUWBKJf//9'.
@@ -41,7 +41,7 @@ class ImgData_Bevels extends ImgData {
 	$this->imgdata[1][0]= 344 ;
 	$this->imgdata[1][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
-	    'BMVEX////////27t/e3+K3vriUub/Dm18j4xc3ob10k0ItqQlU'.
+	    'BMVEX////27t/e3+K3vriUub/Dm18j4xc3ob10k0ItqQlU'.
 	    'e5JBmwpxY1ENaKBgUh0iHgwsSre9AAAAAXRSTlMAQObYZgAAAA'.
 	    'FiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElN'.
 	    'RQfTAxcBNTfJXtxZAAAAnklEQVR4nE2QWY4EMQhDUVhSIRC4/2'.
@@ -57,7 +57,7 @@ class ImgData_Bevels extends ImgData {
 	$this->imgdata[2][0]= 341 ;
 	$this->imgdata[2][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
-	    'BMVEX////////27t/f3+K5tbqNwcjnkjXjbxR2i5anfEoNkbis'.
+	    'BMVEX////27t/f3+K5tbqNwcjnkjXjbxR2i5anfEoNkbis'.
 	    'PBxpU0sZbZejKgdqIRIlERIwYtkYAAAAAXRSTlMAQObYZgAAAA'.
 	    'FiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElN'.
 	    'RQfTAxcBNgK0wEu5AAAAm0lEQVR4nE3QVxIEIQgEUErAgTHA/U'.
@@ -73,7 +73,7 @@ class ImgData_Bevels extends ImgData {
 	$this->imgdata[3][0]= 340 ;
 	$this->imgdata[3][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
-	    'BMVEX////////27t/e3+LO3hfYzz65ubiNwci6uQ12ipadgVGa'.
+	    'BMVEX////27t/e3+LO3hfYzz65ubiNwci6uQ12ipadgVGa'.
 	    'fwsNkbhnVkcaZ5dwSA8lFg7CEepmAAAAAXRSTlMAQObYZgAAAA'.
 	    'FiS0dEAIgFHUgAAAAJcEhZcwAACxEAAAsRAX9kX5EAAAAHdElN'.
 	    'RQfTAxcCBySi1nevAAAAjElEQVR4nFXPWw7EIAgFUNMoCMhj/6'.
@@ -88,7 +88,7 @@ class ImgData_Bevels extends ImgData {
 	$this->imgdata[4][0]= 334 ;
 	$this->imgdata[4][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAM1'.
-	    'BMVEX////+/v7i4eO/w8eHxcvKroNVormtfkjrMN2BeXQrepPc'.
+	    'BMVEX//+/v7i4eO/w8eHxcvKroNVormtfkjrMN2BeXQrepPc'.
 	    'Esy4IL+OFaR7F25LHF8mFRh5XXtUAAAAAXRSTlMAQObYZgAAAA'.
 	    'FiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElN'.
 	    'RQfTAxcBNgkjEpIxAAAAlElEQVR4nE2QAQ7FIAhDDTAVndL7n3'.

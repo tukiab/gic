@@ -51,7 +51,7 @@ class TipoDeAccion{
 			$query = "SELECT acciones_tipos.*
 					FROM acciones_tipos
 					WHERE id = '$this->id'";
-			////FB::info($query,'TipoDeAccion->cargar: QUERY');
+			//FB::info($query,'TipoDeAccion->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el Tipo de acci�n de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -104,7 +104,7 @@ class TipoDeAccion{
 	 * @return integer $id_grupoEmpresas Id del nuevo TipoDeAccion.
 	 */
 	public function crear($datos){
-		////FB::info($datos,'TipoDeAccion crear: datos recibidos');
+		//FB::info($datos,'TipoDeAccion crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una grupoEmpresas nuevo:
 		 * 		nombre
@@ -131,7 +131,7 @@ class TipoDeAccion{
 
 		$query = "
 			INSERT INTO acciones_tipos (nombre) VALUES('".mysql_real_escape_string(trim($datos['nombre']))."');";
-									////FB::info($query,'TipoDeAccion crear: QUERY');
+									//FB::info($query,'TipoDeAccion crear: QUERY');
 									if(!mysql_query($query))
 										throw new Exception("Error al crear el tipo de accion.");
 									$this->id = mysql_insert_id();

@@ -49,7 +49,7 @@ class AddProveedor{
 	 * @param array $opciones Array de opciones pasadas a la página.
 	 */
 	public function __construct($opciones){
-		////FB::info($opciones,'addProveedor: opciones pasadas');
+		//FB::info($opciones,'addProveedor: opciones pasadas');
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 		

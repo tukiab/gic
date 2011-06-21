@@ -47,7 +47,7 @@ class AddAccion{
 	 * @param array $opciones Array de opciones pasadas a la página.
 	 */
 	public function __construct($opciones){
-		////FB::info($opciones,'addAccion: opciones pasadas');
+		//FB::info($opciones,'addAccion: opciones pasadas');
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 		

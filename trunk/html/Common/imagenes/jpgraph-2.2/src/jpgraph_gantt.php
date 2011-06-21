@@ -457,7 +457,7 @@ class GanttGraph extends Graph {
 	    // Setup caption
 	    $a->caption->Set($data[$i][$csimpos-1]);
 
-	    // Check if this activity should have a CSIM target ?
+	    // Check if this activity should have a CSIM targetï¿½?
 	    if( !empty($data[$i][$csimpos]) ) {
 		$a->SetCSIMTarget($data[$i][$csimpos]);
 		$a->SetCSIMAlt($data[$i][$csimpos+1]);
@@ -1311,7 +1311,7 @@ class PredefIcons {
 	//==========================================================
 	$this->iBuiltinIcon[9][0]= 541 ;
 	$this->iBuiltinIcon[9][1]= 
-	    'iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAAaVBMVEX//////2Xy8mLl5V/Z2VvMzFi/v1WyslKlpU+ZmUyMjEh/'.
+	    'iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAAaVBMVEX////2Xy8mLl5V/Z2VvMzFi/v1WyslKlpU+ZmUyMjEh/'.
 	    'f0VyckJlZT9YWDxMTDjAwMDy8sLl5bnY2K/MzKW/v5yyspKlpYiYmH+MjHY/PzV/f2xycmJlZVlZWU9MTEXY2Ms/PzwyMjLFTjea'.
 	    'AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAHdElNRQfTCAkUMSj9wWSOAAABLUlEQVR4'.
 	    '2s2U3ZKCMAxGjfzJanFAXFkUle/9H9JUKA1gKTN7Yy6YMjl+kNPK5rlZVSuxf1ZRnlZxFYAm93NnIKvR+MEHUgqBXx93wZGIUrSe'.
@@ -2048,7 +2048,7 @@ class GanttScale {
 	$this->iTableHeaderBackgroundColor = $aColor;
     }
 
-///////////////////////////////////////
+/////////////////////
 // PRIVATE Methods
 	
     // Determine the height of all the scale headers combined

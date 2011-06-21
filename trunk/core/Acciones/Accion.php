@@ -91,7 +91,7 @@ class Accion{
 						INNER JOIN clientes 
 								ON acciones_de_trabajo.fk_cliente = clientes.id
 						WHERE acciones_de_trabajo.id = '$this->id'";
-			////FB::info($query,'Accion->cargar: QUERY');
+			//FB::info($query,'Accion->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar la Accion de la BBDD");
 			else if(mysql_num_rows($result) == 0)
@@ -198,7 +198,7 @@ class Accion{
 	 * @return integer $id_accion Id del nuevo Accion.
 	 */
 	public function crear($datos){
-		//////FB::info($datos,'Accion crear: datos recibidos');
+		////FB::info($datos,'Accion crear: datos recibidos');
 		/*
 		 * Datos imprescindibles para crear una accion nuevo:
 		 * 		descripcion
@@ -264,8 +264,8 @@ class Accion{
 									$s_values
 								);
 		";
-									////FB::info(timestamp2date($datos['fecha'])." hoy, siguiente: ".timestamp2date($datos['fecha_siguiente_accion']),'fechas de b�squeda');
-									////FB::info($query,'Accion crear: QUERY');
+									//FB::info(timestamp2date($datos['fecha'])." hoy, siguiente: ".timestamp2date($datos['fecha_siguiente_accion']),'fechas de b�squeda');
+									//FB::info($query,'Accion crear: QUERY');
 									if(!mysql_query($query))
 										throw new Exception("Error al crear la Accion.".$query);
 									$this->id = mysql_insert_id();

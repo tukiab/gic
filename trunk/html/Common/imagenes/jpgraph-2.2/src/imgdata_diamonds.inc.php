@@ -26,7 +26,7 @@ class ImgData_Diamonds extends ImgData {
 	$this->imgdata[0][0]= 668 ;
 	$this->imgdata[0][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAA/F'.
-	    'BMVEX///////+cAAD/AADOAABjAABrAADWGBjOCAj/CAj/GBj/'.
+	    'BMVEX/////+cAAD/AADOAABjAABrAADWGBjOCAj/CAj/GBj/'.
 	    'EBCcCAiMOTl7KSl7ISFzGBilGBjOEBBrCAjv5+eMQkK1QkKtMT'.
 	    'GtKSnWKSn/KSlzEBCcEBDexsb/tbXOe3ucWlqcUlKUSkr/e3vn'.
 	    'a2u9UlL/a2uEMTHeUlLeSkqtOTn/UlL/SkrWOTn/QkL/OTmlIS'.
@@ -126,7 +126,7 @@ class ImgData_Diamonds extends ImgData {
 	$this->imgdata[5][0]= 657 ;
 	$this->imgdata[5][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAA/F'.
-	    'BMVEX///////8xAP/OAP+cAP9jAP9rAP+cCP85CP/OEP9SKf/O'.
+	    'BMVEX/////8xAP/OAP+cAP9jAP9rAP+cCP85CP/OEP9SKf/O'.
 	    'CP9CEP9zGP9rCP+lGP/WOf/WIf9KIf9jOf+MQv+EMf97If9zEP'.
 	    '+1Sv+lIf/ne//eUv/na//n5//Oxv/Wzv+chP9zUv97Wv9rQv9a'.
 	    'Mf9KGP/v5/+te/97Kf+9Y/+tOf+tKf+lEP/vtf/WMf/WKf/v7+'.
@@ -150,7 +150,7 @@ class ImgData_Diamonds extends ImgData {
 	$this->imgdata[6][0]= 262 ;
 	$this->imgdata[6][1]= 
 	    'iVBORw0KGgoAAAANSUhEUgAAABsAAAAbBAMAAAB/+ulmAAAAEl'.
-	    'BMVEX//////wAzMzNmZmbMzMyZmZlq4Qo5AAAAAXRSTlMAQObY'.
+	    'BMVEX////wAzMzNmZmbMzMyZmZlq4Qo5AAAAAXRSTlMAQObY'.
 	    'ZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAA'.
 	    'AHdElNRQfTAwsWExZFTxLxAAAAbUlEQVR4nFXJwQ3AMAhDUdRm'.
 	    'kKojuCswABf2X6UEEiC+WF+PyDfoGEuvwXogq3Rk1Y6W0tBSG8'.

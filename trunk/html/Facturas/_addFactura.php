@@ -49,7 +49,7 @@ class AddFactura{
 	public function __construct($opciones){
 	
 	try{
-		////FB::info($opciones,'addFactura: opciones pasadas');
+		//FB::info($opciones,'addFactura: opciones pasadas');
 		//Obtenemos las opciones pasadas al script
 		$this->obtenerOpciones($opciones);
 		if(!$this->opt['id_venta']) throw new Exception("No se ha definido un id de venta v&aacute;lido");

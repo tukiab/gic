@@ -98,7 +98,7 @@ class Colaborador{
 			$query = "SELECT colaboradores.*
 					FROM colaboradores
 					WHERE colaboradores.id = '$this->id'";
-			////FB::info($query,'Colaborador->cargar: QUERY');
+			//FB::info($query,'Colaborador->cargar: QUERY');
 			if(!($result = mysql_query($query)))
 				throw new Exception("Error al cargar el Colaborador de la BBDD");
 			else if(mysql_num_rows($result) == 0)

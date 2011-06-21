@@ -47,7 +47,7 @@ class ShowProveedor{
 	 * @param Array $opciones Array de opciones pasados al constructor.
 	 */
 	private function get_Opciones($opciones){
-		////FB::info($opciones, 'opciones _showProveedor');
+		//FB::info($opciones, 'opciones _showProveedor');
 		//Indispensable, el id de la Proveedor:
 		@(isset($opciones['NIF'])?$this->opt['NIF']=$opciones['NIF']:null);
 		

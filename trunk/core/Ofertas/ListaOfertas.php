@@ -63,7 +63,7 @@ class ListaOfertas implements IIterador{
 	 * @param array $filtros Lista de filtros a aplicar a la búsqueda de Ofertas.
 	 */
 	public function buscar($filtros, $page=0, $paso=0){
-		//////FB::info($filtros,'filtros ListaOfertas:buscar');
+		////FB::info($filtros,'filtros ListaOfertas:buscar');
 		$filtro ="";
 		$join="";
 		
