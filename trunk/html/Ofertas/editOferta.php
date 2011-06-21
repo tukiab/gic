@@ -35,7 +35,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 					<select <?php echo $disabled['estado']; ?> style="width:190px" name="estado_oferta">
 						<?php $estado_seleccionado = $var->Oferta->get_Estado_Oferta();?>
 						<?php foreach($var->datos['lista_estados_ofertas'] as $estado){?>
-							<option value="<?php echo  $estado['id']?>" <?php echo  ($estado_seleccionado['id']==$estado['id'])?'selected':null;?>>
+							<option value="<?php echo  $estado['id']?>" <?php echo  ($estado_seleccionado['id']==$estado['id'])?'selected="selected"':null;?>>
 								<?php echo  $estado['nombre'];?>
 							</option>
 						<?php }?>
@@ -49,7 +49,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 					<select <?php echo $disabled['producto']; ?> style="width:190px" name="producto">
 						<?php $producto_seleccionado = $var->Oferta->get_Producto();?>
 						<?php foreach($var->datos['lista_tipos_productos'] as $producto){?>
-							<option value="<?php echo  $producto['id']?>" <?php echo  ($producto_seleccionado['id']==$producto['id'])?'selected':null;?>>
+							<option value="<?php echo  $producto['id']?>" <?php echo  ($producto_seleccionado['id']==$producto['id'])?'selected="selected"':null;?>>
 								<?php echo  $producto['nombre'];?>
 							</option>
 						<?php }?>
@@ -63,7 +63,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 					<select <?php echo $disabled['proveedor']; ?> style="width:190px" name="proveedor">
 						<?php $proveedor_seleccionado = $var->Oferta->get_Proveedor();?>
 						<?php foreach($var->datos['lista_proveedores'] as $proveedor){?>
-							<option value="<?php echo  $proveedor['NIF']?>" <?php echo  ($proveedor_seleccionado['NIF']==$proveedor['NIF'])?'selected':null;?>>
+							<option value="<?php echo  $proveedor['id']?>" <?php echo  ($proveedor_seleccionado['id']==$proveedor['id'])?'selected="selected"':null;?>>
 								<?php echo  $proveedor['nombre'];?>
 							</option>
 						<?php }?>
@@ -96,7 +96,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 					<select <?php echo $disabled['probabilidad_contratacion']; ?> style="width:190px" name="probabilidad_contratacion">
 						<?php $probabilidad_contratacion_seleccionado = $var->Oferta->get_Probabilidad_Contratacion();?>
 						<?php foreach($var->datos['lista_probabilidades'] as $probabilidad_contratacion){?>
-							<option value="<?php echo  $probabilidad_contratacion['id']?>" <?php echo  ($probabilidad_contratacion_seleccionado['id']==$probabilidad_contratacion['id'])?'selected':null;?>>
+							<option value="<?php echo  $probabilidad_contratacion['id']?>" <?php echo  ($probabilidad_contratacion_seleccionado['id']==$probabilidad_contratacion['id'])?'selected="selected"':null;?>>
 								<?php echo  $probabilidad_contratacion['nombre'];?>
 							</option>
 						<?php }?>
@@ -109,7 +109,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 					<select <?php echo $disabled['colaborador']; ?> style="width:190px" name="colaborador">
 						<?php $colaborador_seleccionado = $var->Oferta->get_Colaborador();?>
 						<?php foreach($var->datos['lista_colaboradores'] as $colaborador){?>
-							<option value="<?php echo  $colaborador['id']?>" <?php echo  ($colaborador_seleccionado['id']==$proveedor['id'])?'selected':null;?>>
+							<option value="<?php echo  $colaborador['id']?>" <?php echo  ($colaborador_seleccionado['id']==$proveedor['id'])?'selected="selected"':null;?>>
 								<?php echo  $colaborador['nombre'];?>
 							</option>
 						<?php }?>

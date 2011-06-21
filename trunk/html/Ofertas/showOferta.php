@@ -30,7 +30,7 @@ else
 <br/>
 <?php if($permisos->lectura){?>
 
-<div id="titulo"><?php echo  $cliente->get_Razon_Social()." - ".$var->opt['Oferta']->get_Nombre_Oferta();?></div>
+<div id="titulo"><?php $cliente = $var->opt['Oferta']->get_Cliente();echo  $cliente['razon_social']." - ".$var->opt['Oferta']->get_Nombre_Oferta();?></div>
 <?php 
 if($var->opt['msg']){
 	echo  "<div id=\"error_msg\" >".$var->opt['msg']."</div>";
@@ -107,7 +107,7 @@ else{?>
 		<tr>
 			<td class="ColIzq" ><?php echo  _translate("Empresa")?>:</td>
 			<td class="ColDer">
-				<?php $cliente = $var->opt['Oferta']->get_Cliente(); echo  $cliente->get_Razon_Social();?> 
+				<?php $cliente = $var->opt['Oferta']->get_Cliente(); echo  $cliente['razon_social'];?>
 			</td>				
 		</tr>
 		<tr>

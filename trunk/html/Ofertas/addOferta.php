@@ -37,9 +37,9 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<select  name="estado_oferta">
 				<?php 
 				$estado_oferta_seleccionado = $var->opt['estado_oferta'];?>
-				<option value="0" <?php if(0 == $estado_oferta_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option>
+				<option value="0" <?php if(0 == $estado_oferta_seleccionado) echo  'selected="selected"';?>><?php echo _translate("Elija una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_estados_ofertas'] as $estado){?>
-				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_oferta_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $estado['nombre']?></option>
+				<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $estado_oferta_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
 				<?php }?> 
 			</select>
 		  </td>
@@ -50,9 +50,9 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<select  name="producto">
 				<?php 
 				$producto_seleccionado = $var->opt['producto'];?>
-				<option value="0" <?php if(0 == $producto_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option>
+				<option value="0" <?php if(0 == $producto_seleccionado) echo  'selected="selected"';?>><?php echo _translate("Elija una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_tipos_productos'] as $producto){?>
-				<option value="<?php  echo $producto['id']?>" <?php if($producto['id'] == $producto_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $producto['nombre']?></option>
+				<option value="<?php  echo $producto['id']?>" <?php if($producto['id'] == $producto_seleccionado) echo  'selected="selected"';?>><?php  echo $producto['nombre']?></option>
 				<?php }?> 
 			</select><label class="nota"><a href="<?php  echo $appDir."/Administracion/gestionTiposProducto.php?id_cliente=".$var->opt['cliente']?>"><?php echo  _translate("Nuevo")?></a></label>
 		  </td>
@@ -63,10 +63,9 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<select  name="proveedor">
 				<?php 
 				$proveedor_seleccionado = $var->opt['proveedor'];?>
-				<option value="-1" <?php if(-1 == $producto_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option>
-				<option value="0"><?php echo _translate("Ninguno")?></option>	
+				<option value="-1" <?php if(-1 == $producto_seleccionado) echo  'selected="selected"';?>><?php echo _translate("Elija una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_proveedores'] as $proveedor){?>
-				<option value="<?php  echo $proveedor['NIF']?>" <?php if($proveedor['NIF'] == $proveedor_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $proveedor['nombre']?></option>
+				<option value="<?php  echo $proveedor['id']?>" <?php if($proveedor['id'] == $proveedor_seleccionado) echo  'selected="selected"';?>><?php  echo $proveedor['nombre']?></option>
 				<?php }?> 
 			</select>
 		  </td>
@@ -96,9 +95,9 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<select  name="probabilidad_contratacion">
 				<?php 
 				$probabilidad_seleccionado = $var->opt['probabilidad_contratacion'];?>
-				<option value="0" <?php if(0 == $probabilidad_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option>
+				<option value="0" <?php if(0 == $probabilidad_seleccionado) echo  'selected="selected"';?>><?php echo _translate("Elija una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_probabilidades'] as $probabilidad){?>
-				<option value="<?php  echo $probabilidad['id']?>" <?php if($probabilidad['id'] == $probabilidad_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $probabilidad['nombre']?></option>
+				<option value="<?php  echo $probabilidad['id']?>" <?php if($probabilidad['id'] == $probabilidad_seleccionado) echo  'selected="selected"';?>><?php  echo $probabilidad['nombre']?></option>
 				<?php }?> 
 			</select>
 		  </td>
@@ -109,9 +108,9 @@ include ($appRoot.'/Common/php/popupHeader.php');
 			<select  name="colaborador">
 				<?php 
 				$colaborador_seleccionado = $var->opt['colaborador'];?>
-				<option value="0" <?php if(0 == $colaborador_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option>
+				<option value="0" <?php if(0 == $colaborador_seleccionado) echo  'selected="selected"';?>><?php echo _translate("Elija una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_colaboradores'] as $colaborador){?>
-				<option value="<?php  echo $colaborador['id']?>" <?php if($colaborador['id'] == $colaborador_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $colaborador['nombre']?></option>
+				<option value="<?php  echo $colaborador['id']?>" <?php if($colaborador['id'] == $colaborador_seleccionado) echo  'selected="selected"';?>><?php  echo $colaborador['nombre']?></option>
 				<?php }?> 
 			</select>
 		  </td>
