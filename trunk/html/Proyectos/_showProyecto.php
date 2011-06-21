@@ -127,6 +127,7 @@ class ShowProyecto{
 			@($opciones['observaciones_tarea_'.$tarea['id']])?$this->opt['observaciones_tarea_'.$tarea['id']]=$opciones['observaciones_tarea_'.$tarea['id']]:null;
 		}
 
+		if($this->Proyecto->get_Planificacion())
 		foreach($this->Proyecto->get_Planificacion() as $planificacion){
 			@($opciones['fecha_visita_'.$planificacion['id']])?$this->opt['fecha_visita_'.$planificacion['id']]=date2timestamp($opciones['fecha_visita_'.$planificacion['id']]):null;
 			@($opciones['hora_visita_'.$planificacion['id']])?$this->opt['hora_visita_'.$planificacion['id']]=$opciones['hora_visita_'.$planificacion['id']]:null;
