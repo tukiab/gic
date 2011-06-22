@@ -109,7 +109,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 					<select <?php echo $disabled['colaborador']; ?> style="width:190px" name="colaborador">
 						<?php $colaborador_seleccionado = $var->Oferta->get_Colaborador();?>
 						<?php foreach($var->datos['lista_colaboradores'] as $colaborador){?>
-							<option value="<?php echo  $colaborador['id']?>" <?php echo  ($colaborador_seleccionado['id']==$proveedor['id'])?'selected="selected"':null;?>>
+							<option value="<?php echo  $colaborador['id']?>" <?php echo  ($colaborador_seleccionado['id']==$colaborador['id'])?'selected="selected"':null;?>>
 								<?php echo  $colaborador['nombre'];?>
 							</option>
 						<?php }?>

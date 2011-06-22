@@ -238,5 +238,32 @@ class ListaOfertas implements IIterador{
 		
 		return $tipos;
 	}
+	
+	public static function estado_array($id){
+		$query = "SELECT id, nombre FROM ofertas_estados WHERE id='$id' LIMIT 1";
+		if(!$result = mysql_query($query))
+			throw new Exception('Estado incorrecto');
+		$row = mysql_fetch_array($result);
+
+		return $row;
+	}
+
+	public static function producto_array($id){
+		$query = "SELECT id, nombre FROM productos_tipos WHERE id='$id' LIMIT 1";
+		if(!$result = mysql_query($query))
+			throw new Exception("Producto incorrecto");
+
+		$row = mysql_fetch_array($result);
+		return $row;
+	}
+
+	public static function probabilidad_array($id){
+		$query = "SELECT id, nombre FROM ofertas_probabilidades WHERE id='$id' LIMIT 1";
+		if(!$result = mysql_query($query))
+			throw new Exception("Probabilidad incorrecta");
+
+		$row = mysql_fetch_array($result);
+		return $row;
+	}
 }
 ?>

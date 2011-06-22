@@ -182,7 +182,7 @@ include ($appRoot.'/Common/php/menu.php');
 						</td>
 						<td>
 							<?php $cliente = $proyecto->get_Cliente();?>
-							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>">&nbsp;&nbsp;<?php  echo $cliente->get_Razon_Social()?>&nbsp;&nbsp;</a>
+							<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente['id']; ?>">&nbsp;&nbsp;<?php  echo $cliente['razon_social']?>&nbsp;&nbsp;</a>
 						</td>
 						<td>
 							<?php  echo  $estado['nombre'];?>

@@ -74,7 +74,7 @@ else{?>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("Oferta")?>:</td>
 			<td class="ColDer">
-				<?php $oferta = $var->opt['Venta']->get_Oferta();echo  $oferta->get_Codigo();?>
+				<a href="<?php $oferta = $var->opt['Venta']->get_Oferta();echo $appDir.'/Ofertas/showOferta.php?id='. $oferta->get_Id();?>"><?php echo $oferta->get_Codigo();?></a>
 			</td>
 		</tr>
                 <tr>
@@ -86,7 +86,7 @@ else{?>
 		<tr>
 			<td class="ColIzq" nowrap><?php echo  _translate("Empresa")?>:</td>
 			<td class="ColDer">
-				<?php $cliente = $oferta->get_Cliente(); echo $cliente->get_Razon_Social()?>
+				<a href="<?php $cliente = $oferta->get_Cliente(); echo $appDir.'/Clientes/showCliente.php?id='.$cliente['id'];?>"><?php echo $cliente['razon_social']?></a>
 			</td>
 		</tr>
 		<tr>

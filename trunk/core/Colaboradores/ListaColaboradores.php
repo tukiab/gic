@@ -130,5 +130,14 @@ class ListaColaboradores implements IIterador{
 		
 		return $colaboradores;
 	}
+
+	public static function colaborador_array($id){
+		$query = " SELECT id, razon_social as nombre FROM colaboradores WHERE id='$id'";
+		if(!$result=  mysql_query($query))
+			throw new Exception('Colaborador incorrecto');
+
+		$row=mysql_fetch_array($result);
+		return $row;
+	}
 }
 ?>

@@ -52,9 +52,9 @@ include ($appRoot.'/Common/php/menu.php');
 			<select  name="tipo_comision">
 				<?php 
 				$tipo_comision_seleccionado = $var->opt['tipo_comision'];?>
-				<option value="0" <?php if(0 == $tipo_comision_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option>
+				<option value="0" <?php if(0 == $tipo_comision_seleccionado) echo  'selected="selected"';?>><?php echo _translate("Elija una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_tipos_comision'] as $tipo){?>
-				<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_comision_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $tipo['nombre']?></option>
+				<option value="<?php  echo $tipo['id']?>" <?php if($tipo['id'] == $tipo_comision_seleccionado) echo  'selected="selected"';?>><?php  echo $tipo['nombre']?></option>
 				<?php }?> 
 			</select><label class="nota"><a href="<?php  echo $appDir."/Administracion/gestionTiposComision.php?id_oferta=".$var->opt['id_oferta']?>"><?php echo  _translate("Nuevo")?></a></label>
 		  </td>
@@ -65,9 +65,9 @@ include ($appRoot.'/Common/php/menu.php');
 			<select  name="forma_pago">
 				<?php 
 				$forma_de_pagoseleccionado = $var->opt['forma_pago'];?>
-				<option value="0" <?php if(0 == $forma_de_pagoseleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option>
+				<option value="0" <?php if(0 == $forma_de_pagoseleccionado) echo  'selected="selected"';?>><?php echo _translate("Elija una opci&oacute;n");?></option>
 				<?php foreach($var->datos['lista_formas_de_pago'] as $forma_de_pago){?>
-				<option value="<?php  echo $forma_de_pago['id']?>" <?php if($forma_de_pago['id'] == $forma_de_pagoseleccionado) echo  "selected:\"selected\"";?>><?php  echo $forma_de_pago['nombre']?></option>
+				<option value="<?php  echo $forma_de_pago['id']?>" <?php if($forma_de_pago['id'] == $forma_de_pagoseleccionado) echo  'selected="selected"';?>><?php  echo $forma_de_pago['nombre']?></option>
 				<?php }?> 
                         </select><label class="nota"><a href="<?php  echo $appDir."/Administracion/gestionTiposFormasDePago.php?id_oferta=".$var->opt['id_oferta']?>"><?php echo  _translate("Nuevo")?></a></label>
 		  </td>
@@ -78,8 +78,8 @@ include ($appRoot.'/Common/php/menu.php');
 			<select  name="formacion_bonificada">
 				<?php 
 				$formacion_bonificadaseleccionado = $var->opt['formacion_bonificada'];?>
-				<option value="0" <?php if(0 == $formacion_bonificadaseleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("NO");?></option>
-				<option value="1" <?php if(1 == $formacion_bonificadaseleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("S&iacute;");?></option>
+				<option value="0" <?php if(0 == $formacion_bonificadaseleccionado) echo  'selected="selected"';?>><?php echo _translate("NO");?></option>
+				<option value="1" <?php if(1 == $formacion_bonificadaseleccionado) echo  'selected="selected"';?>><?php echo _translate("S&iacute;");?></option>
 			</select>
 		  </td>
 	    </tr>
@@ -197,8 +197,8 @@ include ($appRoot.'/Common/php/menu.php');
 			<select  name="subvenciones">
 				<?php
 				$subvenciones_seleccionado = $var->opt['subvenciones'];?>
-				<option value="0" <?php if(0 == $subvenciones_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("NO");?></option>
-				<option value="1" <?php if(1 == $subvenciones_seleccionado) echo  "selected:\"selected\"";?>><?php  echo _translate("S&Iacute;");?></option>
+				<option value="0" <?php if(0 == $subvenciones_seleccionado) echo  'selected="selected"';?>><?php echo _translate("NO");?></option>
+				<option value="1" <?php if(1 == $subvenciones_seleccionado) echo  'selected="selected"';?>><?php  echo _translate("S&Iacute;");?></option>
 			</select>
 		  </td>
 	    </tr>
@@ -208,8 +208,8 @@ include ($appRoot.'/Common/php/menu.php');
 			<select  name="certificacion">
 				<?php
 				$certificacion_seleccionado = $var->opt['certificacion'];?>
-				<option value="0" <?php if(0 == $certificacion_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("NO");?></option>
-				<option value="1" <?php if(1 == $certificacion_seleccionado) echo  "selected:\"selected\"";?>><?php  echo _translate("S&Iacute;");?></option>
+				<option value="0" <?php if(0 == $certificacion_seleccionado) echo  'selected="selected"';?>><?php echo _translate("NO");?></option>
+				<option value="1" <?php if(1 == $certificacion_seleccionado) echo  'selected="selected"';?>><?php  echo _translate("S&Iacute;");?></option>
 			</select>
 		  </td>
 	    </tr>
@@ -219,8 +219,8 @@ include ($appRoot.'/Common/php/menu.php');
 			<select  name="presupuesto_aceptado_certificadora">
 				<?php
 				$presupuesto_aceptado_certificadora_seleccionado = $var->opt['presupuesto_aceptado_certificadora'];?>
-				<option value="0" <?php if(0 == $presupuesto_aceptado_certificadora_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("NO");?></option>
-				<option value="1" <?php if(1 == $presupuesto_aceptado_certificadora_seleccionado) echo  "selected:\"selected\"";?>><?php  echo _translate("S&Iacute;");?></option>
+				<option value="0" <?php if(0 == $presupuesto_aceptado_certificadora_seleccionado) echo  'selected="selected"';?>><?php echo _translate("NO");?></option>
+				<option value="1" <?php if(1 == $presupuesto_aceptado_certificadora_seleccionado) echo  'selected="selected"';?>><?php  echo _translate("S&Iacute;");?></option>
 			</select>
 		  </td>
 	    </tr>
@@ -252,9 +252,9 @@ include ($appRoot.'/Common/php/menu.php');
 				<select  name="estado_plazo<?php echo $i;?>">
 					<?php
 					$plazo_estado_seleccionado = $var->opt['plazos_estados'][$i];?>
-					<!-- <option value="0" <?php if(0 == $plazo_estado_seleccionado) echo  "selected:\"selected\"";?>><?php echo _translate("Elija una opci&oacute;n");?></option> -->
+					<!-- <option value="0" <?php if(0 == $plazo_estado_seleccionado) echo  'selected="selected"';?>><?php echo _translate("Elija una opci&oacute;n");?></option> -->
 					<?php foreach($var->datos['lista_estados_plazos'] as $estado){?>
-					<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $plazo_estado_seleccionado) echo  "selected:\"selected\"";?>><?php  echo $estado['nombre']?></option>
+					<option value="<?php  echo $estado['id']?>" <?php if($estado['id'] == $plazo_estado_seleccionado) echo  'selected="selected"';?>><?php  echo $estado['nombre']?></option>
 					<?php }?>
 				</select>
 			

@@ -31,7 +31,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 				<input   type="text" name="nombre_oferta" value="<?php echo  $var->opt['nombre_oferta'];?>" />
 			</td>
 	    </tr>
-		<tr>
+		<!--<tr>
 		  <td class="ColIzq"><?php echo  _translate("Estado")?>&#42;</td>
 		  <td   class="ColDer">
 			<select  name="estado_oferta">
@@ -43,7 +43,7 @@ include ($appRoot.'/Common/php/popupHeader.php');
 				<?php }?> 
 			</select>
 		  </td>
-	    </tr>
+	    </tr>-->
 	    <tr>
 		  <td class="ColIzq"><?php echo  _translate("Tipo de producto")?>&#42;</td>
 		  <td   class="ColDer">

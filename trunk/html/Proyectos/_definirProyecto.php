@@ -79,7 +79,7 @@ class DefinirProyecto{
 
 		(isset($opciones['id_plantilla']))?$this->opt['id_plantilla'] = $opciones['id_plantilla']:null;
 
-		$Cliente = $this->Proyecto->get_Cliente();
+		$cliente = $this->Proyecto->get_Cliente();$Cliente= new Cliente($cliente['id']);
 			foreach($Cliente->get_Lista_Sedes() as $sede){
 				$definicion_sede = $this->Proyecto->get_Definicion_Sede($sede->get_Id());
 				(isset($opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']))?$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$opciones['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']:$this->opt['definicion_sedes_'.$sede->get_Id().'_horas_desplazamiento']=$definicion_sede['horas_desplazamiento'];
@@ -115,10 +115,12 @@ class DefinirProyecto{
 	private function cargar_Plantilla(){
 		$plantilla = new Proyecto($this->opt['id_plantilla']);
 
-		$cliente_plantilla = $plantilla->get_Cliente();
+		$cpl = $plantilla->get_Cliente();
+		$cliente_plantilla = new Cliente($cpl['id']);
 		$sedes_plantilla = $cliente_plantilla->get_Lista_Sedes();
 
-		$cliente_proyecto = $this->Proyecto->get_Cliente();
+		$cpr = $this->Proyecto->get_Cliente();
+		$cliente_proyecto = new Cliente($cpr['id']);
 		$sedes_proyecto = $cliente_proyecto->get_Lista_Sedes();
 
 		if(count($sedes_plantilla) != count($sedes_proyecto))

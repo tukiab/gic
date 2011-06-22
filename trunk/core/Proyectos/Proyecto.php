@@ -16,6 +16,8 @@ class Proyecto{
 	 * @var integer
 	 */
 	private $id_venta;
+	private $precio_consultoria_venta;
+	private $precio_formacion_venta;
 
 	/**
 	 * Estado del proyecto
@@ -72,6 +74,7 @@ class Proyecto{
 	 * @var integer
 	 */
 	private $id_cliente;
+	private $cliente;
 	/**
 	 * Indica la definición teórica del proyecto
 	 * @var Array de arrays, cada array está indexado por id_sede, horas_desplazamiento, horas_cada_visita, numero_visitas, gastos_incurridos
@@ -125,11 +128,8 @@ class Proyecto{
 	 */
 	private function cargar(){
 		if($this->id){
-			$query = "SELECT proyectos.*,
-							 proyectos_estados.id AS id_estado, proyectos_estados.nombre AS nombre_estado
+			$query = "SELECT proyectos.*
 						FROM proyectos
-				    		INNER JOIN proyectos_estados
-								ON proyectos.fk_estado = proyectos_estados.id
 						WHERE proyectos.id = '$this->id'";
 
 			if(!($result = mysql_query($query)))
@@ -140,7 +140,10 @@ class Proyecto{
 			$row = mysql_fetch_array($result);
 
 			$this->id_cliente = $row['fk_cliente'];
+			$this->cliente = array('id'=>$row['fk_cliente'], 'razon_social'=>$row['razon_social_cliente']);
 			$this->id_venta = $row['fk_venta'];
+			$this->precio_consultoria_venta = $row['precio_consultoria_venta'];
+			$this->precio_formacion_venta = $row['precio_formacion_venta'];
 			$this->horas_documentacion = $row['horas_documentacion'];
 			$this->horas_auditoria_interna = $row['horas_auditoria_interna'];
 			$this->horas_desplazamiento_auditoria_interna = $row['horas_desplazamiento_auditoria_interna'];
@@ -155,8 +158,8 @@ class Proyecto{
 			$this->importe = $row['importe'];
 			$this->cerrar = $row['cerrar'];
 
-			$this->id_estado = $row['id_estado'];
-			$this->estado = array('id'=>$row['id_estado'], 'nombre'=>$row['nombre_estado']);
+			$this->id_estado = $row['fk_estado'];
+			$this->estado = array('id'=>$row['fk_estado'], 'nombre'=>$row['nombre_estado']);
 			
 			$this->definicion_sedes=null;
 			$this->tareas=null;
@@ -244,6 +247,12 @@ class Proyecto{
 	public function get_Venta(){
 		return ($this->id_venta)?new Venta ($this->id_venta):null;
 	}
+	public function get_Precio_Consultoria_Venta(){
+		return $this->precio_consultoria_venta;
+	}
+	public function get_Precio_Formacion_Venta(){
+		return $this->precio_formacion_venta;
+	}
 
 	/**
 	 * Estado del proyecto
@@ -297,11 +306,14 @@ class Proyecto{
 	public function get_Fecha_Inicio(){return $this->fecha_inicio ;}
 	public function get_Fecha_Fin(){return $this->fecha_fin ;}
 	public function get_Observaciones(){
-		if( $this-> observaciones)
+		//if( $this-> observaciones)
 			return $this->observaciones;
 		
-		$venta = new Venta($this->id_venta);
-		return $venta->get_Observaciones();
+		/*$venta = $this->get_Venta();
+		if($venta)
+			return $venta->get_Observaciones();
+
+		return null;*/
 	}
 	/**
 	 * Gestor (técnico) que está asignado al proyecto
@@ -323,12 +335,13 @@ class Proyecto{
 	 */
 	public function get_Id_Cliente(){return $this->id_cliente ;}
 	public function get_Cliente(){
-		return new Cliente($this->id_cliente);
+		return $this->cliente;//new Cliente($this->id_cliente);
 	}
 
 	public function get_Cerrar(){
 		return $this->cerrar;
 	}
+
 	/**
 	 * Devuelve el array de tareas
 	 * @return array Indexado por id, fecha, tipo, horas_desplazamiento, horas_visita,
@@ -394,10 +407,13 @@ class Proyecto{
 	 * @return integer
 	 */
 	public function get_Precio_Venta(){
-		//return $this->importe;
-		$venta = $this->get_Venta();
+		
+		/*$venta = $this->get_Venta();
 		if($venta)
-			return $venta->get_Precio_Total();
+			return $venta->get_Precio_Total();*/
+
+		if($this->id_venta)
+			return $this->precio_consultoria_venta+$this->precio_formacion_venta;
 		
 		return 0;
 	}
@@ -558,17 +574,24 @@ class Proyecto{
 	 * @param array $datos
 	 */
 	public function crear($datos){
+		//viene de una venta
 		if(isset($datos['id_venta'])){
 			$this->id_venta = $datos['id_venta'];
 			$venta = new Venta($this->id_venta);
 			$cliente = $venta->get_Cliente();
 			$this->id_cliente = $cliente->get_Id();
+			$this->cliente = array('id' => $this->id_cliente, 'razon_social' => $cliente->get_Razon_Social());
 			$this->importe = $venta->get_Precio_Total();
+			$this->precio_consultoria_venta = $venta->get_Precio_Consultoria();
+			$this->precio_formacion_venta = $venta->get_Precio_Formacion();
 			$this->nombre = $venta->get_Nombre_Venta();
 			$this->fecha_inicio = $venta->get_Fecha_Inicio();
 			$this->id_estado = 1;
+			$this->estado = ListaProyectos::estado_array(1);
 			$this->observaciones = $venta->get_Observaciones();
-		}else{
+		}
+		//proyecto creado directamente a una empresa, sin pasar por una venta
+		else{
 			if(!isset($datos['nombre']))
 				throw new Exception('Debe indicar el nombre del proyecto');
 			if(!isset($datos['fecha_inicio']))
@@ -585,24 +608,27 @@ class Proyecto{
 
 			if($datos['id_cliente']){
 				$this->id_cliente = trim($datos['id_cliente']);
+				$this->cliente = ListaClientes::cliente_array($this->id_cliente);
 			}
 			else{
 				//el cliente de este tipo de proyectos es la empresa principal:
-				$lista = new ListaClientes();
-				$this->id_cliente = $lista->get_Id_Cliente_Principal();
+				$this->id_cliente = ListaClientes::get_Id_Cliente_Principal();
 				if(!$this->id_cliente)
 					throw new Exception('No se ha definido la empresa usuaria de GIC, contacte con su administrador');
+				$this->cliente = ListaClientes::cliente_array($this->id_cliente);
 			}
 
 			$value = "";
 			$campo="";
 			//Se asigna el gestor directamente
 			if($datos['id_usuario']){ //FB::info('joder');
-				$lista = new ListaClientes();
-				$this->id_usuario = $datos['id_usuario'];				
-				$this->estado = 3;
-				if($this->id_cliente == $lista->get_Id_Cliente_Principal())
-				    $this->estado = 4;
+				$this->id_usuario = $datos['id_usuario'];
+				$this->id_estado = 3;
+				$this->estado = ListaProyectos::estado_array(3);
+				if($this->id_cliente == ListaClientes::get_Id_Cliente_Principal()){
+				    $this->id_estado = 4;
+					$this->estado = ListaProyectos::estado_array(4);
+				}
 				
 				$campo .= " ,fk_usuario ";
 				$value .= " ,'$this->id_usuario'";
@@ -623,15 +649,20 @@ class Proyecto{
 		if(!$this->id_venta)
 			$id_venta = 'NULL';
 		
-		$query = "INSERT INTO proyectos (fk_venta, fk_cliente, fk_estado, nombre, fecha_inicio,  cerrar, observaciones $campo)
-					VALUE ('$id_venta', '$this->id_cliente', '$this->id_estado', '$this->nombre',
-								'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";//FB::error($query);
+		$query = "INSERT INTO proyectos 
+					(fk_venta, precio_consultoria_venta, precio_formacion_venta, fk_cliente,
+						razon_social_cliente, fk_estado, nombre_estado, nombre,
+						fecha_inicio,  cerrar, observaciones $campo)
+					VALUE
+					('$id_venta', '$this->precio_consultoria_venta', '$this->precio_formacion_venta', '$this->id_cliente',
+						'".$this->cliente['razon_social']."', '$this->id_estado', '".$this->estado['nombre']."', '$this->nombre',
+						'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";//FB::error($query);
 		
 		if(!mysql_query($query))
 			throw new Exception('Error al crear el nuevo proyecto ');
 
 		$this->id = mysql_insert_id();
-		$this->cargar_Estado();
+		//$this->cargar_Estado();
 
 		if($this->id_usuario)
 			$this->asignar ($this->id_usuario);
@@ -718,7 +749,8 @@ class Proyecto{
 			}
 		
 		//Por último comprobamos si vienen dados los datos de definición para todas las sedes
-		$cliente = $this->get_Cliente();
+		$cl = $this->get_Cliente();
+		$cliente=new Cliente($cl['id']);
 		$sedes = $cliente->get_Sedes();
 		foreach($sedes as $id_sede){
 			/*if(!is_numeric(trim($datos['definicion_sedes_'.$id_sede.'_horas_desplazamiento']) )
@@ -758,7 +790,7 @@ class Proyecto{
 			else
 				$this->set_Estado(2);//Pendiente de asignación, está definido pero sin técnico asignado
 		}
-		$this->cargar_Estado();
+		//$this->cargar_Estado();
 
 		return $this->guardar_Definicion($definicion_sedes);
 	}
@@ -869,13 +901,13 @@ class Proyecto{
 	public function del_Proyecto(){		
 		$query = "DELETE FROM proyectos WHERE id = '$this->id';";
 		mysql_query($query);
-		$this->del_Definicion_Sedes();
+		/*$this->del_Definicion_Sedes();
 
 		$query = " DELETE FROM visitas WHERE fk_proyecto='$this->id';";
 		mysql_query($query);
 
 		$query = " DELETE FROM tareas_tecnicas WHERE fk_proyecto='$this->id';";
-		mysql_query($query);
+		mysql_query($query);*/
 
 	}
 	private function del_Definicion_Sedes(){
@@ -892,11 +924,16 @@ class Proyecto{
 	private function set_Estado($id){
 
 		if(($this->estado['id'] == 6 && $id == 4) || $this->id_estado < $id){
-			$query = "UPDATE proyectos set fk_estado = '$id' WHERE id = '$this->id'";
+			$query = " SELECT * FROM proyectos_estados WHERE id='$id' LIMIT 1";
+			if(!$result=  mysql_query($query))
+				throw new Exception('Estado incorrecto');
+			$row=mysql_fetch_array($result);
+
+			$query = "UPDATE proyectos set fk_estado = '$id', nombre_estado='".$row['nombre']."' WHERE id = '$this->id'";
 			if(!mysql_query($query))
 				throw new Exception('Error al guardar el estado en la bbdd');
 			$this->id_estado = $id;
-			$this->cargar_Estado();
+			$this->estado = $row;
 		}
 	}
 

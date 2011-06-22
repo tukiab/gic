@@ -258,14 +258,12 @@ class Venta{
 		return $this->Oferta;
 	}
 
-	public function get_Producto(){
-		$oferta = $this->get_Oferta();
-		return $oferta->get_Producto();
+	public function get_Producto(){		
+		return $this->Oferta->get_Producto();
 	}
 
 	public function get_Importe(){
-		$oferta = $this->get_Oferta();
-		return $oferta->get_Importe();
+		return $this->Oferta->get_Importe();
 	}
 	public function get_Fecha_Aceptado(){
 		return $this->fecha_aceptado;
@@ -545,7 +543,8 @@ class Venta{
 			$oferta = new Oferta($datos['id_oferta']);
 			$oferta->set_Estado(2);
 			
-			$cliente = $oferta->get_Cliente();
+			$cl = $oferta->get_Cliente();
+			$cliente = new Cliente($cl['id']);
 			$cliente->set_Tipo(2);
 
 			//Por último creamos el proyecto asociado
@@ -918,20 +917,10 @@ class Venta{
 
 	public function del_Venta(){
 		$query = "DELETE FROM ventas WHERE id='$this->id';";
-		mysql_query($query);
-
-		$query = "SELECT proyectos.id WHERE fk_venta='$this->id';";
-		$result = mysql_query($query);
-		if(mysql_num_rows($result) > 0){
-			while($row=  mysql_fetch_array($result)){
-				$proyecto = new Proyecto($row['id']);
-				$proyecto->del_Proyecto();
-			}
-		}
+		mysql_query($query);		
 
 		$oferta = new Oferta($this->Oferta);
 		$oferta->set_Estado(1);
-
 	}
 
 	public function get_Proyecto(){
