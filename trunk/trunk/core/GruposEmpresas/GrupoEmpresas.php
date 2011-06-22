@@ -156,11 +156,11 @@ class GrupoEmpresas{
 	}
 
 	public function eliminar(){
-            $query = "DELETE FROM grupos_empresas WHERE id = '$this->id';";
-            mysql_query($query);
+		$query = "UPDATE clientes SET fk_grupo_empresas = '1' WHERE fk_grupo_empresas = '".$this->id."' ";
+		mysql_query($query);
 
-            $query = "UPDATE clientes SET fk_grupo_empresas = '1' WHERE fk_grupo_empresas = '".$this->id."' ";
-            mysql_query($query);
+		$query = "DELETE FROM grupos_empresas WHERE id = '$this->id';";
+        mysql_query($query);            
 	}	
 }
 ?>

@@ -143,8 +143,8 @@ $estado = $var->Proyecto->get_Estado();?>
 			<tr class="datos">
 				<td class="ColIzq" nowrap><?php echo  _translate("Empresa")?>:</td>
 				<td class="ColDer">
-					<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>">
-						<?php echo $cliente->get_Razon_Social();?>
+					<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente['id']; ?>">
+						<?php echo $cliente['razon_social'];?>
 					</a>
 				</td>
 			</tr>
@@ -269,7 +269,7 @@ $estado = $var->Proyecto->get_Estado();?>
 				<th>Nueva tarea</th>
 			</tr>
 			<?php
-			$Cliente = $var->Proyecto->get_Cliente();
+			$Cliente = new Cliente($cliente['id']);
 			foreach($Cliente->get_Lista_Sedes() as $sede){
 				?>
 			<tr class="sedes">

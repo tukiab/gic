@@ -124,5 +124,14 @@ class ListaProveedores implements IIterador{
 		$array_num_rows = mysql_fetch_array($calc_num_rows);
 		$this->num_rows = $array_num_rows[0];
 	}
+
+	public static function proveedor_array($id){
+		$query = "SELECT id, razon_social FROM proveedores WHERE id='$id' LIMIT 1";
+		if(!$result = mysql_query($query))
+			throw new Exception("Proveedor incorrecto");
+
+		$row = mysql_fetch_array($result);
+		return $row;
+	}
 }
 ?>

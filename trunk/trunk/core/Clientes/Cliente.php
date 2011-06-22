@@ -1045,13 +1045,7 @@ class Cliente{
 
 	public function del_Contacto($id_contacto){
 		$query = "DELETE FROM clientes_rel_contactos WHERE fk_contacto = '$id_contacto'; ";
-		mysql_query($query);
-
-		$query = "DELETE FROM clientes_sedes_rel_contactos WHERE fk_contacto = '$id_contacto'; ";
-		mysql_query($query);
-
-		$query = "DELETE FROM contactos WHERE id = '$id_contacto'; ";
-		mysql_query($query);
+		mysql_query($query);		
 	}
 
 	public function tiene_Contacto($id){

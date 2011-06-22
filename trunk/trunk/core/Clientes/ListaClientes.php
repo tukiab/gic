@@ -272,7 +272,7 @@ class ListaClientes implements IIterador{
 		return $clientes;
 	}
 
-	public function get_Cliente_Principal(){
+	public static function get_Cliente_Principal(){
 		$this->buscar(array('cliente_principal' => true));
 		return $this->siguiente();
 	}
@@ -280,6 +280,14 @@ class ListaClientes implements IIterador{
 	public function get_Id_Cliente_Principal(){
 		$cliente = $this->get_Cliente_Principal();
 		return $cliente->get_Id();
+	}
+
+	public static function cliente_array($id){
+		$query = "SELECT id,razon_social FROM clientes WHERE id = '$id' LIMIT 1;";
+		if(!$result=  mysql_query($query))
+			throw new Exception('No se ha definido una empresa correcta');
+		$row = mysql_fetch_array($result);
+		return $row;
 	}
 }
 ?>

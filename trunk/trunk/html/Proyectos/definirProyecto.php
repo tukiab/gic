@@ -94,7 +94,8 @@ function cargar_plantilla(id_proyecto){
 			</table>
 				<!-- datos de las sedes -->
 			<table>	<?php
-				$Cliente = $var->Proyecto->get_Cliente();
+				$cliente = $var->Proyecto->get_Cliente();
+				$Cliente = new Cliente($cliente['id']);
 				foreach($Cliente->get_Lista_Sedes() as $sede){ ?>
 				<tr>
 					<td class="ListaTitulo"  colspan="2"><?php echo $sede->get_Localidad();?></td>

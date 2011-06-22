@@ -39,5 +39,11 @@ nombre_tipo=(SELECT nombre FROM tareas_tecnicas_tipos WHERE tareas_tecnicas_tipo
 
 --proyectos
 ALTER TABLE proyectos
-	ADD razon_social_cliente VARCHAR(400) NOT NULL AFTER fk_cliente;
-UPDATE proyectos SET razon_social_cliente=(SELECT razon_social FROM clientes WHERE clientes.id = proyectos.fk_cliente) ;
+	ADD razon_social_cliente VARCHAR(400) NOT NULL AFTER fk_cliente,
+	ADD nombre_estado VARCHAR(45) NOT NULL AFTER fk_estado,
+	ADD precio_consultoria_venta FLOAT NULL AFTER fk_venta,
+	ADD precio_formacion_venta FLOAT NULL AFTER precio_consultoria_venta;
+UPDATE proyectos SET razon_social_cliente=(SELECT razon_social FROM clientes WHERE clientes.id = proyectos.fk_cliente),
+nombre_estado=(SELECT nombre FROM proyectos_estados WHERE proyectos_estados.id=proyectos.fk_estado),
+precio_consultoria_venta=(SELECT precio_consultoria FROM ventas WHERE ventas.id=proyectos.fk_venta),
+precio_formacion_venta=(SELECT precio_formacion FROM ventas WHERE ventas.id=proyectos.fk_venta);

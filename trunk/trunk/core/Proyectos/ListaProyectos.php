@@ -67,19 +67,18 @@ class ListaProyectos implements IIterador{
 	    actualizarProyectosFueraDePlazo();
 		//FB::info($filtros,'filtros ListaProyectos:buscar');
 		$filtro ="";
-		$join="";
 
 		(!isset($filtros['con_cerrar']))?$filtro.=" AND cerrar = 1 ":null;
 
 		(isset($filtros['id']))?$filtro.=" AND proyectos.id = '".trim($filtros['id'])."' ":null;
 		if(isset($filtros['razon_social']))
-			$join .= "INNER JOIN clientes ON proyectos.fk_cliente = clientes.id AND clientes.razon_social LIKE '%".$filtros['razon_social']."%'";
-		
+			//$join .= "INNER JOIN clientes ON proyectos.fk_cliente = clientes.id AND clientes.razon_social LIKE '%".$filtros['razon_social']."%'";
+			$filtro .= " AND proyectos.razon_social_cliente LIKE '%".$filtros['razon_social']."%'";
 		(isset($filtros['nombre']))?$filtro.=" AND proyectos.nombre LIKE '%".trim($filtros['nombre'])."%' ":null;
 		if(isset($filtros['id_estado']))
-			$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado = '".trim($filtros['id_estado'])."'";
+			$filtro .= " AND proyectos.fk_estado = '".trim($filtros['id_estado'])."'";
 		else if(isset($filtros['estados']))
-			$join .= " INNER JOIN proyectos_estados ON proyectos.fk_estado IN ".trim($filtros['estados'])."";
+			$filtro .= " AND proyectos.fk_estado IN ".trim($filtros['estados'])."";
 		(isset($filtros['fecha_inicio_desde']))?$filtro.=" AND proyectos.fecha_inicio >= '".trim($filtros['fecha_inicio_desde'])."' ":null;
 		(isset($filtros['fecha_inicio_hasta']))?$filtro.=" AND proyectos.fecha_inicio <= '".trim($filtros['fecha_inicio_hasta'])."' ":null;
 		(isset($filtros['fecha_fin_desde']))?$filtro.=" AND proyectos.fecha_fin >= '".trim($filtros['fecha_fin_desde'])."' ":null;
@@ -144,8 +143,7 @@ class ListaProyectos implements IIterador{
 			$limit = " LIMIT $page,$paso ";
 		
 		$query = "SELECT SQL_CALC_FOUND_ROWS proyectos.id
-					FROM proyectos
-						$join										
+					FROM proyectos								
 				    WHERE 1
 						$filtro
 				    GROUP BY proyectos.id $order
@@ -253,6 +251,14 @@ class ListaProyectos implements IIterador{
 		}
 
 		return $unidades_no_incentivables;
+	 }
+
+	 public static function estado_array($id){
+		$query = " SELECT * FROM proyectos_estados WHERE id='$id' LIMIT 1";
+		if(!$result=  mysql_query($query))
+			throw new Exception('Estado incorrecto');
+		$row=mysql_fetch_array($result);
+		return $row;
 	 }
 }
 ?>

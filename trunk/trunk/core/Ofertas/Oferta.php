@@ -308,48 +308,21 @@ class Oferta{
 		else if(!is_numeric($datos['fecha_definicion']))
 			$errores .= "<br/>valor incorrecto de fecha de definicion.";
 
-		//cliente
-		$query = "SELECT id, razon_social FROM clientes WHERE id=".$datos['cliente']." LIMIT 1";
-		if(!$result = mysql_query($query))
-			$errores .= "<br/>Empresa no v&aacute;lida.";
-
-		$this->cliente = mysql_fetch_array($result);
+		//cliente		
+		$this->cliente = ListaClientes::cliente_array($datos['cliente']);		
 		//estado
-		$query = "SELECT id, nombre FROM ofertas_estados WHERE id=".$datos['estado_oferta']." LIMIT 1";
-		if(!$result = mysql_query($query))
-			$errores .= "<br/>Estado no v&aacute;lido.";
-
-		$this->estado_oferta = mysql_fetch_array($result);
-
+		$this->estado_oferta = ListaOfertas::estado_array(1);
 		//tipo de producto
-		$query = "SELECT id, nombre FROM productos_tipos WHERE id=".$datos['producto']." LIMIT 1";
-		if(!$result = mysql_query($query))
-			$errores .= "<br/>Producto no v&aacute;lido.";
-
-		$this->producto = mysql_fetch_array($result);
-
+		$this->producto = ListaOfertas::producto_array($datos['producto']);
 		//proveedor
-		$query = "SELECT id, razon_social FROM proveedores WHERE id=".$datos['proveedor']." LIMIT 1";
-		if(!$result = mysql_query($query))
-			$errores .= "<br/>Proveedor no v&aacute;lido.";
-
-		$this->proveedor = mysql_fetch_array($result);
-
+		$this->proveedor = ListaProveedores::proveedor_array($datos['proveedor']);
 		//probabilidad de contratación
-		$query = "SELECT id, nombre FROM ofertas_probabilidades WHERE id=".$datos['probabilidad_contratacion']." LIMIT 1";
-		if(!$result = mysql_query($query))
-			$errores .= "<br/>Probabilidad de contrataci&oacute;n no v&aacute;lida.";
-
-		$this->probabilidad_contratacion = mysql_fetch_array($result);
-
+		$this->probabilidad_contratacion = ListaOfertas::probabilidad_array($datos['probabilidad_contratacion']);
 		// colaborador
-		$query = "SELECT id, razon_social as nombre FROM colaboradores WHERE id=".$datos['colaborador']." LIMIT 1";
-		if(!$result = mysql_query($query))
-			$errores .= "<br/>Colaborador no v&aacute;lido.";
-
-		$this->colaborador = mysql_fetch_array($result);
+		$this->colaborador = ListaColaboradores::colaborador_array($datos['colaborador']);
 			
-		if($errores != '') throw new Exception($errores);
+		if($errores != '')
+			throw new Exception($errores);
 
 		$this->nombre_oferta = mysql_real_escape_string(trim($datos['nombre_oferta']));
 		$this->usuario = trim($datos['usuario']);
@@ -420,7 +393,7 @@ class Oferta{
 				
 		//FB::info($query,'Oferta crear: QUERY');
 		if(!mysql_query($query))
-			throw new Exception("Error al crear la Oferta. ");
+			throw new Exception("Error al crear la Oferta. ".$query);
 		$this->id = mysql_insert_id();
 
 		$array_fecha = explode('/', date("d/m/Y",time()));
@@ -603,7 +576,7 @@ class Oferta{
 
 			$query = "UPDATE ofertas 
 						SET fk_estado_oferta='$id_estado',
-						nombre_estado_oferta = '".$row['nopmbre']."'
+						nombre_estado_oferta = '".$row['nombre']."'
 						WHERE id='$this->id' ";
 			
 			if(!mysql_query($query))

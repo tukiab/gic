@@ -107,7 +107,7 @@ else{?>
 		<tr>
 			<td class="ColIzq" ><?php echo  _translate("Empresa")?>:</td>
 			<td class="ColDer">
-				<?php $cliente = $var->opt['Oferta']->get_Cliente(); echo  $cliente['razon_social'];?>
+				<?php $cliente = $var->opt['Oferta']->get_Cliente();?> <a href="<?php echo $appDir."/Clientes/showCliente.php?id=".$cliente['id'];?>"><?php echo $cliente['razon_social'];?></a>
 			</td>				
 		</tr>
 		<tr>
