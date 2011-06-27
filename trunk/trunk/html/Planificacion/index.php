@@ -258,7 +258,7 @@ include ($appRoot.'/Common/php/menu.php');
 						</td>
 						<td>
 							<?php $cliente = $proyecto->get_Cliente(); ?>
-							<a href="<?php echo $appDir."/Clientes/showCliente.php?id=".$cliente->get_Id();?>"><?php echo $cliente->get_Razon_Social();?></a>
+							<a href="<?php echo $appDir."/Clientes/showCliente.php?id=".$cliente['id'];?>"><?php echo $cliente['razon_social'];?></a>
 						</td>
 					</tr>
 				<?php
