@@ -28,7 +28,7 @@ UPDATE ofertas SET
 	razon_social_cliente=(SELECT razon_social FROM clientes WHERE id=ofertas.fk_cliente),
 	razon_social_colaborador=(SELECT razon_social FROM colaboradores WHERE id=ofertas.fk_colaborador);
 
---tareas_tecnicas
+-- tareas_tecnicas
 ALTER TABLE tareas_tecnicas
 	ADD nombre_proyecto VARCHAR(500) NOT NULL AFTER fk_proyecto,
 	ADD localidad_sede VARCHAR(45) NOT NULL AFTER fk_sede,
@@ -37,7 +37,7 @@ UPDATE tareas_tecnicas SET nombre_proyecto=(SELECT nombre FROM proyectos WHERE p
 localidad_sede=(SELECT localidad FROM clientes_sedes WHERE clientes_sedes.id = tareas_tecnicas.fk_sede),
 nombre_tipo=(SELECT nombre FROM tareas_tecnicas_tipos WHERE tareas_tecnicas_tipos.id=tareas_tecnicas.fk_tipo);
 
---proyectos
+-- proyectos
 ALTER TABLE proyectos
 	ADD razon_social_cliente VARCHAR(400) NOT NULL AFTER fk_cliente,
 	ADD nombre_estado VARCHAR(45) NOT NULL AFTER fk_estado,

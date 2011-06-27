@@ -273,13 +273,17 @@ class ListaClientes implements IIterador{
 	}
 
 	public static function get_Cliente_Principal(){
-		$this->buscar(array('cliente_principal' => true));
-		return $this->siguiente();
+	    $query = "select id from clientes where cliente_principal=1 limit 1;";
+	    $result = mysql_query($query);
+	    $row = mysql_fetch_array($result);
+	    return new Cliente($row['id']);
 	}
 
 	public function get_Id_Cliente_Principal(){
-		$cliente = $this->get_Cliente_Principal();
-		return $cliente->get_Id();
+	    $query = "select id from clientes where cliente_principal=1 limit 1;";
+	    $result = mysql_query($query);
+	    $row = mysql_fetch_array($result);
+	    return $row['id'];
 	}
 
 	public static function cliente_array($id){

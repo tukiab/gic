@@ -116,7 +116,7 @@ $cfilaImpar = "#EEEEEE";
 						<a href="<?php echo  $appDir.'/Ofertas/showOferta.php?id='.$oferta->get_Id(); ?>"><?php echo $oferta->get_Nombre_Oferta(); ?></a>
 					</td>
 					<td>
-						<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_oferta->get_Id(); ?>"><?php echo $cliente_oferta->get_Razon_Social();?></a>
+						<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_oferta['id']; ?>"><?php echo $cliente_oferta['razon_social'];?></a>
 					</td>
 				</tr>
 				<?php  }?>
@@ -209,7 +209,7 @@ $cfilaImpar = "#EEEEEE";
 					</tr>
 				<?php }?>
 				<tr <?php if($par) echo 'par'; else echo 'impar';?> class="proyectos proyectos_<?php echo $estado['id'];?>">
-					<td><a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente->get_Id(); ?>"><?php echo $cliente->get_Razon_Social();?></a></td>
+					<td><a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente['id']; ?>"><?php echo $cliente['razon_social'];?></a></td>
 					<td><a href="<?php echo  $appDir.'/Proyectos/showProyecto.php?id='.$proyecto->get_Id();?>"><?php echo $proyecto->get_Nombre();?></a></td>
 					<td><?php $estado = $proyecto->get_Estado(); echo $estado['nombre'];?></td>
 					<td><?php echo $proyecto->get_Id_Usuario(); ?></td>
