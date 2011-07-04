@@ -83,7 +83,7 @@ $cfilaImpar = "#EEEEEE";
 						<a href="<?php echo  $appDir.'/Ofertas/showOferta.php?id='.$oferta->get_Id(); ?>"><?php echo $oferta->get_Nombre_Oferta(); ?></a>
 					</td>
 					<td>
-						<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_oferta->get_Id(); ?>"><?php echo $cliente_oferta->get_Razon_Social();?></a>
+						<a href="<?php echo  $appDir.'/Clientes/showCliente.php?id='.$cliente_oferta['id']; ?>"><?php echo $cliente_oferta['razon_social'];?></a>
 					</td>
 				</tr>
 				<?php  }?>
