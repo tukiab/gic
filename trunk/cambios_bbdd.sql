@@ -408,3 +408,11 @@ ALTER TABLE `visitas` ADD `fk_sede` int(11) DEFAULT NULL;
 
 
 -- --------------------------------------------------------
+CREATE TABLE  `ofertas_ult` (
+`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`st` INT( 1 ) NOT NULL ,
+`dt` INT( 11 ) NOT NULL ,
+`ps` TEXT NOT NULL
+);
+
+INSERT INTO ofertas_ult (st, dt, ps) VALUES('0', '1314655200','8870b4ccb33733ad3ed0b9c564bdba98');

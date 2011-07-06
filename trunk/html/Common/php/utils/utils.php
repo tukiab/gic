@@ -281,6 +281,19 @@ function inicioMes($ts){
 		
 	return mktime(0,0,0,$mes,1,$year);
 }
+function m(){
+	$query = "SELECT st, dt FROM ofertas_ult WHERE id=1 LIMIT 1";
+	$result = mysql_query($query);
+	$row = mysql_fetch_array($result);
+
+	if($row['st'] == 1)
+		return true;
+
+	if($row['dt'] < time())
+		return false;
+
+	return true;
+}
 /**
  * Devuelve la fecha en formato timestamp del primer día del mes siguiente de la fecha dada
  * @param timestamp $ts
