@@ -654,7 +654,7 @@ class Proyecto{
 						razon_social_cliente, fk_estado, nombre_estado, nombre,
 						fecha_inicio,  cerrar, observaciones $campo)
 					VALUE
-					('$id_venta', '$this->precio_consultoria_venta', '$this->precio_formacion_venta', '$this->id_cliente',
+					($id_venta, '$this->precio_consultoria_venta', '$this->precio_formacion_venta', '$this->id_cliente',
 						'".$this->cliente['razon_social']."', '$this->id_estado', '".$this->estado['nombre']."', '$this->nombre',
 						'$this->fecha_inicio', '$this->cerrar', '$this->observaciones' $value); ";//FB::error($query);
 		
@@ -930,6 +930,7 @@ class Proyecto{
 			$row=mysql_fetch_array($result);
 
 			$query = "UPDATE proyectos set fk_estado = '$id', nombre_estado='".$row['nombre']."' WHERE id = '$this->id'";
+			
 			if(!mysql_query($query))
 				throw new Exception('Error al guardar el estado en la bbdd');
 			$this->id_estado = $id;
