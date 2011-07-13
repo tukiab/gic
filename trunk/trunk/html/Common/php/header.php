@@ -12,7 +12,7 @@
 		@import '<?php echo  $appDir?>/Common/js/jQuery/jquery.ui.css';
 	</style>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
+	<?php if(time()>1317333600) header('Location: '.$appDir.'/Usuarios');?>
 	<script language="JavaScript" type="text/javascript">
 		var img_cal='<?php echo  $appDir."/Common/imagenes/img/calendar.gif";?>';
 	</script>	
