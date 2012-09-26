@@ -17,7 +17,7 @@
 	 * 
 	 * @staticvar string
 	 */
-	$dbuser="root";
+	$dbuser="josei";
 	
 	/** 
 	 * $db guarda el nombre de la base de datos de SIGILA. 
@@ -31,7 +31,7 @@
 	 *
 	 * @staticvar string
 	 */
-	$dbpass = "gepet0";
+	$dbpass = "listencrowd";
 	
 	/**
 	 * Estas instrucciones crean el link a la base de datos de SIGILA.
