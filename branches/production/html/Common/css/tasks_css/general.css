@@ -1,0 +1,72 @@
+
+.hiding{
+	display:none;
+}
+
+
+a.shoow{
+	background: url('../../imagenes/img/icons.png') no-repeat scroll 0px -80px transparent;
+}
+a.hide{
+	background: url('../../imagenes/img/icons.png') no-repeat scroll -20px -80px transparent;
+}
+a.img{
+	display:block;
+	float:right;
+	width:16px;
+	height:16px;
+	cursor: pointer;
+}
+a.img:hover{
+	background-color: #ccc;
+}
+
+
+a.open-task{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -45px -2px transparent;
+}
+a.add-task{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -110px -3px transparent;
+}
+a#open-parameters.shoow{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -110px -23px transparent;
+	float:left;
+}
+a#open-parameters.hide{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -77px -23px transparent;
+	float:left;
+}
+
+a#today-tasks{
+	background: url('../../imagenes/img/icons.png') no-repeat scroll -20px -20px transparent;
+	float:left;
+}
+
+a#open-lists{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -190px 0 transparent;
+	background-color: #fff;
+}
+
+a.delete{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -238px -2px transparent;
+}
+
+a.select{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -30px -2px transparent;
+	float:left;
+}
+
+a.select:hover,
+a.selected{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -78px -2px transparent;
+	float:left;
+}
+
+a.move{
+	background: url('../../imagenes/img/icons2.png') no-repeat scroll -320px -24px transparent;
+	float:left;
+	cursor: move;
+}
+a.img.move:hover{
+	background-color: transparent;
+}
